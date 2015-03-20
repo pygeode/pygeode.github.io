@@ -1,0 +1,302 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>EOF Analysis &mdash; PyGeode 1.0 alpha documentation</title>
+    
+    <link rel="stylesheet" href="_static/pygtheme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0 alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="PyGeode 1.0 alpha documentation" href="index.html" />
+    <link rel="up" title="Reference" href="reference.html" />
+    <link rel="next" title="View module" href="view.html" />
+    <link rel="prev" title="Stats module" href="stats.html" />
+<link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="view.html" title="View module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="stats.html" title="Stats module"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li>
+          <li><a href="reference.html" accesskey="U">Reference</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="eof-analysis">
+<h1>EOF Analysis<a class="headerlink" href="#eof-analysis" title="Permalink to this headline">¶</a></h1>
+<dl class="staticmethod">
+<dt id="pygeode.eof.EOF">
+<em class="property">static </em><tt class="descclassname">eof.</tt><tt class="descname">EOF</tt><big>(</big><em>x</em>, <em>num=1</em>, <em>iaxis=None</em>, <em>weight=True</em>, <em>out=None</em><big>)</big><a class="headerlink" href="#pygeode.eof.EOF" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the leading Empirical Orthogonal Function(s) for the given
+variable.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x</strong> : Var object</p>
+<blockquote>
+<div><p>The data of interest</p>
+</div></blockquote>
+<p><strong>num</strong> : integer, optional</p>
+<blockquote>
+<div><p>The number of leading EOFs to calculate.  Default is <tt class="docutils literal"><span class="pre">1</span></tt>.</p>
+</div></blockquote>
+<p><strong>iaxis</strong> : Axis object, Axis class, string, or integer, optional</p>
+<blockquote>
+<div><p>Which axis/axes to treat as the record axis.  Multiple axes can be
+passed as a tuple.  Default is the <tt class="docutils literal"><span class="pre">Time</span></tt> axis of the data
+(if found), otherwise the leftmost axis.</p>
+</div></blockquote>
+<p><strong>weight</strong> : Var object or boolean, optional</p>
+<blockquote>
+<div><p>Weights to use use for the orthogonality condition.
+If <tt class="docutils literal"><span class="pre">True</span></tt>, it uses whatever internal weights the variable posesses.
+If <tt class="docutils literal"><span class="pre">False</span></tt> or <tt class="docutils literal"><span class="pre">None</span></tt>, it doesn&#8217;t use any weights.
+You can also pass in a Var object with explicit weights.
+Default is <tt class="docutils literal"><span class="pre">True</span></tt>.</p>
+</div></blockquote>
+<p><strong>out</strong> : string, optional</p>
+<blockquote>
+<div><p>Which outputs to return.  This is a comma-separated string,
+built from the following keywords:</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="89%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">keyword</th>
+<th class="head">meaning</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>EOF</td>
+<td>The EOFs (normalized to unit variance)</td>
+</tr>
+<tr class="row-odd"><td>EIG</td>
+<td>Eigenvalues (of the singular value decomposition of
+the variable).  If you want the eigenvalues of the
+covariance matrix, square these, or use EIG2).</td>
+</tr>
+<tr class="row-even"><td>EIG2</td>
+<td>Eigenvalues (of the covariance matrix)</td>
+</tr>
+<tr class="row-odd"><td>VAR</td>
+<td>Variance (a single scalar value).</td>
+</tr>
+<tr class="row-even"><td>FRAC</td>
+<td>Fraction of total variance explained by each EOF.</td>
+</tr>
+<tr class="row-odd"><td>PC</td>
+<td>Principal components (timeseries data), normalized
+to unit variance.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>Default is <tt class="docutils literal"><span class="pre">'EOF,EIG,PC'</span></tt></p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>eof_decomposition</strong> : tuple</p>
+<blockquote class="last">
+<div><p>A combination of EOFs, eignenvalues or other computed quantities specified
+by <cite>out</cite>.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>This routine doesn&#8217;t do any pre-processing of the data, such as removing
+the mean or detrending.  If you want to work with anomalies, then you&#8217;ll
+have to first compute the anomalies!</p>
+<p>This routine tries to automatically determine the best way to solve the
+EOFs.  If you want to use a particular method, you can call the following
+functions (with the same parameters):</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="87%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">function</th>
+<th class="head">behaviour</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>EOF_iter</td>
+<td>Iterative solver (uses a variant of the power method).</td>
+</tr>
+<tr class="row-odd"><td>EOF_cov</td>
+<td>Calculates the full covariance matrix, and then does an
+explicit eigendecomposition.</td>
+</tr>
+<tr class="row-even"><td>EOF_svd</td>
+<td>Does an explicit singular value decomposition on the data.</td>
+</tr>
+<tr class="row-odd"><td>EOF_guess</td>
+<td>Returns an approximation of the EOF decomposition from one
+pass through the data.  This may be useful if you have a
+large dataset, and you just want the qualitative features
+of the EOF spatial patterns.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</dd></dl>
+
+<span class="target" id="module-pygeode.svd"></span><dl class="function">
+<dt id="pygeode.svd.SVD">
+<tt class="descclassname">pygeode.svd.</tt><tt class="descname">SVD</tt><big>(</big><em>var1</em>, <em>var2</em>, <em>num=1</em>, <em>weight1=None</em>, <em>weight2=None</em><big>)</big><a class="headerlink" href="#pygeode.svd.SVD" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds coupled EOFs of two fields.</p>
+<p>Note that the mean/trend/etc. is NOT removed in this routine.</p>
+<dl class="docutils">
+<dt>Input parameters:</dt>
+<dd>var1, var2   - the input fields</dd>
+<dt>Optional parameters:</dt>
+<dd><p class="first">num   - the number of EOFs to compute (default is 1)
+weight1,   - weights to use for defining &#8216;orthogonality&#8217;
+weight2        Patterns X and Y in the var1 domain are &#8216;orthogonal&#8217; if:</p>
+<blockquote class="last">
+<div><blockquote>
+<div><blockquote>
+<div>sum (X*Y*weights1) == 0</div></blockquote>
+<dl class="docutils">
+<dt>and patterns Z and W in the var2 domain are &#8216;orthogonal&#8217; if:</dt>
+<dd>sum (Z*W*weights2) == 0</dd>
+</dl>
+</div></blockquote>
+<p>If not specified, the default is to use whatever internal
+weights are available from the var, using var.getweights()
+If set to False, no weights will be applied.</p>
+</div></blockquote>
+</dd>
+<dt>More optionaller parameters:</dt>
+<dd><dl class="first last docutils">
+<dt>matrix   - which matrix we are diagonalizing (default is &#8216;cov&#8217;)</dt>
+<dd>&#8216;cov&#8217; = covariance matrix of var1 &amp; var2
+&#8216;cor&#8217; = correlation matrix of var1 &amp; var2</dd>
+<dt>iaxis   - the principal component / expansion coefficient axis</dt>
+<dd>i.e., the &#8216;time&#8217; axis.
+Can be an integer (the axis number, leftmost = 0),
+the axis name (string), or a Pygeode axis class.
+If not specified, will try to use pygeode.timeaxis.Time,
+and if that fails, the leftmost axis.</dd>
+</dl>
+</dd>
+<dt>Returns:</dt>
+<dd><p class="first">eof1   - the coupled eof patterns for var1
+pc1   - the principal component / expansion coefficients for var1
+eof2   - the coupled eof patterns for var2
+pc2   - the principal component / expansion coefficients for var2</p>
+<p class="last">Multiple orders of EOFs are concatenated along an &#8216;order&#8217; axis.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="stats.html"
+                        title="previous chapter">Stats module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="view.html"
+                        title="next chapter">View module</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/eof.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="view.html" title="View module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="stats.html" title="Stats module"
+             >previous</a> |</li>
+        <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li>
+          <li><a href="reference.html" >Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Mike Neish, Peter Hitchcock.
+      Last updated on Mar 20, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

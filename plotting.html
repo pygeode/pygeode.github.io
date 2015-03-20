@@ -1,0 +1,206 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Plotting &mdash; PyGeode 1.0 alpha documentation</title>
+    
+    <link rel="stylesheet" href="_static/pygtheme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0 alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="PyGeode 1.0 alpha documentation" href="index.html" />
+    <link rel="up" title="Tutorial" href="tutorial.html" />
+    <link rel="next" title="Reference" href="reference.html" />
+    <link rel="prev" title="Variable input and output" href="variableio.html" />
+<link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="reference.html" title="Reference"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="variableio.html" title="Variable input and output"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li>
+          <li><a href="tutorial.html" accesskey="U">Tutorial</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="plotting">
+<h1>Plotting<a class="headerlink" href="#plotting" title="Permalink to this headline">¶</a></h1>
+<p>The plotting system in PyGeode is intended to provide sensible defaults so that
+you can quickly see a reasonably annotated plot of the contents of a PyGeode
+variable, but also to allow as much flexibility in customizing your plots as
+possible. In general it is intended to map very closely to the matplotlib
+library, and to give you access to as much of the matplotlib functionality as
+possible. This tutorial is intended to introduce some of the basic concepts; a
+gallery is also available with sample plots. Though you could use either
+document as a starting point for plotting even without any matplotlib
+experience, both will make more sense if you have had some.</p>
+<p>There are three levels of plotting commands. The highest levels, mostly prefixed
+by <tt class="docutils literal"><span class="pre">show</span></tt>, make the most assumptions about the structur of the plot they
+produce. The next level, prefixed with <tt class="docutils literal"><span class="pre">v</span></tt>, are lower level wrappers around
+matplotlib commands that are aware of PyGeode variables and try to make
+formatting decisions accordingly. The lowest level are very thin wrappers around
+individual matplotlib commands that know nothing about PyGeode variables, but
+allow for the most direct control.</p>
+<p>The basic high-level plotting command is <tt class="xref py py-func docutils literal"><span class="pre">showvar()</span></tt>, which in its
+simplest form will plot a one or two dimensional variable:</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [2]: </span><span class="kn">import</span> <span class="nn">pygeode</span> <span class="kn">as</span> <span class="nn">pyg</span><span class="p">;</span> <span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t1</span><span class="p">,</span> <span class="n">t2</span>
+
+<span class="c"># A line plot</span>
+<span class="gp">In [3]: </span><span class="n">pyg</span><span class="o">.</span><span class="n">showvar</span><span class="p">(</span><span class="n">t1</span><span class="o">.</span><span class="n">Temp</span><span class="p">(</span><span class="n">lat</span><span class="o">=</span><span class="mi">45</span><span class="p">))</span>
+<span class="go"> Out[3]: &lt;pygeode.plot.wrappers.AxesWrapper instance at 0x7f0281cf5638&gt;</span>
+
+<span class="c"># A contour plot</span>
+<span class="gp">In [4]: </span><span class="n">pyg</span><span class="o">.</span><span class="n">showvar</span><span class="p">(</span><span class="n">t1</span><span class="o">.</span><span class="n">Temp</span><span class="p">)</span>
+<span class="go"> Out[4]: &lt;pygeode.plot.wrappers.AxesWrapper instance at 0x7f0281a3e2d8&gt;</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/showvar1d.png"><img alt="_images/showvar1d.png" src="_images/showvar1d.png" style="width: 4in;" /></a>
+<a class="reference internal image-reference" href="_images/showvar2d.png"><img alt="_images/showvar2d.png" src="_images/showvar2d.png" style="width: 4in;" /></a>
+<p>The axes are labelled and formatted according to behaviour set by the axis
+objects (explained in more detail below), and the title is set from the variable
+name, and the coordinates of any degenerate axes. In the case of the contour
+plot, a colorbar is added automatically.</p>
+<div class="section" id="line-plots">
+<h2>Line Plots<a class="headerlink" href="#line-plots" title="Permalink to this headline">¶</a></h2>
+<p>If <tt class="xref py py-func docutils literal"><span class="pre">showvar()</span></tt> is passed a one dimensional variable, it will produce a
+line plot (ultimately using <tt class="xref py py-func docutils literal"><span class="pre">matplotlib.plot()</span></tt>), automatically extracting
+the coordinates and values from the variable. If the axis is recognized by
+PyGeode as being a vertical axis, the plot will be transposed. This can be
+reversed if desired by setting the keyword argument <tt class="docutils literal"><span class="pre">transpose</span> <span class="pre">=</span> <span class="pre">True</span></tt>.</p>
+<p>Like the plot command, the format of the line can be set by passing a string
+immediately following the command; moreover, any other keyword argument
+recognized by <tt class="xref py py-func docutils literal"><span class="pre">matplotlib.plot()</span></tt> will be passed through.</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="c"># A vertical plot</span>
+<span class="gp">In [5]: </span><span class="n">pyg</span><span class="o">.</span><span class="n">showvar</span><span class="p">(</span><span class="n">t2</span><span class="o">.</span><span class="n">Temp</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s">&#39;time&#39;</span><span class="p">,</span> <span class="s">&#39;lat&#39;</span><span class="p">,</span> <span class="s">&#39;lon&#39;</span><span class="p">),</span> <span class="s">&#39;k--&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">3.</span><span class="p">)</span>
+<span class="go"> Out[5]: &lt;pygeode.plot.wrappers.AxesWrapper instance at 0x7f0281d1db00&gt;</span>
+
+<span class="c"># A transposed plot</span>
+<span class="gp">In [6]: </span><span class="n">pyg</span><span class="o">.</span><span class="n">showvar</span><span class="p">(</span><span class="n">t2</span><span class="o">.</span><span class="n">Temp</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s">&#39;time&#39;</span><span class="p">,</span> <span class="s">&#39;lat&#39;</span><span class="p">,</span> <span class="s">&#39;lon&#39;</span><span class="p">),</span> <span class="n">transpose</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+<span class="go"> Out[6]: &lt;pygeode.plot.wrappers.AxesWrapper instance at 0x7f028196ecb0&gt;</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/lp_vertical.png"><img alt="_images/lp_vertical.png" src="_images/lp_vertical.png" style="width: 4in;" /></a>
+<a class="reference internal image-reference" href="_images/lp_transpose.png"><img alt="_images/lp_transpose.png" src="_images/lp_transpose.png" style="width: 4in;" /></a>
+<p>Notice that these commands all return a <tt class="xref py py-class docutils literal"><span class="pre">AxesWrapper</span></tt> object - this
+holds all the data and settings used to contruct your plot, and it can be used
+to make further modifications.</p>
+</div>
+<div class="section" id="contour-plots">
+<h2>Contour Plots<a class="headerlink" href="#contour-plots" title="Permalink to this headline">¶</a></h2>
+<p>Customizing contour levels</p>
+<p>basic plotting command; plotvar</p>
+<p>1d plots: - simple? axis annotation, titles, plotting to a particular axis, overplotting</p>
+<p>2d plots: specifying contour levels, filled vs lines; colorbar, projection, contour labels, pcolor,
+overplotting</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Plotting</a><ul>
+<li><a class="reference internal" href="#line-plots">Line Plots</a></li>
+<li><a class="reference internal" href="#contour-plots">Contour Plots</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="variableio.html"
+                        title="previous chapter">Variable input and output</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="reference.html"
+                        title="next chapter">Reference</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/plotting.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="reference.html" title="Reference"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="variableio.html" title="Variable input and output"
+             >previous</a> |</li>
+        <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li>
+          <li><a href="tutorial.html" >Tutorial</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Mike Neish, Peter Hitchcock.
+      Last updated on Mar 20, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

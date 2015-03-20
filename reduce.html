@@ -1,0 +1,329 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Axis Reductions &mdash; PyGeode 1.0 alpha documentation</title>
+    
+    <link rel="stylesheet" href="_static/pygtheme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0 alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="PyGeode 1.0 alpha documentation" href="index.html" />
+    <link rel="up" title="Var class overview" href="var.html" />
+    <link rel="next" title="Array manipulation routines" href="varops.html" />
+    <link rel="prev" title="Element-wise math" href="ufunc.html" />
+<link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="varops.html" title="Array manipulation routines"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="ufunc.html" title="Element-wise math"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li>
+          <li><a href="reference.html" >Reference</a> &raquo;</li>
+          <li><a href="var.html" accesskey="U">Var class overview</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="axis-reductions">
+<h1>Axis Reductions<a class="headerlink" href="#axis-reductions" title="Permalink to this headline">¶</a></h1>
+<p>These functions compute summary statistics over subdomains of a variable. Many of them wrap similar
+numpy functions, though they are also capable of performing these operations on datasets too large
+to fit in memory.</p>
+<dl class="method">
+<dt id="pygeode.Var.mean">
+<tt class="descclassname">Var.</tt><tt class="descname">mean</tt><big>(</big><em>var</em>, <em>*axes</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pygeode.Var.mean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the mean of this variable. If weights are present on any of the
+axes, a weighted mean is computed by default.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>*axes</strong> : any number of axis identifiers (string, <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><tt class="xref py py-class docutils literal"><span class="pre">Axis</span></tt></a>, or int) (optional)</p>
+<blockquote>
+<div><p>Axes over which the average should be computed. If none are provided, the 
+mean is computed over the whole domain.</p>
+</div></blockquote>
+<p><strong>weights</strong> : boolean or <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a> (optional)</p>
+<blockquote>
+<div><p>If provided, a weighted mean is performed. If True (the default), the default
+weights associated with the variable are used (getweights). If False, or None, no 
+weighting is performed. Finally, custom weights can be provided in the form of a 
+<a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a>; this var must be defined on a subset of the axes being averaged over.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>out</strong> : <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a></p>
+<blockquote class="last">
+<div><p><a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a> defined on a subgrid of this variable. If the mean is computed over
+the whole domain, a python scalar is returned.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="varquery.html#pygeode.Var.getweights" title="pygeode.Var.getweights"><tt class="xref py py-obj docutils literal"><span class="pre">getweights</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygeode.Var.sum">
+<tt class="descclassname">Var.</tt><tt class="descname">sum</tt><big>(</big><em>var</em>, <em>*axes</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pygeode.Var.sum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the sum of this variable. NB: Unlike mean, weights are not used by default.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>*axes</strong> : any number of axis identifiers (string, <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><tt class="xref py py-class docutils literal"><span class="pre">Axis</span></tt></a>, or int) (optional)</p>
+<blockquote>
+<div><p>Axes over which the sum should be computed. If none are provided, the 
+sum is computed over the whole domain.</p>
+</div></blockquote>
+<p><strong>weights</strong> : boolean or <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a> (optional)</p>
+<blockquote>
+<div><p>If provided, a weighted sum is performed. If True, the default
+weights associated with the variable are used (getweights). If False or None (the default), no
+weighting is performed. Finally, custom weights can be provided in the form of a <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a>;
+this var must be defined on a subset of the axes being summed over.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>out</strong> : <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a></p>
+<blockquote class="last">
+<div><p><a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a> defined on a subgrid of this variable. If the sum is computed over
+the whole domain, a python scalar is returned.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="varquery.html#pygeode.Var.getweights" title="pygeode.Var.getweights"><tt class="xref py py-obj docutils literal"><span class="pre">getweights</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygeode.Var.stdev">
+<tt class="descclassname">Var.</tt><tt class="descname">stdev</tt><big>(</big><em>var</em>, <em>*axes</em><big>)</big><a class="headerlink" href="#pygeode.Var.stdev" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pygeode.Var.variance">
+<tt class="descclassname">Var.</tt><tt class="descname">variance</tt><big>(</big><em>var</em>, <em>*axes</em><big>)</big><a class="headerlink" href="#pygeode.Var.variance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pygeode.Var.nanmean">
+<tt class="descclassname">Var.</tt><tt class="descname">nanmean</tt><big>(</big><em>var</em>, <em>*axes</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pygeode.Var.nanmean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the mean of this variable, ignoring any NaNs in the domain.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>*axes</strong> : any number of axis identifiers (string, <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><tt class="xref py py-class docutils literal"><span class="pre">Axis</span></tt></a>, or int) (optional)</p>
+<blockquote>
+<div><p>Axes over which the average should be computed. If none are provided, the 
+mean is computed over the whole domain.</p>
+</div></blockquote>
+<p><strong>weights</strong> : boolean or <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a> (optional)</p>
+<blockquote>
+<div><p>If provided, a weighted mean is performed. If True (the default), the default
+weights associated with the variable are used (getweights). If False, or None, no 
+weighting is performed. Finally, custom weights can be provided in the form of a 
+<a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a>; this var must be defined on a subset of the axes being averaged over.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>out</strong> : <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a></p>
+<blockquote class="last">
+<div><p><a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a> defined on a subgrid of this variable. If the mean is computed over
+the whole domain, a python scalar is returned.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="varquery.html#pygeode.Var.getweights" title="pygeode.Var.getweights"><tt class="xref py py-obj docutils literal"><span class="pre">getweights</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygeode.Var.nansum">
+<tt class="descclassname">Var.</tt><tt class="descname">nansum</tt><big>(</big><em>var</em>, <em>*axes</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pygeode.Var.nansum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the sum of this variable, ignoring any NaNs.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>*axes</strong> : any number of axis identifiers (string, <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><tt class="xref py py-class docutils literal"><span class="pre">Axis</span></tt></a>, or int) (optional)</p>
+<blockquote>
+<div><p>Axes over which the sum should be computed. If none are provided, the 
+sum is computed over the whole domain.</p>
+</div></blockquote>
+<p><strong>weights</strong> : boolean or <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a> (optional)</p>
+<blockquote>
+<div><p>If provided, a weighted sum is performed. If True, the default
+weights associated with the variable are used (getweights). If False or None (the default), no
+weighting is performed. Finally, custom weights can be provided in the form of a <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a>;
+this var must be defined on a subset of the axes being summed over.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>out</strong> : <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a></p>
+<blockquote class="last">
+<div><p><a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a> defined on a subgrid of this variable. If the sum is computed over
+the whole domain, a python scalar is returned.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="varquery.html#pygeode.Var.getweights" title="pygeode.Var.getweights"><tt class="xref py py-obj docutils literal"><span class="pre">getweights</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygeode.Var.nanstdev">
+<tt class="descclassname">Var.</tt><tt class="descname">nanstdev</tt><big>(</big><em>var</em>, <em>*axes</em><big>)</big><a class="headerlink" href="#pygeode.Var.nanstdev" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pygeode.Var.nanvariance">
+<tt class="descclassname">Var.</tt><tt class="descname">nanvariance</tt><big>(</big><em>var</em>, <em>*axes</em><big>)</big><a class="headerlink" href="#pygeode.Var.nanvariance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pygeode.Var.min">
+<tt class="descclassname">Var.</tt><tt class="descname">min</tt><big>(</big><em>var</em>, <em>*axes</em><big>)</big><a class="headerlink" href="#pygeode.Var.min" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pygeode.Var.max">
+<tt class="descclassname">Var.</tt><tt class="descname">max</tt><big>(</big><em>var</em>, <em>*axes</em><big>)</big><a class="headerlink" href="#pygeode.Var.max" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pygeode.Var.argmin">
+<tt class="descclassname">Var.</tt><tt class="descname">argmin</tt><big>(</big><em>var</em>, <em>axis</em><big>)</big><a class="headerlink" href="#pygeode.Var.argmin" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pygeode.Var.argmax">
+<tt class="descclassname">Var.</tt><tt class="descname">argmax</tt><big>(</big><em>var</em>, <em>axis</em><big>)</big><a class="headerlink" href="#pygeode.Var.argmax" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="docutils">
+<dt><strong>See Also:</strong></dt>
+<dd><p class="first"><a class="reference internal" href="var.html"><em>Var class overview</em></a></p>
+<p class="last"><em class="xref std std-ref">arrays.ndarray.calculation</em>  (external Numpy documentation)</p>
+</dd>
+</dl>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="ufunc.html"
+                        title="previous chapter">Element-wise math</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="varops.html"
+                        title="next chapter">Array manipulation routines</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/reduce.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="varops.html" title="Array manipulation routines"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="ufunc.html" title="Element-wise math"
+             >previous</a> |</li>
+        <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li>
+          <li><a href="reference.html" >Reference</a> &raquo;</li>
+          <li><a href="var.html" >Var class overview</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Mike Neish, Peter Hitchcock.
+      Last updated on Mar 20, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

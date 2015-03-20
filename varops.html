@@ -1,0 +1,670 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Array manipulation routines &mdash; PyGeode 1.0 alpha documentation</title>
+    
+    <link rel="stylesheet" href="_static/pygtheme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0 alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="PyGeode 1.0 alpha documentation" href="index.html" />
+    <link rel="up" title="Var class overview" href="var.html" />
+    <link rel="next" title="Other operations" href="var.other.html" />
+    <link rel="prev" title="Axis Reductions" href="reduce.html" />
+<link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="var.other.html" title="Other operations"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="reduce.html" title="Axis Reductions"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li>
+          <li><a href="reference.html" >Reference</a> &raquo;</li>
+          <li><a href="var.html" accesskey="U">Var class overview</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="array-manipulation-routines">
+<h1>Array manipulation routines<a class="headerlink" href="#array-manipulation-routines" title="Permalink to this headline">¶</a></h1>
+<p>Operations that affect the shape or other attributes of the <cite>Var</cite>, while leaving the data intact.</p>
+<dl class="method">
+<dt id="pygeode.Var.__call__">
+<tt class="descclassname">Var.</tt><tt class="descname">__call__</tt><big>(</big><em>ignore_mismatch=False</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pygeode.Var.__call__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Keyword-based data subsetting.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>ignore_mismatch</strong> : boolean (optional)</p>
+<blockquote>
+<div><p>If <tt class="docutils literal"><span class="pre">True</span></tt>, any keywords that don&#8217;t match an axis are ignored.
+Default is <tt class="docutils literal"><span class="pre">False</span></tt></p>
+</div></blockquote>
+<p><strong>**kwargs</strong> : one or more keyword parameters</p>
+<blockquote>
+<div><p>The keys are the Axis names (or Axis class names), and the values are
+either a <cite>tuple</cite> of the desired (lower,upper) range, or a single Axis
+value.  E.g., <tt class="docutils literal"><span class="pre">lat</span> <span class="pre">=</span> <span class="pre">(-45,45)</span></tt> or <tt class="docutils literal"><span class="pre">lat</span> <span class="pre">=</span> <span class="pre">10.5</span></tt></p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>subset_var</strong> : Var</p>
+<blockquote class="last">
+<div><p>A new Var, restricted  to the specified domain.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>There are a couple of special prefixes which can be prepended to each
+keyword to alter the subsetting behaviour:</p>
+<blockquote>
+<div><ul class="simple">
+<li><strong>m_</strong> triggers an arithmetic mean over the specified range.
+E.g., <tt class="docutils literal"><span class="pre">myvar(m_lon</span> <span class="pre">=</span> <span class="pre">(10,</span> <span class="pre">80))</span></tt> is a shortcut for doing
+<tt class="docutils literal"><span class="pre">myvar(lon</span> <span class="pre">=</span> <span class="pre">(10,80)).mean('lon')</span></tt>.</li>
+<li><strong>i_</strong> indicates that the values are <em>indices</em> into the axis, and not
+the axis values themselves.  Indices start at 0.
+E.g. <tt class="docutils literal"><span class="pre">myvar(i_time</span> <span class="pre">=</span> <span class="pre">0)</span></tt> selects the first time step of the variable,
+and <tt class="docutils literal"><span class="pre">myvar(i_lon=(10,20))</span></tt> selects the 11th through 21st longitudes.</li>
+<li><strong>l_</strong> indicates that you are providing an explicit list of
+coordinates, instead of a range.
+E.g. <tt class="docutils literal"><span class="pre">myvar(l_lon</span> <span class="pre">=</span> <span class="pre">(105.,106.,107.,108))</span></tt></li>
+</ul>
+</div></blockquote>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">t1</span><span class="o">.</span><span class="n">vars</span>
+<span class="go">[&lt;Var &#39;Temp&#39;&gt;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">T</span> <span class="o">=</span> <span class="n">t1</span><span class="o">.</span><span class="n">Temp</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">T</span>
+<span class="go">&lt;Var &#39;Temp&#39;&gt;:</span>
+<span class="go">  Shape:  (lat,lon)  (32,64)</span>
+<span class="go">  Axes:</span>
+<span class="go">    lat &lt;Lat&gt;      :  85 S to 85 N (32 values)</span>
+<span class="go">    lon &lt;Lon&gt;      :  0 E to 354 E (64 values)</span>
+<span class="go">  Attributes:</span>
+<span class="go">    {&#39;units&#39;: &#39;K&#39;}</span>
+<span class="go">  Type:  Var (dtype=&quot;float64&quot;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">T</span><span class="p">(</span><span class="n">lat</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span><span class="n">lon</span><span class="o">=</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">200</span><span class="p">))</span>
+<span class="go">&lt;Var &#39;Temp&#39;&gt;:</span>
+<span class="go">  Shape:  (lat,lon)  (1,18)</span>
+<span class="go">  Axes:</span>
+<span class="go">    lat &lt;Lat&gt;      :  30 N</span>
+<span class="go">    lon &lt;Lon&gt;      :  101 E to 196 E (18 values)</span>
+<span class="go">  Attributes:</span>
+<span class="go">    {&#39;units&#39;: &#39;K&#39;}</span>
+<span class="go">  Type:  SlicedVar (dtype=&quot;float64&quot;)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygeode.Var.squeeze">
+<tt class="descclassname">Var.</tt><tt class="descname">squeeze</tt><big>(</big><em>*iaxes</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pygeode.Var.squeeze" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes degenerate axes from a variable, reducing its dimensionality.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>*iaxes</strong> : one or more axes (optional)</p>
+<blockquote>
+<div><p>The axes to remove (they must already be degenerate).  If no explicit axes
+are provided, then <em>all</em> degenerate axes are removed.</p>
+</div></blockquote>
+<p><strong>**kwargs</strong> : keyword arguments</p>
+<blockquote>
+<div><p>Keyword-based axis slicing.  Selects a particular value along the axis and
+then removes the axis from the output.  See <a class="reference internal" href="#pygeode.Var.__call__" title="pygeode.Var.__call__"><tt class="xref py py-meth docutils literal"><span class="pre">Var.__call__()</span></tt></a> for a
+similar method which uses this keyword syntax.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>squeezed</strong> : Var</p>
+<blockquote class="last">
+<div><p>The squeezed variable</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygeode.Var.extend">
+<tt class="descclassname">Var.</tt><tt class="descname">extend</tt><big>(</big><em>pos</em>, <em>*newaxes</em><big>)</big><a class="headerlink" href="#pygeode.Var.extend" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds more axes to a variable.  Data will be duplicated along these new axes.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>pos</strong> : int</p>
+<blockquote>
+<div><p>The position (within the variable&#8217;s current axes) to start inserting the
+new axes.</p>
+</div></blockquote>
+<p><strong>*newaxes</strong> : one or more axes</p>
+<blockquote>
+<div><p>The new axes to insert</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>extended_var</strong> : Var</p>
+<blockquote class="last">
+<div><p>The variable, extended to include the new axes.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">t1</span><span class="o">.</span><span class="n">Temp</span>
+<span class="go">&lt;Var &#39;Temp&#39;&gt;:</span>
+<span class="go">  Shape:  (lat,lon)  (32,64)</span>
+<span class="go">  Axes:</span>
+<span class="go">    lat &lt;Lat&gt;      :  85 S to 85 N (32 values)</span>
+<span class="go">    lon &lt;Lon&gt;      :  0 E to 354 E (64 values)</span>
+<span class="go">  Attributes:</span>
+<span class="go">    {&#39;units&#39;: &#39;K&#39;}</span>
+<span class="go">  Type:  Var (dtype=&quot;float64&quot;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode</span> <span class="kn">import</span> <span class="n">Pres</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">paxis</span> <span class="o">=</span> <span class="n">Pres</span><span class="p">([</span><span class="mi">1000</span><span class="p">,</span><span class="mi">850</span><span class="p">,</span><span class="mi">700</span><span class="p">])</span>  <span class="c"># Create a pressure axis</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">paxis</span>
+<span class="go">pres &lt;Pres&gt;    :  1000  hPa to 700  hPa (3 values)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">extended_var</span> <span class="o">=</span> <span class="n">t1</span><span class="o">.</span><span class="n">Temp</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">paxis</span><span class="p">)</span>  <span class="c"># Extend the data with this axis</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">extended_var</span>
+<span class="go">&lt;Var &#39;Temp&#39;&gt;:</span>
+<span class="go">  Shape:  (pres,lat,lon)  (3,32,64)</span>
+<span class="go">  Axes:</span>
+<span class="go">    pres &lt;Pres&gt;    :  1000  hPa to 700  hPa (3 values)</span>
+<span class="go">    lat &lt;Lat&gt;      :  85 S to 85 N (32 values)</span>
+<span class="go">    lon &lt;Lon&gt;      :  0 E to 354 E (64 values)</span>
+<span class="go">  Attributes:</span>
+<span class="go">    {&#39;units&#39;: &#39;K&#39;}</span>
+<span class="go">  Type:  ExtendedVar (dtype=&quot;float64&quot;)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygeode.Var.transpose">
+<tt class="descclassname">Var.</tt><tt class="descname">transpose</tt><big>(</big><em>*axes</em><big>)</big><a class="headerlink" href="#pygeode.Var.transpose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transposes the axes of a variable.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>*axes</strong> : one or more axis identifiers (strings, <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><tt class="xref py py-class docutils literal"><span class="pre">Axis</span></tt></a> classes, integer indices)</p>
+<blockquote>
+<div><p>The new order of the axes.  Any unspecified axes will be appended after these.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>transposed_var</strong> : Var</p>
+<blockquote class="last">
+<div><p>The transposed variable.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">t1</span><span class="o">.</span><span class="n">Temp</span>
+<span class="go">&lt;Var &#39;Temp&#39;&gt;:</span>
+<span class="go">  Shape:  (lat,lon)  (32,64)</span>
+<span class="go">  Axes:</span>
+<span class="go">    lat &lt;Lat&gt;      :  85 S to 85 N (32 values)</span>
+<span class="go">    lon &lt;Lon&gt;      :  0 E to 354 E (64 values)</span>
+<span class="go">  Attributes:</span>
+<span class="go">    {&#39;units&#39;: &#39;K&#39;}</span>
+<span class="go">  Type:  Var (dtype=&quot;float64&quot;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">transposed_var</span> <span class="o">=</span> <span class="n">t1</span><span class="o">.</span><span class="n">Temp</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="s">&#39;lon&#39;</span><span class="p">,</span><span class="s">&#39;lat&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">transposed_var</span>
+<span class="go">&lt;Var &#39;Temp&#39;&gt;:</span>
+<span class="go">  Shape:  (lon,lat)  (64,32)</span>
+<span class="go">  Axes:</span>
+<span class="go">    lon &lt;Lon&gt;      :  0 E to 354 E (64 values)</span>
+<span class="go">    lat &lt;Lat&gt;      :  85 S to 85 N (32 values)</span>
+<span class="go">  Attributes:</span>
+<span class="go">    {&#39;units&#39;: &#39;K&#39;}</span>
+<span class="go">  Type:  TransposedVar (dtype=&quot;float64&quot;)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygeode.Var.sorted">
+<tt class="descclassname">Var.</tt><tt class="descname">sorted</tt><big>(</big><em>*iaxes</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pygeode.Var.sorted" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sorts the data so that the axes have monotonically increasing values.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>*iaxes</strong> : (optional)</p>
+<blockquote>
+<div><p>Which axes to sort.  If not specified, then <em>all</em> axes are sorted.
+Axes can also be passed as keyword arguments, with a value of 1/0/-1 to
+specifiy a sort order of increasing/default/decreasing.
+If positional arguments are passed, or if an order of &#8216;0&#8217; is specified,
+then the natural (default) order will be used for that type of axis.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>sorted_var</strong> : Var</p>
+<blockquote class="last">
+<div><p>The sorted version of the data.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">t2</span><span class="o">.</span><span class="n">Temp</span>
+<span class="go">&lt;Var &#39;Temp&#39;&gt;:</span>
+<span class="go">  Shape:  (time,pres,lat,lon)  (3650,20,32,64)</span>
+<span class="go">  Axes:</span>
+<span class="go">    time &lt;ModelTime365&gt;:  Jan 1, 2011 00:00:00 to Dec 31, 2020 00:00:00 (3650 values)</span>
+<span class="go">    pres &lt;Pres&gt;    :  1000  hPa to 50  hPa (20 values)</span>
+<span class="go">    lat &lt;Lat&gt;      :  85 S to 85 N (32 values)</span>
+<span class="go">    lon &lt;Lon&gt;      :  0 E to 354 E (64 values)</span>
+<span class="go">  Attributes:</span>
+<span class="go">    {}</span>
+<span class="go">  Type:  Mul_Var (dtype=&quot;float64&quot;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">t2</span><span class="o">.</span><span class="n">Temp</span><span class="o">.</span><span class="n">sorted</span><span class="p">(</span><span class="s">&#39;pres&#39;</span><span class="p">)</span>  <span class="c"># Sort by default/natural order</span>
+<span class="go">&lt;Var &#39;Temp&#39;&gt;:</span>
+<span class="go">  Shape:  (time,pres,lat,lon)  (3650,20,32,64)</span>
+<span class="go">  Axes:</span>
+<span class="go">    time &lt;ModelTime365&gt;:  Jan 1, 2011 00:00:00 to Dec 31, 2020 00:00:00 (3650 values)</span>
+<span class="go">    pres &lt;Pres&gt;    :  1000  hPa to 50  hPa (20 values)</span>
+<span class="go">    lat &lt;Lat&gt;      :  85 S to 85 N (32 values)</span>
+<span class="go">    lon &lt;Lon&gt;      :  0 E to 354 E (64 values)</span>
+<span class="go">  Attributes:</span>
+<span class="go">    {}</span>
+<span class="go">  Type:  SortedVar (dtype=&quot;float64&quot;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># ^^ no change, since pressure was already in its natrual order (decreasing)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">t2</span><span class="o">.</span><span class="n">Temp</span><span class="o">.</span><span class="n">sorted</span><span class="p">(</span><span class="n">pres</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c"># Sort pressure explicitly as increasing order</span>
+<span class="go">&lt;Var &#39;Temp&#39;&gt;:</span>
+<span class="go">  Shape:  (time,pres,lat,lon)  (3650,20,32,64)</span>
+<span class="go">  Axes:</span>
+<span class="go">    time &lt;ModelTime365&gt;:  Jan 1, 2011 00:00:00 to Dec 31, 2020 00:00:00 (3650 values)</span>
+<span class="go">    pres &lt;Pres&gt;    :  50  hPa to 1000  hPa (20 values)</span>
+<span class="go">    lat &lt;Lat&gt;      :  85 S to 85 N (32 values)</span>
+<span class="go">    lon &lt;Lon&gt;      :  0 E to 354 E (64 values)</span>
+<span class="go">  Attributes:</span>
+<span class="go">    {}</span>
+<span class="go">  Type:  SortedVar (dtype=&quot;float64&quot;)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygeode.Var.replace_axes">
+<tt class="descclassname">Var.</tt><tt class="descname">replace_axes</tt><big>(</big><em>axisdict={}</em>, <em>ignore_mismatch=False</em>, <em>newaxes=None</em>, <em>keep_old_name=True</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pygeode.Var.replace_axes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replaces one or more axes of a variable with new axes.  The axis length
+must remain the same.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>axisdict</strong> : dict (optional)</p>
+<blockquote>
+<div><p>The keys are identifiers for the current axes, and the values are the
+replacement axes.</p>
+</div></blockquote>
+<p><strong>ignore_mismatch</strong> : boolean (optional)</p>
+<blockquote>
+<div><p>If <tt class="docutils literal"><span class="pre">True</span></tt>, will ignore axis identifiers that don&#8217;t match any axes of
+this variable.  If <tt class="docutils literal"><span class="pre">False</span></tt>, will raise an exception on a mismatch.
+Default is <tt class="docutils literal"><span class="pre">False</span></tt>.</p>
+</div></blockquote>
+<p><strong>newaxes</strong> : list of axes (optional)</p>
+<blockquote>
+<div><p>An explicit list of axes to use as replacements.  Useful if you want to
+replace <em>all</em> the axes at the same time.</p>
+</div></blockquote>
+<p><strong>keep_old_name</strong> : boolean (optional)</p>
+<blockquote>
+<div><p>If <tt class="docutils literal"><span class="pre">True</span></tt>, will keep the old axis name (with the new values).  If
+<tt class="docutils literal"><span class="pre">False</span></tt>, the name ofthe new axis will be used.  Default is <tt class="docutils literal"><span class="pre">True</span></tt>.</p>
+</div></blockquote>
+<p><strong>**kwargs</strong> : keyword arguments</p>
+<blockquote>
+<div><p>Similar to <cite>axisdict</cite>, but using keyword parameters instead of a
+dictionary.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>new_var</strong> : Var</p>
+<blockquote class="last">
+<div><p>The same variable, but with different axes.  The variable data will remain
+unchanged.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">t1</span><span class="o">.</span><span class="n">Temp</span>
+<span class="go">&lt;Var &#39;Temp&#39;&gt;:</span>
+<span class="go">  Shape:  (lat,lon)  (32,64)</span>
+<span class="go">  Axes:</span>
+<span class="go">    lat &lt;Lat&gt;      :  85 S to 85 N (32 values)</span>
+<span class="go">    lon &lt;Lon&gt;      :  0 E to 354 E (64 values)</span>
+<span class="go">  Attributes:</span>
+<span class="go">    {&#39;units&#39;: &#39;K&#39;}</span>
+<span class="go">  Type:  Var (dtype=&quot;float64&quot;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode</span> <span class="kn">import</span> <span class="n">XAxis</span><span class="p">,</span> <span class="n">YAxis</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">new_var</span> <span class="o">=</span> <span class="n">t1</span><span class="o">.</span><span class="n">Temp</span><span class="o">.</span><span class="n">replace_axes</span><span class="p">(</span><span class="n">lon</span><span class="o">=</span><span class="n">XAxis</span><span class="p">,</span> <span class="n">lat</span><span class="o">=</span><span class="n">YAxis</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">new_var</span>
+<span class="go">&lt;Var &#39;Temp&#39;&gt;:</span>
+<span class="go">  Shape:  (lat,lon)  (32,64)</span>
+<span class="go">  Axes:</span>
+<span class="go">    lat &lt;YAxis&gt;    :  -85.7606 to 85.7606 (32 values)</span>
+<span class="go">    lon &lt;XAxis&gt;    :  0 to 354.375 (64 values)</span>
+<span class="go">  Attributes:</span>
+<span class="go">    {&#39;units&#39;: &#39;K&#39;}</span>
+<span class="go">  Type:  Replace_axes (dtype=&quot;float64&quot;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">new_var</span> <span class="o">=</span> <span class="n">t1</span><span class="o">.</span><span class="n">Temp</span><span class="o">.</span><span class="n">replace_axes</span><span class="p">(</span><span class="n">lon</span><span class="o">=</span><span class="n">XAxis</span><span class="p">,</span> <span class="n">lat</span><span class="o">=</span><span class="n">YAxis</span><span class="p">,</span> <span class="n">keep_old_name</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">new_var</span>
+<span class="go">&lt;Var &#39;Temp&#39;&gt;:</span>
+<span class="go">  Shape:  (yaxis,xaxis)  (32,64)</span>
+<span class="go">  Axes:</span>
+<span class="go">    yaxis &lt;YAxis&gt;  :  -85.7606 to 85.7606 (32 values)</span>
+<span class="go">    xaxis &lt;XAxis&gt;  :  0 to 354.375 (64 values)</span>
+<span class="go">  Attributes:</span>
+<span class="go">    {&#39;units&#39;: &#39;K&#39;}</span>
+<span class="go">  Type:  Replace_axes (dtype=&quot;float64&quot;)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygeode.Var.rename">
+<tt class="descclassname">Var.</tt><tt class="descname">rename</tt><big>(</big><em>newname</em><big>)</big><a class="headerlink" href="#pygeode.Var.rename" title="Permalink to this definition">¶</a></dt>
+<dd><p>Assigns a new name to a variable</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>newname</strong> : string</p>
+<blockquote>
+<div><p>The new name of the variable.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>renamed_var</strong> : Var</p>
+<blockquote class="last">
+<div><p>The same variable, but with a different name.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>In most cases, you could probably change the <tt class="docutils literal"><span class="pre">name</span></tt> attribute of the
+variable directly instead of calling this method.  However, if the variable
+is being used in other places, this method guarantees that the name change
+will only affect a local version of the variable, and won&#8217;t have any
+side-effects on other existing references.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s">&#39;i_prefer_really_long_variable_names&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygeode.Var.rename_axes">
+<tt class="descclassname">Var.</tt><tt class="descname">rename_axes</tt><big>(</big><em>ignore_mismatch=False</em>, <em>axisdict={}</em>, <em>**namemap</em><big>)</big><a class="headerlink" href="#pygeode.Var.rename_axes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Renames the axes of a variable.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>ignore_mismatch</strong> : boolean (optional)</p>
+<blockquote>
+<div><p>If <tt class="docutils literal"><span class="pre">True</span></tt>, will ignore axis identifiers that don&#8217;t match any axes of
+this variable.  If <tt class="docutils literal"><span class="pre">False</span></tt>, will raise an exception on a mismatch.
+Default is <tt class="docutils literal"><span class="pre">False</span></tt>.</p>
+</div></blockquote>
+<p><strong>axisdict</strong> : dictionary</p>
+<blockquote>
+<div><p>An explicit dictionary mapping old names to new names.</p>
+</div></blockquote>
+<p><strong>**namemap</strong> : keyword arguments</p>
+<blockquote>
+<div><p>One or more keyword-based arguments.  The parameters are the existing axis
+names, and the values are the new names to substitute.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>new_var</strong> : Var</p>
+<blockquote class="last">
+<div><p>The same variable, but with new names for the axes.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">t1</span><span class="o">.</span><span class="n">Temp</span>
+<span class="go">&lt;Var &#39;Temp&#39;&gt;:</span>
+<span class="go">  Shape:  (lat,lon)  (32,64)</span>
+<span class="go">  Axes:</span>
+<span class="go">    lat &lt;Lat&gt;      :  85 S to 85 N (32 values)</span>
+<span class="go">    lon &lt;Lon&gt;      :  0 E to 354 E (64 values)</span>
+<span class="go">  Attributes:</span>
+<span class="go">    {&#39;units&#39;: &#39;K&#39;}</span>
+<span class="go">  Type:  Var (dtype=&quot;float64&quot;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">new_var</span> <span class="o">=</span> <span class="n">t1</span><span class="o">.</span><span class="n">Temp</span><span class="o">.</span><span class="n">rename_axes</span><span class="p">(</span><span class="n">lat</span><span class="o">=</span><span class="s">&quot;latitude&quot;</span><span class="p">,</span><span class="n">lon</span><span class="o">=</span><span class="s">&quot;longitude&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">new_var</span>
+<span class="go">&lt;Var &#39;Temp&#39;&gt;:</span>
+<span class="go">  Shape:  (latitude,longitude)  (32,64)</span>
+<span class="go">  Axes:</span>
+<span class="go">    latitude &lt;Lat&gt; :  85 S to 85 N (32 values)</span>
+<span class="go">    longitude &lt;Lon&gt;:  0 E to 354 E (64 values)</span>
+<span class="go">  Attributes:</span>
+<span class="go">    {&#39;units&#39;: &#39;K&#39;}</span>
+<span class="go">  Type:  Replace_axes (dtype=&quot;float64&quot;)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygeode.Var.fill">
+<tt class="descclassname">Var.</tt><tt class="descname">fill</tt><big>(</big><em>fill</em><big>)</big><a class="headerlink" href="#pygeode.Var.fill" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replaces <tt class="docutils literal"><span class="pre">NaN</span></tt> (missing values) with some fill value.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>fill</strong> : float or int</p>
+<blockquote>
+<div><p>The fill value</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>filled_var</strong> : Var</p>
+<blockquote class="last">
+<div><p>A new representation of the variable with missing values filled in.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#pygeode.Var.unfill" title="pygeode.Var.unfill"><tt class="xref py py-obj docutils literal"><span class="pre">unfill</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygeode.Var.unfill">
+<tt class="descclassname">Var.</tt><tt class="descname">unfill</tt><big>(</big><em>fill</em><big>)</big><a class="headerlink" href="#pygeode.Var.unfill" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replaces all occurrences of the specified value with an <tt class="docutils literal"><span class="pre">NaN</span></tt> (missing
+value).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>fill - float or int</strong> :</p>
+<blockquote>
+<div><p>The value to treat as missing</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>unfilled_var</strong> : Var</p>
+<blockquote class="last">
+<div><p>A new represntation of the variable with the &#8216;fill&#8217; values removed
+(replaced with <tt class="docutils literal"><span class="pre">NaN</span></tt>).</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#pygeode.Var.fill" title="pygeode.Var.fill"><tt class="xref py py-obj docutils literal"><span class="pre">fill</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygeode.Var.as_type">
+<tt class="descclassname">Var.</tt><tt class="descname">as_type</tt><big>(</big><em>dtype</em><big>)</big><a class="headerlink" href="#pygeode.Var.as_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Casts a variable to a new data type (I.e., float32, float64, etc.)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>dtype</strong> : <tt class="docutils literal"><span class="pre">numpy.dtype</span></tt> or string</p>
+<blockquote>
+<div><p>The new data type to use.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>casted_var</strong> : Var</p>
+<blockquote class="last">
+<div><p>The same var, but with its values cast into a new type.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># Treat the values as double-precision</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">as_type</span><span class="p">(</span><span class="s">&#39;float64&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<hr class="docutils" />
+<p>See Also:
+<a class="reference internal" href="var.html"><em>Var class overview</em></a></p>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="reduce.html"
+                        title="previous chapter">Axis Reductions</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="var.other.html"
+                        title="next chapter">Other operations</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/varops.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="var.other.html" title="Other operations"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="reduce.html" title="Axis Reductions"
+             >previous</a> |</li>
+        <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li>
+          <li><a href="reference.html" >Reference</a> &raquo;</li>
+          <li><a href="var.html" >Var class overview</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Mike Neish, Peter Hitchcock.
+      Last updated on Mar 20, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

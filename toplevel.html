@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>File Input and Output &mdash; PyGeode 1.0 alpha documentation</title>
+    
+    <link rel="stylesheet" href="_static/pygtheme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0 alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="PyGeode 1.0 alpha documentation" href="index.html" />
+    <link rel="up" title="Reference" href="reference.html" />
+    <link rel="next" title="Timeutils module" href="timeutils.html" />
+    <link rel="prev" title="Plot module" href="plot.html" />
+<link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="timeutils.html" title="Timeutils module"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="plot.html" title="Plot module"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li>
+          <li><a href="reference.html" accesskey="U">Reference</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="file-input-and-output">
+<h1>File Input and Output<a class="headerlink" href="#file-input-and-output" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="pygeode.open">
+<tt class="descclassname">pygeode.</tt><tt class="descname">open</tt><big>(</big><em>filename</em>, <em>format=None</em>, <em>value_override={}</em>, <em>dimtypes={}</em>, <em>namemap={}</em>, <em>varlist=</em>, <span class="optional">[</span><span class="optional">]</span><em>cfmeta=True</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pygeode.open" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="pygeode.openall">
+<tt class="descclassname">pygeode.</tt><tt class="descname">openall</tt><big>(</big><em>files</em>, <em>format=None</em>, <em>opener=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pygeode.openall" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="pygeode.open_multi">
+<tt class="descclassname">pygeode.</tt><tt class="descname">open_multi</tt><big>(</big><em>files</em>, <span class="optional">[</span><em>format</em>, <em>opener</em>, <em>pattern</em>, <em>file2date</em>, <span class="optional">]</span><em>**kwargs</em><big>)</big><a class="headerlink" href="#pygeode.open_multi" title="Permalink to this definition">¶</a></dt>
+<dd><p>Opens multiple data sources and tries to merge them together.</p>
+<p>format - a pygeode-supported data format module, such as netcdf (found in pygeode.formats)
+opener - a function which opens an individual file and returns a pygeode dataset.</p>
+<blockquote>
+<div>format.open() is used by default; if any custom behaviour is needed it can
+be provided here.</div></blockquote>
+<dl class="docutils">
+<dt>pattern - a regex pattern to extract date stamps from the filename; used by default file2date.</dt>
+<dd>Matching patterns must be named &lt;year&gt;, &lt;month&gt;, &lt;day&gt;, &lt;hour&gt; or &lt;minute&gt;.
+Abbreviations are available for the above; $Y matches a four digit year, $m, $d, $H,
+and $M match a two-digit month, day, hour and minute, respectively.</dd>
+<dt>file2date - a function which returns a date dictionary given a filename. By default a regex pattern is</dt>
+<dd>used.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="pygeode.save">
+<tt class="descclassname">pygeode.</tt><tt class="descname">save</tt><big>(</big><em>filename</em>, <em>dataset</em>, <em>format=None</em>, <em>cfmeta=True</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pygeode.save" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="plot.html"
+                        title="previous chapter">Plot module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="timeutils.html"
+                        title="next chapter">Timeutils module</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/toplevel.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="timeutils.html" title="Timeutils module"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="plot.html" title="Plot module"
+             >previous</a> |</li>
+        <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li>
+          <li><a href="reference.html" >Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Mike Neish, Peter Hitchcock.
+      Last updated on Mar 20, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

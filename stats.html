@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Stats module &mdash; PyGeode 1.0 alpha documentation</title>
+    
+    <link rel="stylesheet" href="_static/pygtheme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0 alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="PyGeode 1.0 alpha documentation" href="index.html" />
+    <link rel="up" title="Reference" href="reference.html" />
+    <link rel="next" title="EOF Analysis" href="eof.html" />
+    <link rel="prev" title="Climat module" href="climat.html" />
+<link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="eof.html" title="EOF Analysis"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="climat.html" title="Climat module"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li>
+          <li><a href="reference.html" accesskey="U">Reference</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-pygeode.stats">
+<span id="stats-module"></span><h1>Stats module<a class="headerlink" href="#module-pygeode.stats" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="pygeode.stats.correlate">
+<tt class="descclassname">pygeode.stats.</tt><tt class="descname">correlate</tt><big>(</big><em>X</em>, <em>Y</em>, <em>axes=None</em>, <em>pbar=None</em><big>)</big><a class="headerlink" href="#pygeode.stats.correlate" title="Permalink to this definition">¶</a></dt>
+<dd><p>correlate(X, Y) - returns correlation between variables X and Y
+computed over all axes shared by x and y. Returns rho_xy, and p values
+for rho_xy assuming x and y are normally distributed as Storch and Zwiers 1999
+section 8.2.3.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pygeode.stats.regress">
+<tt class="descclassname">pygeode.stats.</tt><tt class="descname">regress</tt><big>(</big><em>X</em>, <em>Y</em>, <em>axes=None</em>, <em>pbar=None</em>, <em>N_fac=None</em>, <em>output='m</em>, <em>b</em>, <em>p'</em><big>)</big><a class="headerlink" href="#pygeode.stats.regress" title="Permalink to this definition">¶</a></dt>
+<dd><p>regress(X, Y) - returns correlation between variables X and Y
+computed over axes. Outputs can be requested by a comma seperated
+string Returns rho_xy, and p values
+for rho_xy assuming x and y are normally distributed as Storch and Zwiers 1999
+section 8.2.3.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pygeode.stats.difference">
+<tt class="descclassname">pygeode.stats.</tt><tt class="descname">difference</tt><big>(</big><em>X</em>, <em>Y</em>, <em>axes</em>, <em>alpha=0.05</em>, <em>Nx_fac=None</em>, <em>Ny_fac=None</em>, <em>pbar=None</em><big>)</big><a class="headerlink" href="#pygeode.stats.difference" title="Permalink to this definition">¶</a></dt>
+<dd><p>difference(X, Y) - calculates difference between the mean values of X and Y
+averaged over the dimensions specified by axes. Returns X - Y, p values, confidence
+intervals, and degrees of freedom.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pygeode.stats.isnonzero">
+<tt class="descclassname">pygeode.stats.</tt><tt class="descname">isnonzero</tt><big>(</big><em>X</em>, <em>axes</em>, <em>alpha=0.05</em>, <em>N_fac=None</em>, <em>pbar=None</em><big>)</big><a class="headerlink" href="#pygeode.stats.isnonzero" title="Permalink to this definition">¶</a></dt>
+<dd><p>isnonzero(X) - determins if X is non-zero, assuming X is normally distributed.
+Returns mean of X along axes, p value, and confidence interval.</p>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="climat.html"
+                        title="previous chapter">Climat module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="eof.html"
+                        title="next chapter">EOF Analysis</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/stats.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="eof.html" title="EOF Analysis"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="climat.html" title="Climat module"
+             >previous</a> |</li>
+        <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li>
+          <li><a href="reference.html" >Reference</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Mike Neish, Peter Hitchcock.
+      Last updated on Mar 20, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

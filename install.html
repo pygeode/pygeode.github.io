@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Installing PyGeode &mdash; PyGeode 1.0 alpha documentation</title>
+    
+    <link rel="stylesheet" href="_static/pygtheme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0 alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="PyGeode 1.0 alpha documentation" href="index.html" />
+    <link rel="next" title="Tutorial" href="tutorial.html" />
+    <link rel="prev" title="PyGeode 1.0" href="index.html" />
+<link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="tutorial.html" title="Tutorial"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="PyGeode 1.0"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="installing-pygeode">
+<h1>Installing PyGeode<a class="headerlink" href="#installing-pygeode" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="windows-installer">
+<h2>Windows installer<a class="headerlink" href="#windows-installer" title="Permalink to this headline">¶</a></h2>
+<p>You&#8217;ll need to install the following packages (make sure to download the 32-bit versions):</p>
+<ol class="arabic simple">
+<li><a class="reference external" href="http://python.org/download/">Python 2.7</a></li>
+<li><a class="reference external" href="http://sourceforge.net/projects/numpy/files/NumPy/">Numpy</a> (handles the number crunching)</li>
+<li><a class="reference external" href="http://sourceforge.net/projects/matplotlib/files/matplotlib/">Matplotlib</a> (handles the plotting)</li>
+<li><a class="reference external" href="https://bitbucket.org/pygeode/pygeode/downloads">PyGeode</a> <em>(that&#8217;s us!)</em></li>
+</ol>
+<p>Optional Packages:</p>
+<ol class="arabic simple" start="5">
+<li><a class="reference external" href="http://ipython.scipy.org/moin/Download">ipython</a> (a better interactive Python shell)</li>
+<li><a class="reference external" href="http://ipython.scipy.org/moin/PyReadline/Intro">PyReadline</a> (endows ipython with tab completion and history)</li>
+<li><a class="reference external" href="http://sourceforge.net/projects/matplotlib/files/matplotlib-toolkits/">basemap</a> (handles maps and projections for plotting)</li>
+</ol>
+</div>
+<div class="section" id="ubuntu-via-launchpad-ppa">
+<h2>Ubuntu (<em>via Launchpad PPA</em>)<a class="headerlink" href="#ubuntu-via-launchpad-ppa" title="Permalink to this headline">¶</a></h2>
+<p>This is the recommended approach for Ubuntu systems, since it will automatically keep you updated with the latest stable version.</p>
+<ol class="arabic">
+<li><p class="first">Add the PyGeode PPA to your list of repositories:</p>
+<p><tt class="docutils literal"><span class="pre">sudo</span> <span class="pre">add-apt-repository</span> <span class="pre">ppa:pygeode/ppa</span></tt></p>
+</li>
+<li><p class="first">Scan the repositories for new packages:</p>
+<p><tt class="docutils literal"><span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">update</span></tt></p>
+</li>
+<li><p class="first">Install the PyGeode package</p>
+<p><tt class="docutils literal"><span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">python-pygeode</span></tt></p>
+</li>
+</ol>
+</div>
+<div class="section" id="rpm-based-linux-distributions-fedora-centos-opensuse-etc">
+<h2>RPM-based Linux distributions (Fedora, CentOS, openSUSE, etc.)<a class="headerlink" href="#rpm-based-linux-distributions-fedora-centos-opensuse-etc" title="Permalink to this headline">¶</a></h2>
+<p>Pre-built RPM packages are available via the <a class="reference external" href="https://build.opensuse.org/package/show/home:neishm/python-pygeode">openSUSE Build Service</a></p>
+</div>
+<div class="section" id="from-the-source-code">
+<h2>From the source code<a class="headerlink" href="#from-the-source-code" title="Permalink to this headline">¶</a></h2>
+<p>This approach should only be used if you are unable to install from a binary package.  You may have to do some fiddling to get it to compile on your system.</p>
+<ol class="arabic">
+<li><p class="first">Download the latest stable release <a class="reference external" href="https://bitbucket.org/pygeode/pygeode/downloads">here</a>.</p>
+</li>
+<li><p class="first">Unpack the tarball:</p>
+<p><tt class="docutils literal"><span class="pre">tar</span> <span class="pre">-xzvf</span> <span class="pre">python-pygeode-&lt;version&gt;.tar.gz</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">cd</span> <span class="pre">python-pygeode-&lt;version&gt;</span></tt></p>
+</li>
+<li><p class="first">Ensure you have the prerequisite packages listed in the <tt class="docutils literal"><span class="pre">INSTALL</span></tt> file.</p>
+</li>
+<li><p class="first">Compile the source, and install:</p>
+<p><tt class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">build</span></tt></p>
+<p><tt class="docutils literal"><span class="pre">sudo</span> <span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">install</span></tt></p>
+</li>
+</ol>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Installing PyGeode</a><ul>
+<li><a class="reference internal" href="#windows-installer">Windows installer</a></li>
+<li><a class="reference internal" href="#ubuntu-via-launchpad-ppa">Ubuntu (<em>via Launchpad PPA</em>)</a></li>
+<li><a class="reference internal" href="#rpm-based-linux-distributions-fedora-centos-opensuse-etc">RPM-based Linux distributions (Fedora, CentOS, openSUSE, etc.)</a></li>
+<li><a class="reference internal" href="#from-the-source-code">From the source code</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">PyGeode 1.0</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="tutorial.html"
+                        title="next chapter">Tutorial</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/install.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="tutorial.html" title="Tutorial"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="PyGeode 1.0"
+             >previous</a> |</li>
+        <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Mike Neish, Peter Hitchcock.
+      Last updated on Mar 20, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

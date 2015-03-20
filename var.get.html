@@ -1,0 +1,230 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Retrieving values from a variable &mdash; PyGeode 1.0 alpha documentation</title>
+    
+    <link rel="stylesheet" href="_static/pygtheme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0 alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="PyGeode 1.0 alpha documentation" href="index.html" />
+    <link rel="up" title="Var class overview" href="var.html" />
+    <link rel="next" title="Arithmetic Operations on Variables" href="var.arith.html" />
+    <link rel="prev" title="Variable Querying Routines" href="varquery.html" />
+<link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="var.arith.html" title="Arithmetic Operations on Variables"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="varquery.html" title="Variable Querying Routines"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li>
+          <li><a href="reference.html" >Reference</a> &raquo;</li>
+          <li><a href="var.html" accesskey="U">Var class overview</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="retrieving-values-from-a-variable">
+<h1>Retrieving values from a variable<a class="headerlink" href="#retrieving-values-from-a-variable" title="Permalink to this headline">¶</a></h1>
+<p>The framework of PyGeode is designed to work with data that is too large to fit
+in memory.  That is to say, you don&#8217;t normally <em>have</em> the numerical values at
+hand.  Instead, you work with a symbolic reference to the data, and build a
+sequence of operations that will be performed <em>only when data is needed</em>.
+Usually, this is when:</p>
+<blockquote>
+<div><ul class="simple">
+<li>You are saving the variable to a file</li>
+<li>You are generating a plot</li>
+<li>You are calling an iterative routine such as <tt class="xref py py-func docutils literal"><span class="pre">EOF()</span></tt>, or some other
+complicated operation for which there is no efficient symbolic wrapper.</li>
+</ul>
+</div></blockquote>
+<p>In the above routines, the logistics of retrieving the data is handled
+internally, so you only see the end result.  There may be times, however, when
+you <em>want</em> to work with raw values.  Perhaps you are using PyGeode in
+conjunction with some other packages which operate on numpy arrays.  Or,
+perhaps you just feel more comfortable working with an array instead of some
+abstract data object.  We won&#8217;t judge you.  Just call <a class="reference internal" href="#pygeode.Var.get" title="pygeode.Var.get"><tt class="xref py py-func docutils literal"><span class="pre">Var.get()</span></tt></a> and you
+can do whatever you want with the data.</p>
+<dl class="method">
+<dt id="pygeode.Var.get">
+<tt class="descclassname">Var.</tt><tt class="descname">get</tt><big>(</big><em>pbar=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pygeode.Var.get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets a raw numpy array containing the values of the variable.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>pbar</strong> : boolean (optional)</p>
+<blockquote>
+<div><p>If <tt class="docutils literal"><span class="pre">True</span></tt>, will display a progress bar while the data is being
+retrieved.  This requires the <em>python-progressbar</em> package (not included
+with PyGeode).</p>
+</div></blockquote>
+<p><strong>**kwargs</strong> : keyword arguments (optional)</p>
+<blockquote>
+<div><p>One or more keyword arguments may be included to subset the variable
+before grabbing the data.  See <a class="reference internal" href="varops.html#pygeode.Var.__call__" title="pygeode.Var.__call__"><tt class="xref py py-func docutils literal"><span class="pre">Var.__call__()</span></tt></a> for a similar
+method which uses this keyword subsetting.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>out</strong> : numpy.ndarray</p>
+<blockquote class="last">
+<div><p>The requested values, as a numpy array.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>Once you grab the data as a numpy array, you can no longer use the PyGeode
+functions to do further work on it directly.  You can, however, use
+<tt class="xref py py-func docutils literal"><span class="pre">Var.__init__()</span></tt> to re-wrap your numpy array as a PyGeode Var.  This
+may be useful if you want to do some very complicated operations on the
+data using the numpy interface as an intermediate step.</p>
+<p>PyGeode variables can be huge!  They can be larger than the available RAM
+in your computer, or even larger than your hard disk.  Numpy arrays, on
+the other hand, need to fit in memory, so make sure you are only getting
+a reasonable piece of data at a time.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">t1</span><span class="o">.</span><span class="n">Temp</span>
+<span class="go">&lt;Var &#39;Temp&#39;&gt;:</span>
+<span class="go">  Shape:  (lat,lon)  (32,64)</span>
+<span class="go">  Axes:</span>
+<span class="go">    lat &lt;Lat&gt;      :  85 S to 85 N (32 values)</span>
+<span class="go">    lon &lt;Lon&gt;      :  0 E to 354 E (64 values)</span>
+<span class="go">  Attributes:</span>
+<span class="go">    {&#39;units&#39;: &#39;K&#39;}</span>
+<span class="go">  Type:  Var (dtype=&quot;float64&quot;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">t1</span><span class="o">.</span><span class="n">Temp</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">x</span>
+<span class="go">[[ 261.05848727  259.81373805  258.6761858  ...,  264.37317879</span>
+<span class="go">   263.44078874  262.30323649]</span>
+<span class="go"> [ 261.66049058  260.49545075  259.43074336 ...,  264.76292084</span>
+<span class="go">   263.89023779  262.82553041]</span>
+<span class="go"> [ 262.53448988  261.44963014  260.45819779 ...,  265.42340543</span>
+<span class="go">   264.61078196  263.61934962]</span>
+<span class="go"> ..., </span>
+<span class="go"> [ 262.53448988  263.61934962  264.61078196 ...,  259.64557433</span>
+<span class="go">   260.45819779  261.44963014]</span>
+<span class="go"> [ 261.66049058  262.82553041  263.89023779 ...,  258.55806031</span>
+<span class="go">   259.43074336  260.49545075]</span>
+<span class="go"> [ 261.05848727  262.30323649  263.44078874 ...,  257.74379575  258.6761858</span>
+<span class="go">   259.81373805]]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygeode.Var.__getitem__">
+<tt class="descclassname">Var.</tt><tt class="descname">__getitem__</tt><big>(</big><em>slices</em><big>)</big><a class="headerlink" href="#pygeode.Var.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="docutils">
+<dt><strong>See Also:</strong></dt>
+<dd><a class="reference internal" href="var.html"><em>Var class overview</em></a></dd>
+</dl>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="varquery.html"
+                        title="previous chapter">Variable Querying Routines</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="var.arith.html"
+                        title="next chapter">Arithmetic Operations on Variables</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/var.get.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="np-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="var.arith.html" title="Arithmetic Operations on Variables"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="varquery.html" title="Variable Querying Routines"
+             >previous</a> |</li>
+        <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li>
+          <li><a href="reference.html" >Reference</a> &raquo;</li>
+          <li><a href="var.html" >Var class overview</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Mike Neish, Peter Hitchcock.
+      Last updated on Mar 20, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>
