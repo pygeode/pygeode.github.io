@@ -39,12 +39,6 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="np-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
           <a href="basic_ops.html" title="Basic Variable Operations"
              accesskey="N">next</a> |</li>
         <li class="right" >
@@ -87,7 +81,7 @@ which span from 85 S to 85 N, and from 0 E to 354 E. respectively.</p>
 <p>We can take a closer look at our variable <tt class="docutils literal"><span class="pre">Temp</span></tt>:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [4]: </span><span class="k">print</span> <span class="n">t1</span><span class="o">.</span><span class="n">Temp</span>
 <span class="go">&lt;Var &#39;Temp&#39;&gt;:</span>
-<span class="go">  Shape:  (lat,lon)  (31,60)</span>
+<span class="go">  Units: K  Shape:  (lat,lon)  (31,60)</span>
 <span class="go">  Axes:</span>
 <span class="go">    lat &lt;Lat&gt;      :  90 S to 90 N (31 values)</span>
 <span class="go">    lon &lt;Lon&gt;      :  0 E to 354 E (60 values)</span>
@@ -109,13 +103,13 @@ Kelvin.</p>
 PyGeode. Variables (<a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a>) encapsulate a scalar field such as temperature
 or one component of the wind field. Axes (<a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><tt class="xref py py-class docutils literal"><span class="pre">Axis</span></tt></a>), which are in fact
 special cases of variables, define the geophysical grid on which the scalar
-field exists. Finally, datasets (<tt class="xref py py-class docutils literal"><span class="pre">Dataset</span></tt>) are containers for variables.
+field exists. Finally, datasets (<a class="reference internal" href="dataset.html#pygeode.Dataset" title="pygeode.Dataset"><tt class="xref py py-class docutils literal"><span class="pre">Dataset</span></tt></a>) are containers for variables.
 These concepts match reasonably closely to their counterparts in NetCDF files
 (and indeed PyGeode works very naturally with NetCDF files). We&#8217;ll learn more
 about all three soon, but to get a quick feel of what PyGeode can do, let&#8217;s try
 plotting the contents of our first variable:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [7]: </span><span class="n">pyg</span><span class="o">.</span><span class="n">showvar</span><span class="p">(</span><span class="n">t1</span><span class="o">.</span><span class="n">Temp</span><span class="p">)</span>
-<span class="gr">Out[7]: </span><span class="o">&lt;</span><span class="n">pygeode</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">wrappers</span><span class="o">.</span><span class="n">AxesWrapper</span> <span class="n">instance</span> <span class="n">at</span> <span class="mh">0x7f02820cf320</span><span class="o">&gt;</span>
+<span class="go"> Out[7]: &lt;pygeode.plot.wrappers.AxesWrapper instance at 0x2b0a586101b8&gt;</span>
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="_images/t1Temp.png"><img alt="_images/t1Temp.png" src="_images/t1Temp.png" style="width: 6in;" /></a>
@@ -191,7 +185,7 @@ averages have been taken, and no differences computed, since we haven&#8217;t do
 anything that needs the data. If we now go and plot the near-surface,
 high-latitude anomaly of our synthetic dataset:</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [15]: </span><span class="n">pyg</span><span class="o">.</span><span class="n">showvar</span><span class="p">(</span><span class="n">Tcp</span><span class="p">(</span><span class="n">pres</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="s">&#39;15 Jun 00&#39;</span><span class="p">))</span>
-<span class="gr">Out[15]: </span><span class="o">&lt;</span><span class="n">pygeode</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">wrappers</span><span class="o">.</span><span class="n">AxesWrapper</span> <span class="n">instance</span> <span class="n">at</span> <span class="mh">0x7f0281d67b48</span><span class="o">&gt;</span>
+<span class="gr">Out[15]: </span><span class="o">&lt;</span><span class="n">pygeode</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">wrappers</span><span class="o">.</span><span class="n">AxesWrapper</span> <span class="n">instance</span> <span class="n">at</span> <span class="mh">0x2b0a46c48b90</span><span class="o">&gt;</span>
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="_images/Tcp.png"><img alt="_images/Tcp.png" src="_images/Tcp.png" style="width: 6in;" /></a>
@@ -281,12 +275,6 @@ found here.</p>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="np-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
           <a href="basic_ops.html" title="Basic Variable Operations"
              >next</a> |</li>
         <li class="right" >
@@ -298,7 +286,7 @@ found here.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2013, Mike Neish, Peter Hitchcock.
-      Last updated on Mar 20, 2015.
+      Last updated on Apr 25, 2015.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

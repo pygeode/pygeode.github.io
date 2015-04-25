@@ -1,0 +1,408 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Time axes objects reference &mdash; PyGeode 1.0 alpha documentation</title>
+    
+    <link rel="stylesheet" href="_static/pygtheme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0 alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="PyGeode 1.0 alpha documentation" href="index.html" />
+    <link rel="up" title="Axis class overview" href="axes.html" />
+    <link rel="next" title="Dataset overview" href="dataset.html" />
+    <link rel="prev" title="Vertical axes object reference" href="verticalaxes.html" />
+<link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="dataset.html" title="Dataset overview"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="verticalaxes.html" title="Vertical axes object reference"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li>
+          <li><a href="reference.html" >Reference</a> &raquo;</li>
+          <li><a href="axes.html" accesskey="U">Axis class overview</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="time-axes-objects-reference">
+<h1>Time axes objects reference<a class="headerlink" href="#time-axes-objects-reference" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="pygeode.TAxis">
+<em class="property">class </em><tt class="descclassname">pygeode.</tt><tt class="descname">TAxis</tt><a class="headerlink" href="#pygeode.TAxis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inherits from <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><tt class="xref py py-class docutils literal"><span class="pre">Axis</span></tt></a></p>
+<p>Generic parent class for axes representing time coordinates, plotted by default on
+the horizontal axis in line plots and in contour plots. No new or overridden methods.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pygeode.timeaxis.Time">
+<em class="property">class </em><tt class="descclassname">pygeode.timeaxis.</tt><tt class="descname">Time</tt><a class="headerlink" href="#pygeode.timeaxis.Time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inherits from <tt class="xref py py-class docutils literal"><span class="pre">TAxis</span></tt></p>
+<p>Parent class for axes representing times.</p>
+</dd></dl>
+
+<p class="rubric">New and overridden methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pygeode.timeaxis.Time.__init__" title="pygeode.timeaxis.Time.__init__"><tt class="xref py py-obj docutils literal"><span class="pre">Time.__init__</span></tt></a>([values,&nbsp;startdate,&nbsp;units])</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pygeode.timeaxis.Time.formatter" title="pygeode.timeaxis.Time.formatter"><tt class="xref py py-obj docutils literal"><span class="pre">Time.formatter</span></tt></a>()</td>
+<td>Returns a matplotlib axis Formatter object; by default a FuncFormatter which calls formatvalue().</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pygeode.timeaxis.Time.locator" title="pygeode.timeaxis.Time.locator"><tt class="xref py py-obj docutils literal"><span class="pre">Time.locator</span></tt></a>()</td>
+<td>locator() - Returns an AutoCalendarLocator object</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pygeode.timeaxis.Time.map_to" title="pygeode.timeaxis.Time.map_to"><tt class="xref py py-obj docutils literal"><span class="pre">Time.map_to</span></tt></a>(other)</td>
+<td>Define a mapping between this time axis and another one, if one exists.</td>
+</tr>
+</tbody>
+</table>
+<dl class="class">
+<dt id="pygeode.timeaxis.CalendarTime">
+<em class="property">class </em><tt class="descclassname">pygeode.timeaxis.</tt><tt class="descname">CalendarTime</tt><a class="headerlink" href="#pygeode.timeaxis.CalendarTime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inherits from <a class="reference internal" href="#pygeode.timeaxis.Time" title="pygeode.timeaxis.Time"><tt class="xref py py-class docutils literal"><span class="pre">Time</span></tt></a></p>
+<p>Parent class for time axes with an associated calendar.</p>
+</dd></dl>
+
+<p class="rubric">New and overridden methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pygeode.timeaxis.CalendarTime.__init__" title="pygeode.timeaxis.CalendarTime.__init__"><tt class="xref py py-obj docutils literal"><span class="pre">CalendarTime.__init__</span></tt></a>([values,&nbsp;datefmt,&nbsp;...])</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pygeode.timeaxis.CalendarTime.days_in_month" title="pygeode.timeaxis.CalendarTime.days_in_month"><tt class="xref py py-obj docutils literal"><span class="pre">CalendarTime.days_in_month</span></tt></a>(yr,&nbsp;mn)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pygeode.timeaxis.CalendarTime.formatvalue" title="pygeode.timeaxis.CalendarTime.formatvalue"><tt class="xref py py-obj docutils literal"><span class="pre">CalendarTime.formatvalue</span></tt></a>(value[,&nbsp;fmt,&nbsp;...])</td>
+<td>Returns formatted string representation of <tt class="docutils literal"><span class="pre">value</span></tt>, using a strftime-like specification.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pygeode.timeaxis.CalendarTime.str_as_val" title="pygeode.timeaxis.CalendarTime.str_as_val"><tt class="xref py py-obj docutils literal"><span class="pre">CalendarTime.str_as_val</span></tt></a>(key,&nbsp;s)</td>
+<td>Converts a string representation of a date to a value according to the  calendar defined by this time axis.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pygeode.timeaxis.CalendarTime.val_as_date" title="pygeode.timeaxis.CalendarTime.val_as_date"><tt class="xref py py-obj docutils literal"><span class="pre">CalendarTime.val_as_date</span></tt></a>([vals,&nbsp;startdate,&nbsp;...])</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pygeode.timeaxis.CalendarTime.date_as_val" title="pygeode.timeaxis.CalendarTime.date_as_val"><tt class="xref py py-obj docutils literal"><span class="pre">CalendarTime.date_as_val</span></tt></a>([dates,&nbsp;startdate,&nbsp;...])</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="class">
+<dt id="pygeode.StandardTime">
+<em class="property">class </em><tt class="descclassname">pygeode.</tt><tt class="descname">StandardTime</tt><a class="headerlink" href="#pygeode.StandardTime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inherits from <a class="reference internal" href="#pygeode.timeaxis.CalendarTime" title="pygeode.timeaxis.CalendarTime"><tt class="xref py py-class docutils literal"><span class="pre">CalendarTime</span></tt></a></p>
+<p>Time axis representing the standard calendar.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pygeode.ModelTime365">
+<em class="property">class </em><tt class="descclassname">pygeode.</tt><tt class="descname">ModelTime365</tt><a class="headerlink" href="#pygeode.ModelTime365" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inherits from <a class="reference internal" href="#pygeode.timeaxis.CalendarTime" title="pygeode.timeaxis.CalendarTime"><tt class="xref py py-class docutils literal"><span class="pre">CalendarTime</span></tt></a></p>
+<p>Time axis representing a calendar with a 365 day year.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pygeode.ModelTime360">
+<em class="property">class </em><tt class="descclassname">pygeode.</tt><tt class="descname">ModelTime360</tt><a class="headerlink" href="#pygeode.ModelTime360" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inherits from <a class="reference internal" href="#pygeode.timeaxis.CalendarTime" title="pygeode.timeaxis.CalendarTime"><tt class="xref py py-class docutils literal"><span class="pre">CalendarTime</span></tt></a></p>
+<p>Time axis representing a calendar with a 360 day year.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pygeode.Yearless">
+<em class="property">class </em><tt class="descclassname">pygeode.</tt><tt class="descname">Yearless</tt><a class="headerlink" href="#pygeode.Yearless" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inherits from <a class="reference internal" href="#pygeode.timeaxis.CalendarTime" title="pygeode.timeaxis.CalendarTime"><tt class="xref py py-class docutils literal"><span class="pre">CalendarTime</span></tt></a></p>
+<p>Time axis representing a calendar that marks days independent of years and months.</p>
+<p class="rubric">New and overridden methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pygeode.Yearless.__init__" title="pygeode.Yearless.__init__"><tt class="xref py py-obj docutils literal"><span class="pre">Yearless.__init__</span></tt></a>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pygeode.Yearless.days_in_month" title="pygeode.Yearless.days_in_month"><tt class="xref py py-obj docutils literal"><span class="pre">Yearless.days_in_month</span></tt></a>(yr,&nbsp;mn)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygeode.timeaxis.Time.__init__">
+<tt class="descclassname">Time.</tt><tt class="descname">__init__</tt><big>(</big><em>values=None</em>, <em>startdate=None</em>, <em>units=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pygeode.timeaxis.Time.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pygeode.timeaxis.Time.formatter">
+<tt class="descclassname">Time.</tt><tt class="descname">formatter</tt><big>(</big><big>)</big><a class="headerlink" href="#pygeode.timeaxis.Time.formatter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a matplotlib axis Formatter object; by default a FuncFormatter which calls formatvalue().</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygeode.timeaxis.Time.locator">
+<tt class="descclassname">Time.</tt><tt class="descname">locator</tt><big>(</big><big>)</big><a class="headerlink" href="#pygeode.timeaxis.Time.locator" title="Permalink to this definition">¶</a></dt>
+<dd><p>locator() - Returns an AutoCalendarLocator object</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygeode.timeaxis.Time.map_to">
+<tt class="descclassname">Time.</tt><tt class="descname">map_to</tt><big>(</big><em>other</em><big>)</big><a class="headerlink" href="#pygeode.timeaxis.Time.map_to" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define a mapping between this time axis and another one, if one exists.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>other</strong> : <tt class="xref py py-class docutils literal"><span class="pre">Axis</span></tt> instance</p>
+<blockquote>
+<div><p>Axis instance to find map to.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>indices</strong> : An array of integer indices or None</p>
+<blockquote class="last">
+<div><p>If a mapping exists, an array of integer indices which define mapping
+from this axis to other (i.e. self[indices] will return the elements in
+the appropriate ordering for the mapped axis). Otherwise None.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>A mapping from this time axis to other can exist only if they are of the
+same class (e.g. <tt class="xref py py-class docutils literal"><span class="pre">StandardTime</span></tt>), and if the list of auxarrays defined
+in this class is a subset of those defined in the other (e.g. a climatology which
+defines only &#8216;month&#8217;, and &#8216;day&#8217; can be mapped to a time axis with &#8216;year&#8217;, &#8216;month&#8217;
+&#8216;day&#8217; and &#8216;hour&#8217;, but not one with only &#8216;year&#8217; and &#8216;month&#8217;.</p>
+<p>Matches are sought between the auxiliary arrays shared by the two axes</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygeode.timeaxis.CalendarTime.__init__">
+<tt class="descclassname">CalendarTime.</tt><tt class="descname">__init__</tt><big>(</big><em>values=None</em>, <em>datefmt=None</em>, <em>units=None</em>, <em>startdate=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pygeode.timeaxis.CalendarTime.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pygeode.timeaxis.CalendarTime.days_in_month">
+<tt class="descclassname">CalendarTime.</tt><tt class="descname">days_in_month</tt><big>(</big><em>yr</em>, <em>mn</em><big>)</big><a class="headerlink" href="#pygeode.timeaxis.CalendarTime.days_in_month" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pygeode.timeaxis.CalendarTime.formatvalue">
+<tt class="descclassname">CalendarTime.</tt><tt class="descname">formatvalue</tt><big>(</big><em>value</em>, <em>fmt=None</em>, <em>units=True</em>, <em>unitstr=None</em><big>)</big><a class="headerlink" href="#pygeode.timeaxis.CalendarTime.formatvalue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns formatted string representation of <tt class="docutils literal"><span class="pre">value</span></tt>, using a strftime-like
+specification.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>value</strong> : float or int</p>
+<blockquote>
+<div><p>Value to format, in calendar defined by this time axis.</p>
+</div></blockquote>
+<p><strong>fmt</strong> : string (optional)</p>
+<blockquote>
+<div><p>Format specification. If the default <tt class="docutils literal"><span class="pre">None</span></tt> is specified, 
+<tt class="docutils literal"><span class="pre">self.formatstr</span></tt> is used.</p>
+</div></blockquote>
+<p><strong>units</strong> : boolean (optional)</p>
+<blockquote>
+<div><p>Not used;, included for consistency with <tt class="xref py py-func docutils literal"><span class="pre">Var.formatvalue()</span></tt></p>
+</div></blockquote>
+<p><strong>unitstr</strong> : string (optional)</p>
+<blockquote class="last">
+<div><p>Not used;, included for consistency with <tt class="xref py py-func docutils literal"><span class="pre">Var.formatvalue()</span></tt></p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>The following codes ($$ will yield the character $):</p>
+<ul class="simple">
+<li>$b - short month name</li>
+<li>$B - full month name</li>
+<li>$d - day of the month</li>
+<li>$D - 2-digit day of the month, zero-padded</li>
+<li>$H - hour (24 hr clock)</li>
+<li>$I - hour (12 hr clock)</li>
+<li>$j - day of the year</li>
+<li>$m - month number (Jan=1, ..., Dec=12)</li>
+<li>$M - minute</li>
+<li>$p - am/pm</li>
+<li>$P - AM/PM</li>
+<li>$S - second</li>
+<li>$y - 2 digit year</li>
+<li>$a - 4 digit year</li>
+<li>$Y - full year; if less than 100, preceeded by &#8216;y&#8217;</li>
+<li>$v - value formatted with %d</li>
+<li>$V - value formatted with str()</li>
+</ul>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">t2</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">formatvalue</span><span class="p">(</span><span class="mf">17.25</span><span class="p">)</span>
+<span class="go">  Jan 18, 2011 06:00:00</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">t2</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">formatvalue</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s">&#39;$B $d&#39;</span><span class="p">)</span>
+<span class="go">  January 1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">t2</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">formatvalue</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="s">&#39;$d/$m/$y&#39;</span><span class="p">)</span>
+<span class="go">  28/5/12</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygeode.timeaxis.CalendarTime.str_as_val">
+<tt class="descclassname">CalendarTime.</tt><tt class="descname">str_as_val</tt><big>(</big><em>key</em>, <em>s</em><big>)</big><a class="headerlink" href="#pygeode.timeaxis.CalendarTime.str_as_val" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts a string representation of a date to a value according to the 
+calendar defined by this time axis.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>key</strong> : string</p>
+<blockquote>
+<div><p>key used in selece()</p>
+</div></blockquote>
+<p><strong>s</strong> : string</p>
+<blockquote>
+<div><p>string to convert</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>val</strong> : value</p>
+<blockquote class="last">
+<div><p>value corresponding to specified date.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>The string is parsed using the regular expression pattern defined in <tt class="docutils literal"><span class="pre">parse_pattern</span></tt>.
+By default this assumes a string in the form &#8216;12 Dec 2008&#8217; or &#8216;06:00:00 1 Jan 1979&#8217;.
+A ValueError is thrown if the regular expression does not match the string.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygeode.timeaxis.CalendarTime.val_as_date">
+<tt class="descclassname">CalendarTime.</tt><tt class="descname">val_as_date</tt><big>(</big><em>vals=None</em>, <em>startdate=None</em>, <em>units=None</em>, <em>allfields=False</em><big>)</big><a class="headerlink" href="#pygeode.timeaxis.CalendarTime.val_as_date" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pygeode.timeaxis.CalendarTime.date_as_val">
+<tt class="descclassname">CalendarTime.</tt><tt class="descname">date_as_val</tt><big>(</big><em>dates=None</em>, <em>startdate=None</em>, <em>units=None</em><big>)</big><a class="headerlink" href="#pygeode.timeaxis.CalendarTime.date_as_val" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pygeode.Yearless.__init__">
+<tt class="descclassname">Yearless.</tt><tt class="descname">__init__</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pygeode.Yearless.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pygeode.Yearless.days_in_month">
+<tt class="descclassname">Yearless.</tt><tt class="descname">days_in_month</tt><big>(</big><em>yr</em>, <em>mn</em><big>)</big><a class="headerlink" href="#pygeode.Yearless.days_in_month" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="verticalaxes.html"
+                        title="previous chapter">Vertical axes object reference</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="dataset.html"
+                        title="next chapter">Dataset overview</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/timeaxes.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="dataset.html" title="Dataset overview"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="verticalaxes.html" title="Vertical axes object reference"
+             >previous</a> |</li>
+        <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li>
+          <li><a href="reference.html" >Reference</a> &raquo;</li>
+          <li><a href="axes.html" >Axis class overview</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Mike Neish, Peter Hitchcock.
+      Last updated on Apr 25, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,256 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Vertical axes object reference &mdash; PyGeode 1.0 alpha documentation</title>
+    
+    <link rel="stylesheet" href="_static/pygtheme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0 alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="PyGeode 1.0 alpha documentation" href="index.html" />
+    <link rel="up" title="Axis class overview" href="axes.html" />
+    <link rel="next" title="Time axes objects reference" href="timeaxes.html" />
+    <link rel="prev" title="Horizonal axis objects reference" href="horizontalaxes.html" />
+<link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="timeaxes.html" title="Time axes objects reference"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="horizontalaxes.html" title="Horizonal axis objects reference"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li>
+          <li><a href="reference.html" >Reference</a> &raquo;</li>
+          <li><a href="axes.html" accesskey="U">Axis class overview</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="vertical-axes-object-reference">
+<h1>Vertical axes object reference<a class="headerlink" href="#vertical-axes-object-reference" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="pygeode.ZAxis">
+<em class="property">class </em><tt class="descclassname">pygeode.</tt><tt class="descname">ZAxis</tt><a class="headerlink" href="#pygeode.ZAxis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inherits from <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><tt class="xref py py-class docutils literal"><span class="pre">Axis</span></tt></a></p>
+<p>Generic parent class for axes representing vertical coordinates, plotted by default on
+the vertical axis in line plots and in contour plots. No new or overridden methods.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pygeode.Height">
+<em class="property">class </em><tt class="descclassname">pygeode.</tt><tt class="descname">Height</tt><a class="headerlink" href="#pygeode.Height" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inherits from <a class="reference internal" href="#pygeode.ZAxis" title="pygeode.ZAxis"><tt class="xref py py-class docutils literal"><span class="pre">ZAxis</span></tt></a></p>
+<p>Represents a geometric height. No new or overridden methods.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="pygeode.Pres">
+<em class="property">class </em><tt class="descclassname">pygeode.</tt><tt class="descname">Pres</tt><a class="headerlink" href="#pygeode.Pres" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inherits from <a class="reference internal" href="#pygeode.ZAxis" title="pygeode.ZAxis"><tt class="xref py py-class docutils literal"><span class="pre">ZAxis</span></tt></a></p>
+<p>Represents a pressure vertical coordinate.</p>
+</dd></dl>
+
+<p class="rubric">New and overridden methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pygeode.Pres.logPAxis" title="pygeode.Pres.logPAxis"><tt class="xref py py-obj docutils literal"><span class="pre">Pres.logPAxis</span></tt></a>([p0,&nbsp;H])</td>
+<td>logPAxis(p0, H) - returns a pygeode axis with log pressure heights</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pygeode.Pres.locator" title="pygeode.Pres.locator"><tt class="xref py py-obj docutils literal"><span class="pre">Pres.locator</span></tt></a>()</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pygeode.Pres.formatvalue" title="pygeode.Pres.formatvalue"><tt class="xref py py-obj docutils literal"><span class="pre">Pres.formatvalue</span></tt></a>(value[,&nbsp;fmt,&nbsp;units,&nbsp;unitstr])</td>
+<td>Returns formatted string representation of pressure <tt class="docutils literal"><span class="pre">value</span></tt>.</td>
+</tr>
+</tbody>
+</table>
+<dl class="class">
+<dt id="pygeode.Hybrid">
+<em class="property">class </em><tt class="descclassname">pygeode.</tt><tt class="descname">Hybrid</tt><a class="headerlink" href="#pygeode.Hybrid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inherits from <a class="reference internal" href="#pygeode.ZAxis" title="pygeode.ZAxis"><tt class="xref py py-class docutils literal"><span class="pre">ZAxis</span></tt></a></p>
+<p>Represents a hybridized pressure coordinate, of the form <span class="math">p(\eta) = A(\eta) p_0 + B(\eta) p_s</span>.</p>
+<p>Auxilliary arrays: <tt class="docutils literal"><span class="pre">A</span></tt> and <tt class="docutils literal"><span class="pre">B</span></tt></p>
+</dd></dl>
+
+<p class="rubric">New and overridden methods</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pygeode.Hybrid.__init__" title="pygeode.Hybrid.__init__"><tt class="xref py py-obj docutils literal"><span class="pre">Hybrid.__init__</span></tt></a>(values,&nbsp;A,&nbsp;B,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pygeode.Hybrid.locator" title="pygeode.Hybrid.locator"><tt class="xref py py-obj docutils literal"><span class="pre">Hybrid.locator</span></tt></a>()</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="pygeode.Pres.logPAxis">
+<tt class="descclassname">Pres.</tt><tt class="descname">logPAxis</tt><big>(</big><em>p0=1000.0</em>, <em>H=7.1</em><big>)</big><a class="headerlink" href="#pygeode.Pres.logPAxis" title="Permalink to this definition">¶</a></dt>
+<dd><p>logPAxis(p0, H) - returns a pygeode axis with log pressure heights
+corresponding to this axis. By default p0 = 1000 hPa and H = 7.1 (km).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygeode.Pres.formatvalue">
+<tt class="descclassname">Pres.</tt><tt class="descname">formatvalue</tt><big>(</big><em>value</em>, <em>fmt=None</em>, <em>units=True</em>, <em>unitstr=None</em><big>)</big><a class="headerlink" href="#pygeode.Pres.formatvalue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns formatted string representation of pressure <tt class="docutils literal"><span class="pre">value</span></tt>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>value</strong> : float or int</p>
+<blockquote>
+<div><p>Value to format.</p>
+</div></blockquote>
+<p><strong>fmt</strong> : string (optional)</p>
+<blockquote>
+<div><p>Format specification; see Notes. If the default <tt class="docutils literal"><span class="pre">None</span></tt> is specified, 
+<tt class="docutils literal"><span class="pre">self.formatstr</span></tt> is used.</p>
+</div></blockquote>
+<p><strong>units</strong> : boolean (optional)</p>
+<blockquote>
+<div><p>If <tt class="docutils literal"><span class="pre">True</span></tt>, will include the units in the string returned.
+Default is <tt class="docutils literal"><span class="pre">True</span></tt>.</p>
+</div></blockquote>
+<p><strong>unitstr</strong> : string (optional)</p>
+<blockquote>
+<div><p>String to use for the units; default is <tt class="docutils literal"><span class="pre">self.units</span></tt>.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Formatted representation of the pressure. See notes.</strong> :</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>If <tt class="docutils literal"><span class="pre">fmt</span></tt> includes the character &#8216;&lt;&#8217;, it is interpreted as &#8216;fmt&lt;break&#8217;,
+such that values less than float(break) are formatted using the format
+string fmt, while those greater than float(break) are formatted as integers.
+Otherwise the behaviour is like <tt class="xref py py-func docutils literal"><span class="pre">Var.formatvalue()</span></tt>.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">t2</span><span class="o">.</span><span class="n">pres</span><span class="o">.</span><span class="n">formatvalue</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+<span class="go">  1000 hPa</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">t2</span><span class="o">.</span><span class="n">pres</span><span class="o">.</span><span class="n">formatvalue</span><span class="p">(</span><span class="mf">1.52</span><span class="p">)</span>
+<span class="go">  1.5 hPa</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">t2</span><span class="o">.</span><span class="n">pres</span><span class="o">.</span><span class="n">formatvalue</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="s">&#39;</span><span class="si">%.1g</span><span class="s">&#39;</span><span class="p">)</span>
+<span class="go">  2e+01 hPa</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">t2</span><span class="o">.</span><span class="n">pres</span><span class="o">.</span><span class="n">formatvalue</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="s">&#39;</span><span class="si">%.1g</span><span class="s">&lt;10&#39;</span><span class="p">)</span>
+<span class="go">  20 hPa</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygeode.Pres.locator">
+<tt class="descclassname">Pres.</tt><tt class="descname">locator</tt><big>(</big><big>)</big><a class="headerlink" href="#pygeode.Pres.locator" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pygeode.Hybrid.__init__">
+<tt class="descclassname">Hybrid.</tt><tt class="descname">__init__</tt><big>(</big><em>values</em>, <em>A</em>, <em>B</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pygeode.Hybrid.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pygeode.Hybrid.locator">
+<tt class="descclassname">Hybrid.</tt><tt class="descname">locator</tt><big>(</big><big>)</big><a class="headerlink" href="#pygeode.Hybrid.locator" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="horizontalaxes.html"
+                        title="previous chapter">Horizonal axis objects reference</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="timeaxes.html"
+                        title="next chapter">Time axes objects reference</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/verticalaxes.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="timeaxes.html" title="Time axes objects reference"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="horizontalaxes.html" title="Horizonal axis objects reference"
+             >previous</a> |</li>
+        <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li>
+          <li><a href="reference.html" >Reference</a> &raquo;</li>
+          <li><a href="axes.html" >Axis class overview</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Mike Neish, Peter Hitchcock.
+      Last updated on Apr 25, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

@@ -39,12 +39,6 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="np-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
           <a href="gallery.html" title="Plot Gallery"
              accesskey="N">next</a> |</li>
         <li class="right" >
@@ -63,13 +57,6 @@
   <div class="section" id="module-pygeode.view">
 <span id="view-module"></span><h1>View module<a class="headerlink" href="#module-pygeode.view" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
-<dt id="pygeode.view.contiguate">
-<tt class="descclassname">pygeode.view.</tt><tt class="descname">contiguate</tt><big>(</big><em>ind</em><big>)</big><a class="headerlink" href="#pygeode.view.contiguate" title="Permalink to this definition">¶</a></dt>
-<dd><p>how to contiguate(?) the slices without actually returning the contiguous slices
-(returns what you would pass to slice_into to get the contiguous slices)</p>
-</dd></dl>
-
-<dl class="function">
 <dt id="pygeode.view.expand">
 <tt class="descclassname">pygeode.view.</tt><tt class="descname">expand</tt><big>(</big><em>ind</em>, <em>upper_bound</em><big>)</big><a class="headerlink" href="#pygeode.view.expand" title="Permalink to this definition">¶</a></dt>
 <dd><p>Expand a slice or integer into an explicit array of indices</p>
@@ -81,6 +68,13 @@
 <dd><p>Simplify an index list into a slice, if possible
 does <em>not</em> return single integer indices, since that screws up the dimensions
 when applying these slices to numpy arrays.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pygeode.view.contiguate">
+<tt class="descclassname">pygeode.view.</tt><tt class="descname">contiguate</tt><big>(</big><em>ind</em><big>)</big><a class="headerlink" href="#pygeode.view.contiguate" title="Permalink to this definition">¶</a></dt>
+<dd><p>how to contiguate(?) the slices without actually returning the contiguous slices
+(returns what you would pass to slice_into to get the contiguous slices)</p>
 </dd></dl>
 
 </div>
@@ -126,12 +120,6 @@ when applying these slices to numpy arrays.</p>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="np-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
           <a href="gallery.html" title="Plot Gallery"
              >next</a> |</li>
         <li class="right" >
@@ -143,7 +131,7 @@ when applying these slices to numpy arrays.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2013, Mike Neish, Peter Hitchcock.
-      Last updated on Mar 20, 2015.
+      Last updated on Apr 25, 2015.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

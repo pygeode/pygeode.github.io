@@ -39,12 +39,6 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="np-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
           <a href="climat.html" title="Climat module"
              accesskey="N">next</a> |</li>
         <li class="right" >
@@ -63,13 +57,13 @@
   <div class="section" id="module-pygeode.timeutils">
 <span id="timeutils-module"></span><h1>Timeutils module<a class="headerlink" href="#module-pygeode.timeutils" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
-<dt id="pygeode.timeutils.conform_values">
-<tt class="descclassname">pygeode.timeutils.</tt><tt class="descname">conform_values</tt><big>(</big><em>taxis1</em>, <em>taxis2</em><big>)</big><a class="headerlink" href="#pygeode.timeutils.conform_values" title="Permalink to this definition">¶</a></dt>
+<dt id="pygeode.timeutils.modify">
+<tt class="descclassname">pygeode.timeutils.</tt><tt class="descname">modify</tt><big>(</big><em>taxis</em>, <em>resolution=None</em>, <em>exclude=</em>, <span class="optional">[</span><span class="optional">]</span><em>include=</em>, <span class="optional">[</span><span class="optional">]</span><em>uniquify=False</em><big>)</big><a class="headerlink" href="#pygeode.timeutils.modify" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
-<dt id="pygeode.timeutils.date_diff">
-<tt class="descclassname">pygeode.timeutils.</tt><tt class="descname">date_diff</tt><big>(</big><em>taxis</em>, <em>dt1</em>, <em>dt2</em>, <em>units=None</em><big>)</big><a class="headerlink" href="#pygeode.timeutils.date_diff" title="Permalink to this definition">¶</a></dt>
+<dt id="pygeode.timeutils.reltime">
+<tt class="descclassname">pygeode.timeutils.</tt><tt class="descname">reltime</tt><big>(</big><em>taxis</em>, <em>startdate=None</em>, <em>units=None</em><big>)</big><a class="headerlink" href="#pygeode.timeutils.reltime" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
@@ -78,18 +72,18 @@
 <dd></dd></dl>
 
 <dl class="function">
-<dt id="pygeode.timeutils.jointimeaxes">
-<tt class="descclassname">pygeode.timeutils.</tt><tt class="descname">jointimeaxes</tt><big>(</big><em>var</em>, <em>yaxis='year'</em>, <em>daxis='day'</em><big>)</big><a class="headerlink" href="#pygeode.timeutils.jointimeaxes" title="Permalink to this definition">¶</a></dt>
+<dt id="pygeode.timeutils.wrapdate">
+<tt class="descclassname">pygeode.timeutils.</tt><tt class="descname">wrapdate</tt><big>(</big><em>taxis</em>, <em>dt</em>, <em>allfields=False</em><big>)</big><a class="headerlink" href="#pygeode.timeutils.wrapdate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
-<dt id="pygeode.timeutils.modify">
-<tt class="descclassname">pygeode.timeutils.</tt><tt class="descname">modify</tt><big>(</big><em>taxis</em>, <em>resolution=None</em>, <em>exclude=</em>, <span class="optional">[</span><span class="optional">]</span><em>include=</em>, <span class="optional">[</span><span class="optional">]</span><em>uniquify=False</em><big>)</big><a class="headerlink" href="#pygeode.timeutils.modify" title="Permalink to this definition">¶</a></dt>
+<dt id="pygeode.timeutils.date_diff">
+<tt class="descclassname">pygeode.timeutils.</tt><tt class="descname">date_diff</tt><big>(</big><em>taxis</em>, <em>dt1</em>, <em>dt2</em>, <em>units=None</em><big>)</big><a class="headerlink" href="#pygeode.timeutils.date_diff" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
-<dt id="pygeode.timeutils.reltime">
-<tt class="descclassname">pygeode.timeutils.</tt><tt class="descname">reltime</tt><big>(</big><em>taxis</em>, <em>startdate=None</em>, <em>units=None</em><big>)</big><a class="headerlink" href="#pygeode.timeutils.reltime" title="Permalink to this definition">¶</a></dt>
+<dt id="pygeode.timeutils.conform_values">
+<tt class="descclassname">pygeode.timeutils.</tt><tt class="descname">conform_values</tt><big>(</big><em>taxis1</em>, <em>taxis2</em><big>)</big><a class="headerlink" href="#pygeode.timeutils.conform_values" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
@@ -103,8 +97,8 @@
 <dd></dd></dl>
 
 <dl class="function">
-<dt id="pygeode.timeutils.wrapdate">
-<tt class="descclassname">pygeode.timeutils.</tt><tt class="descname">wrapdate</tt><big>(</big><em>taxis</em>, <em>dt</em>, <em>allfields=False</em><big>)</big><a class="headerlink" href="#pygeode.timeutils.wrapdate" title="Permalink to this definition">¶</a></dt>
+<dt id="pygeode.timeutils.jointimeaxes">
+<tt class="descclassname">pygeode.timeutils.</tt><tt class="descname">jointimeaxes</tt><big>(</big><em>var</em>, <em>yaxis='year'</em>, <em>daxis='day'</em><big>)</big><a class="headerlink" href="#pygeode.timeutils.jointimeaxes" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -150,12 +144,6 @@
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="np-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
           <a href="climat.html" title="Climat module"
              >next</a> |</li>
         <li class="right" >
@@ -167,7 +155,7 @@
     </div>
     <div class="footer">
         &copy; Copyright 2013, Mike Neish, Peter Hitchcock.
-      Last updated on Mar 20, 2015.
+      Last updated on Apr 25, 2015.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

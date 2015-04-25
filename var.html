@@ -39,12 +39,6 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="np-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
           <a href="varquery.html" title="Variable Querying Routines"
              accesskey="N">next</a> |</li>
         <li class="right" >
@@ -76,35 +70,27 @@ abstracted in the following ways:</p>
 <dl class="class">
 <dt id="pygeode.Var">
 <em class="property">class </em><tt class="descclassname">pygeode.</tt><tt class="descname">Var</tt><a class="headerlink" href="#pygeode.Var" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<p class="rubric">Useful attributes</p>
-<dl class="attribute">
-<dt id="pygeode.Var.name">
-<tt class="descclassname">Var.</tt><tt class="descname">name</tt><a class="headerlink" href="#pygeode.Var.name" title="Permalink to this definition">¶</a></dt>
-<dd><p>A description of the variable (may not be set).  Usually determined at the
-data source (e.g. input file), and may be used to identify the variable
-when saving to an output file.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="pygeode.Var.axes">
-<tt class="descclassname">Var.</tt><tt class="descname">axes</tt><a class="headerlink" href="#pygeode.Var.axes" title="Permalink to this definition">¶</a></dt>
-<dd><p>The axes of the variable, as a <tt class="docutils literal"><span class="pre">tuple</span></tt>. See <a class="reference internal" href="axis.html"><em>Axis class reference</em></a></p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="pygeode.Var.atts">
-<tt class="descclassname">Var.</tt><tt class="descname">atts</tt><a class="headerlink" href="#pygeode.Var.atts" title="Permalink to this definition">¶</a></dt>
-<dd><p>A <tt class="docutils literal"><span class="pre">dict</span></tt> of metadata associated with the variable (if applicable).</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="pygeode.Var.dtype">
-<tt class="descclassname">Var.</tt><tt class="descname">dtype</tt><a class="headerlink" href="#pygeode.Var.dtype" title="Permalink to this definition">¶</a></dt>
-<dd><p>The type of numeric data that the Var represents.</p>
-</dd></dl>
-
+<dd><p class="rubric">Useful attributes</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pygeode.Var.name" title="pygeode.Var.name"><tt class="xref py py-obj docutils literal"><span class="pre">Var.name</span></tt></a></td>
+<td>str(object=&#8217;&#8216;) -&gt; string</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pygeode.Var.axes" title="pygeode.Var.axes"><tt class="xref py py-obj docutils literal"><span class="pre">Var.axes</span></tt></a></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pygeode.Var.atts" title="pygeode.Var.atts"><tt class="xref py py-obj docutils literal"><span class="pre">Var.atts</span></tt></a></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pygeode.Var.dtype" title="pygeode.Var.dtype"><tt class="xref py py-obj docutils literal"><span class="pre">Var.dtype</span></tt></a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <p><a class="reference internal" href="var.get.html"><em>Retrieving values from a variable</em></a></p>
 <table border="1" class="longtable docutils">
 <colgroup>
@@ -396,7 +382,7 @@ when saving to an output file.</p>
 </tr>
 </tbody>
 </table>
-<p class="rubric">Other operations</p>
+<p><a class="reference internal" href="var.other.html"><em>Other operations</em></a></p>
 <table border="1" class="longtable docutils">
 <colgroup>
 <col width="10%" />
@@ -438,6 +424,34 @@ when saving to an output file.</p>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pygeode.Var.name">
+<tt class="descclassname">Var.</tt><tt class="descname">name</tt><a class="headerlink" href="#pygeode.Var.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>A description of the variable (may not be set).  Usually determined at the
+data source (e.g. input file), and may be used to identify the variable
+when saving to an output file.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pygeode.Var.axes">
+<tt class="descclassname">Var.</tt><tt class="descname">axes</tt><a class="headerlink" href="#pygeode.Var.axes" title="Permalink to this definition">¶</a></dt>
+<dd><p>The axes of the variable, as a <tt class="docutils literal"><span class="pre">tuple</span></tt>. See <a class="reference internal" href="axes.html"><em>Axis class overview</em></a>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pygeode.Var.atts">
+<tt class="descclassname">Var.</tt><tt class="descname">atts</tt><a class="headerlink" href="#pygeode.Var.atts" title="Permalink to this definition">¶</a></dt>
+<dd><p>A <tt class="docutils literal"><span class="pre">dict</span></tt> of metadata associated with the variable (if applicable).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pygeode.Var.dtype">
+<tt class="descclassname">Var.</tt><tt class="descname">dtype</tt><a class="headerlink" href="#pygeode.Var.dtype" title="Permalink to this definition">¶</a></dt>
+<dd><p>The type of numeric data that the Var represents.</p>
+</dd></dl>
+
 <div class="toctree-wrapper compound">
 </div>
 </div>
@@ -483,12 +497,6 @@ when saving to an output file.</p>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="np-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
           <a href="varquery.html" title="Variable Querying Routines"
              >next</a> |</li>
         <li class="right" >
@@ -500,7 +508,7 @@ when saving to an output file.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2013, Mike Neish, Peter Hitchcock.
-      Last updated on Mar 20, 2015.
+      Last updated on Apr 25, 2015.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

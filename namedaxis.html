@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Climat module &mdash; PyGeode 1.0 alpha documentation</title>
+    <title>NamedAxis object reference &mdash; PyGeode 1.0 alpha documentation</title>
     
     <link rel="stylesheet" href="_static/pygtheme.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -24,9 +24,9 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="PyGeode 1.0 alpha documentation" href="index.html" />
-    <link rel="up" title="Reference" href="reference.html" />
-    <link rel="next" title="Stats module" href="stats.html" />
-    <link rel="prev" title="Timeutils module" href="timeutils.html" />
+    <link rel="up" title="Axis class overview" href="axes.html" />
+    <link rel="next" title="Horizonal axis objects reference" href="horizontalaxes.html" />
+    <link rel="prev" title="Axis class reference" href="axis.html" />
 <link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
 
@@ -39,13 +39,14 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="stats.html" title="Stats module"
+          <a href="horizontalaxes.html" title="Horizonal axis objects reference"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="timeutils.html" title="Timeutils module"
+          <a href="axis.html" title="Axis class reference"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li>
-          <li><a href="reference.html" accesskey="U">Reference</a> &raquo;</li> 
+          <li><a href="reference.html" >Reference</a> &raquo;</li>
+          <li><a href="axes.html" accesskey="U">Axis class overview</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -54,35 +55,42 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="climat-module">
-<h1>Climat module<a class="headerlink" href="#climat-module" title="Permalink to this headline">¶</a></h1>
-<p>These functions compute averages / trends over the time axis in various ways.</p>
+  <div class="section" id="namedaxis-object-reference">
+<h1>NamedAxis object reference<a class="headerlink" href="#namedaxis-object-reference" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="pygeode.NamedAxis">
+<em class="property">class </em><tt class="descclassname">pygeode.</tt><tt class="descname">NamedAxis</tt><a class="headerlink" href="#pygeode.NamedAxis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inherits from <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><tt class="xref py py-class docutils literal"><span class="pre">Axis</span></tt></a></p>
+<p>Generic axis identified by the instances name. Unlike other axes classes,
+NamedAxis objects must have the same name in order for two axes to be mapped
+to one another.</p>
+<p class="rubric">New or Overridden Methods</p>
 <table border="1" class="longtable docutils">
 <colgroup>
 <col width="10%" />
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">climatology</span></tt>(var)</td>
-<td>Computes a climatological mean.</td>
+<tr class="row-odd"><td><a class="reference internal" href="#pygeode.NamedAxis.__init__" title="pygeode.NamedAxis.__init__"><tt class="xref py py-obj docutils literal"><span class="pre">NamedAxis.__init__</span></tt></a>(values,&nbsp;name,&nbsp;**kwargs)</td>
+<td></td>
 </tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">dailymean</span></tt>(var)</td>
-<td>Computes an average value for each day.</td>
-</tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">monthlymean</span></tt>(var)</td>
-<td>Averages over each month.</td>
-</tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">diurnalmean</span></tt>(var)</td>
-<td>Computes an average value for each time of day (averages over all years, months, days).</td>
-</tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">seasonalmean</span></tt>(var)</td>
-<td>Averages over each season.</td>
-</tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">climtrend</span></tt>(var)</td>
-<td>For each month, day, hour, etc., compute a least-squares fit to a linear trend over all years.</td>
+<tr class="row-even"><td><a class="reference internal" href="#pygeode.NamedAxis.map_to" title="pygeode.NamedAxis.map_to"><tt class="xref py py-obj docutils literal"><span class="pre">NamedAxis.map_to</span></tt></a>(other)</td>
+<td></td>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygeode.NamedAxis.__init__">
+<tt class="descclassname">NamedAxis.</tt><tt class="descname">__init__</tt><big>(</big><em>values</em>, <em>name</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pygeode.NamedAxis.__init__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pygeode.NamedAxis.map_to">
+<tt class="descclassname">NamedAxis.</tt><tt class="descname">map_to</tt><big>(</big><em>other</em><big>)</big><a class="headerlink" href="#pygeode.NamedAxis.map_to" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </div>
 
 
@@ -92,14 +100,14 @@
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
-  <p class="topless"><a href="timeutils.html"
-                        title="previous chapter">Timeutils module</a></p>
+  <p class="topless"><a href="axis.html"
+                        title="previous chapter">Axis class reference</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="stats.html"
-                        title="next chapter">Stats module</a></p>
+  <p class="topless"><a href="horizontalaxes.html"
+                        title="next chapter">Horizonal axis objects reference</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="_sources/climat.txt"
+    <li><a href="_sources/namedaxis.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
 <div id="searchbox" style="display: none">
@@ -126,13 +134,14 @@
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="stats.html" title="Stats module"
+          <a href="horizontalaxes.html" title="Horizonal axis objects reference"
              >next</a> |</li>
         <li class="right" >
-          <a href="timeutils.html" title="Timeutils module"
+          <a href="axis.html" title="Axis class reference"
              >previous</a> |</li>
         <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li>
-          <li><a href="reference.html" >Reference</a> &raquo;</li> 
+          <li><a href="reference.html" >Reference</a> &raquo;</li>
+          <li><a href="axes.html" >Axis class overview</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

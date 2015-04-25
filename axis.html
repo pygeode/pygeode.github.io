@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <link rel="top" title="PyGeode 1.0 alpha documentation" href="index.html" />
     <link rel="up" title="Axis class overview" href="axes.html" />
-    <link rel="next" title="Dataset overview" href="dataset.html" />
+    <link rel="next" title="NamedAxis object reference" href="namedaxis.html" />
     <link rel="prev" title="Axis class overview" href="axes.html" />
 <link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
@@ -39,13 +39,7 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="np-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="dataset.html" title="Dataset overview"
+          <a href="namedaxis.html" title="NamedAxis object reference"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="axes.html" title="Axis class overview"
@@ -63,16 +57,40 @@
             
   <div class="section" id="axis-class-reference">
 <h1>Axis class reference<a class="headerlink" href="#axis-class-reference" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
-<dt>
-<em class="property">class </em><tt class="descclassname">pygeode.</tt><tt class="descname">Axis</tt></dt>
-<dd></dd></dl>
+<dl class="attribute">
+<dt id="pygeode.Axis.rtol">
+<tt class="descclassname">Axis.</tt><tt class="descname">rtol</tt><a class="headerlink" href="#pygeode.Axis.rtol" title="Permalink to this definition">¶</a></dt>
+<dd><p>Relative tolerance for identifying two values for this axis as the same point. Set automatically
+in Axis::__init__ but if this is too large for a given application this can be the source
+of unexpected errors. Setting this parameter to a new value on the Axis objects in question may
+resolve these issues.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="pygeode.Axis.formatstr">
 <tt class="descclassname">Axis.</tt><tt class="descname">formatstr</tt><a class="headerlink" href="#pygeode.Axis.formatstr" title="Permalink to this definition">¶</a></dt>
 <dd><p>The format to apply to the axis values when displaying on the screen.  See the Python documentation on <a class="reference external" href="http://docs.python.org/library/stdtypes.html#string-formatting">String Formatting</a> for the options available.</p>
 <p>If the axis needs a more complicated format (that changes depending on the value), it may also define a <tt class="xref py py-meth docutils literal"><span class="pre">formatvalue()</span></tt> method to explicitly convert each value to a string.  For example, the <tt class="docutils literal"><span class="pre">Lat</span></tt> axis uses a <em>formatvalue</em> method to append an &#8216;N&#8217; or &#8216;S&#8217; to the latitudes, depending on the sign of the value.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pygeode.Axis.auxatts">
+<tt class="descclassname">Axis.</tt><tt class="descname">auxatts</tt><a class="headerlink" href="#pygeode.Axis.auxatts" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="pygeode.Axis.auxarrays">
+<tt class="descclassname">Axis.</tt><tt class="descname">auxarrays</tt><a class="headerlink" href="#pygeode.Axis.auxarrays" title="Permalink to this definition">¶</a></dt>
+<dd><p>A dictionary of 1D numpy arrays with the same length as the axis that carry auxiliary
+data associated with each element of the axis. These data need not be unique; for instance,
+the values of time axes (e.g. <a class="reference internal" href="timeaxes.html#pygeode.StandardTime" title="pygeode.StandardTime"><tt class="xref py py-class docutils literal"><span class="pre">StandardTime</span></tt></a>) are given as offsets from a reference
+date, while they have auxarrays for the year, month, day, etc. Many elements of the time axis
+might have same value in the corresponding <cite>month</cite> auxiliary array. These can be used
+to select by keyword.</p>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#pygeode.Axis.auxasvar" title="pygeode.Axis.auxasvar"><tt class="xref py py-obj docutils literal"><span class="pre">auxasvar</span></tt></a>, <a class="reference internal" href="varops.html#pygeode.Var.__call__" title="pygeode.Var.__call__"><tt class="xref py py-obj docutils literal"><span class="pre">Var.__call__</span></tt></a></p>
+</div>
 </dd></dl>
 
 <dl class="attribute">
@@ -93,9 +111,8 @@
 <dd><p>The order of the values when plotting.  <tt class="docutils literal"><span class="pre">1</span></tt> = increasing from left to right, <tt class="docutils literal"><span class="pre">-1</span></tt> = decreasing.</p>
 </dd></dl>
 
-<dl class="docutils">
-<dt><strong>Note:</strong> Due to current limitations in PyGeode, modifications to these attributes may be lost if you do further work on the axis (e.g. slicing, concatenation, etc.).  It will revert back to the default class values.  For example:</dt>
-<dd><div class="first last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode</span> <span class="kn">import</span> <span class="n">Lat</span>
+<p><strong>Note:</strong> Due to current limitations in PyGeode, modifications to these attributes may be lost if you do further work on the axis (e.g. slicing, concatenation, etc.).  It will revert back to the default class values.  For example:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode</span> <span class="kn">import</span> <span class="n">Lat</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">Lat</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">30</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">x</span>
 <span class="go">lat &lt;Lat&gt;      :  10 N to 30 N (3 values)</span>
@@ -108,9 +125,8 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="c">#               ^^^ wtf?!</span>
 </pre></div>
 </div>
-</dd>
-<dt>To get around this, make your changes to the class itself.  As an added benefit, <em>all</em> axes of this class will have your changes applied consistently:</dt>
-<dd><div class="first last highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode</span> <span class="kn">import</span> <span class="n">Lat</span>
+<p>To get around this, make your changes to the class itself.  As an added benefit, <em>all</em> axes of this class will have your changes applied consistently:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode</span> <span class="kn">import</span> <span class="n">Lat</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">Lat</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">30</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">x</span>
 <span class="go">lat &lt;Lat&gt;      :  10 N to 30 N (3 values)</span>
@@ -125,43 +141,43 @@
 <span class="go">lat &lt;Lat&gt;      :  40 deg N to 60 deg N (3 values)</span>
 </pre></div>
 </div>
-</dd>
-</dl>
 <dl class="method">
-<dt id="pygeode.Axis.sorted">
-<tt class="descclassname">Axis.</tt><tt class="descname">sorted</tt><big>(</big><em>reverse=None</em><big>)</big><a class="headerlink" href="#pygeode.Axis.sorted" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sorts the points of the Axis.</p>
+<dt id="pygeode.Axis.__init__">
+<tt class="descclassname">Axis.</tt><tt class="descname">__init__</tt><big>(</big><em>values</em>, <em>name=None</em>, <em>atts=None</em>, <em>plotatts=None</em>, <em>rtol=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pygeode.Axis.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new Axis object with the given values.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>reverse</strong> : boolean (optional)</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>values</strong> : numpy.ndarray</p>
 <blockquote>
-<div><p>If <tt class="docutils literal"><span class="pre">True</span></tt>, sorts in descending order. If <tt class="docutils literal"><span class="pre">False</span></tt>, sorts in ascending order.
-By default the sign of self.plotorder is used.</p>
+<div><p>A one-dimensional coordinate defining the axis grid.</p>
 </div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>sorted_axis</strong> : Axis</p>
+<p><strong>name</strong> : string (optional)</p>
+<blockquote>
+<div><p>What to call the axis (i.e. for plot titles &amp; when saving to file)</p>
+</div></blockquote>
+<p><strong>atts</strong> : dict (optional)</p>
+<blockquote>
+<div><p>Any additional metadata to associate with the axis. The dictionary
+keys should be strings.</p>
+</div></blockquote>
+<p><strong>plotatts</strong> : dict (optional)</p>
+<blockquote>
+<div><p>Parameters that control plotting behaviour; default values are available. 
+The dictionary keys should be strings.</p>
+</div></blockquote>
+<p><strong>rtol</strong> : float</p>
 <blockquote class="last">
-<div><p>A sorted version of the input axis.</p>
+<div><p>A relative tolerance used for identifying an element of this axis.</p>
 </div></blockquote>
 </td>
 </tr>
 </tbody>
 </table>
-<div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="#pygeode.Axis.argsort" title="pygeode.Axis.argsort"><tt class="xref py py-obj docutils literal"><span class="pre">argsort</span></tt></a></p>
-</div>
-<p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode</span> <span class="kn">import</span> <span class="n">Lat</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">Lat</span><span class="p">([</span><span class="mi">30</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">x</span> 
-<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">sorted</span><span class="p">()</span> 
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">y</span>
-</pre></div>
-</div>
+<p class="rubric">Notes</p>
+<p>All subclasses of <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><tt class="xref py py-class docutils literal"><span class="pre">Axis</span></tt></a> need to call this __init__ method within
+their own __init__, to properly initialize all attributes.</p>
 </dd></dl>
 
 <dl class="method">
@@ -205,387 +221,161 @@ indices for a <em>reverse</em> sort instead. By default, sign of self.plotorder 
 </div>
 </dd></dl>
 
-<dl class="class">
-<dt>
-<em class="property">class </em><tt class="descclassname">pygeode.</tt><tt class="descname">NamedAxis</tt></dt>
-<dd></dd></dl>
-
 <dl class="method">
-<dt id="pygeode.NamedAxis.__init__">
-<tt class="descclassname">NamedAxis.</tt><tt class="descname">__init__</tt><big>(</big><em>values</em>, <em>name</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pygeode.NamedAxis.__init__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="class">
-<dt>
-<em class="property">class </em><tt class="descclassname">pygeode.</tt><tt class="descname">Lon</tt></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pygeode.Lon.__init__">
-<tt class="descclassname">Lon.</tt><tt class="descname">__init__</tt><big>(</big><em>values</em>, <em>name=None</em>, <em>atts=None</em>, <em>plotatts=None</em>, <em>rtol=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pygeode.Lon.__init__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pygeode.Lon.formatvalue">
-<tt class="descclassname">Lon.</tt><tt class="descname">formatvalue</tt><big>(</big><em>value</em>, <em>fmt=None</em>, <em>units=False</em>, <em>unitstr=None</em><big>)</big><a class="headerlink" href="#pygeode.Lon.formatvalue" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns formatted string representation of longitude <tt class="docutils literal"><span class="pre">value</span></tt>.</p>
+<dt id="pygeode.Axis.auxasvar">
+<tt class="descclassname">Axis.</tt><tt class="descname">auxasvar</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#pygeode.Axis.auxasvar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns auxiliary array as a new <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a> object.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>value</strong> : float or int</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>name</strong> : string</p>
 <blockquote>
-<div><p>Value to format.</p>
-</div></blockquote>
-<p><strong>fmt</strong> : string (optional)</p>
-<blockquote>
-<div><p>Format specification; see Notes. If the default <tt class="docutils literal"><span class="pre">None</span></tt> is specified, 
-<tt class="docutils literal"><span class="pre">self.formatstr</span></tt> is used.</p>
-</div></blockquote>
-<p><strong>units</strong> : boolean (optional)</p>
-<blockquote>
-<div><p>If <tt class="docutils literal"><span class="pre">True</span></tt>, will include the units in the string returned.
-Default is <tt class="docutils literal"><span class="pre">False</span></tt>.</p>
-</div></blockquote>
-<p><strong>unitstr</strong> : string (optional)</p>
-<blockquote>
-<div><p>String to use for the units; default is <tt class="docutils literal"><span class="pre">self.units</span></tt>.</p>
+<div><p>Name of auxiliary array to return</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Formatted representation of the latitude. See notes.</strong> :</p>
-</td>
-</tr>
-</tbody>
-</table>
-<p class="rubric">Notes</p>
-<p>If fmt is includes the character &#8216;E&#8217;, the hemisphere (&#8216;E&#8217; or &#8216;W&#8217;) is
-appended to the string. The value is wrapped to lie between 0 and 360., and
-the eastern hemisphere is defined as values less than 180. Optionally, the
-boundary between the hemispheres can be specified by adding, for example,
-&#8216;&lt;360&#8217; after the &#8216;E&#8217;; in this case all values less than 360 would have &#8216;E&#8217;
-appended. Otherwise the behaviour is like <tt class="xref py py-func docutils literal"><span class="pre">Var.formatvalue()</span></tt>.</p>
-<p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t1</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">t1</span><span class="o">.</span><span class="n">lon</span><span class="o">.</span><span class="n">formatvalue</span><span class="p">(</span><span class="mi">270</span><span class="p">)</span>
-<span class="go">  270 E</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">t1</span><span class="o">.</span><span class="n">lon</span><span class="o">.</span><span class="n">formatvalue</span><span class="p">(</span><span class="o">-</span><span class="mf">20.346</span><span class="p">,</span> <span class="s">&#39;</span><span class="si">%.4g</span><span class="s">E&#39;</span><span class="p">)</span>
-<span class="go">  20.35W</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">t1</span><span class="o">.</span><span class="n">lon</span><span class="o">.</span><span class="n">formatvalue</span><span class="p">(</span><span class="o">-</span><span class="mf">192.4</span><span class="p">,</span> <span class="s">&#39;</span><span class="si">%.3g</span><span class="s">&#39;</span><span class="p">)</span>
-<span class="go">  -192</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="method">
-<dt id="pygeode.Lon.locator">
-<tt class="descclassname">Lon.</tt><tt class="descname">locator</tt><big>(</big><big>)</big><a class="headerlink" href="#pygeode.Lon.locator" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="pygeode.regularlon">
-<tt class="descclassname">pygeode.</tt><tt class="descname">regularlon</tt><big>(</big><em>n</em>, <em>origin=0.0</em>, <em>order=1</em>, <em>repeat_origin=False</em><big>)</big><a class="headerlink" href="#pygeode.regularlon" title="Permalink to this definition">¶</a></dt>
-<dd><p>Constructs a regularly spaced <a class="reference internal" href="axes.html#pygeode.Lon" title="pygeode.Lon"><tt class="xref py py-class docutils literal"><span class="pre">Lon</span></tt></a> axis with n longitudes, from
-origin to origin + 360. If repeat_origin is set to True, the final point is
-equal to origin + 360.</p>
-</dd></dl>
-
-<dl class="class">
-<dt>
-<em class="property">class </em><tt class="descclassname">pygeode.</tt><tt class="descname">Lat</tt></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pygeode.Lat.__init__">
-<tt class="descclassname">Lat.</tt><tt class="descname">__init__</tt><big>(</big><em>values</em>, <em>weights=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pygeode.Lat.__init__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pygeode.Lat.formatvalue">
-<tt class="descclassname">Lat.</tt><tt class="descname">formatvalue</tt><big>(</big><em>value</em>, <em>fmt=None</em>, <em>units=False</em>, <em>unitstr=None</em><big>)</big><a class="headerlink" href="#pygeode.Lat.formatvalue" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns formatted string representation of latitude <tt class="docutils literal"><span class="pre">value</span></tt>.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>value</strong> : float or int</p>
-<blockquote>
-<div><p>Value to format.</p>
-</div></blockquote>
-<p><strong>fmt</strong> : string (optional)</p>
-<blockquote>
-<div><p>Format specification; see Notes. If the default <tt class="docutils literal"><span class="pre">None</span></tt> is specified, 
-<tt class="docutils literal"><span class="pre">self.formatstr</span></tt> is used.</p>
-</div></blockquote>
-<p><strong>units</strong> : boolean (optional)</p>
-<blockquote>
-<div><p>If <tt class="docutils literal"><span class="pre">True</span></tt>, will include the units in the string returned.
-Default is <tt class="docutils literal"><span class="pre">False</span></tt>.</p>
-</div></blockquote>
-<p><strong>unitstr</strong> : string (optional)</p>
-<blockquote>
-<div><p>String to use for the units; default is <tt class="docutils literal"><span class="pre">self.units</span></tt>.</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Formatted representation of the latitude. See notes.</strong> :</p>
-</td>
-</tr>
-</tbody>
-</table>
-<p class="rubric">Notes</p>
-<p>If the last character of fmt is &#8216;N&#8217;, then the absolute value of <tt class="docutils literal"><span class="pre">value</span></tt>
-is formatted using the fmt[:-1] as the format specification, and the hemisphere is 
-added, using &#8216;N&#8217; for values greater than 0 and &#8216;S&#8217; for values less than 0. The value
-0 is formatted as &#8216;EQ&#8217;. Otherwise the behaviour is like <tt class="xref py py-func docutils literal"><span class="pre">Var.formatvalue()</span></tt>.</p>
-<p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t1</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">t1</span><span class="o">.</span><span class="n">lat</span><span class="o">.</span><span class="n">formatvalue</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="go">  EQ</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">t1</span><span class="o">.</span><span class="n">lat</span><span class="o">.</span><span class="n">formatvalue</span><span class="p">(</span><span class="o">-</span><span class="mf">43.61</span><span class="p">,</span> <span class="s">&#39;</span><span class="si">%.3g</span><span class="s">N&#39;</span><span class="p">)</span>
-<span class="go">  43.6S</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">t1</span><span class="o">.</span><span class="n">lat</span><span class="o">.</span><span class="n">formatvalue</span><span class="p">(</span><span class="o">-</span><span class="mf">43.61</span><span class="p">,</span> <span class="s">&#39;</span><span class="si">%.3g</span><span class="s">&#39;</span><span class="p">)</span>
-<span class="go">  -43.6</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="method">
-<dt id="pygeode.Lat.locator">
-<tt class="descclassname">Lat.</tt><tt class="descname">locator</tt><big>(</big><big>)</big><a class="headerlink" href="#pygeode.Lat.locator" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="pygeode.regularlat">
-<tt class="descclassname">pygeode.</tt><tt class="descname">regularlat</tt><big>(</big><em>n</em>, <em>order=1</em>, <em>inc_poles=True</em><big>)</big><a class="headerlink" href="#pygeode.regularlat" title="Permalink to this definition">¶</a></dt>
-<dd><p>Constructs a regularly spaced <a class="reference internal" href="axes.html#pygeode.Lat" title="pygeode.Lat"><tt class="xref py py-class docutils literal"><span class="pre">Lat</span></tt></a> axis with n latitudes.
-If inc_poles is set to True, the grid includes the poles.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="pygeode.gausslat">
-<tt class="descclassname">pygeode.</tt><tt class="descname">gausslat</tt><big>(</big><em>n</em>, <em>order=1</em>, <em>axis_dict={}</em><big>)</big><a class="headerlink" href="#pygeode.gausslat" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gaussian latitude axis</p>
-</dd></dl>
-
-<dl class="class">
-<dt>
-<em class="property">class </em><tt class="descclassname">pygeode.</tt><tt class="descname">Pres</tt></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pygeode.Pres.logPAxis">
-<tt class="descclassname">Pres.</tt><tt class="descname">logPAxis</tt><big>(</big><em>p0=1000.0</em>, <em>H=7.1</em><big>)</big><a class="headerlink" href="#pygeode.Pres.logPAxis" title="Permalink to this definition">¶</a></dt>
-<dd><p>logPAxis(p0, H) - returns a pygeode axis with log pressure heights
-corresponding to this axis. By default p0 = 1000 hPa and H = 7.1 (km).</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="pygeode.Pres.formatvalue">
-<tt class="descclassname">Pres.</tt><tt class="descname">formatvalue</tt><big>(</big><em>value</em>, <em>fmt=None</em>, <em>units=True</em>, <em>unitstr=None</em><big>)</big><a class="headerlink" href="#pygeode.Pres.formatvalue" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns formatted string representation of pressure <tt class="docutils literal"><span class="pre">value</span></tt>.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>value</strong> : float or int</p>
-<blockquote>
-<div><p>Value to format.</p>
-</div></blockquote>
-<p><strong>fmt</strong> : string (optional)</p>
-<blockquote>
-<div><p>Format specification; see Notes. If the default <tt class="docutils literal"><span class="pre">None</span></tt> is specified, 
-<tt class="docutils literal"><span class="pre">self.formatstr</span></tt> is used.</p>
-</div></blockquote>
-<p><strong>units</strong> : boolean (optional)</p>
-<blockquote>
-<div><p>If <tt class="docutils literal"><span class="pre">True</span></tt>, will include the units in the string returned.
-Default is <tt class="docutils literal"><span class="pre">True</span></tt>.</p>
-</div></blockquote>
-<p><strong>unitstr</strong> : string (optional)</p>
-<blockquote>
-<div><p>String to use for the units; default is <tt class="docutils literal"><span class="pre">self.units</span></tt>.</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>Formatted representation of the pressure. See notes.</strong> :</p>
-</td>
-</tr>
-</tbody>
-</table>
-<p class="rubric">Notes</p>
-<p>If <tt class="docutils literal"><span class="pre">fmt</span></tt> includes the character &#8216;&lt;&#8217;, it is interpreted as &#8216;fmt&lt;break&#8217;,
-such that values less than float(break) are formatted using the format
-string fmt, while those greater than float(break) are formatted as integers.
-Otherwise the behaviour is like <tt class="xref py py-func docutils literal"><span class="pre">Var.formatvalue()</span></tt>.</p>
-<p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t2</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">t2</span><span class="o">.</span><span class="n">pres</span><span class="o">.</span><span class="n">formatvalue</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
-<span class="go">  1000 hPa</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">t2</span><span class="o">.</span><span class="n">pres</span><span class="o">.</span><span class="n">formatvalue</span><span class="p">(</span><span class="mf">1.52</span><span class="p">)</span>
-<span class="go">  1.5 hPa</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">t2</span><span class="o">.</span><span class="n">pres</span><span class="o">.</span><span class="n">formatvalue</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="s">&#39;</span><span class="si">%.1g</span><span class="s">&#39;</span><span class="p">)</span>
-<span class="go">  2e+01 hPa</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">t2</span><span class="o">.</span><span class="n">pres</span><span class="o">.</span><span class="n">formatvalue</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="s">&#39;</span><span class="si">%.1g</span><span class="s">&lt;10&#39;</span><span class="p">)</span>
-<span class="go">  20 hPa</span>
-</pre></div>
-</div>
-</dd></dl>
-
-<dl class="method">
-<dt id="pygeode.Pres.locator">
-<tt class="descclassname">Pres.</tt><tt class="descname">locator</tt><big>(</big><big>)</big><a class="headerlink" href="#pygeode.Pres.locator" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="class">
-<dt>
-<em class="property">class </em><tt class="descclassname">pygeode.</tt><tt class="descname">Hybrid</tt></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pygeode.Hybrid.__init__">
-<tt class="descclassname">Hybrid.</tt><tt class="descname">__init__</tt><big>(</big><em>values</em>, <em>A</em>, <em>B</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pygeode.Hybrid.__init__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pygeode.Hybrid.locator">
-<tt class="descclassname">Hybrid.</tt><tt class="descname">locator</tt><big>(</big><big>)</big><a class="headerlink" href="#pygeode.Hybrid.locator" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="class">
-<dt>
-<em class="property">class </em><tt class="descclassname">pygeode.timeaxis.</tt><tt class="descname">Time</tt></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pygeode.timeaxis.Time.__init__">
-<tt class="descclassname">Time.</tt><tt class="descname">__init__</tt><big>(</big><em>values=None</em>, <em>startdate=None</em>, <em>units=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pygeode.timeaxis.Time.__init__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pygeode.timeaxis.Time.formatter">
-<tt class="descclassname">Time.</tt><tt class="descname">formatter</tt><big>(</big><big>)</big><a class="headerlink" href="#pygeode.timeaxis.Time.formatter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a matplotlib axis Formatter object; by default a FuncFormatter which calls formatvalue().</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="pygeode.timeaxis.Time.locator">
-<tt class="descclassname">Time.</tt><tt class="descname">locator</tt><big>(</big><big>)</big><a class="headerlink" href="#pygeode.timeaxis.Time.locator" title="Permalink to this definition">¶</a></dt>
-<dd><p>locator() - Returns an AutoCalendarLocator object</p>
-</dd></dl>
-
-<dl class="class">
-<dt>
-<em class="property">class </em><tt class="descclassname">pygeode.timeaxis.</tt><tt class="descname">CalendarTime</tt></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pygeode.timeaxis.CalendarTime.__init__">
-<tt class="descclassname">CalendarTime.</tt><tt class="descname">__init__</tt><big>(</big><em>values=None</em>, <em>datefmt=None</em>, <em>units=None</em>, <em>startdate=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pygeode.timeaxis.CalendarTime.__init__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pygeode.timeaxis.CalendarTime.days_in_month">
-<tt class="descclassname">CalendarTime.</tt><tt class="descname">days_in_month</tt><big>(</big><em>yr</em>, <em>mn</em><big>)</big><a class="headerlink" href="#pygeode.timeaxis.CalendarTime.days_in_month" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pygeode.timeaxis.CalendarTime.formatvalue">
-<tt class="descclassname">CalendarTime.</tt><tt class="descname">formatvalue</tt><big>(</big><em>value</em>, <em>fmt=None</em>, <em>units=True</em>, <em>unitstr=None</em><big>)</big><a class="headerlink" href="#pygeode.timeaxis.CalendarTime.formatvalue" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns formatted string representation of <tt class="docutils literal"><span class="pre">value</span></tt>, using a strftime-like
-specification.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>value</strong> : float or int</p>
-<blockquote>
-<div><p>Value to format, in calendar defined by this time axis.</p>
-</div></blockquote>
-<p><strong>fmt</strong> : string (optional)</p>
-<blockquote>
-<div><p>Format specification. If the default <tt class="docutils literal"><span class="pre">None</span></tt> is specified, 
-<tt class="docutils literal"><span class="pre">self.formatstr</span></tt> is used.</p>
-</div></blockquote>
-<p><strong>units</strong> : boolean (optional)</p>
-<blockquote>
-<div><p>Not used;, included for consistency with <tt class="xref py py-func docutils literal"><span class="pre">Var.formatvalue()</span></tt></p>
-</div></blockquote>
-<p><strong>unitstr</strong> : string (optional)</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>var</strong> : <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a></p>
 <blockquote class="last">
-<div><p>Not used;, included for consistency with <tt class="xref py py-func docutils literal"><span class="pre">Var.formatvalue()</span></tt></p>
+<div><p>Variable with values of requested auxilliary array</p>
 </div></blockquote>
 </td>
 </tr>
 </tbody>
 </table>
-<p class="rubric">Notes</p>
-<dl class="docutils">
-<dt>The following codes ($$ will yield the character $):</dt>
-<dd>$b - short month name
-$B - full month name
-$d - day of the month
-$D - 2-digit day of the month, zero-padded
-$H - hour (24 hr clock)
-$I - hour (12 hr clock)
-$j - day of the year
-$m - month number (Jan=1, ..., Dec=12)
-$M - minute
-$p - am/pm
-$P - AM/PM
-$S - second
-$y - 2 digit year
-$a - 4 digit year
-$Y - full year; if less than 100, preceeded by &#8216;y&#8217;
-$v - value formatted with %d
-$V - value formatted with str()</dd>
-</dl>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#pygeode.Axis.auxarrays" title="pygeode.Axis.auxarrays"><tt class="xref py py-obj docutils literal"><span class="pre">auxarrays</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygeode.Axis.formatter">
+<tt class="descclassname">Axis.</tt><tt class="descname">formatter</tt><big>(</big><big>)</big><a class="headerlink" href="#pygeode.Axis.formatter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a matplotlib formatter (pygeode.AxisFormatter) for use in plotting.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygeode.Axis.locator">
+<tt class="descclassname">Axis.</tt><tt class="descname">locator</tt><big>(</big><big>)</big><a class="headerlink" href="#pygeode.Axis.locator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a matplotlib locator object for use in plotting.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygeode.Axis.rename">
+<tt class="descclassname">Axis.</tt><tt class="descname">rename</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#pygeode.Axis.rename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="pygeode.Axis.sorted">
+<tt class="descclassname">Axis.</tt><tt class="descname">sorted</tt><big>(</big><em>reverse=None</em><big>)</big><a class="headerlink" href="#pygeode.Axis.sorted" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sorts the points of the Axis.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>reverse</strong> : boolean (optional)</p>
+<blockquote>
+<div><p>If <tt class="docutils literal"><span class="pre">True</span></tt>, sorts in descending order. If <tt class="docutils literal"><span class="pre">False</span></tt>, sorts in ascending order.
+By default the sign of self.plotorder is used.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>sorted_axis</strong> : Axis</p>
+<blockquote class="last">
+<div><p>A sorted version of the input axis.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#pygeode.Axis.argsort" title="pygeode.Axis.argsort"><tt class="xref py py-obj docutils literal"><span class="pre">argsort</span></tt></a></p>
+</div>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t2</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">t2</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">formatvalue</span><span class="p">(</span><span class="mf">17.25</span><span class="p">)</span>
-<span class="go">  Jan 18, 2011 06:00:00</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">t2</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">formatvalue</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="s">&#39;$B $d&#39;</span><span class="p">)</span>
-<span class="go">  January 1</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">t2</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">formatvalue</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="s">&#39;$d/$m/$y&#39;</span><span class="p">)</span>
-<span class="go">  28/5/12</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode</span> <span class="kn">import</span> <span class="n">Lat</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">Lat</span><span class="p">([</span><span class="mi">30</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">x</span> 
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">sorted</span><span class="p">()</span> 
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">y</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="method">
-<dt id="pygeode.timeaxis.CalendarTime.str_as_val">
-<tt class="descclassname">CalendarTime.</tt><tt class="descname">str_as_val</tt><big>(</big><em>key</em>, <em>s</em><big>)</big><a class="headerlink" href="#pygeode.timeaxis.CalendarTime.str_as_val" title="Permalink to this definition">¶</a></dt>
-<dd><p>str_as_val() - interprets string s as a date and converts it to a value appropriate
-to this time axis. For now assumes a string in the form</p>
-<blockquote>
-<div>&#8216;12 Dec 2008&#8217; or 
-&#8216;06:00:00 1 Jan 1979&#8217;.</div></blockquote>
+<dt id="pygeode.Axis.str_as_val">
+<tt class="descclassname">Axis.</tt><tt class="descname">str_as_val</tt><big>(</big><em>key</em>, <em>s</em><big>)</big><a class="headerlink" href="#pygeode.Axis.str_as_val" title="Permalink to this definition">¶</a></dt>
+<dd><p>str_as_val(self, key, s) - converts string s to a value corresponding to this axis. Default
+implementation returns float(s); derived classes can return different conversions depending
+on whether key corresponds to the axis itself or an auxiliary array.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="pygeode.timeaxis.CalendarTime.val_as_date">
-<tt class="descclassname">CalendarTime.</tt><tt class="descname">val_as_date</tt><big>(</big><em>vals=None</em>, <em>startdate=None</em>, <em>units=None</em>, <em>allfields=False</em><big>)</big><a class="headerlink" href="#pygeode.timeaxis.CalendarTime.val_as_date" title="Permalink to this definition">¶</a></dt>
+<dt id="pygeode.Axis.__call__">
+<tt class="descclassname">Axis.</tt><tt class="descname">__call__</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#pygeode.Axis.__call__" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="pygeode.timeaxis.CalendarTime.date_as_val">
-<tt class="descclassname">CalendarTime.</tt><tt class="descname">date_as_val</tt><big>(</big><em>dates=None</em>, <em>startdate=None</em>, <em>units=None</em><big>)</big><a class="headerlink" href="#pygeode.timeaxis.CalendarTime.date_as_val" title="Permalink to this definition">¶</a></dt>
+<dt id="pygeode.Axis._getitem_asvar">
+<tt class="descclassname">Axis.</tt><tt class="descname">_getitem_asvar</tt><big>(</big><em>slices</em><big>)</big><a class="headerlink" href="#pygeode.Axis._getitem_asvar" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="class">
-<dt>
-<em class="property">class </em><tt class="descclassname">pygeode.</tt><tt class="descname">Yearless</tt></dt>
+<dl class="classmethod">
+<dt id="pygeode.Axis.class_has_alias">
+<em class="property">classmethod </em><tt class="descclassname">Axis.</tt><tt class="descname">class_has_alias</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#pygeode.Axis.class_has_alias" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="classmethod">
+<dt id="pygeode.Axis.isparentof">
+<em class="property">classmethod </em><tt class="descclassname">Axis.</tt><tt class="descname">isparentof</tt><big>(</big><em>other</em><big>)</big><a class="headerlink" href="#pygeode.Axis.isparentof" title="Permalink to this definition">¶</a></dt>
+<dd><p>Determines if an axis object is an instance of a base class (or the same
+class) of another axis.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>other</strong> : <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><tt class="xref py py-class docutils literal"><span class="pre">Axis</span></tt></a> object to compare against this one.</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>bool</strong> : boolean</p>
+<blockquote class="last">
+<div><p>True if <tt class="docutils literal"><span class="pre">other</span></tt> is an instance of this object&#8217;s class</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
-<dt id="pygeode.Yearless.__init__">
-<tt class="descclassname">Yearless.</tt><tt class="descname">__init__</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pygeode.Yearless.__init__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pygeode.Yearless.days_in_month">
-<tt class="descclassname">Yearless.</tt><tt class="descname">days_in_month</tt><big>(</big><em>yr</em>, <em>mn</em><big>)</big><a class="headerlink" href="#pygeode.Yearless.days_in_month" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt id="pygeode.Axis.map_to">
+<tt class="descclassname">Axis.</tt><tt class="descname">map_to</tt><big>(</big><em>other</em><big>)</big><a class="headerlink" href="#pygeode.Axis.map_to" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns indices of this axis which correspond to the axis <tt class="docutils literal"><span class="pre">other</span></tt>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>other</strong> : <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><tt class="xref py py-class docutils literal"><span class="pre">Axis</span></tt></a></p>
+<blockquote>
+<div><p>Axis to find mapping to</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>mapping</strong> : integer array or None</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>Returns an ordered indices of the elements of this axis that correspond to those of
+the axis <tt class="docutils literal"><span class="pre">other</span></tt>, if one exists, otherwise None. This axis must be a
+parent class of <tt class="docutils literal"><span class="pre">other</span></tt> or vice versa in order for the mapping to
+exist. The mapping may include only a subset of this axis object, but
+must be as long as the other axis, if it is not None. The mapping
+identifies equivalent elements based on equality up to a tolerance
+specified by self.rtol.</p>
+</dd></dl>
 
 </div>
 
@@ -599,8 +389,8 @@ to this time axis. For now assumes a string in the form</p>
   <p class="topless"><a href="axes.html"
                         title="previous chapter">Axis class overview</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="dataset.html"
-                        title="next chapter">Dataset overview</a></p>
+  <p class="topless"><a href="namedaxis.html"
+                        title="next chapter">NamedAxis object reference</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/axis.txt"
@@ -630,13 +420,7 @@ to this time axis. For now assumes a string in the form</p>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="py-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="np-modindex.html" title="Python Module Index"
-             >modules</a> |</li>
-        <li class="right" >
-          <a href="dataset.html" title="Dataset overview"
+          <a href="namedaxis.html" title="NamedAxis object reference"
              >next</a> |</li>
         <li class="right" >
           <a href="axes.html" title="Axis class overview"
@@ -648,7 +432,7 @@ to this time axis. For now assumes a string in the form</p>
     </div>
     <div class="footer">
         &copy; Copyright 2013, Mike Neish, Peter Hitchcock.
-      Last updated on Mar 20, 2015.
+      Last updated on Apr 25, 2015.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
