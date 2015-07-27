@@ -23,6 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="PyGeode 1.0 alpha documentation" href="index.html" />
     <link rel="up" title="Axis class overview" href="axes.html" />
     <link rel="next" title="Time axes objects reference" href="timeaxes.html" />
@@ -77,8 +78,6 @@ the vertical axis in line plots and in contour plots. No new or overridden metho
 <em class="property">class </em><tt class="descclassname">pygeode.</tt><tt class="descname">Pres</tt><a class="headerlink" href="#pygeode.Pres" title="Permalink to this definition">¶</a></dt>
 <dd><p>Inherits from <a class="reference internal" href="#pygeode.ZAxis" title="pygeode.ZAxis"><tt class="xref py py-class docutils literal"><span class="pre">ZAxis</span></tt></a></p>
 <p>Represents a pressure vertical coordinate.</p>
-</dd></dl>
-
 <p class="rubric">New and overridden methods</p>
 <table border="1" class="longtable docutils">
 <colgroup>
@@ -97,14 +96,14 @@ the vertical axis in line plots and in contour plots. No new or overridden metho
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
 <dl class="class">
 <dt id="pygeode.Hybrid">
 <em class="property">class </em><tt class="descclassname">pygeode.</tt><tt class="descname">Hybrid</tt><a class="headerlink" href="#pygeode.Hybrid" title="Permalink to this definition">¶</a></dt>
 <dd><p>Inherits from <a class="reference internal" href="#pygeode.ZAxis" title="pygeode.ZAxis"><tt class="xref py py-class docutils literal"><span class="pre">ZAxis</span></tt></a></p>
-<p>Represents a hybridized pressure coordinate, of the form <span class="math">p(\eta) = A(\eta) p_0 + B(\eta) p_s</span>.</p>
+<p>Represents a hybridized pressure coordinate, of the form <span class="math">\(p(\eta) = A(\eta) p_0 + B(\eta) p_s\)</span>.</p>
 <p>Auxilliary arrays: <tt class="docutils literal"><span class="pre">A</span></tt> and <tt class="docutils literal"><span class="pre">B</span></tt></p>
-</dd></dl>
-
 <p class="rubric">New and overridden methods</p>
 <table border="1" class="longtable docutils">
 <colgroup>
@@ -120,6 +119,8 @@ the vertical axis in line plots and in contour plots. No new or overridden metho
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
 <dl class="method">
 <dt id="pygeode.Pres.logPAxis">
 <tt class="descclassname">Pres.</tt><tt class="descname">logPAxis</tt><big>(</big><em>p0=1000.0</em>, <em>H=7.1</em><big>)</big><a class="headerlink" href="#pygeode.Pres.logPAxis" title="Permalink to this definition">¶</a></dt>
@@ -249,7 +250,7 @@ Otherwise the behaviour is like <tt class="xref py py-func docutils literal"><sp
     </div>
     <div class="footer">
         &copy; Copyright 2013, Mike Neish, Peter Hitchcock.
-      Last updated on Apr 25, 2015.
+      Last updated on Jul 14, 2015.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

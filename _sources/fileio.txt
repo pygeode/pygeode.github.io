@@ -18,3 +18,7 @@ most complete.
 .. autofunction:: open_multi
 
 .. autofunction:: save
+
+.. currentmodule:: pygeode.format
+
+.. autofunction:: autodetectformat

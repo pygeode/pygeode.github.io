@@ -23,6 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="PyGeode 1.0 alpha documentation" href="index.html" />
     <link rel="up" title="Reference" href="reference.html" />
     <link rel="next" title="Variable Querying Routines" href="varquery.html" />
@@ -176,38 +177,44 @@ abstracted in the following ways:</p>
 <tr class="row-odd"><td><a class="reference internal" href="reduce.html#pygeode.Var.mean" title="pygeode.Var.mean"><tt class="xref py py-obj docutils literal"><span class="pre">Var.mean</span></tt></a>(var,&nbsp;*axes,&nbsp;**kwargs)</td>
 <td>Computes the mean of this variable.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="reduce.html#pygeode.Var.sum" title="pygeode.Var.sum"><tt class="xref py py-obj docutils literal"><span class="pre">Var.sum</span></tt></a>(var,&nbsp;*axes,&nbsp;**kwargs)</td>
-<td>Computes the sum of this variable.</td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="reduce.html#pygeode.Var.stdev" title="pygeode.Var.stdev"><tt class="xref py py-obj docutils literal"><span class="pre">Var.stdev</span></tt></a>(var,&nbsp;*axes)</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="reduce.html#pygeode.Var.variance" title="pygeode.Var.variance"><tt class="xref py py-obj docutils literal"><span class="pre">Var.variance</span></tt></a>(var,&nbsp;*axes)</td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="reduce.html#pygeode.Var.nanmean" title="pygeode.Var.nanmean"><tt class="xref py py-obj docutils literal"><span class="pre">Var.nanmean</span></tt></a>(var,&nbsp;*axes,&nbsp;**kwargs)</td>
+<tr class="row-even"><td><a class="reference internal" href="reduce.html#pygeode.Var.nanmean" title="pygeode.Var.nanmean"><tt class="xref py py-obj docutils literal"><span class="pre">Var.nanmean</span></tt></a>(var,&nbsp;*axes,&nbsp;**kwargs)</td>
 <td>Computes the mean of this variable, ignoring any NaNs in the domain.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="reduce.html#pygeode.Var.sum" title="pygeode.Var.sum"><tt class="xref py py-obj docutils literal"><span class="pre">Var.sum</span></tt></a>(var,&nbsp;*axes,&nbsp;**kwargs)</td>
+<td>Computes the sum of this variable.</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="reduce.html#pygeode.Var.nansum" title="pygeode.Var.nansum"><tt class="xref py py-obj docutils literal"><span class="pre">Var.nansum</span></tt></a>(var,&nbsp;*axes,&nbsp;**kwargs)</td>
 <td>Computes the sum of this variable, ignoring any NaNs.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="reduce.html#pygeode.Var.nanstdev" title="pygeode.Var.nanstdev"><tt class="xref py py-obj docutils literal"><span class="pre">Var.nanstdev</span></tt></a>(var,&nbsp;*axes)</td>
-<td></td>
+<tr class="row-odd"><td><a class="reference internal" href="reduce.html#pygeode.Var.stdev" title="pygeode.Var.stdev"><tt class="xref py py-obj docutils literal"><span class="pre">Var.stdev</span></tt></a>(var,&nbsp;*axes)</td>
+<td>Computes the standard deviation of this variable.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="reduce.html#pygeode.Var.nanstdev" title="pygeode.Var.nanstdev"><tt class="xref py py-obj docutils literal"><span class="pre">Var.nanstdev</span></tt></a>(var,&nbsp;*axes)</td>
+<td>Computes the standard deviation of this variable, ignoring any NaNs present.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="reduce.html#pygeode.Var.variance" title="pygeode.Var.variance"><tt class="xref py py-obj docutils literal"><span class="pre">Var.variance</span></tt></a>(var,&nbsp;*axes)</td>
+<td>Computes the variance of this variable.</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="reduce.html#pygeode.Var.nanvariance" title="pygeode.Var.nanvariance"><tt class="xref py py-obj docutils literal"><span class="pre">Var.nanvariance</span></tt></a>(var,&nbsp;*axes)</td>
-<td></td>
+<td>Computes the variance of this variable, ignoring any NaNs.</td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="reduce.html#pygeode.Var.min" title="pygeode.Var.min"><tt class="xref py py-obj docutils literal"><span class="pre">Var.min</span></tt></a>(var,&nbsp;*axes)</td>
-<td></td>
+<td>Computes the minimum value of this variable.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="reduce.html#pygeode.Var.max" title="pygeode.Var.max"><tt class="xref py py-obj docutils literal"><span class="pre">Var.max</span></tt></a>(var,&nbsp;*axes)</td>
-<td></td>
+<tr class="row-even"><td><a class="reference internal" href="reduce.html#pygeode.Var.nanmin" title="pygeode.Var.nanmin"><tt class="xref py py-obj docutils literal"><span class="pre">Var.nanmin</span></tt></a>(var,&nbsp;*axes)</td>
+<td>Computes the minimum value of this variable, ignoring NaNs.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="reduce.html#pygeode.Var.max" title="pygeode.Var.max"><tt class="xref py py-obj docutils literal"><span class="pre">Var.max</span></tt></a>(var,&nbsp;*axes)</td>
+<td>Computes the maximum value of this variable.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="reduce.html#pygeode.Var.nanmax" title="pygeode.Var.nanmax"><tt class="xref py py-obj docutils literal"><span class="pre">Var.nanmax</span></tt></a>(var,&nbsp;*axes)</td>
+<td>Computes the maximum value of this variable, ignoring NaNs.</td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="reduce.html#pygeode.Var.argmin" title="pygeode.Var.argmin"><tt class="xref py py-obj docutils literal"><span class="pre">Var.argmin</span></tt></a>(var,&nbsp;axis)</td>
-<td></td>
+<td>Finds the index of the minumum value of this variable along the given axis.</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="reduce.html#pygeode.Var.argmax" title="pygeode.Var.argmax"><tt class="xref py py-obj docutils literal"><span class="pre">Var.argmax</span></tt></a>(var,&nbsp;axis)</td>
-<td></td>
+<td>Finds the index of the maximum value of this variable along the given axis.</td>
 </tr>
 </tbody>
 </table>
@@ -508,7 +515,7 @@ when saving to an output file.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2013, Mike Neish, Peter Hitchcock.
-      Last updated on Apr 25, 2015.
+      Last updated on Jul 24, 2015.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

@@ -23,6 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="PyGeode 1.0 alpha documentation" href="index.html" />
     <link rel="up" title="Var class overview" href="var.html" />
     <link rel="next" title="Array manipulation routines" href="varops.html" />
@@ -57,9 +58,13 @@
             
   <div class="section" id="axis-reductions">
 <h1>Axis Reductions<a class="headerlink" href="#axis-reductions" title="Permalink to this headline">¶</a></h1>
-<p>These functions compute summary statistics over subdomains of a variable. Many of them wrap similar
-numpy functions, though they are also capable of performing these operations on datasets too large
-to fit in memory.</p>
+<p>These functions compute summary statistics over specified axes of a variable.
+In general multiple axes can be reduced over at the same time. Many of them
+wrap similar numpy functions, though they are also capable of performing these
+operations on datasets too large to fit in memory. Most operations have two
+versions, one which computes the reduction including every element without
+checking for the presence of NaNs, and one which ignores any element which is a NaN, adjusting
+the relevant normalization</p>
 <dl class="method">
 <dt id="pygeode.Var.mean">
 <tt class="descclassname">Var.</tt><tt class="descname">mean</tt><big>(</big><em>var</em>, <em>*axes</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pygeode.Var.mean" title="Permalink to this definition">¶</a></dt>
@@ -94,7 +99,44 @@ the whole domain, a python scalar is returned.</p>
 </table>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="varquery.html#pygeode.Var.getweights" title="pygeode.Var.getweights"><tt class="xref py py-obj docutils literal"><span class="pre">getweights</span></tt></a></p>
+<p class="last"><a class="reference internal" href="#pygeode.Var.nanmean" title="pygeode.Var.nanmean"><tt class="xref py py-obj docutils literal"><span class="pre">nanmean</span></tt></a>, <a class="reference internal" href="varquery.html#pygeode.Var.getweights" title="pygeode.Var.getweights"><tt class="xref py py-obj docutils literal"><span class="pre">getweights</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygeode.Var.nanmean">
+<tt class="descclassname">Var.</tt><tt class="descname">nanmean</tt><big>(</big><em>var</em>, <em>*axes</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pygeode.Var.nanmean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the mean of this variable, ignoring any NaNs in the domain.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>*axes</strong> : any number of axis identifiers (string, <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><tt class="xref py py-class docutils literal"><span class="pre">Axis</span></tt></a>, or int) (optional)</p>
+<blockquote>
+<div><p>Axes over which the average should be computed. If none are provided, the 
+mean is computed over the whole domain.</p>
+</div></blockquote>
+<p><strong>weights</strong> : boolean or <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a> (optional)</p>
+<blockquote>
+<div><p>If provided, a weighted mean is performed. If True (the default), the default
+weights associated with the variable are used (getweights). If False, or None, no 
+weighting is performed. Finally, custom weights can be provided in the form of a 
+<a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a>; this var must be defined on a subset of the axes being averaged over.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>out</strong> : <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a></p>
+<blockquote class="last">
+<div><p><a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a> defined on a subgrid of this variable. If the mean is computed over
+the whole domain, a python scalar is returned.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#pygeode.Var.mean" title="pygeode.Var.mean"><tt class="xref py py-obj docutils literal"><span class="pre">mean</span></tt></a>, <a class="reference internal" href="varquery.html#pygeode.Var.getweights" title="pygeode.Var.getweights"><tt class="xref py py-obj docutils literal"><span class="pre">getweights</span></tt></a></p>
 </div>
 </dd></dl>
 
@@ -123,53 +165,6 @@ this var must be defined on a subset of the axes being summed over.</p>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>out</strong> : <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a></p>
 <blockquote class="last">
 <div><p><a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a> defined on a subgrid of this variable. If the sum is computed over
-the whole domain, a python scalar is returned.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
-<div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="varquery.html#pygeode.Var.getweights" title="pygeode.Var.getweights"><tt class="xref py py-obj docutils literal"><span class="pre">getweights</span></tt></a></p>
-</div>
-</dd></dl>
-
-<dl class="method">
-<dt id="pygeode.Var.stdev">
-<tt class="descclassname">Var.</tt><tt class="descname">stdev</tt><big>(</big><em>var</em>, <em>*axes</em><big>)</big><a class="headerlink" href="#pygeode.Var.stdev" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pygeode.Var.variance">
-<tt class="descclassname">Var.</tt><tt class="descname">variance</tt><big>(</big><em>var</em>, <em>*axes</em><big>)</big><a class="headerlink" href="#pygeode.Var.variance" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pygeode.Var.nanmean">
-<tt class="descclassname">Var.</tt><tt class="descname">nanmean</tt><big>(</big><em>var</em>, <em>*axes</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pygeode.Var.nanmean" title="Permalink to this definition">¶</a></dt>
-<dd><p>Computes the mean of this variable, ignoring any NaNs in the domain.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>*axes</strong> : any number of axis identifiers (string, <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><tt class="xref py py-class docutils literal"><span class="pre">Axis</span></tt></a>, or int) (optional)</p>
-<blockquote>
-<div><p>Axes over which the average should be computed. If none are provided, the 
-mean is computed over the whole domain.</p>
-</div></blockquote>
-<p><strong>weights</strong> : boolean or <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a> (optional)</p>
-<blockquote>
-<div><p>If provided, a weighted mean is performed. If True (the default), the default
-weights associated with the variable are used (getweights). If False, or None, no 
-weighting is performed. Finally, custom weights can be provided in the form of a 
-<a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a>; this var must be defined on a subset of the axes being averaged over.</p>
-</div></blockquote>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>out</strong> : <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a></p>
-<blockquote class="last">
-<div><p><a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a> defined on a subgrid of this variable. If the mean is computed over
 the whole domain, a python scalar is returned.</p>
 </div></blockquote>
 </td>
@@ -220,34 +215,302 @@ the whole domain, a python scalar is returned.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="pygeode.Var.stdev">
+<tt class="descclassname">Var.</tt><tt class="descname">stdev</tt><big>(</big><em>var</em>, <em>*axes</em><big>)</big><a class="headerlink" href="#pygeode.Var.stdev" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the standard deviation of this variable.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>*axes</strong> : any number of axis identifiers (string, <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><tt class="xref py py-class docutils literal"><span class="pre">Axis</span></tt></a>, or int) (optional)</p>
+<blockquote>
+<div><p>Axes over which the standard deviation should be computed. If none are provided, the 
+standard deviation is computed over the whole domain.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>out</strong> : <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a></p>
+<blockquote class="last">
+<div><p><a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a> defined on a subgrid of this variable. If the variance is
+computed over the whole domain, a python scalar is returned.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#pygeode.Var.variance" title="pygeode.Var.variance"><tt class="xref py py-obj docutils literal"><span class="pre">variance</span></tt></a>, <a class="reference internal" href="#pygeode.Var.nanstdev" title="pygeode.Var.nanstdev"><tt class="xref py py-obj docutils literal"><span class="pre">nanstdev</span></tt></a>, <a class="reference internal" href="#pygeode.Var.nanvariance" title="pygeode.Var.nanvariance"><tt class="xref py py-obj docutils literal"><span class="pre">nanvariance</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
 <dt id="pygeode.Var.nanstdev">
 <tt class="descclassname">Var.</tt><tt class="descname">nanstdev</tt><big>(</big><em>var</em>, <em>*axes</em><big>)</big><a class="headerlink" href="#pygeode.Var.nanstdev" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Computes the standard deviation of this variable, ignoring any NaNs present.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>*axes</strong> : any number of axis identifiers (string, <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><tt class="xref py py-class docutils literal"><span class="pre">Axis</span></tt></a>, or int) (optional)</p>
+<blockquote>
+<div><p>Axes over which the standard deviation should be computed. If none are provided, the 
+standard deviation is computed over the whole domain.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>out</strong> : <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a></p>
+<blockquote class="last">
+<div><p><a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a> defined on a subgrid of this variable. If the variance is
+computed over the whole domain, a python scalar is returned.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#pygeode.Var.stdev" title="pygeode.Var.stdev"><tt class="xref py py-obj docutils literal"><span class="pre">stdev</span></tt></a>, <a class="reference internal" href="#pygeode.Var.variance" title="pygeode.Var.variance"><tt class="xref py py-obj docutils literal"><span class="pre">variance</span></tt></a>, <a class="reference internal" href="#pygeode.Var.nanvariance" title="pygeode.Var.nanvariance"><tt class="xref py py-obj docutils literal"><span class="pre">nanvariance</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygeode.Var.variance">
+<tt class="descclassname">Var.</tt><tt class="descname">variance</tt><big>(</big><em>var</em>, <em>*axes</em><big>)</big><a class="headerlink" href="#pygeode.Var.variance" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the variance of this variable.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>*axes</strong> : any number of axis identifiers (string, <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><tt class="xref py py-class docutils literal"><span class="pre">Axis</span></tt></a>, or int) (optional)</p>
+<blockquote>
+<div><p>Axes over which the variance should be computed. If none are provided, the 
+variance is computed over the whole domain.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>out</strong> : <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a></p>
+<blockquote class="last">
+<div><p><a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a> defined on a subgrid of this variable. If the variance is
+computed over the whole domain, a python scalar is returned.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#pygeode.Var.stdev" title="pygeode.Var.stdev"><tt class="xref py py-obj docutils literal"><span class="pre">stdev</span></tt></a>, <a class="reference internal" href="#pygeode.Var.nanvariance" title="pygeode.Var.nanvariance"><tt class="xref py py-obj docutils literal"><span class="pre">nanvariance</span></tt></a>, <a class="reference internal" href="#pygeode.Var.nanstdev" title="pygeode.Var.nanstdev"><tt class="xref py py-obj docutils literal"><span class="pre">nanstdev</span></tt></a></p>
+</div>
+</dd></dl>
 
 <dl class="method">
 <dt id="pygeode.Var.nanvariance">
 <tt class="descclassname">Var.</tt><tt class="descname">nanvariance</tt><big>(</big><em>var</em>, <em>*axes</em><big>)</big><a class="headerlink" href="#pygeode.Var.nanvariance" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Computes the variance of this variable, ignoring any NaNs.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>*axes</strong> : any number of axis identifiers (string, <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><tt class="xref py py-class docutils literal"><span class="pre">Axis</span></tt></a>, or int) (optional)</p>
+<blockquote>
+<div><p>Axes over which the variance should be computed. If none are provided, the 
+variance is computed over the whole domain.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>out</strong> : <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a></p>
+<blockquote class="last">
+<div><p><a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a> defined on a subgrid of this variable. If the variance is
+computed over the whole domain, a python scalar is returned.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#pygeode.Var.variance" title="pygeode.Var.variance"><tt class="xref py py-obj docutils literal"><span class="pre">variance</span></tt></a>, <a class="reference internal" href="#pygeode.Var.stdev" title="pygeode.Var.stdev"><tt class="xref py py-obj docutils literal"><span class="pre">stdev</span></tt></a>, <a class="reference internal" href="#pygeode.Var.nanstdev" title="pygeode.Var.nanstdev"><tt class="xref py py-obj docutils literal"><span class="pre">nanstdev</span></tt></a></p>
+</div>
+</dd></dl>
 
 <dl class="method">
 <dt id="pygeode.Var.min">
 <tt class="descclassname">Var.</tt><tt class="descname">min</tt><big>(</big><em>var</em>, <em>*axes</em><big>)</big><a class="headerlink" href="#pygeode.Var.min" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Computes the minimum value of this variable.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>*axes</strong> : any number of axis identifiers (string, <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><tt class="xref py py-class docutils literal"><span class="pre">Axis</span></tt></a>, or int) (optional)</p>
+<blockquote>
+<div><p>Axes over which the minimum should be found. If none are provided, the 
+global minimum is found.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>out</strong> : <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a></p>
+<blockquote class="last">
+<div><p><a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a> defined on a subgrid of this variable. If the global minimum
+is requested, a python scalar is returned.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#pygeode.Var.max" title="pygeode.Var.max"><tt class="xref py py-obj docutils literal"><span class="pre">max</span></tt></a>, <a class="reference internal" href="#pygeode.Var.nanmax" title="pygeode.Var.nanmax"><tt class="xref py py-obj docutils literal"><span class="pre">nanmax</span></tt></a>, <a class="reference internal" href="#pygeode.Var.nanmin" title="pygeode.Var.nanmin"><tt class="xref py py-obj docutils literal"><span class="pre">nanmin</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygeode.Var.nanmin">
+<tt class="descclassname">Var.</tt><tt class="descname">nanmin</tt><big>(</big><em>var</em>, <em>*axes</em><big>)</big><a class="headerlink" href="#pygeode.Var.nanmin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the minimum value of this variable, ignoring NaNs.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>*axes</strong> : any number of axis identifiers (string, <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><tt class="xref py py-class docutils literal"><span class="pre">Axis</span></tt></a>, or int) (optional)</p>
+<blockquote>
+<div><p>Axes over which the minimum should be found. If none are provided, the 
+global minimum is found.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>out</strong> : <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a></p>
+<blockquote class="last">
+<div><p><a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a> defined on a subgrid of this variable. If the global minimum
+is requested, a python scalar is returned.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#pygeode.Var.min" title="pygeode.Var.min"><tt class="xref py py-obj docutils literal"><span class="pre">min</span></tt></a>, <a class="reference internal" href="#pygeode.Var.max" title="pygeode.Var.max"><tt class="xref py py-obj docutils literal"><span class="pre">max</span></tt></a>, <a class="reference internal" href="#pygeode.Var.nanmax" title="pygeode.Var.nanmax"><tt class="xref py py-obj docutils literal"><span class="pre">nanmax</span></tt></a></p>
+</div>
+</dd></dl>
 
 <dl class="method">
 <dt id="pygeode.Var.max">
 <tt class="descclassname">Var.</tt><tt class="descname">max</tt><big>(</big><em>var</em>, <em>*axes</em><big>)</big><a class="headerlink" href="#pygeode.Var.max" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Computes the maximum value of this variable.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>*axes</strong> : any number of axis identifiers (string, <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><tt class="xref py py-class docutils literal"><span class="pre">Axis</span></tt></a>, or int) (optional)</p>
+<blockquote>
+<div><p>Axes over which the maximum should be found. If none are provided, the 
+global maximum is found.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>out</strong> : <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a></p>
+<blockquote class="last">
+<div><p><a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a> defined on a subgrid of this variable. If the global maximum
+is requested, a python scalar is returned.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#pygeode.Var.min" title="pygeode.Var.min"><tt class="xref py py-obj docutils literal"><span class="pre">min</span></tt></a>, <a class="reference internal" href="#pygeode.Var.nanmax" title="pygeode.Var.nanmax"><tt class="xref py py-obj docutils literal"><span class="pre">nanmax</span></tt></a>, <a class="reference internal" href="#pygeode.Var.nanmin" title="pygeode.Var.nanmin"><tt class="xref py py-obj docutils literal"><span class="pre">nanmin</span></tt></a></p>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygeode.Var.nanmax">
+<tt class="descclassname">Var.</tt><tt class="descname">nanmax</tt><big>(</big><em>var</em>, <em>*axes</em><big>)</big><a class="headerlink" href="#pygeode.Var.nanmax" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes the maximum value of this variable, ignoring NaNs.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>*axes</strong> : any number of axis identifiers (string, <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><tt class="xref py py-class docutils literal"><span class="pre">Axis</span></tt></a>, or int) (optional)</p>
+<blockquote>
+<div><p>Axes over which the maximum should be found. If none are provided, the 
+global maximum is found.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>out</strong> : <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a></p>
+<blockquote class="last">
+<div><p><a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a> defined on a subgrid of this variable. If the global maximum
+is requested, a python scalar is returned.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#pygeode.Var.max" title="pygeode.Var.max"><tt class="xref py py-obj docutils literal"><span class="pre">max</span></tt></a>, <a class="reference internal" href="#pygeode.Var.min" title="pygeode.Var.min"><tt class="xref py py-obj docutils literal"><span class="pre">min</span></tt></a>, <a class="reference internal" href="#pygeode.Var.nanmin" title="pygeode.Var.nanmin"><tt class="xref py py-obj docutils literal"><span class="pre">nanmin</span></tt></a></p>
+</div>
+</dd></dl>
 
 <dl class="method">
 <dt id="pygeode.Var.argmin">
 <tt class="descclassname">Var.</tt><tt class="descname">argmin</tt><big>(</big><em>var</em>, <em>axis</em><big>)</big><a class="headerlink" href="#pygeode.Var.argmin" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Finds the index of the minumum value of this variable along the given axis.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>axis</strong> : a single axis identifier (string, <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><tt class="xref py py-class docutils literal"><span class="pre">Axis</span></tt></a>, or int) (optional)</p>
+<blockquote>
+<div><p>Axis over which the index of the minimum should be found.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>out</strong> : <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a></p>
+<blockquote class="last">
+<div><p><a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a> defined on all axes of this variable except <tt class="docutils literal"><span class="pre">axis</span></tt>,
+containing the index of the minimum.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#pygeode.Var.argmax" title="pygeode.Var.argmax"><tt class="xref py py-obj docutils literal"><span class="pre">argmax</span></tt></a></p>
+</div>
+</dd></dl>
 
 <dl class="method">
 <dt id="pygeode.Var.argmax">
 <tt class="descclassname">Var.</tt><tt class="descname">argmax</tt><big>(</big><em>var</em>, <em>axis</em><big>)</big><a class="headerlink" href="#pygeode.Var.argmax" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Finds the index of the maximum value of this variable along the given axis.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>axis</strong> : a single axis identifier (string, <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><tt class="xref py py-class docutils literal"><span class="pre">Axis</span></tt></a>, or int) (optional)</p>
+<blockquote>
+<div><p>Axis over which the index of the maximum should be found.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>out</strong> : <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a></p>
+<blockquote class="last">
+<div><p><a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a> defined on all axes of this variable except <tt class="docutils literal"><span class="pre">axis</span></tt>,
+containing the index of the maximum.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="#pygeode.Var.argmin" title="pygeode.Var.argmin"><tt class="xref py py-obj docutils literal"><span class="pre">argmin</span></tt></a></p>
+</div>
+</dd></dl>
 
 <dl class="docutils">
 <dt><strong>See Also:</strong></dt>
@@ -310,7 +573,7 @@ the whole domain, a python scalar is returned.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2013, Mike Neish, Peter Hitchcock.
-      Last updated on Apr 25, 2015.
+      Last updated on Jul 24, 2015.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

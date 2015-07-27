@@ -23,6 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="PyGeode 1.0 alpha documentation" href="index.html" />
     <link rel="up" title="Axis class overview" href="axes.html" />
     <link rel="next" title="Vertical axes object reference" href="verticalaxes.html" />
@@ -141,7 +142,7 @@ latitude grids can be created with the helper functions
 <td>Constructs a regularly spaced <a class="reference internal" href="#pygeode.Lat" title="pygeode.Lat"><tt class="xref py py-class docutils literal"><span class="pre">Lat</span></tt></a> axis with n latitudes.</td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="#pygeode.gausslat" title="pygeode.gausslat"><tt class="xref py py-obj docutils literal"><span class="pre">gausslat</span></tt></a>(n[,&nbsp;order,&nbsp;axis_dict])</td>
-<td>Gaussian latitude axis</td>
+<td>Constructs a Gaussian <a class="reference internal" href="#pygeode.Lat" title="pygeode.Lat"><tt class="xref py py-class docutils literal"><span class="pre">Lat</span></tt></a> axis with n latitudes.</td>
 </tr>
 </tbody>
 </table>
@@ -319,7 +320,7 @@ If inc_poles is set to True, the grid includes the poles.</p>
 <dl class="function">
 <dt id="pygeode.gausslat">
 <tt class="descclassname">pygeode.</tt><tt class="descname">gausslat</tt><big>(</big><em>n</em>, <em>order=1</em>, <em>axis_dict={}</em><big>)</big><a class="headerlink" href="#pygeode.gausslat" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gaussian latitude axis</p>
+<dd><p>Constructs a Gaussian <a class="reference internal" href="#pygeode.Lat" title="pygeode.Lat"><tt class="xref py py-class docutils literal"><span class="pre">Lat</span></tt></a> axis with n latitudes.</p>
 </dd></dl>
 
 </div>
@@ -377,7 +378,7 @@ If inc_poles is set to True, the grid includes the poles.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2013, Mike Neish, Peter Hitchcock.
-      Last updated on Apr 25, 2015.
+      Last updated on Jul 14, 2015.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

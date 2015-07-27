@@ -23,10 +23,11 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="PyGeode 1.0 alpha documentation" href="index.html" />
     <link rel="up" title="Reference" href="reference.html" />
     <link rel="next" title="Climat module" href="climat.html" />
-    <link rel="prev" title="File Input and Output" href="toplevel.html" />
+    <link rel="prev" title="File Input and Output" href="fileio.html" />
 <link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
 
@@ -42,7 +43,7 @@
           <a href="climat.html" title="Climat module"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="toplevel.html" title="File Input and Output"
+          <a href="fileio.html" title="File Input and Output"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li>
           <li><a href="reference.html" accesskey="U">Reference</a> &raquo;</li> 
@@ -54,26 +55,11 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="module-pygeode.timeutils">
-<span id="timeutils-module"></span><h1>Timeutils module<a class="headerlink" href="#module-pygeode.timeutils" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="timeutils-module">
+<h1>Timeutils module<a class="headerlink" href="#timeutils-module" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
-<dt id="pygeode.timeutils.modify">
-<tt class="descclassname">pygeode.timeutils.</tt><tt class="descname">modify</tt><big>(</big><em>taxis</em>, <em>resolution=None</em>, <em>exclude=</em>, <span class="optional">[</span><span class="optional">]</span><em>include=</em>, <span class="optional">[</span><span class="optional">]</span><em>uniquify=False</em><big>)</big><a class="headerlink" href="#pygeode.timeutils.modify" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="pygeode.timeutils.reltime">
-<tt class="descclassname">pygeode.timeutils.</tt><tt class="descname">reltime</tt><big>(</big><em>taxis</em>, <em>startdate=None</em>, <em>units=None</em><big>)</big><a class="headerlink" href="#pygeode.timeutils.reltime" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="pygeode.timeutils.delta">
-<tt class="descclassname">pygeode.timeutils.</tt><tt class="descname">delta</tt><big>(</big><em>taxis</em>, <em>units=None</em><big>)</big><a class="headerlink" href="#pygeode.timeutils.delta" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="pygeode.timeutils.wrapdate">
-<tt class="descclassname">pygeode.timeutils.</tt><tt class="descname">wrapdate</tt><big>(</big><em>taxis</em>, <em>dt</em>, <em>allfields=False</em><big>)</big><a class="headerlink" href="#pygeode.timeutils.wrapdate" title="Permalink to this definition">¶</a></dt>
+<dt id="pygeode.timeutils.conform_values">
+<tt class="descclassname">pygeode.timeutils.</tt><tt class="descname">conform_values</tt><big>(</big><em>taxis1</em>, <em>taxis2</em><big>)</big><a class="headerlink" href="#pygeode.timeutils.conform_values" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
@@ -82,8 +68,54 @@
 <dd></dd></dl>
 
 <dl class="function">
-<dt id="pygeode.timeutils.conform_values">
-<tt class="descclassname">pygeode.timeutils.</tt><tt class="descname">conform_values</tt><big>(</big><em>taxis1</em>, <em>taxis2</em><big>)</big><a class="headerlink" href="#pygeode.timeutils.conform_values" title="Permalink to this definition">¶</a></dt>
+<dt id="pygeode.timeutils.delta">
+<tt class="descclassname">pygeode.timeutils.</tt><tt class="descname">delta</tt><big>(</big><em>taxis</em>, <em>units=None</em><big>)</big><a class="headerlink" href="#pygeode.timeutils.delta" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="pygeode.timeutils.jointimeaxes">
+<tt class="descclassname">pygeode.timeutils.</tt><tt class="descname">jointimeaxes</tt><big>(</big><em>var</em>, <em>yaxis='year'</em>, <em>daxis='day'</em><big>)</big><a class="headerlink" href="#pygeode.timeutils.jointimeaxes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="pygeode.timeutils.modify">
+<tt class="descclassname">pygeode.timeutils.</tt><tt class="descname">modify</tt><big>(</big><em>taxis</em>, <em>resolution=None</em>, <em>exclude=</em>, <span class="optional">[</span><span class="optional">]</span><em>include=</em>, <span class="optional">[</span><span class="optional">]</span><em>uniquify=False</em><big>)</big><a class="headerlink" href="#pygeode.timeutils.modify" title="Permalink to this definition">¶</a></dt>
+<dd><p>Modifies the auxiliary arrays associated with a time axis.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>taxis</strong> : time axis instance</p>
+<blockquote>
+<div><p>Time axis to modify</p>
+</div></blockquote>
+<p><strong>resolution</strong> : {None, &#8216;year&#8217;, &#8216;month&#8217;, &#8216;day&#8217;, &#8216;hour&#8217;, &#8216;minute&#8217;, &#8216;second&#8217;}, optional</p>
+<blockquote>
+<div><p>Finest division to retain.</p>
+</div></blockquote>
+<p><strong>exclude</strong> : list of strings, optional</p>
+<blockquote>
+<div><p>List of arrays to remove</p>
+</div></blockquote>
+<p><strong>include</strong> : list of strings, optional</p>
+<blockquote>
+<div><p>Explicit list of arrays to include</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>taxis</strong> : time axis instance</p>
+<blockquote class="last">
+<div><p>Modified time axis</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pygeode.timeutils.reltime">
+<tt class="descclassname">pygeode.timeutils.</tt><tt class="descname">reltime</tt><big>(</big><em>taxis</em>, <em>startdate=None</em>, <em>units=None</em><big>)</big><a class="headerlink" href="#pygeode.timeutils.reltime" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="function">
@@ -97,8 +129,8 @@
 <dd></dd></dl>
 
 <dl class="function">
-<dt id="pygeode.timeutils.jointimeaxes">
-<tt class="descclassname">pygeode.timeutils.</tt><tt class="descname">jointimeaxes</tt><big>(</big><em>var</em>, <em>yaxis='year'</em>, <em>daxis='day'</em><big>)</big><a class="headerlink" href="#pygeode.timeutils.jointimeaxes" title="Permalink to this definition">¶</a></dt>
+<dt id="pygeode.timeutils.wrapdate">
+<tt class="descclassname">pygeode.timeutils.</tt><tt class="descname">wrapdate</tt><big>(</big><em>taxis</em>, <em>dt</em>, <em>allfields=False</em><big>)</big><a class="headerlink" href="#pygeode.timeutils.wrapdate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -110,7 +142,7 @@
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
-  <p class="topless"><a href="toplevel.html"
+  <p class="topless"><a href="fileio.html"
                         title="previous chapter">File Input and Output</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="climat.html"
@@ -147,7 +179,7 @@
           <a href="climat.html" title="Climat module"
              >next</a> |</li>
         <li class="right" >
-          <a href="toplevel.html" title="File Input and Output"
+          <a href="fileio.html" title="File Input and Output"
              >previous</a> |</li>
         <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li>
           <li><a href="reference.html" >Reference</a> &raquo;</li> 
@@ -155,7 +187,7 @@
     </div>
     <div class="footer">
         &copy; Copyright 2013, Mike Neish, Peter Hitchcock.
-      Last updated on Apr 25, 2015.
+      Last updated on Jun 17, 2015.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

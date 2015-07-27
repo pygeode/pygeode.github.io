@@ -23,6 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="PyGeode 1.0 alpha documentation" href="index.html" />
     <link rel="up" title="Reference" href="reference.html" />
     <link rel="next" title="Axis class reference" href="axis.html" />
@@ -76,31 +77,31 @@ are typically used to represent a dimension of a particular type.</p>
 <td>Generic axis object identified by its name.</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="horizontalaxes.html#pygeode.Lon" title="pygeode.Lon"><tt class="xref py py-obj docutils literal"><span class="pre">Lon</span></tt></a></td>
-<td>Describes longitudes.</td>
+<td>Longitude axis.</td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="horizontalaxes.html#pygeode.Lat" title="pygeode.Lat"><tt class="xref py py-obj docutils literal"><span class="pre">Lat</span></tt></a></td>
-<td></td>
+<td>Latitude axis.</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="verticalaxes.html#pygeode.Height" title="pygeode.Height"><tt class="xref py py-obj docutils literal"><span class="pre">Height</span></tt></a></td>
-<td></td>
+<td>Geometric height axis.</td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="verticalaxes.html#pygeode.Pres" title="pygeode.Pres"><tt class="xref py py-obj docutils literal"><span class="pre">Pres</span></tt></a></td>
-<td></td>
+<td>Pressure height axis.</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="verticalaxes.html#pygeode.Hybrid" title="pygeode.Hybrid"><tt class="xref py py-obj docutils literal"><span class="pre">Hybrid</span></tt></a></td>
-<td>Hybridized vertical coordinate.</td>
+<td>Hybridized vertical coordinate axis.</td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="timeaxes.html#pygeode.StandardTime" title="pygeode.StandardTime"><tt class="xref py py-obj docutils literal"><span class="pre">StandardTime</span></tt></a></td>
-<td></td>
+<td>Time axis describing the standard Gregorian calendar.</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="timeaxes.html#pygeode.ModelTime365" title="pygeode.ModelTime365"><tt class="xref py py-obj docutils literal"><span class="pre">ModelTime365</span></tt></a></td>
-<td></td>
+<td>Time axis describing a model 365-day calendar.</td>
 </tr>
 <tr class="row-odd"><td><a class="reference internal" href="timeaxes.html#pygeode.ModelTime360" title="pygeode.ModelTime360"><tt class="xref py py-obj docutils literal"><span class="pre">ModelTime360</span></tt></a></td>
-<td></td>
+<td>Time axis describing a model 360-day calendar.</td>
 </tr>
 <tr class="row-even"><td><a class="reference internal" href="timeaxes.html#pygeode.Yearless" title="pygeode.Yearless"><tt class="xref py py-obj docutils literal"><span class="pre">Yearless</span></tt></a></td>
-<td></td>
+<td>Time axis describing a calendar with no months or years.</td>
 </tr>
 </tbody>
 </table>
@@ -225,6 +226,16 @@ the <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var
 </pre></div>
 </div>
 <p>If you think your axis will be useful to others, please let us know, and we may include it in future versions.</p>
+<p>Aspects of customizing an axis:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Defining its name</li>
+<li>Customize how values are formatted as strings</li>
+<li>Customize how strings are parsed into values</li>
+<li>Customize matplotlib formatting and tick positioning</li>
+<li>Customize CF-metadata encoding and decoding</li>
+</ul>
+</div></blockquote>
 <div class="toctree-wrapper compound">
 </div>
 </div>
@@ -291,7 +302,7 @@ the <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var
     </div>
     <div class="footer">
         &copy; Copyright 2013, Mike Neish, Peter Hitchcock.
-      Last updated on Apr 25, 2015.
+      Last updated on Jul 24, 2015.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

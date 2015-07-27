@@ -23,6 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="PyGeode 1.0 alpha documentation" href="index.html" />
     <link rel="up" title="Reference" href="reference.html" />
     <link rel="next" title="Stats module" href="stats.html" />
@@ -57,32 +58,63 @@
   <div class="section" id="climat-module">
 <h1>Climat module<a class="headerlink" href="#climat-module" title="Permalink to this headline">¶</a></h1>
 <p>These functions compute averages / trends over the time axis in various ways.</p>
-<table border="1" class="longtable docutils">
-<colgroup>
-<col width="10%" />
-<col width="90%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">climatology</span></tt>(var)</td>
-<td>Computes a climatological mean.</td>
-</tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">dailymean</span></tt>(var)</td>
-<td>Computes an average value for each day.</td>
-</tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">monthlymean</span></tt>(var)</td>
-<td>Averages over each month.</td>
-</tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">diurnalmean</span></tt>(var)</td>
-<td>Computes an average value for each time of day (averages over all years, months, days).</td>
-</tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">seasonalmean</span></tt>(var)</td>
-<td>Averages over each season.</td>
-</tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">climtrend</span></tt>(var)</td>
-<td>For each month, day, hour, etc., compute a least-squares fit to a linear trend over all years.</td>
-</tr>
-</tbody>
-</table>
+<dl class="function">
+<dt id="pygeode.climatology">
+<tt class="descclassname">pygeode.</tt><tt class="descname">climatology</tt><big>(</big><em>var</em><big>)</big><a class="headerlink" href="#pygeode.climatology" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes a climatological mean.  Averages over all years, returning a single
+value for each distinct month, day, hour, etc.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pygeode.dailymean">
+<tt class="descclassname">pygeode.</tt><tt class="descname">dailymean</tt><big>(</big><em>var</em><big>)</big><a class="headerlink" href="#pygeode.dailymean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes an average value for each day.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pygeode.monthlymean">
+<tt class="descclassname">pygeode.</tt><tt class="descname">monthlymean</tt><big>(</big><em>var</em><big>)</big><a class="headerlink" href="#pygeode.monthlymean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Averages over each month.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pygeode.yearlymean">
+<tt class="descclassname">pygeode.</tt><tt class="descname">yearlymean</tt><big>(</big><em>var</em><big>)</big><a class="headerlink" href="#pygeode.yearlymean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Averages over each year.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pygeode.diurnalmean">
+<tt class="descclassname">pygeode.</tt><tt class="descname">diurnalmean</tt><big>(</big><em>var</em><big>)</big><a class="headerlink" href="#pygeode.diurnalmean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes an average value for each time of day (averages over all years,
+months, days).</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pygeode.seasonalmean">
+<tt class="descclassname">pygeode.</tt><tt class="descname">seasonalmean</tt><big>(</big><em>var</em><big>)</big><a class="headerlink" href="#pygeode.seasonalmean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Averages over each season.  Currently, the seasons are hard-coded as (DJF,
+MAM, JJA, SON).</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pygeode.climtrend">
+<tt class="descclassname">pygeode.</tt><tt class="descname">climtrend</tt><big>(</big><em>var</em><big>)</big><a class="headerlink" href="#pygeode.climtrend" title="Permalink to this definition">¶</a></dt>
+<dd><p>For each month, day, hour, etc., compute a least-squares fit to a linear trend
+over all years.  This is similar to the climatology, but instead of averaging
+over all years, it computes the rate of change over all years.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pygeode.from_trend">
+<tt class="descclassname">pygeode.</tt><tt class="descname">from_trend</tt><big>(</big><em>taxis</em>, <em>coef=None</em>, <em>A=None</em>, <em>B=None</em><big>)</big><a class="headerlink" href="#pygeode.from_trend" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-pygeode.climat"></span><dl class="function">
+<dt id="pygeode.climat.detrend">
+<tt class="descclassname">pygeode.climat.</tt><tt class="descname">detrend</tt><big>(</big><em>var</em>, <em>taxis=&lt;class 'pygeode.timeaxis.Time'&gt;</em>, <em>return_clim=False</em><big>)</big><a class="headerlink" href="#pygeode.climat.detrend" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </div>
 
 
@@ -137,7 +169,7 @@
     </div>
     <div class="footer">
         &copy; Copyright 2013, Mike Neish, Peter Hitchcock.
-      Last updated on Apr 25, 2015.
+      Last updated on Apr 29, 2015.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

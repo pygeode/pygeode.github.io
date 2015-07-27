@@ -23,6 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="PyGeode 1.0 alpha documentation" href="index.html" />
     <link rel="up" title="Var class overview" href="var.html" />
     <link rel="next" title="Other operations" href="var.other.html" />
@@ -89,12 +90,9 @@ value.  E.g., <tt class="docutils literal"><span class="pre">lat</span> <span cl
 </table>
 <p class="rubric">Notes</p>
 <p>There are a couple of special prefixes which can be prepended to each
-keyword to alter the subsetting behaviour:</p>
+keyword to alter the subsetting behaviour. They can be used together.</p>
 <blockquote>
 <div><ul class="simple">
-<li><strong>m_</strong> triggers an arithmetic mean over the specified range.
-E.g., <tt class="docutils literal"><span class="pre">myvar(m_lon</span> <span class="pre">=</span> <span class="pre">(10,</span> <span class="pre">80))</span></tt> is a shortcut for doing
-<tt class="docutils literal"><span class="pre">myvar(lon</span> <span class="pre">=</span> <span class="pre">(10,80)).mean('lon')</span></tt>.</li>
 <li><strong>i_</strong> indicates that the values are <em>indices</em> into the axis, and not
 the axis values themselves.  Indices start at 0.
 E.g. <tt class="docutils literal"><span class="pre">myvar(i_time</span> <span class="pre">=</span> <span class="pre">0)</span></tt> selects the first time step of the variable,
@@ -102,6 +100,16 @@ and <tt class="docutils literal"><span class="pre">myvar(i_lon=(10,20))</span></
 <li><strong>l_</strong> indicates that you are providing an explicit list of
 coordinates, instead of a range.
 E.g. <tt class="docutils literal"><span class="pre">myvar(l_lon</span> <span class="pre">=</span> <span class="pre">(105.,106.,107.,108))</span></tt></li>
+<li><strong>n_</strong> returns the complement of the set you request; that is,
+everything except the specified selection.
+E.g. <a href="#id1"><span class="problematic" id="id2">``</span></a>myvar(n_lat = (60, 90)) returns all latitudes except those between 60 and 90N.</li>
+<li><strong>m_</strong> triggers an arithmetic mean over the specified range.
+E.g., <tt class="docutils literal"><span class="pre">myvar(m_lon</span> <span class="pre">=</span> <span class="pre">(10,</span> <span class="pre">80))</span></tt> is a shortcut for doing
+<tt class="docutils literal"><span class="pre">myvar(lon</span> <span class="pre">=</span> <span class="pre">(10,80)).mean('lon')</span></tt>.</li>
+<li><strong>s_</strong> triggers a call to squeeze on the specified axis, so
+that if only one value is selected the degenerate axis is removed.
+E.g., <tt class="docutils literal"><span class="pre">myvar(s_lon</span> <span class="pre">=</span> <span class="pre">5)</span></tt> is a shortcut for doing
+<tt class="docutils literal"><span class="pre">myvar(lon</span> <span class="pre">=</span> <span class="pre">5).squeeze()</span></tt> or <a href="#id3"><span class="problematic" id="id4">``</span></a>myvar.squeeze(lon=5).</li>
 </ul>
 </div></blockquote>
 <p class="rubric">Examples</p>
@@ -651,7 +659,7 @@ value).</p>
     </div>
     <div class="footer">
         &copy; Copyright 2013, Mike Neish, Peter Hitchcock.
-      Last updated on Apr 25, 2015.
+      Last updated on Jul 14, 2015.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

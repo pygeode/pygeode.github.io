@@ -24,6 +24,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="PyGeode 1.0 alpha documentation" href="index.html" />
 <link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
@@ -319,6 +320,10 @@
 
       </dl></dd>
       
+  <dt><a href="plot.html#pygeode.plot.AxesWrapper">AxesWrapper (class in pygeode.plot)</a>
+  </dt>
+
+      
   <dt><a href="axes.html#pygeode.Axis">Axis (class in pygeode)</a>
   </dt>
 
@@ -337,6 +342,14 @@
   </dt>
 
       
+  <dt><a href="climat.html#pygeode.climatology">climatology() (in module pygeode)</a>
+  </dt>
+
+      
+  <dt><a href="climat.html#pygeode.climtrend">climtrend() (in module pygeode)</a>
+  </dt>
+
+      
   <dt><a href="dataset.html#pygeode.dataset.concat">concat() (in module pygeode.dataset)</a>
   </dt>
 
@@ -344,18 +357,18 @@
   <dt><a href="timeutils.html#pygeode.timeutils.conform_values">conform_values() (in module pygeode.timeutils)</a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="view.html#pygeode.view.contiguate">contiguate() (in module pygeode.view)</a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="dataset.html#pygeode.Dataset.copy">copy() (pygeode.Dataset method)</a>
   </dt>
 
       
-  <dt><a href="stats.html#pygeode.stats.correlate">correlate() (in module pygeode.stats)</a>
+  <dt><a href="stats.html#pygeode.correlate">correlate() (in module pygeode)</a>
   </dt>
 
       
@@ -395,6 +408,10 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
       
+  <dt><a href="climat.html#pygeode.dailymean">dailymean() (in module pygeode)</a>
+  </dt>
+
+      
   <dt><a href="dataset.html#pygeode.Dataset">Dataset (class in pygeode)</a>
   </dt>
 
@@ -416,18 +433,26 @@
   </dt>
 
       </dl></dd>
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="timeutils.html#pygeode.timeutils.delta">delta() (in module pygeode.timeutils)</a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="var.other.html#pygeode.Var.deriv">deriv() (pygeode.Var method)</a>
   </dt>
 
       
-  <dt><a href="stats.html#pygeode.stats.difference">difference() (in module pygeode.stats)</a>
+  <dt><a href="climat.html#pygeode.climat.detrend">detrend() (in module pygeode.climat)</a>
+  </dt>
+
+      
+  <dt><a href="stats.html#pygeode.difference">difference() (in module pygeode)</a>
+  </dt>
+
+      
+  <dt><a href="climat.html#pygeode.diurnalmean">diurnalmean() (in module pygeode)</a>
   </dt>
 
       
@@ -478,8 +503,6 @@
   <dt><a href="axis.html#pygeode.Axis.formatstr">formatstr (pygeode.Axis attribute)</a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="axis.html#pygeode.Axis.formatter">formatter() (pygeode.Axis method)</a>
   </dt>
@@ -490,6 +513,8 @@
   </dt>
 
       </dl></dd>
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="horizontalaxes.html#pygeode.Lat.formatvalue">formatvalue() (pygeode.Lat method)</a>
   </dt>
@@ -508,6 +533,10 @@
   </dt>
 
       </dl></dd>
+      
+  <dt><a href="climat.html#pygeode.from_trend">from_trend() (in module pygeode)</a>
+  </dt>
+
   </dl></td>
 </tr></table>
 
@@ -522,14 +551,18 @@
   <dt><a href="var.get.html#pygeode.Var.get">get() (pygeode.Var method)</a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="varquery.html#pygeode.Var.getaxis">getaxis() (pygeode.Var method)</a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="varquery.html#pygeode.Var.getweights">getweights() (pygeode.Var method)</a>
+  </dt>
+
+      
+  <dt><a href="plot.html#pygeode.plot.grid">grid() (in module pygeode.plot)</a>
   </dt>
 
   </dl></td>
@@ -579,7 +612,7 @@
   </dl></td>
   <td style="width: 33%" valign="top"><dl>
       
-  <dt><a href="stats.html#pygeode.stats.isnonzero">isnonzero() (in module pygeode.stats)</a>
+  <dt><a href="stats.html#pygeode.isnonzero">isnonzero() (in module pygeode)</a>
   </dt>
 
       
@@ -694,12 +727,12 @@
   <dt><a href="reduce.html#pygeode.Var.mean">mean() (pygeode.Var method)</a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="reduce.html#pygeode.Var.min">min() (pygeode.Var method)</a>
   </dt>
 
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="timeaxes.html#pygeode.ModelTime360">ModelTime360 (class in pygeode)</a>
   </dt>
@@ -710,6 +743,14 @@
 
       
   <dt><a href="timeutils.html#pygeode.timeutils.modify">modify() (in module pygeode.timeutils)</a>
+  </dt>
+
+      
+  <dt><a href="climat.html#pygeode.monthlymean">monthlymean() (in module pygeode)</a>
+  </dt>
+
+      
+  <dt><a href="stats.html#pygeode.multiple_regress">multiple_regress() (in module pygeode)</a>
   </dt>
 
   </dl></td>
@@ -737,11 +778,19 @@
 
       </dl></dd>
       
+  <dt><a href="reduce.html#pygeode.Var.nanmax">nanmax() (pygeode.Var method)</a>
+  </dt>
+
+      
   <dt><a href="reduce.html#pygeode.Var.nanmean">nanmean() (pygeode.Var method)</a>
   </dt>
 
   </dl></td>
   <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="reduce.html#pygeode.Var.nanmin">nanmin() (pygeode.Var method)</a>
+  </dt>
+
       
   <dt><a href="reduce.html#pygeode.Var.nanstdev">nanstdev() (pygeode.Var method)</a>
   </dt>
@@ -761,17 +810,17 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
       
-  <dt><a href="toplevel.html#pygeode.open">open() (in module pygeode)</a>
+  <dt><a href="fileio.html#pygeode.open">open() (in module pygeode)</a>
   </dt>
 
       
-  <dt><a href="toplevel.html#pygeode.open_multi">open_multi() (in module pygeode)</a>
+  <dt><a href="fileio.html#pygeode.open_multi">open_multi() (in module pygeode)</a>
   </dt>
 
   </dl></td>
   <td style="width: 33%" valign="top"><dl>
       
-  <dt><a href="toplevel.html#pygeode.openall">openall() (in module pygeode)</a>
+  <dt><a href="fileio.html#pygeode.openall">openall() (in module pygeode)</a>
   </dt>
 
   </dl></td>
@@ -785,15 +834,7 @@
   </dt>
 
       
-  <dt><a href="plot.html#pygeode.plot.plotquiver">plotquiver() (in module pygeode.plot)</a>
-  </dt>
-
-      
   <dt><a href="axis.html#pygeode.Axis.plotscale">plotscale (pygeode.Axis attribute)</a>
-  </dt>
-
-      
-  <dt><a href="plot.html#pygeode.plot.plotsigmask">plotsigmask() (in module pygeode.plot)</a>
   </dt>
 
       
@@ -801,13 +842,17 @@
   </dt>
 
       
-  <dt><a href="plot.html#pygeode.plot.plotvar">plotvar() (in module pygeode.plot)</a>
+  <dt><a href="verticalaxes.html#pygeode.Pres">Pres (class in pygeode)</a>
+  </dt>
+
+      
+  <dt><a href="reference.html#module-pygeode">pygeode (module)</a>
   </dt>
 
   </dl></td>
   <td style="width: 33%" valign="top"><dl>
       
-  <dt><a href="verticalaxes.html#pygeode.Pres">Pres (class in pygeode)</a>
+  <dt><a href="climat.html#module-pygeode.climat">pygeode.climat (module)</a>
   </dt>
 
       
@@ -815,15 +860,7 @@
   </dt>
 
       
-  <dt><a href="stats.html#module-pygeode.stats">pygeode.stats (module)</a>
-  </dt>
-
-      
   <dt><a href="eof.html#module-pygeode.svd">pygeode.svd (module)</a>
-  </dt>
-
-      
-  <dt><a href="timeutils.html#module-pygeode.timeutils">pygeode.timeutils (module)</a>
   </dt>
 
       
@@ -847,7 +884,7 @@
 
       </dl></dd>
       
-  <dt><a href="stats.html#pygeode.stats.regress">regress() (in module pygeode.stats)</a>
+  <dt><a href="stats.html#pygeode.regress">regress() (in module pygeode)</a>
   </dt>
 
       
@@ -909,23 +946,27 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%" valign="top"><dl>
       
-  <dt><a href="toplevel.html#pygeode.save">save() (in module pygeode)</a>
+  <dt><a href="fileio.html#pygeode.save">save() (in module pygeode)</a>
   </dt>
 
       
-  <dt><a href="plot.html#pygeode.plot.showcol">showcol() (in module pygeode.plot)</a>
+  <dt><a href="climat.html#pygeode.seasonalmean">seasonalmean() (in module pygeode)</a>
   </dt>
 
       
-  <dt><a href="plot.html#pygeode.plot.showgrid">showgrid() (in module pygeode.plot)</a>
+  <dt><a href="plot.html#pygeode.showcol">showcol() (in module pygeode)</a>
   </dt>
 
       
-  <dt><a href="plot.html#pygeode.plot.showlines">showlines() (in module pygeode.plot)</a>
+  <dt><a href="plot.html#pygeode.showgrid">showgrid() (in module pygeode)</a>
   </dt>
 
       
-  <dt><a href="plot.html#pygeode.plot.showvar">showvar() (in module pygeode.plot)</a>
+  <dt><a href="plot.html#pygeode.showlines">showlines() (in module pygeode)</a>
+  </dt>
+
+      
+  <dt><a href="plot.html#pygeode.showvar">showvar() (in module pygeode)</a>
   </dt>
 
       
@@ -1110,18 +1151,34 @@
   <dt><a href="reduce.html#pygeode.Var.variance">variance() (pygeode.Var method)</a>
   </dt>
 
-  </dl></td>
-  <td style="width: 33%" valign="top"><dl>
       
   <dt><a href="dataset.html#pygeode.Dataset.vars">vars (pygeode.Dataset attribute)</a>
   </dt>
 
       
-  <dt><a href="plot.html#pygeode.plot.vplot">vplot() (in module pygeode.plot)</a>
+  <dt><a href="plot.html#pygeode.vcontour">vcontour() (in module pygeode)</a>
+  </dt>
+
+  </dl></td>
+  <td style="width: 33%" valign="top"><dl>
+      
+  <dt><a href="plot.html#pygeode.vplot">vplot() (in module pygeode)</a>
   </dt>
 
       
-  <dt><a href="plot.html#pygeode.plot.vscatter">vscatter() (in module pygeode.plot)</a>
+  <dt><a href="plot.html#pygeode.vquiver">vquiver() (in module pygeode)</a>
+  </dt>
+
+      
+  <dt><a href="plot.html#pygeode.vscatter">vscatter() (in module pygeode)</a>
+  </dt>
+
+      
+  <dt><a href="plot.html#pygeode.vsigmask">vsigmask() (in module pygeode)</a>
+  </dt>
+
+      
+  <dt><a href="plot.html#pygeode.vstreamplot">vstreamplot() (in module pygeode)</a>
   </dt>
 
   </dl></td>
@@ -1160,10 +1217,14 @@
   <dt><a href="horizontalaxes.html#pygeode.YAxis">YAxis (class in pygeode)</a>
   </dt>
 
+      
+  <dt><a href="timeaxes.html#pygeode.Yearless">Yearless (class in pygeode)</a>
+  </dt>
+
   </dl></td>
   <td style="width: 33%" valign="top"><dl>
       
-  <dt><a href="timeaxes.html#pygeode.Yearless">Yearless (class in pygeode)</a>
+  <dt><a href="climat.html#pygeode.yearlymean">yearlymean() (in module pygeode)</a>
   </dt>
 
   </dl></td>
@@ -1217,7 +1278,7 @@
     </div>
     <div class="footer">
         &copy; Copyright 2013, Mike Neish, Peter Hitchcock.
-      Last updated on Apr 25, 2015.
+      Last updated on Jul 27, 2015.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

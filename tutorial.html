@@ -23,8 +23,9 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="PyGeode 1.0 alpha documentation" href="index.html" />
-    <link rel="next" title="Getting started" href="gettingstarted.html" />
+    <link rel="next" title="Getting Started" href="gettingstarted.html" />
     <link rel="prev" title="Installing PyGeode" href="install.html" />
 <link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
@@ -38,7 +39,7 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="gettingstarted.html" title="Getting started"
+          <a href="gettingstarted.html" title="Getting Started"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="install.html" title="Installing PyGeode"
@@ -63,25 +64,54 @@ general enough to apply to any gridded dataset.</p>
 perform the underlying computations and manipulations. Much of the underlying
 computation and manipulation is done using <a class="reference external" href="http://numpy.scipy.org/">numpy</a>, and PyGeode adopts many of
 its conventions. Some use is also made of <a class="reference external" href="http://numpy.scipy.org/">scipy</a>, and <a class="reference external" href="http://matplotlib.sourceforge.net/">matplotlib</a> is used for
-plotting.</p>
+plotting. At present a small number of routines from the GSL are also used for
+interpolation; this may change in the future to remove this dependency.</p>
 <p>While there is no strict need to use the <a class="reference external" href="http://ipython.scipy.org/">ipython</a> interpreter, the plotting
 features in combination with matplotlib are quite convenient and this tutorial
 has been written assuming you are working with this combination. All the
 commands given should still work in any other interpreter.</p>
-<p>This tutorial is written in four parts. The first part gives a broad overview
-and introduction to the library, including a brief description of some of the
-most common tasks. The second part is a tutorial on how to perform
-many typical operations on your data. The third part goes in to more detail on
-how to read in and write out data, and on creating variables from scratch; this
-includes an introduction to many of the types of axes recognized by PyGeode.
-Finally, the fourth part introduces the plotting features of the library.</p>
+<p>This tutorial is written in four parts. The first part, <a class="reference internal" href="gettingstarted.html"><em>Getting Started</em></a>,
+gives a broad overview and introduction to the library, including a brief
+description of some of the most common tasks. The second part, <a class="reference internal" href="basic_ops.html"><em>Basic Variable Operations</em></a>,
+goes into more detail on some of the most fundamental operations one is likely
+to carry out on PyGeode variables; this is worth having a good understanding of
+if you plan to use the features of this library for anything but the most
+trivial operations.  The third part, <a class="reference internal" href="variableio.html"><em>Variable input and output</em></a>, goes in to more detail
+on how to read in and write out data, and on creating variables from scratch;
+this includes an introduction to many of the types of axes recognized by
+PyGeode. More advanced and specific operations that PyGeode can carry out are
+briefly introduced in the fourth part, <a class="reference internal" href="adv_ops.html"><em>Advanced Variable Operations</em></a>, and finally the fifth
+part, <a class="reference internal" href="plotting.html"><em>Plotting</em></a>, introduces the plotting features of PyGeode.</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="gettingstarted.html">Getting started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="basic_ops.html">Basic Variable Operations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="adv_ops.html">Advanced Variable Operations</a></li>
-<li class="toctree-l1"><a class="reference internal" href="variableio.html">Variable input and output</a></li>
-<li class="toctree-l1"><a class="reference internal" href="plotting.html">Plotting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gettingstarted.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="basic_ops.html">Basic Variable Operations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="basic_ops.html#selecting-subsets">Selecting subsets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basic_ops.html#arithmetic-operations">Arithmetic operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basic_ops.html#reductions-averages-standard-deviations">Reductions (Averages, Standard deviations)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="basic_ops.html#reshaping-variables">Reshaping variables</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="variableio.html">Variable input and output</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="variableio.html#reading-from-files">Reading from files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="variableio.html#saving-to-files">Saving to files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="variableio.html#constructing-variables-in-memory">Constructing variables in memory</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="adv_ops.html">Advanced Variable Operations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="adv_ops.html#time-axis-operations">Time Axis Operations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adv_ops.html#eofs-correlation-and-regression-analysis">EOFs, correlation and regression analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adv_ops.html#integration-and-differentiation">Integration and Differentiation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adv_ops.html#interpolation">Interpolation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adv_ops.html#composites">Composites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="adv_ops.html#smoothing">Smoothing</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="plotting.html">Plotting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="plotting.html#line-plots">Line Plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="plotting.html#contour-plots">Contour Plots</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -97,7 +127,7 @@ Finally, the fourth part introduces the plotting features of the library.</p>
                         title="previous chapter">Installing PyGeode</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="gettingstarted.html"
-                        title="next chapter">Getting started</a></p>
+                        title="next chapter">Getting Started</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/tutorial.txt"
@@ -127,7 +157,7 @@ Finally, the fourth part introduces the plotting features of the library.</p>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="gettingstarted.html" title="Getting started"
+          <a href="gettingstarted.html" title="Getting Started"
              >next</a> |</li>
         <li class="right" >
           <a href="install.html" title="Installing PyGeode"
@@ -137,7 +167,7 @@ Finally, the fourth part introduces the plotting features of the library.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2013, Mike Neish, Peter Hitchcock.
-      Last updated on Apr 25, 2015.
+      Last updated on Jul 27, 2015.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

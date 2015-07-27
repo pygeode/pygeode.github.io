@@ -23,6 +23,7 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="PyGeode 1.0 alpha documentation" href="index.html" />
     <link rel="up" title="Tutorial" href="tutorial.html" />
     <link rel="next" title="Reference" href="reference.html" />
@@ -78,11 +79,11 @@ simplest form will plot a one or two dimensional variable:</p>
 
 <span class="c"># A line plot</span>
 <span class="gp">In [3]: </span><span class="n">pyg</span><span class="o">.</span><span class="n">showvar</span><span class="p">(</span><span class="n">t1</span><span class="o">.</span><span class="n">Temp</span><span class="p">(</span><span class="n">lat</span><span class="o">=</span><span class="mi">45</span><span class="p">))</span>
-<span class="go"> Out[3]: &lt;pygeode.plot.wrappers.AxesWrapper instance at 0x2b0a58c1e5f0&gt;</span>
+<span class="go"> Out[3]: &lt;pygeode.plot.wrappers.AxesWrapper instance at 0x2aef23dc9a70&gt;</span>
 
 <span class="c"># A contour plot</span>
 <span class="gp">In [4]: </span><span class="n">pyg</span><span class="o">.</span><span class="n">showvar</span><span class="p">(</span><span class="n">t1</span><span class="o">.</span><span class="n">Temp</span><span class="p">)</span>
-<span class="go"> Out[4]: &lt;pygeode.plot.wrappers.AxesWrapper instance at 0x2b0a58cdcd40&gt;</span>
+<span class="go"> Out[4]: &lt;pygeode.plot.wrappers.AxesWrapper instance at 0x2aef23da1908&gt;</span>
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="_images/showvar1d.png"><img alt="_images/showvar1d.png" src="_images/showvar1d.png" style="width: 4in;" /></a>
@@ -103,11 +104,11 @@ immediately following the command; moreover, any other keyword argument
 recognized by <tt class="xref py py-func docutils literal"><span class="pre">matplotlib.plot()</span></tt> will be passed through.</p>
 <div class="highlight-ipython"><div class="highlight"><pre><span class="c"># A vertical plot</span>
 <span class="gp">In [5]: </span><span class="n">pyg</span><span class="o">.</span><span class="n">showvar</span><span class="p">(</span><span class="n">t2</span><span class="o">.</span><span class="n">Temp</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s">&#39;time&#39;</span><span class="p">,</span> <span class="s">&#39;lat&#39;</span><span class="p">,</span> <span class="s">&#39;lon&#39;</span><span class="p">),</span> <span class="s">&#39;k--&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">3.</span><span class="p">)</span>
-<span class="go"> Out[5]: &lt;pygeode.plot.wrappers.AxesWrapper instance at 0x2b0a58ccdc68&gt;</span>
+<span class="go"> Out[5]: &lt;pygeode.plot.wrappers.AxesWrapper instance at 0x2aef22fff488&gt;</span>
 
 <span class="c"># A transposed plot</span>
 <span class="gp">In [6]: </span><span class="n">pyg</span><span class="o">.</span><span class="n">showvar</span><span class="p">(</span><span class="n">t2</span><span class="o">.</span><span class="n">Temp</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s">&#39;time&#39;</span><span class="p">,</span> <span class="s">&#39;lat&#39;</span><span class="p">,</span> <span class="s">&#39;lon&#39;</span><span class="p">),</span> <span class="n">transpose</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
-<span class="go"> Out[6]: &lt;pygeode.plot.wrappers.AxesWrapper instance at 0x2b0a5874db90&gt;</span>
+<span class="go"> Out[6]: &lt;pygeode.plot.wrappers.AxesWrapper instance at 0x2aef231c9ab8&gt;</span>
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="_images/lp_vertical.png"><img alt="_images/lp_vertical.png" src="_images/lp_vertical.png" style="width: 4in;" /></a>
@@ -187,7 +188,7 @@ overplotting</p>
     </div>
     <div class="footer">
         &copy; Copyright 2013, Mike Neish, Peter Hitchcock.
-      Last updated on Apr 25, 2015.
+      Last updated on Apr 29, 2015.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
