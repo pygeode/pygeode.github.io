@@ -176,7 +176,7 @@ the interpolation.
 
 <dl class="method">
 <dt id="pygeode.Var.smooth">
-<tt class="descclassname">Var.</tt><tt class="descname">smooth</tt><big>(</big><em>var</em>, <em>saxis</em>, <em>kernel=15</em><big>)</big><a class="headerlink" href="#pygeode.Var.smooth" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">Var.</tt><tt class="descname">smooth</tt><big>(</big><em>var</em>, <em>saxis</em>, <em>kernel=15</em>, <em>fft=True</em><big>)</big><a class="headerlink" href="#pygeode.Var.smooth" title="Permalink to this definition">¶</a></dt>
 <dd><p>Smooths this variable along <tt class="docutils literal"><span class="pre">saxis</span></tt> by convolving it with an averaging
 kernel. The returned variable is defined on the same axes.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -191,7 +191,13 @@ kernel. The returned variable is defined on the same axes.</p>
 <blockquote>
 <div><p>Averaging kernel with which to convolve this variable. Does not need to
 be normalized.  If an integer is provided, a Hanning window is used of
-length <tt class="docutils literal"><span class="pre">kernel</span></tt> (<a href="#id1"><span class="problematic" id="id2">:numpy:function:`hanning`</span></a>)</p>
+length <tt class="docutils literal"><span class="pre">kernel</span></tt> (<a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.hanning.html#numpy.hanning" title="(in NumPy v1.9)"><tt class="xref py py-func docutils literal"><span class="pre">numpy.hanning()</span></tt></a>)</p>
+</div></blockquote>
+<p><strong>fft</strong> : boolean (optional, True by default)</p>
+<blockquote>
+<div><p>If True, <a class="reference external" href="http://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.fftconvolve.html#scipy.signal.fftconvolve" title="(in SciPy v0.16.0)"><tt class="xref py py-func docutils literal"><span class="pre">scipy.signal.fftconvolve()</span></tt></a> is used to compute the convolution.
+Otherwise, <a class="reference external" href="http://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.convolve.html#scipy.signal.convolve" title="(in SciPy v0.16.0)"><tt class="xref py py-func docutils literal"><span class="pre">scipy.signal.convolve()</span></tt></a> is used. In many cases the former
+is more efficient.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -271,7 +277,7 @@ tN, tN-1, .. tN-l, where j = floor(L/2) and l = L - j - 1.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2013, Mike Neish, Peter Hitchcock.
-      Last updated on Apr 29, 2015.
+      Last updated on Sep 13, 2015.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

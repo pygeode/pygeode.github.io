@@ -102,14 +102,14 @@ coordinates, instead of a range.
 E.g. <tt class="docutils literal"><span class="pre">myvar(l_lon</span> <span class="pre">=</span> <span class="pre">(105.,106.,107.,108))</span></tt></li>
 <li><strong>n_</strong> returns the complement of the set you request; that is,
 everything except the specified selection.
-E.g. <a href="#id1"><span class="problematic" id="id2">``</span></a>myvar(n_lat = (60, 90)) returns all latitudes except those between 60 and 90N.</li>
+E.g. <tt class="docutils literal"><span class="pre">myvar(n_lat</span> <span class="pre">=</span> <span class="pre">(60,</span> <span class="pre">90))</span></tt> returns all latitudes except those between 60 and 90N.</li>
 <li><strong>m_</strong> triggers an arithmetic mean over the specified range.
 E.g., <tt class="docutils literal"><span class="pre">myvar(m_lon</span> <span class="pre">=</span> <span class="pre">(10,</span> <span class="pre">80))</span></tt> is a shortcut for doing
 <tt class="docutils literal"><span class="pre">myvar(lon</span> <span class="pre">=</span> <span class="pre">(10,80)).mean('lon')</span></tt>.</li>
 <li><strong>s_</strong> triggers a call to squeeze on the specified axis, so
 that if only one value is selected the degenerate axis is removed.
 E.g., <tt class="docutils literal"><span class="pre">myvar(s_lon</span> <span class="pre">=</span> <span class="pre">5)</span></tt> is a shortcut for doing
-<tt class="docutils literal"><span class="pre">myvar(lon</span> <span class="pre">=</span> <span class="pre">5).squeeze()</span></tt> or <a href="#id3"><span class="problematic" id="id4">``</span></a>myvar.squeeze(lon=5).</li>
+<tt class="docutils literal"><span class="pre">myvar(lon</span> <span class="pre">=</span> <span class="pre">5).squeeze()</span></tt> or <tt class="docutils literal"><span class="pre">myvar.squeeze(lon=5)</span></tt>.</li>
 </ul>
 </div></blockquote>
 <p class="rubric">Examples</p>
@@ -659,7 +659,7 @@ value).</p>
     </div>
     <div class="footer">
         &copy; Copyright 2013, Mike Neish, Peter Hitchcock.
-      Last updated on Jul 14, 2015.
+      Last updated on Sep 13, 2015.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

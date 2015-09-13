@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Advanced Variable Operations &mdash; PyGeode 1.0 alpha documentation</title>
+    
+    <link rel="stylesheet" href="_static/pygtheme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0 alpha',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="PyGeode 1.0 alpha documentation" href="index.html" />
+    <link rel="up" title="Tutorial" href="tutorial.html" />
+    <link rel="next" title="Reference" href="reference.html" />
+    <link rel="prev" title="Working with Datasets" href="tut_datasets.html" />
+<link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
+
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="reference.html" title="Reference"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="tut_datasets.html" title="Working with Datasets"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li>
+          <li><a href="tutorial.html" accesskey="U">Tutorial</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="advanced-variable-operations">
+<h1>Advanced Variable Operations<a class="headerlink" href="#advanced-variable-operations" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="climatological-statistics">
+<h2>Climatological statistics<a class="headerlink" href="#climatological-statistics" title="Permalink to this headline">¶</a></h2>
+<p>A variety of time averaging operations are possible. In addition to computing
+climatologies, one can compute monthly means, daily means, diurnal means, and
+trends. These should generally work as expected; however, PyGeode also
+implements special mapping rules for time axes so that anomalies from these time
+averages can be easily defined. In general these are based on the</p>
+<p>A common operation is to
+compute climatologies. As described in the first of these tutorials this is
+simply performed as follows</p>
+<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [2]: </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t2</span>
+
+<span class="gp">In [3]: </span><span class="n">Tc</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">climatology</span><span class="p">(</span><span class="n">t2</span><span class="o">.</span><span class="n">Temp</span><span class="p">)</span>    <span class="c"># Compute the climatology</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="time-averaging">
+<h2>Time averaging<a class="headerlink" href="#time-averaging" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="other-operations">
+<h3>Other Operations<a class="headerlink" href="#other-operations" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="eofs-correlation-and-regression-analysis">
+<h2>EOFs, correlation, and regression analysis<a class="headerlink" href="#eofs-correlation-and-regression-analysis" title="Permalink to this headline">¶</a></h2>
+<p>include lag correlation</p>
+</div>
+<div class="section" id="integration-differentiation-interpolation-and-smoothing">
+<h2>Integration, Differentiation, Interpolation and Smoothing<a class="headerlink" href="#integration-differentiation-interpolation-and-smoothing" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="composites">
+<h2>Composites<a class="headerlink" href="#composites" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Advanced Variable Operations</a><ul>
+<li><a class="reference internal" href="#climatological-statistics">Climatological statistics</a></li>
+<li><a class="reference internal" href="#time-averaging">Time averaging</a><ul>
+<li><a class="reference internal" href="#other-operations">Other Operations</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#eofs-correlation-and-regression-analysis">EOFs, correlation, and regression analysis</a></li>
+<li><a class="reference internal" href="#integration-differentiation-interpolation-and-smoothing">Integration, Differentiation, Interpolation and Smoothing</a></li>
+<li><a class="reference internal" href="#composites">Composites</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="tut_datasets.html"
+                        title="previous chapter">Working with Datasets</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="reference.html"
+                        title="next chapter">Reference</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/tut_adv.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="reference.html" title="Reference"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="tut_datasets.html" title="Working with Datasets"
+             >previous</a> |</li>
+        <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li>
+          <li><a href="tutorial.html" >Tutorial</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Mike Neish, Peter Hitchcock.
+      Last updated on Sep 13, 2015.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

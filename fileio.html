@@ -27,6 +27,7 @@
     <link rel="top" title="PyGeode 1.0 alpha documentation" href="index.html" />
     <link rel="up" title="Reference" href="reference.html" />
     <link rel="next" title="Timeutils module" href="timeutils.html" />
+    <link rel="prev" title="Plot module" href="plot.html" />
 <link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
 
@@ -41,6 +42,9 @@
         <li class="right" >
           <a href="timeutils.html" title="Timeutils module"
              accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="plot.html" title="Plot module"
+             accesskey="P">previous</a> |</li>
         <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li>
           <li><a href="reference.html" accesskey="U">Reference</a> &raquo;</li> 
       </ul>
@@ -56,10 +60,52 @@
 <p>Serialized data stored in files on disk (or over the network) can be imported
 into PyGeode with the routines <a class="reference internal" href="#pygeode.open" title="pygeode.open"><tt class="xref py py-func docutils literal"><span class="pre">open()</span></tt></a> (for single files), <a class="reference internal" href="#pygeode.openall" title="pygeode.openall"><tt class="xref py py-func docutils literal"><span class="pre">openall()</span></tt></a>
 (for small numbers of files), and <a class="reference internal" href="#pygeode.open_multi" title="pygeode.open_multi"><tt class="xref py py-func docutils literal"><span class="pre">open_multi()</span></tt></a> (for large numbers of
-files).  Variables and datasets can be saved to disk with <a class="reference internal" href="#pygeode.save" title="pygeode.save"><tt class="xref py py-func docutils literal"><span class="pre">save()</span></tt></a>. Several
-formats are supported natively by pygeode, including NetCDF (versions 3 and 4),
-HDF (versions 4 and 5) and grib files, though support for NetCDF and HDF is the
-most complete.</p>
+files).  Variables and datasets can be saved to disk with <a class="reference internal" href="#pygeode.save" title="pygeode.save"><tt class="xref py py-func docutils literal"><span class="pre">save()</span></tt></a>.</p>
+<p id="formats">Several formats are supported natively by pygeode, including NetCDF (versions 3
+and 4), HDF (versions 4 and 5) and grib files, though support for NetCDF and
+HDF is the most complete. By default the format is detected through the file extension;
+however, many of the methods below accept an optional <tt class="docutils literal"><span class="pre">format</span></tt> argument which can be used to
+specify the format explicitly.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="17%" />
+<col width="25%" />
+<col width="45%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Format</th>
+<th class="head">Extension</th>
+<th class="head">String Identifier</th>
+<th class="head">Notes</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>NetCDF</td>
+<td>.nc</td>
+<td>netcdf</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>HDF5</td>
+<td>&nbsp;</td>
+<td>netcdf</td>
+<td>Uses the same library as NetCDF</td>
+</tr>
+<tr class="row-even"><td>HDF4</td>
+<td>.hdf</td>
+<td>hdf4</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>GRIB</td>
+<td>.grib</td>
+<td>grib</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<p>Code also exists to read the native binary format used by the Canadian Centre
+for Climate Modeling and Analysis, but this is not distributed with PyGeode by
+default.</p>
 <dl class="function">
 <dt id="pygeode.open">
 <tt class="descclassname">pygeode.</tt><tt class="descname">open</tt><big>(</big><em>filename</em>, <em>format=None</em>, <em>value_override={}</em>, <em>dimtypes={}</em>, <em>namemap={}</em>, <em>varlist=</em>, <span class="optional">[</span><span class="optional">]</span><em>cfmeta=True</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pygeode.open" title="Permalink to this definition">¶</a></dt>
@@ -316,6 +362,40 @@ metadata conventions.</p>
 possible). The NetCDF format is at present the best supported.</p>
 </dd></dl>
 
+<dl class="function">
+<dt id="pygeode.formats.autodetectformat">
+<tt class="descclassname">pygeode.formats.</tt><tt class="descname">autodetectformat</tt><big>(</big><em>filename</em><big>)</big><a class="headerlink" href="#pygeode.formats.autodetectformat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns best guess at file format based on file name.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>filename</strong> : string</p>
+<blockquote>
+<div><p>Filename to identify</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>string</strong> :</p>
+<blockquote>
+<div><p>String specifying identified file format.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Raises:</th><td class="field-body"><p class="first"><strong>ValueError</strong> :</p>
+<blockquote class="last">
+<div><p>If the format cannot be determined from the extension.</p>
+</div></blockquote>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><tt class="xref py py-obj docutils literal"><span class="pre">extdict</span></tt></p>
+</div>
+</dd></dl>
+
 </div>
 
 
@@ -324,6 +404,9 @@ possible). The NetCDF format is at present the best supported.</p>
       </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="plot.html"
+                        title="previous chapter">Plot module</a></p>
   <h4>Next topic</h4>
   <p class="topless"><a href="timeutils.html"
                         title="next chapter">Timeutils module</a></p>
@@ -358,13 +441,16 @@ possible). The NetCDF format is at present the best supported.</p>
         <li class="right" >
           <a href="timeutils.html" title="Timeutils module"
              >next</a> |</li>
+        <li class="right" >
+          <a href="plot.html" title="Plot module"
+             >previous</a> |</li>
         <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li>
           <li><a href="reference.html" >Reference</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
         &copy; Copyright 2013, Mike Neish, Peter Hitchcock.
-      Last updated on Jul 27, 2015.
+      Last updated on Sep 13, 2015.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

@@ -287,6 +287,13 @@ computed over the whole domain, a python scalar is returned.</p>
 <div><p>Axes over which the variance should be computed. If none are provided, the 
 variance is computed over the whole domain.</p>
 </div></blockquote>
+<p><strong>weights</strong> : boolean or <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a> (optional, default False)</p>
+<blockquote>
+<div><p>If provided, a weighted variance is calculated. If True, the default
+weights associated with the variable are used (getweights). If False, or None, no 
+weighting is performed. Finally, custom weights can be provided in the form of a 
+<a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a>; this var must be defined on a subset of the axes being reduced.</p>
+</div></blockquote>
 </td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>out</strong> : <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a></p>
@@ -573,7 +580,7 @@ containing the index of the maximum.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2013, Mike Neish, Peter Hitchcock.
-      Last updated on Jul 24, 2015.
+      Last updated on Sep 13, 2015.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

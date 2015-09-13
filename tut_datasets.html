@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>View module &mdash; PyGeode 1.0 alpha documentation</title>
+    <title>Working with Datasets &mdash; PyGeode 1.0 alpha documentation</title>
     
     <link rel="stylesheet" href="_static/pygtheme.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -25,9 +25,9 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="PyGeode 1.0 alpha documentation" href="index.html" />
-    <link rel="up" title="Reference" href="reference.html" />
-    <link rel="next" title="Plot Gallery" href="gallery.html" />
-    <link rel="prev" title="EOF Analysis" href="eof.html" />
+    <link rel="up" title="Tutorial" href="tutorial.html" />
+    <link rel="next" title="Advanced Variable Operations" href="tut_adv.html" />
+    <link rel="prev" title="Working with Axes" href="tut_axes.html" />
 <link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
 
@@ -40,13 +40,13 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="gallery.html" title="Plot Gallery"
+          <a href="tut_adv.html" title="Advanced Variable Operations"
              accesskey="N">next</a> |</li>
         <li class="right" >
-          <a href="eof.html" title="EOF Analysis"
+          <a href="tut_axes.html" title="Working with Axes"
              accesskey="P">previous</a> |</li>
         <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li>
-          <li><a href="reference.html" accesskey="U">Reference</a> &raquo;</li> 
+          <li><a href="tutorial.html" accesskey="U">Tutorial</a> &raquo;</li> 
       </ul>
     </div>  
 
@@ -55,29 +55,11 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="section" id="module-pygeode.view">
-<span id="view-module"></span><h1>View module<a class="headerlink" href="#module-pygeode.view" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
-<dt id="pygeode.view.expand">
-<tt class="descclassname">pygeode.view.</tt><tt class="descname">expand</tt><big>(</big><em>ind</em>, <em>upper_bound</em><big>)</big><a class="headerlink" href="#pygeode.view.expand" title="Permalink to this definition">¶</a></dt>
-<dd><p>Expand a slice or integer into an explicit array of indices</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="pygeode.view.simplify">
-<tt class="descclassname">pygeode.view.</tt><tt class="descname">simplify</tt><big>(</big><em>ind</em><big>)</big><a class="headerlink" href="#pygeode.view.simplify" title="Permalink to this definition">¶</a></dt>
-<dd><p>Simplify an index list into a slice, if possible
-does <em>not</em> return single integer indices, since that screws up the dimensions
-when applying these slices to numpy arrays.</p>
-</dd></dl>
-
-<dl class="function">
-<dt id="pygeode.view.contiguate">
-<tt class="descclassname">pygeode.view.</tt><tt class="descname">contiguate</tt><big>(</big><em>ind</em><big>)</big><a class="headerlink" href="#pygeode.view.contiguate" title="Permalink to this definition">¶</a></dt>
-<dd><p>how to contiguate(?) the slices without actually returning the contiguous slices
-(returns what you would pass to slice_into to get the contiguous slices)</p>
-</dd></dl>
-
+  <div class="section" id="working-with-datasets">
+<h1>Working with Datasets<a class="headerlink" href="#working-with-datasets" title="Permalink to this headline">¶</a></h1>
+<p>selections on whole datasets
+combining datasets
+operating on datasets</p>
 </div>
 
 
@@ -87,14 +69,14 @@ when applying these slices to numpy arrays.</p>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
   <h4>Previous topic</h4>
-  <p class="topless"><a href="eof.html"
-                        title="previous chapter">EOF Analysis</a></p>
+  <p class="topless"><a href="tut_axes.html"
+                        title="previous chapter">Working with Axes</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="gallery.html"
-                        title="next chapter">Plot Gallery</a></p>
+  <p class="topless"><a href="tut_adv.html"
+                        title="next chapter">Advanced Variable Operations</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
-    <li><a href="_sources/view.txt"
+    <li><a href="_sources/tut_datasets.txt"
            rel="nofollow">Show Source</a></li>
   </ul>
 <div id="searchbox" style="display: none">
@@ -121,13 +103,13 @@ when applying these slices to numpy arrays.</p>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="gallery.html" title="Plot Gallery"
+          <a href="tut_adv.html" title="Advanced Variable Operations"
              >next</a> |</li>
         <li class="right" >
-          <a href="eof.html" title="EOF Analysis"
+          <a href="tut_axes.html" title="Working with Axes"
              >previous</a> |</li>
         <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li>
-          <li><a href="reference.html" >Reference</a> &raquo;</li> 
+          <li><a href="tutorial.html" >Tutorial</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

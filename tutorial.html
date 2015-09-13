@@ -25,7 +25,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="PyGeode 1.0 alpha documentation" href="index.html" />
-    <link rel="next" title="Getting Started" href="gettingstarted.html" />
+    <link rel="next" title="Getting Started" href="tut_gettingstarted.html" />
     <link rel="prev" title="Installing PyGeode" href="install.html" />
 <link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
@@ -39,7 +39,7 @@
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="gettingstarted.html" title="Getting Started"
+          <a href="tut_gettingstarted.html" title="Getting Started"
              accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="install.html" title="Installing PyGeode"
@@ -70,46 +70,42 @@ interpolation; this may change in the future to remove this dependency.</p>
 features in combination with matplotlib are quite convenient and this tutorial
 has been written assuming you are working with this combination. All the
 commands given should still work in any other interpreter.</p>
-<p>This tutorial is written in four parts. The first part, <a class="reference internal" href="gettingstarted.html"><em>Getting Started</em></a>,
-gives a broad overview and introduction to the library, including a brief
-description of some of the most common tasks. The second part, <a class="reference internal" href="basic_ops.html"><em>Basic Variable Operations</em></a>,
-goes into more detail on some of the most fundamental operations one is likely
-to carry out on PyGeode variables; this is worth having a good understanding of
-if you plan to use the features of this library for anything but the most
-trivial operations.  The third part, <a class="reference internal" href="variableio.html"><em>Variable input and output</em></a>, goes in to more detail
-on how to read in and write out data, and on creating variables from scratch;
-this includes an introduction to many of the types of axes recognized by
-PyGeode. More advanced and specific operations that PyGeode can carry out are
-briefly introduced in the fourth part, <a class="reference internal" href="adv_ops.html"><em>Advanced Variable Operations</em></a>, and finally the fifth
-part, <a class="reference internal" href="plotting.html"><em>Plotting</em></a>, introduces the plotting features of PyGeode.</p>
+<p>The tutorial is split up into a series of parts, beginning with a brief
+overview the main features of the library and then proceeding through the
+different features in greater detail.</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="gettingstarted.html">Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="basic_ops.html">Basic Variable Operations</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="basic_ops.html#selecting-subsets">Selecting subsets</a></li>
-<li class="toctree-l2"><a class="reference internal" href="basic_ops.html#arithmetic-operations">Arithmetic operations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="basic_ops.html#reductions-averages-standard-deviations">Reductions (Averages, Standard deviations)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="basic_ops.html#reshaping-variables">Reshaping variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tut_gettingstarted.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tut_basics.html">Basic Operations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tut_basics.html#selecting-subsets">Selecting subsets</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tut_basics.html#arithmetic-operations-and-broadcasting-rules">Arithmetic operations and broadcasting rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tut_basics.html#reductions-averages-standard-deviations">Reductions (Averages, Standard deviations)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tut_basics.html#reshaping-variables">Reshaping variables</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="variableio.html">Variable input and output</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="variableio.html#reading-from-files">Reading from files</a></li>
-<li class="toctree-l2"><a class="reference internal" href="variableio.html#saving-to-files">Saving to files</a></li>
-<li class="toctree-l2"><a class="reference internal" href="variableio.html#constructing-variables-in-memory">Constructing variables in memory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tut_io.html">Variable input and output</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tut_io.html#reading-from-a-single-file">Reading from a single file</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tut_io.html#reading-from-multiple-files">Reading from multiple files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tut_io.html#saving-to-files">Saving to files</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="adv_ops.html">Advanced Variable Operations</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="adv_ops.html#time-axis-operations">Time Axis Operations</a></li>
-<li class="toctree-l2"><a class="reference internal" href="adv_ops.html#eofs-correlation-and-regression-analysis">EOFs, correlation and regression analysis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="adv_ops.html#integration-and-differentiation">Integration and Differentiation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="adv_ops.html#interpolation">Interpolation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="adv_ops.html#composites">Composites</a></li>
-<li class="toctree-l2"><a class="reference internal" href="adv_ops.html#smoothing">Smoothing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tut_plot.html">Plotting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tut_plot.html#line-plots">Line Plots</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tut_plot.html#contour-plots">Contour Plots</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="plotting.html">Plotting</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="plotting.html#line-plots">Line Plots</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plotting.html#contour-plots">Contour Plots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tut_axes.html">Working with Axes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tut_axes.html#constructing-variables-in-memory">Constructing variables in memory</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tut_axes.html#time-axis-operations">Time Axis Operations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tut_datasets.html">Working with Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tut_adv.html">Advanced Variable Operations</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tut_adv.html#climatological-statistics">Climatological statistics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tut_adv.html#time-averaging">Time averaging</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tut_adv.html#eofs-correlation-and-regression-analysis">EOFs, correlation, and regression analysis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tut_adv.html#integration-differentiation-interpolation-and-smoothing">Integration, Differentiation, Interpolation and Smoothing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tut_adv.html#composites">Composites</a></li>
 </ul>
 </li>
 </ul>
@@ -126,7 +122,7 @@ part, <a class="reference internal" href="plotting.html"><em>Plotting</em></a>, 
   <p class="topless"><a href="install.html"
                         title="previous chapter">Installing PyGeode</a></p>
   <h4>Next topic</h4>
-  <p class="topless"><a href="gettingstarted.html"
+  <p class="topless"><a href="tut_gettingstarted.html"
                         title="next chapter">Getting Started</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
@@ -157,7 +153,7 @@ part, <a class="reference internal" href="plotting.html"><em>Plotting</em></a>, 
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="gettingstarted.html" title="Getting Started"
+          <a href="tut_gettingstarted.html" title="Getting Started"
              >next</a> |</li>
         <li class="right" >
           <a href="install.html" title="Installing PyGeode"
@@ -167,7 +163,7 @@ part, <a class="reference internal" href="plotting.html"><em>Plotting</em></a>, 
     </div>
     <div class="footer">
         &copy; Copyright 2013, Mike Neish, Peter Hitchcock.
-      Last updated on Jul 27, 2015.
+      Last updated on Sep 13, 2015.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>

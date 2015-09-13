@@ -26,6 +26,7 @@
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="top" title="PyGeode 1.0 alpha documentation" href="index.html" />
     <link rel="up" title="Reference" href="reference.html" />
+    <link rel="next" title="File Input and Output" href="fileio.html" />
     <link rel="prev" title="Dataset overview" href="dataset.html" />
 <link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
@@ -38,6 +39,9 @@
         <li class="right" style="margin-right: 10px">
           <a href="genindex.html" title="General Index"
              accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="fileio.html" title="File Input and Output"
+             accesskey="N">next</a> |</li>
         <li class="right" >
           <a href="dataset.html" title="Dataset overview"
              accesskey="P">previous</a> |</li>
@@ -131,13 +135,13 @@ choosing appropriate parameter values as automatically as possible.</p>
 
 <dl class="function">
 <dt id="pygeode.showlines">
-<tt class="descclassname">pygeode.</tt><tt class="descname">showlines</tt><big>(</big><em>vs</em>, <em>size=(4.1</em>, <em>2)</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pygeode.showlines" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">pygeode.</tt><tt class="descname">showlines</tt><big>(</big><em>vs</em>, <em>fmts=None</em>, <em>labels=None</em>, <em>size=(4.1</em>, <em>2)</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pygeode.showlines" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot line plots of a list of 1D variables on the same plot.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>v</strong> :  list of <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a></p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>vs</strong> :  list of <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a></p>
 <blockquote class="last">
 <div><p>The variables to plot. Should all have 1 non-degenerate axis.</p>
 </div></blockquote>
@@ -282,85 +286,8 @@ choosing appropriate parameter values as automatically as possible.</p>
 
 <span class="target" id="module-pygeode.plot"></span><dl class="class">
 <dt id="pygeode.plot.AxesWrapper">
-<em class="property">class </em><tt class="descclassname">pygeode.plot.</tt><tt class="descname">AxesWrapper</tt><big>(</big><em>parent=None</em>, <em>rect=None</em>, <em>size=None</em>, <em>pad=None</em>, <em>make_axis=False</em>, <em>name=''</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pygeode.plot.AxesWrapper" title="Permalink to this definition">¶</a></dt>
-<dd><p class="rubric">Methods</p>
-<table border="1" class="longtable docutils">
-<colgroup>
-<col width="10%" />
-<col width="90%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">add_axis</span></tt>(axis,&nbsp;rect)</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">add_plot</span></tt>(plot[,&nbsp;order,&nbsp;make_axes])</td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">axhline</span></tt>(*args,&nbsp;**kwargs)</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">axvline</span></tt>(*args,&nbsp;**kwargs)</td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">clabel</span></tt>(*args,&nbsp;**kwargs)</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">contour</span></tt>(*args,&nbsp;**kwargs)</td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">contourf</span></tt>(*args,&nbsp;**kwargs)</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">fill_between</span></tt>(*args,&nbsp;**kwargs)</td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">find_plot</span></tt>(cl)</td>
-<td>Returns last instance of plot class cl in this axes plots.</td>
-</tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">get_transform</span></tt>([root])</td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">legend</span></tt>(*args,&nbsp;**kwargs)</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">modifycontours</span></tt>(*args,&nbsp;**kwargs)</td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">plot</span></tt>(*args,&nbsp;**kwargs)</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">pop_plot</span></tt>([order])</td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">quiver</span></tt>(*args,&nbsp;**kwargs)</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">quiverkey</span></tt>(*args,&nbsp;**kwargs)</td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">render</span></tt>([fig,&nbsp;show])</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">scatter</span></tt>(*args,&nbsp;**kwargs)</td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">setp</span></tt>([children])</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">setp_xaxis</span></tt>([children])</td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">setp_yaxis</span></tt>([children])</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">streamplot</span></tt>(*args,&nbsp;**kwargs)</td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">text</span></tt>(*args,&nbsp;**kwargs)</td>
-<td></td>
-</tr>
-</tbody>
-</table>
+<em class="property">class </em><tt class="descclassname">pygeode.plot.</tt><tt class="descname">AxesWrapper</tt><a class="headerlink" href="#pygeode.plot.AxesWrapper" title="Permalink to this definition">¶</a></dt>
+<dd><p>A PyGeode wrapper class for a matplotlib figure or subplot</p>
 </dd></dl>
 
 <dl class="function">
@@ -379,6 +306,9 @@ choosing appropriate parameter values as automatically as possible.</p>
   <h4>Previous topic</h4>
   <p class="topless"><a href="dataset.html"
                         title="previous chapter">Dataset overview</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="fileio.html"
+                        title="next chapter">File Input and Output</a></p>
   <h3>This Page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/plot.txt"
@@ -408,6 +338,9 @@ choosing appropriate parameter values as automatically as possible.</p>
           <a href="genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
+          <a href="fileio.html" title="File Input and Output"
+             >next</a> |</li>
+        <li class="right" >
           <a href="dataset.html" title="Dataset overview"
              >previous</a> |</li>
         <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li>
@@ -416,7 +349,7 @@ choosing appropriate parameter values as automatically as possible.</p>
     </div>
     <div class="footer">
         &copy; Copyright 2013, Mike Neish, Peter Hitchcock.
-      Last updated on Jul 24, 2015.
+      Last updated on Sep 13, 2015.
       Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
     </div>
   </body>
