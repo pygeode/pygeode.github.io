@@ -1,114 +1,115 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Working with Axes &mdash; PyGeode 1.0 alpha documentation</title>
-    
+    <title>Working with Axes &#8212; PyGeode 1.3 pre-release documentation</title>
     <link rel="stylesheet" href="_static/pygtheme.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '1.0 alpha',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
+    <link rel="stylesheet" type="text/css" href="_static/gallery.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="PyGeode 1.0 alpha documentation" href="index.html" />
-    <link rel="up" title="Tutorial" href="tutorial.html" />
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Working with Datasets" href="tut_datasets.html" />
     <link rel="prev" title="Plotting" href="tut_plot.html" />
 <link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
 
-  </head>
-  <body>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="tut_datasets.html" title="Working with Datasets"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="tut_plot.html" title="Plotting"
-             accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li>
-          <li><a href="tutorial.html" accesskey="U">Tutorial</a> &raquo;</li> 
-      </ul>
-    </div>  
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="index.html">
+          <span>PyGeode 1.3 pre-release documentation</span></a></h1>
+        <h2 class="heading"><span>Working with Axes</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        «&#160;&#160;<a href="tut_plot.html">Plotting</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="gallery/index.html">Gallery</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="tut_datasets.html">Working with Datasets</a>&#160;&#160;»
+        </p>
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
-            
+      </div>
+      <div class="content">
+        
+        
   <div class="section" id="working-with-axes">
 <h1>Working with Axes<a class="headerlink" href="#working-with-axes" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="constructing-variables-in-memory">
-<h2>Constructing variables in memory<a class="headerlink" href="#constructing-variables-in-memory" title="Permalink to this headline">¶</a></h2>
+<span id="constructing-vars"></span><h2>Constructing variables in memory<a class="headerlink" href="#constructing-variables-in-memory" title="Permalink to this headline">¶</a></h2>
 <p>It is also often useful to create PyGeode variables directly in memory; for
 instance, to evaluate analytical expressions on a given geophysical grid. A very
 useful set of building blocks for creating variables in this way are axes
 objects. If you already have a variable on the relevant grid (defined from a
-file for instance), it&#8217;s easy to simply use the existing axes, as has been done
+file for instance), it’s easy to simply use the existing axes, as has been done
 in many cases in these tutorials. However, most axes objects have simple
 constructors to create them directly.</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="c"># The simplest, default case</span>
-<span class="gp">In [2]: </span><span class="k">print</span> <span class="n">pyg</span><span class="o">.</span><span class="n">NamedAxis</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">15</span><span class="p">),</span> <span class="s">&#39;myaxis&#39;</span><span class="p">)</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="go"># The simplest, default case</span>
+<span class="gp">In [1]: </span><span class="k">print</span><span class="p">(</span><span class="n">pyg</span><span class="o">.</span><span class="n">NamedAxis</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">15</span><span class="p">),</span> <span class="s1">&#39;myaxis&#39;</span><span class="p">))</span>
 <span class="go">myaxis &lt;NamedAxis &#39;myaxis&#39;&gt;:  0  to 14  (15 values)</span>
 
-<span class="c"># Some simple examples</span>
-<span class="gp">In [3]: </span><span class="n">lon</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">Lon</span><span class="p">(</span><span class="mi">180</span><span class="p">)</span>
+<span class="go"># Some simple examples</span>
+<span class="gp">In [2]: </span><span class="n">lon</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">Lon</span><span class="p">(</span><span class="mi">180</span><span class="p">)</span>
 
-<span class="gp">In [4]: </span><span class="k">print</span> <span class="n">lon</span>
+<span class="gp">In [3]: </span><span class="k">print</span><span class="p">(</span><span class="n">lon</span><span class="p">)</span>
 <span class="go">lon &lt;Lon&gt;      :  0 E to 179 E (180 values)</span>
 
-<span class="gp">In [5]: </span><span class="n">lat</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">Lat</span><span class="p">(</span><span class="mi">92</span><span class="p">)</span>
+<span class="gp">In [4]: </span><span class="n">lat</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">Lat</span><span class="p">(</span><span class="mi">92</span><span class="p">)</span>
 
-<span class="gp">In [6]: </span><span class="k">print</span> <span class="n">lat</span>
+<span class="gp">In [5]: </span><span class="k">print</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span>
 <span class="go">lat &lt;Lat&gt;      :  EQ to 91 N (92 values)</span>
 
-<span class="gp">In [7]: </span><span class="n">pres</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">Pres</span><span class="p">([</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">900</span><span class="p">,</span> <span class="mi">800</span><span class="p">,</span> <span class="mi">700</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">10</span><span class="p">])</span>
+<span class="gp">In [6]: </span><span class="n">pres</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">Pres</span><span class="p">([</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">900</span><span class="p">,</span> <span class="mi">800</span><span class="p">,</span> <span class="mi">700</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">10</span><span class="p">])</span>
 
-<span class="c"># Gaussian latitudes (with appropriate weights)</span>
-<span class="gp">In [8]: </span><span class="n">lat2</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">gausslat</span><span class="p">(</span><span class="mi">64</span><span class="p">)</span>
+<span class="go"># Gaussian latitudes (with appropriate weights)</span>
+<span class="gp">In [7]: </span><span class="n">lat2</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">gausslat</span><span class="p">(</span><span class="mi">64</span><span class="p">)</span>
 
-<span class="gp">In [9]: </span><span class="k">print</span> <span class="n">lat2</span>
+<span class="gp">In [8]: </span><span class="k">print</span><span class="p">(</span><span class="n">lat2</span><span class="p">)</span>
 <span class="go">lat &lt;Lat&gt;      :  88 S to 88 N (64 values)</span>
 </pre></div>
 </div>
 <p>Time axes are somewhat more complicated, as you need to specify the calendar,
-the reference date (<tt class="docutils literal"><span class="pre">startdate</span></tt>), offsets, and the native unit:</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [10]: </span><span class="n">time</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">ModelTime365</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">3650</span><span class="p">),</span> <span class="n">units</span><span class="o">=</span><span class="s">&#39;days&#39;</span><span class="p">,</span> <span class="n">startdate</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+the reference date (<code class="docutils literal notranslate"><span class="pre">startdate</span></code>), offsets, and the native unit:</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [9]: </span><span class="n">time</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">ModelTime365</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">3650</span><span class="p">),</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;days&#39;</span><span class="p">,</span> <span class="n">startdate</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>but some simple helpers are available here as well:</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="go"># A time axis of fixed length</span>
+<span class="gp">In [10]: </span><span class="k">print</span><span class="p">(</span><span class="n">pyg</span><span class="o">.</span><span class="n">modeltime365n</span><span class="p">(</span><span class="s1">&#39;1 Jan 2000&#39;</span><span class="p">,</span> <span class="mi">3650</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;days&#39;</span><span class="p">))</span>
+<span class="go">time &lt;ModelTime365&gt;:  Jan 1, 2000 00:00:00 to Dec 31, 2009 00:00:00 (3650 values)</span>
+
+<span class="go"># A time axis spanning a range of dates</span>
+<span class="gp">In [11]: </span><span class="k">print</span><span class="p">(</span><span class="n">pyg</span><span class="o">.</span><span class="n">modeltime365range</span><span class="p">(</span><span class="s1">&#39;1 Jan 2000&#39;</span><span class="p">,</span> <span class="s1">&#39;1 Jan 2001&#39;</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;hours&#39;</span><span class="p">))</span>
+<span class="go">                                                                                  time &lt;ModelTime365&gt;:  Jan 1, 2000 00:00:00 to Dec 31, 2000 18:00:00 (1460 values)</span>
 </pre></div>
 </div>
 <p>Usually the easiest approach to creating variables in memory is to apply the
 relevant mathematical operations to the axes themselves:</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [11]: </span><span class="n">pyg</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">time</span> <span class="o">/</span> <span class="mi">365</span><span class="p">)</span> <span class="o">*</span> <span class="n">pyg</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">lat2</span> <span class="o">/</span> <span class="mf">20.</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-<span class="gr">Out[11]: </span><span class="o">&lt;</span><span class="n">Var</span> <span class="s">&#39;(sin(time)*exp(-lat**2))&#39;</span><span class="o">&gt;</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [12]: </span><span class="n">pyg</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">time</span> <span class="o">/</span> <span class="mi">365</span><span class="p">)</span> <span class="o">*</span> <span class="n">pyg</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">lat2</span> <span class="o">/</span> <span class="mf">20.</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="gh">Out[12]: </span><span class="go">&lt;Var &#39;(sin(time)*exp(-lat**2))&#39;&gt;</span>
 
-<span class="gp">In [12]: </span><span class="n">pyg</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">time</span> <span class="o">/</span> <span class="mi">365</span><span class="p">)</span> <span class="o">*</span> <span class="n">pyg</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">lat2</span> <span class="o">/</span> <span class="mf">20.</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
-<span class="gr">Out[12]: </span><span class="o">&lt;</span><span class="n">Var</span> <span class="s">&#39;(sin(time)*exp(-lat**2))&#39;</span><span class="o">&gt;</span>
+<span class="gp">In [13]: </span><span class="n">pyg</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">time</span> <span class="o">/</span> <span class="mi">365</span><span class="p">)</span> <span class="o">*</span> <span class="n">pyg</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">lat2</span> <span class="o">/</span> <span class="mf">20.</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">                                          Out[13]: &lt;Var &#39;(sin(time)*exp(-lat**2))&#39;&gt;</span>
 </pre></div>
 </div>
 <p>However, if you have a numpy array that you want to turn in to a PyGeode
 variable, this can also be done.</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [13]: </span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">64</span><span class="p">,</span> <span class="mi">180</span><span class="p">),</span> <span class="s">&#39;d&#39;</span><span class="p">)</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [14]: </span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">64</span><span class="p">,</span> <span class="mi">180</span><span class="p">),</span> <span class="s1">&#39;d&#39;</span><span class="p">)</span>
 
-<span class="gp">In [14]: </span><span class="k">print</span> <span class="n">pyg</span><span class="o">.</span><span class="n">Var</span><span class="p">((</span><span class="n">lat2</span><span class="p">,</span> <span class="n">lon</span><span class="p">),</span> <span class="n">name</span> <span class="o">=</span> <span class="s">&#39;myvar&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">In [15]: </span><span class="k">print</span><span class="p">(</span><span class="n">pyg</span><span class="o">.</span><span class="n">Var</span><span class="p">((</span><span class="n">lat2</span><span class="p">,</span> <span class="n">lon</span><span class="p">),</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;myvar&#39;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="n">x</span><span class="p">))</span>
 <span class="go">&lt;Var &#39;myvar&#39;&gt;:</span>
 <span class="go">  Shape:  (lat,lon)  (64,180)</span>
 <span class="go">  Axes:</span>
@@ -122,40 +123,40 @@ variable, this can also be done.</p>
 </div>
 <div class="section" id="time-axis-operations">
 <span id="timeaxisops"></span><h2>Time Axis Operations<a class="headerlink" href="#time-axis-operations" title="Permalink to this headline">¶</a></h2>
-<p>PyGeode recognizes many types of geophysical dimensions, some of which we&#8217;ve
+<p>PyGeode recognizes many types of geophysical dimensions, some of which we’ve
 already seen in these tutorials. By far the most complicated of these are those
 axes representing the time dimension. PyGeode has a reasonably sophisticated
 time axis, which is aware of four main types of Calandars - the standard Julian
-calendar (<a class="reference internal" href="timeaxes.html#pygeode.StandardTime" title="pygeode.StandardTime"><tt class="xref py py-class docutils literal"><span class="pre">StandardTime</span></tt></a>), a 365-day calendar (<a class="reference internal" href="timeaxes.html#pygeode.ModelTime365" title="pygeode.ModelTime365"><tt class="xref py py-class docutils literal"><span class="pre">ModelTime365</span></tt></a>), a
-360-day calendar (<a class="reference internal" href="timeaxes.html#pygeode.ModelTime360" title="pygeode.ModelTime360"><tt class="xref py py-class docutils literal"><span class="pre">ModelTime360</span></tt></a>), and a yearless calendar
-(<a class="reference internal" href="timeaxes.html#pygeode.Yearless" title="pygeode.Yearless"><tt class="xref py py-class docutils literal"><span class="pre">Yearless</span></tt></a>) with no temporal organization at scales longer than days.</p>
+calendar (<a class="reference internal" href="timeaxes.html#pygeode.StandardTime" title="pygeode.StandardTime"><code class="xref py py-class docutils literal notranslate"><span class="pre">StandardTime</span></code></a>), a 365-day calendar (<a class="reference internal" href="timeaxes.html#pygeode.ModelTime365" title="pygeode.ModelTime365"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelTime365</span></code></a>), a
+360-day calendar (<a class="reference internal" href="timeaxes.html#pygeode.ModelTime360" title="pygeode.ModelTime360"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelTime360</span></code></a>), and a yearless calendar
+(<a class="reference internal" href="timeaxes.html#pygeode.Yearless" title="pygeode.Yearless"><code class="xref py py-class docutils literal notranslate"><span class="pre">Yearless</span></code></a>) with no temporal organization at scales longer than days.</p>
 <div class="section" id="creating-time-axes">
 <h3>Creating Time Axes<a class="headerlink" href="#creating-time-axes" title="Permalink to this headline">¶</a></h3>
 <p>Time axes will often be created automatically from datasets with CF-compliant
 metadata (of which PyGeode is aware); but they can also be created manually.
 There are two broad ways to create a time axis: 1) in terms of an offset from a
 reference date and 2) by directly specifying dates and times.</p>
-<p>The first requires specifying a reference date (<tt class="docutils literal"><span class="pre">startdate</span></tt>), a list of
+<p>The first requires specifying a reference date (<code class="docutils literal notranslate"><span class="pre">startdate</span></code>), a list of
 values representing offsets from this date, and the units in which these
-offsets are specified (<tt class="docutils literal"><span class="pre">seconds</span></tt>, <tt class="docutils literal"><span class="pre">minutes</span></tt>, <tt class="docutils literal"><span class="pre">hours</span></tt>, or <tt class="docutils literal"><span class="pre">days</span></tt>); this
+offsets are specified (<code class="docutils literal notranslate"><span class="pre">seconds</span></code>, <code class="docutils literal notranslate"><span class="pre">minutes</span></code>, <code class="docutils literal notranslate"><span class="pre">hours</span></code>, or <code class="docutils literal notranslate"><span class="pre">days</span></code>); this
 is usually the more convenient way to construct an axis.</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [15]: </span><span class="kn">import</span> <span class="nn">pygeode</span> <span class="kn">as</span> <span class="nn">pyg</span><span class="o">,</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [16]: </span><span class="kn">import</span> <span class="nn">pygeode</span> <span class="kn">as</span> <span class="nn">pyg</span><span class="o">,</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 
-<span class="c"># A time axis representing the (leap) year 2008 at 6 h increments</span>
-<span class="gp">In [16]: </span><span class="k">print</span> <span class="n">pyg</span><span class="o">.</span><span class="n">StandardTime</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">24</span><span class="o">*</span><span class="mi">366</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">units</span> <span class="o">=</span> <span class="s">&#39;hours&#39;</span><span class="p">,</span> <span class="n">startdate</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="mi">2008</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+<span class="go"># A time axis representing the (leap) year 2008 at 6 h increments</span>
+<span class="gp">In [17]: </span><span class="k">print</span><span class="p">(</span><span class="n">pyg</span><span class="o">.</span><span class="n">StandardTime</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">24</span><span class="o">*</span><span class="mi">366</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">units</span> <span class="o">=</span> <span class="s1">&#39;hours&#39;</span><span class="p">,</span> <span class="n">startdate</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="mi">2008</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">1</span><span class="p">)))</span>
 <span class="go">time &lt;StandardTime&gt;:  Jan 1, 2008 00:00:00 to Dec 31, 2008 18:00:00 (1464 values)</span>
 
-<span class="c"># 2000 to 2010 in 360-day years</span>
-<span class="gp">In [17]: </span><span class="k">print</span> <span class="n">pyg</span><span class="o">.</span><span class="n">ModelTime360</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="o">*</span><span class="mi">360</span><span class="p">),</span> <span class="n">units</span> <span class="o">=</span> <span class="s">&#39;days&#39;</span><span class="p">,</span> <span class="n">startdate</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
-<span class="go">time &lt;ModelTime360&gt;:  Jan 1, 2000 00:00:00 to Dec 30, 2009 00:00:00 (3600 values)</span>
+<span class="go"># 2000 to 2010 in 360-day years</span>
+<span class="gp">In [18]: </span><span class="k">print</span><span class="p">(</span><span class="n">pyg</span><span class="o">.</span><span class="n">ModelTime360</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">10</span><span class="o">*</span><span class="mi">360</span><span class="p">),</span> <span class="n">units</span> <span class="o">=</span> <span class="s1">&#39;days&#39;</span><span class="p">,</span> <span class="n">startdate</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">1</span><span class="p">)))</span>
+<span class="go">                                                                                  time &lt;ModelTime360&gt;:  Jan 1, 2000 00:00:00 to Dec 30, 2009 00:00:00 (3600 values)</span>
 </pre></div>
 </div>
 <p>The second involves providing an explicit list of the dates and times of each element of the
-axis. PyGeode recognizes the auxiliary arrays <tt class="docutils literal"><span class="pre">year</span></tt>, <tt class="docutils literal"><span class="pre">month</span></tt>, <tt class="docutils literal"><span class="pre">day</span></tt>,
-<tt class="docutils literal"><span class="pre">hour</span></tt>, <tt class="docutils literal"><span class="pre">minute</span></tt> and <tt class="docutils literal"><span class="pre">second</span></tt>, though not all need to be explicitly
+axis. PyGeode recognizes the auxiliary arrays <code class="docutils literal notranslate"><span class="pre">year</span></code>, <code class="docutils literal notranslate"><span class="pre">month</span></code>, <code class="docutils literal notranslate"><span class="pre">day</span></code>,
+<code class="docutils literal notranslate"><span class="pre">hour</span></code>, <code class="docutils literal notranslate"><span class="pre">minute</span></code> and <code class="docutils literal notranslate"><span class="pre">second</span></code>, though not all need to be explicitly
 provided:</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="c"># A time axis representing the months of 1890</span>
-<span class="gp">In [18]: </span><span class="k">print</span> <span class="n">pyg</span><span class="o">.</span><span class="n">ModelTime365</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="mi">12</span><span class="o">*</span><span class="p">[</span><span class="mi">1890</span><span class="p">],</span> <span class="n">month</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">13</span><span class="p">),</span> <span class="n">units</span><span class="o">=</span><span class="s">&#39;days&#39;</span><span class="p">)</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="go"># A time axis representing the months of 1890</span>
+<span class="gp">In [19]: </span><span class="k">print</span><span class="p">(</span><span class="n">pyg</span><span class="o">.</span><span class="n">ModelTime365</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="mi">12</span><span class="o">*</span><span class="p">[</span><span class="mi">1890</span><span class="p">],</span> <span class="n">month</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">13</span><span class="p">),</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;days&#39;</span><span class="p">))</span>
 <span class="go">time &lt;ModelTime365&gt;:  Jan , 1890 :: to Dec , 1890 :: (12 values)</span>
 </pre></div>
 </div>
@@ -163,41 +164,44 @@ provided:</p>
 <div class="section" id="combining-time-axes">
 <h3>Combining Time Axes<a class="headerlink" href="#combining-time-axes" title="Permalink to this headline">¶</a></h3>
 <p>Internally the axis values (used for mapping two axes, selecting subranges, and
-plotting) are represented as offsets from the reference <tt class="docutils literal"><span class="pre">startdate</span></tt>. PyGeode
-will map between the two if a valid map exists (<a class="reference internal" href="tut_basics.html#broadcasting"><em>Broadcasting</em></a>), though
+plotting) are represented as offsets from the reference <code class="docutils literal notranslate"><span class="pre">startdate</span></code>. PyGeode
+will map between the two if a valid map exists (<a class="reference internal" href="tut_basics.html#broadcasting"><span class="std std-ref">Broadcasting</span></a>), though
 note that which reference frame the result will be returned in can depend on the
 order of operations:</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="c"># A time axis representing the year 2005 at 6 h increments</span>
-<span class="gp">In [19]: </span><span class="n">t1</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">ModelTime365</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">24</span><span class="o">*</span><span class="mi">365</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">units</span> <span class="o">=</span> <span class="s">&#39;hours&#39;</span><span class="p">,</span> <span class="n">startdate</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="mi">2005</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="go"># A time axis representing the year 2005 at 6 h increments</span>
+<span class="gp">In [20]: </span><span class="n">t1</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">modeltime365range</span><span class="p">(</span><span class="s1">&#39;1 Jan 2005&#39;</span><span class="p">,</span> <span class="s1">&#39;1 Jan 2006&#39;</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">units</span> <span class="o">=</span> <span class="s1">&#39;hours&#39;</span><span class="p">)</span>
 
-<span class="c"># Another time axis representing the same dates but with a different reference</span>
-<span class="gp">In [20]: </span><span class="n">t2</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">ModelTime365</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="mf">365.</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">365</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">),</span> <span class="n">units</span> <span class="o">=</span> <span class="s">&#39;days&#39;</span><span class="p">,</span> <span class="n">startdate</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="mi">2004</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+<span class="go"># Another time axis representing the same dates but with a different reference date and different units</span>
+<span class="gp">In [21]: </span><span class="n">t2</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">modeltime365range</span><span class="p">(</span><span class="s1">&#39;1 Jan 2005&#39;</span><span class="p">,</span> <span class="s1">&#39;1 Jan 2006&#39;</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">units</span> <span class="o">=</span> <span class="s1">&#39;days&#39;</span><span class="p">,</span> <span class="n">ref</span> <span class="o">=</span> <span class="s1">&#39;1 Jan 2004&#39;</span><span class="p">)</span>
 
-<span class="c"># Sum these in two different ways</span>
-<span class="gp">In [21]: </span><span class="n">ts12</span> <span class="o">=</span> <span class="n">t1</span> <span class="o">+</span> <span class="n">t2</span>
+<span class="go"># Add these in two different ways</span>
+<span class="gp">In [22]: </span><span class="n">ts12</span> <span class="o">=</span> <span class="n">t1</span> <span class="o">+</span> <span class="n">t2</span>
 
-<span class="c"># Since either axis can be mapped to each other, these will differ</span>
-<span class="gp">In [22]: </span><span class="n">ts21</span> <span class="o">=</span> <span class="n">t2</span> <span class="o">+</span> <span class="n">t1</span>
+<span class="go"># Since either axis can be mapped to each other, these will differ</span>
+<span class="gp">In [23]: </span><span class="n">ts21</span> <span class="o">=</span> <span class="n">t2</span> <span class="o">+</span> <span class="n">t1</span>
 
-<span class="c"># Both of these work and refer to the same time period...</span>
-<span class="gp">In [23]: </span><span class="k">print</span> <span class="n">ts12</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">units</span>
-<span class="go">hours</span>
+<span class="go"># Both of these work and refer to the same time period...</span>
+<span class="gp">In [24]: </span><span class="k">print</span><span class="p">(</span><span class="n">ts12</span><span class="o">.</span><span class="n">time</span><span class="p">)</span>
+<span class="go">time &lt;ModelTime365&gt;:  Jan 1, 2005 00:00:00 to Dec 31, 2005 18:00:00 (1460 values)</span>
 
-<span class="c"># ...but are defined in different reference frames.</span>
-<span class="gp">In [24]: </span><span class="k">print</span> <span class="n">ts21</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">units</span>
-<span class="go">days</span>
+<span class="gp">In [25]: </span><span class="k">print</span><span class="p">(</span><span class="n">ts21</span><span class="o">.</span><span class="n">time</span><span class="p">)</span>
+<span class="go">                                                                                  time &lt;ModelTime365&gt;:  Jan 1, 2005 00:00:00 to Dec 31, 2005 18:00:00 (1460 values)</span>
 
-<span class="c"># Accessing absolute times will work the same in each case</span>
-<span class="gp">In [25]: </span><span class="k">print</span> <span class="n">ts12</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="s">&#39;15 Jan 2005&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">ts21</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="s">&#39;15 Jan 2005&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">time</span>
-<span class="go">time &lt;ModelTime365&gt;:  Jan 15, 2005 00:00:00 time &lt;ModelTime365&gt;:  Jan 15, 2005 00:00:00</span>
+<span class="go"># ...but are defined in different reference frames, with different units.</span>
+<span class="gp">In [26]: </span><span class="k">print</span><span class="p">(</span><span class="n">ts12</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">units</span><span class="p">,</span> <span class="n">ts21</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">units</span><span class="p">)</span>
+<span class="go">                                                                                                                                                                    hours days</span>
 
-<span class="c"># But relative times will differ</span>
-<span class="gp">In [26]: </span><span class="k">print</span> <span class="n">ts12</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">ts21</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span><span class="o">.</span><span class="n">time</span>
-<span class="go">time &lt;ModelTime365&gt;:  Jan 17, 2005 18:00:00 time &lt;ModelTime365&gt;:  Feb 5, 2005 00:00:00</span>
+<span class="go"># Accessing absolute times will refer to the same value in each case</span>
+<span class="gp">In [27]: </span><span class="k">print</span><span class="p">(</span><span class="n">ts12</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="s1">&#39;15 Jan 2005&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">ts21</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="s1">&#39;15 Jan 2005&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">time</span><span class="p">)</span>
+<span class="go">                                                                                                                                                                               time &lt;ModelTime365&gt;:  Jan 15, 2005 00:00:00 time &lt;ModelTime365&gt;:  Jan 15, 2005 00:00:00</span>
+
+<span class="go"># But relative times will differ</span>
+<span class="gp">In [28]: </span><span class="k">print</span><span class="p">(</span><span class="n">ts12</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">ts21</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span><span class="o">.</span><span class="n">time</span><span class="p">)</span>
+<span class="go">                                                                                                                                                                                                                                                                       time &lt;ModelTime365&gt;:  Jan 17, 2005 18:00:00 time &lt;ModelTime365&gt;:  Feb 5, 2005 00:00:00</span>
 </pre></div>
 </div>
 <p>Accessing any results by an absolute date will therefore yield the same result,
-but accessing by value will not. Moreover since PyGeode used the <tt class="docutils literal"><span class="pre">values</span></tt>
+but accessing by value will not. Moreover since PyGeode used the <code class="docutils literal notranslate"><span class="pre">values</span></code>
 array for plotting, this can affect details of plots. At present this ambiguity
 only exists if the mapping can be done both ways; if one is a strict subset of
 the other the result will always be in the reference frame of the smaller axis.</p>
@@ -212,9 +216,9 @@ averages can be easily defined. In general these are based on the</p>
 <p>oOne common operation is to
 compute climatologies. As described in the first of these tutorials this is
 simply performed as follows</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [27]: </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t2</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [29]: </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t2</span>
 
-<span class="gp">In [28]: </span><span class="n">Tc</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">climatology</span><span class="p">(</span><span class="n">t2</span><span class="o">.</span><span class="n">Temp</span><span class="p">)</span>    <span class="c"># Compute the climatology</span>
+<span class="gp">In [30]: </span><span class="n">Tc</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">climatology</span><span class="p">(</span><span class="n">t2</span><span class="o">.</span><span class="n">Temp</span><span class="p">)</span>    <span class="c1"># Compute the climatology</span>
 </pre></div>
 </div>
 </div>
@@ -229,74 +233,26 @@ data on a a standardtime axis</p>
 </div>
 
 
-          </div>
-        </div>
       </div>
-      <div class="sphinxsidebar">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Working with Axes</a><ul>
-<li><a class="reference internal" href="#constructing-variables-in-memory">Constructing variables in memory</a></li>
-<li><a class="reference internal" href="#time-axis-operations">Time Axis Operations</a><ul>
-<li><a class="reference internal" href="#creating-time-axes">Creating Time Axes</a></li>
-<li><a class="reference internal" href="#combining-time-axes">Combining Time Axes</a></li>
-<li><a class="reference internal" href="#climatological-statistics">Climatological statistics</a></li>
-<li><a class="reference internal" href="#time-axis-utilities">Time axis utilities</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        «&#160;&#160;<a href="tut_plot.html">Plotting</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="gallery/index.html">Gallery</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="tut_datasets.html">Working with Datasets</a>&#160;&#160;»
+        </p>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="tut_plot.html"
-                        title="previous chapter">Plotting</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="tut_datasets.html"
-                        title="next chapter">Working with Datasets</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/tut_axes.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="tut_datasets.html" title="Working with Datasets"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="tut_plot.html" title="Plotting"
-             >previous</a> |</li>
-        <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li>
-          <li><a href="tutorial.html" >Tutorial</a> &raquo;</li> 
-      </ul>
-    </div>
-    <div class="footer">
-        &copy; Copyright 2013, Mike Neish, Peter Hitchcock.
-      Last updated on Sep 13, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Mike Neish, Peter Hitchcock.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.
     </div>
   </body>
 </html>

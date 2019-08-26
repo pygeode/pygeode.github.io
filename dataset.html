@@ -1,99 +1,89 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Dataset overview &mdash; PyGeode 1.0 alpha documentation</title>
-    
+    <title>Dataset overview &#8212; PyGeode 1.3 pre-release documentation</title>
     <link rel="stylesheet" href="_static/pygtheme.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '1.0 alpha',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
+    <link rel="stylesheet" type="text/css" href="_static/gallery.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="PyGeode 1.0 alpha documentation" href="index.html" />
-    <link rel="up" title="Reference" href="reference.html" />
-    <link rel="next" title="Plot module" href="plot.html" />
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="General Operations" href="genops.html" />
     <link rel="prev" title="Time axes objects reference" href="timeaxes.html" />
 <link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
 
-  </head>
-  <body>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="plot.html" title="Plot module"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="timeaxes.html" title="Time axes objects reference"
-             accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li>
-          <li><a href="reference.html" accesskey="U">Reference</a> &raquo;</li> 
-      </ul>
-    </div>  
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="index.html">
+          <span>PyGeode 1.3 pre-release documentation</span></a></h1>
+        <h2 class="heading"><span>Dataset overview</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        «&#160;&#160;<a href="timeaxes.html">Time axes objects reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="gallery/index.html">Gallery</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="genops.html">General Operations</a>&#160;&#160;»
+        </p>
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
-            
+      </div>
+      <div class="content">
+        
+        
   <div class="section" id="dataset-overview">
 <h1>Dataset overview<a class="headerlink" href="#dataset-overview" title="Permalink to this headline">¶</a></h1>
 <p>Essentially, a Dataset is a collection of variables which are related to each
 other in some way.  For example, when you load a file into PyGeode, a single
-Dataset is created, containing all variables from that file.  In most cases,
-you won&#8217;t be using Datasets directly in your work.  Instead, you&#8217;ll probably
-be picking out the variables you need, and discarding the Dataset structure.</p>
-<p>Here&#8217;s an example of a Dataset, with a single variable:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t1</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">t1</span>
+Dataset is created, containing all variables from that file.</p>
+<p>Here’s an example of a Dataset, with a single variable:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="k">import</span> <span class="n">t1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">t1</span><span class="p">)</span>
 <span class="go">&lt;Dataset&gt;:</span>
 <span class="go">Vars:</span>
-<span class="go">  Temp (lat,lon)  (32,64)</span>
+<span class="go">  Temp (lat,lon)  (31,60)</span>
 <span class="go">Axes:</span>
-<span class="go">  lat &lt;Lat&gt;      :  85 S to 85 N (32 values)</span>
-<span class="go">  lon &lt;Lon&gt;      :  0 E to 354 E (64 values)</span>
+<span class="go">  lat &lt;Lat&gt;      :  90 S to 90 N (31 values)</span>
+<span class="go">  lon &lt;Lon&gt;      :  0 E to 354 E (60 values)</span>
 <span class="go">Global Attributes:</span>
 <span class="go">  {&#39;history&#39;: &#39;Synthetic Temperature data generated by pygeode&#39;}</span>
 </pre></div>
 </div>
-<p>This particular Dataset has a single variable inside (named <tt class="docutils literal"><span class="pre">Temp</span></tt>),
+<p>This particular Dataset has a single variable inside (named <code class="docutils literal notranslate"><span class="pre">Temp</span></code>),
 defined over latitude and longitude.  We can reference a particular
-<a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a> object using a dot (<tt class="docutils literal"><span class="pre">.</span></tt>), treating it as a <em>member</em> of the
+<a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a> object using a dot (<code class="docutils literal notranslate"><span class="pre">.</span></code>), treating it as a <em>member</em> of the
 Dataset:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">t1</span><span class="o">.</span><span class="n">Temp</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">x</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">t1</span><span class="o">.</span><span class="n">Temp</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 <span class="go">&lt;Var &#39;Temp&#39;&gt;:</span>
-<span class="go">  Shape:  (lat,lon)  (32,64)</span>
+<span class="go">  Units: K  Shape:  (lat,lon)  (31,60)</span>
 <span class="go">  Axes:</span>
-<span class="go">    lat &lt;Lat&gt;      :  85 S to 85 N (32 values)</span>
-<span class="go">    lon &lt;Lon&gt;      :  0 E to 354 E (64 values)</span>
+<span class="go">    lat &lt;Lat&gt;      :  90 S to 90 N (31 values)</span>
+<span class="go">    lon &lt;Lon&gt;      :  0 E to 354 E (60 values)</span>
 <span class="go">  Attributes:</span>
 <span class="go">    {}</span>
 <span class="go">  Type:  Add_Var (dtype=&quot;float64&quot;)</span>
 </pre></div>
 </div>
+<p>More examples can be found in <cite>tut_datasets</cite>.</p>
 <dl class="class">
 <dt id="pygeode.Dataset">
-<em class="property">class </em><tt class="descclassname">pygeode.</tt><tt class="descname">Dataset</tt><a class="headerlink" href="#pygeode.Dataset" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pygeode.</code><code class="descname">Dataset</code><a class="reference internal" href="_modules/pygeode/dataset.html#Dataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.Dataset" title="Permalink to this definition">¶</a></dt>
 <dd><p class="rubric">Attributes</p>
 <table border="1" class="longtable docutils">
 <colgroup>
@@ -101,14 +91,17 @@ Dataset:</p>
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#pygeode.Dataset.vars" title="pygeode.Dataset.vars"><tt class="xref py py-obj docutils literal"><span class="pre">Dataset.vars</span></tt></a></td>
-<td></td>
+<tr class="row-odd"><td><a class="reference internal" href="#pygeode.Dataset.vars" title="pygeode.Dataset.vars"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Dataset.vars</span></code></a></td>
+<td>A list of variables contained by the Dataset.</td>
 </tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">Dataset.vardict</span></tt></td>
-<td></td>
+<tr class="row-even"><td><a class="reference internal" href="#pygeode.Dataset.vardict" title="pygeode.Dataset.vardict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Dataset.vardict</span></code></a></td>
+<td>A dictionary of variables contained by the Dataset, indexed by name.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pygeode.Dataset.axes" title="pygeode.Dataset.axes"><tt class="xref py py-obj docutils literal"><span class="pre">Dataset.axes</span></tt></a></td>
-<td></td>
+<tr class="row-odd"><td><a class="reference internal" href="#pygeode.Dataset.axes" title="pygeode.Dataset.axes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Dataset.axes</span></code></a></td>
+<td>A list of axes contained by the Dataset.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pygeode.Dataset.atts" title="pygeode.Dataset.atts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Dataset.atts</span></code></a></td>
+<td>A dictionary of metadata associated with the dataset.</td>
 </tr>
 </tbody>
 </table>
@@ -119,225 +112,564 @@ Dataset:</p>
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#pygeode.Dataset.__init__" title="pygeode.Dataset.__init__"><tt class="xref py py-obj docutils literal"><span class="pre">Dataset.__init__</span></tt></a>(vars[,&nbsp;atts,&nbsp;print_warnings])</td>
-<td></td>
+<tr class="row-odd"><td><a class="reference internal" href="#pygeode.Dataset.__init__" title="pygeode.Dataset.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Dataset.__init__</span></code></a>(vars[,&nbsp;atts,&nbsp;print_warnings])</td>
+<td>Create a new <a class="reference internal" href="#pygeode.Dataset" title="pygeode.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a> from a list of variables.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pygeode.Dataset.add" title="pygeode.Dataset.add"><tt class="xref py py-obj docutils literal"><span class="pre">Dataset.add</span></tt></a>(*vars)</td>
-<td></td>
+<tr class="row-even"><td><a class="reference internal" href="#pygeode.Dataset.__getitem__" title="pygeode.Dataset.__getitem__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Dataset.__getitem__</span></code></a>(key)</td>
+<td>Gets a variable or axis object.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pygeode.Dataset.copy" title="pygeode.Dataset.copy"><tt class="xref py py-obj docutils literal"><span class="pre">Dataset.copy</span></tt></a>()</td>
-<td></td>
+<tr class="row-odd"><td><a class="reference internal" href="#pygeode.Dataset.__call__" title="pygeode.Dataset.__call__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Dataset.__call__</span></code></a>(**kwargs)</td>
+<td>Subsets all variables in this dataset.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pygeode.Dataset.map" title="pygeode.Dataset.map"><tt class="xref py py-obj docutils literal"><span class="pre">Dataset.map</span></tt></a>(f,&nbsp;*args,&nbsp;**kwargs)</td>
-<td></td>
+<tr class="row-even"><td><a class="reference internal" href="#pygeode.Dataset.add" title="pygeode.Dataset.add"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Dataset.add</span></code></a>(*vars)</td>
+<td>Adds variables to the dataset.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pygeode.Dataset.remove" title="pygeode.Dataset.remove"><tt class="xref py py-obj docutils literal"><span class="pre">Dataset.remove</span></tt></a>(*varnames)</td>
-<td></td>
+<tr class="row-odd"><td><a class="reference internal" href="#pygeode.Dataset.copy" title="pygeode.Dataset.copy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Dataset.copy</span></code></a>()</td>
+<td>Creates a new copy of this dataset.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pygeode.Dataset.rename_vars" title="pygeode.Dataset.rename_vars"><tt class="xref py py-obj docutils literal"><span class="pre">Dataset.rename_vars</span></tt></a>([vardict])</td>
-<td></td>
+<tr class="row-even"><td><a class="reference internal" href="#pygeode.Dataset.load" title="pygeode.Dataset.load"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Dataset.load</span></code></a>()</td>
+<td>Loads data from all variables in the dataset.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pygeode.Dataset.replace_vars" title="pygeode.Dataset.replace_vars"><tt class="xref py py-obj docutils literal"><span class="pre">Dataset.replace_vars</span></tt></a>([vardict])</td>
-<td></td>
+<tr class="row-odd"><td><a class="reference internal" href="#pygeode.Dataset.map" title="pygeode.Dataset.map"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Dataset.map</span></code></a>(f,&nbsp;*args,&nbsp;**kwargs)</td>
+<td>Calls a given function on every variable in the dataset.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pygeode.Dataset.remove" title="pygeode.Dataset.remove"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Dataset.remove</span></code></a>(*varnames)</td>
+<td>Removes variables from the dataset.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pygeode.Dataset.rename_vars" title="pygeode.Dataset.rename_vars"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Dataset.rename_vars</span></code></a>([vardict])</td>
+<td>Rename variables in dataset.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pygeode.Dataset.replace_vars" title="pygeode.Dataset.replace_vars"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Dataset.replace_vars</span></code></a>([vardict])</td>
+<td>Replaces variables in the dataset.</td>
 </tr>
 </tbody>
 </table>
-</dd></dl>
-
-<p class="rubric">Helper Functions</p>
+<p class="rubric">Variable operations</p>
 <table border="1" class="longtable docutils">
 <colgroup>
 <col width="10%" />
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">asdataset</span></tt></td>
-<td></td>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">Dataset.smooth</span></code>(*args,&nbsp;**kwargs)</td>
+<td>Returns new dataset calling <cite>Var.smooth</cite> on each variable.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pygeode.dataset.concat" title="pygeode.dataset.concat"><tt class="xref py py-obj docutils literal"><span class="pre">concat</span></tt></a>(*datasets)</td>
-<td></td>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">Dataset.deriv</span></code>(*args,&nbsp;**kwargs)</td>
+<td>Returns new dataset calling <cite>Var.deriv</cite> on each variable.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">Dataset.diff</span></code>(*args,&nbsp;**kwargs)</td>
+<td>Returns new dataset calling <cite>Var.diff</cite> on each variable.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">Dataset.integrate</span></code>(*args,&nbsp;**kwargs)</td>
+<td>Returns new dataset calling <cite>Var.integrate</cite> on each variable.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">Dataset.composite</span></code>(*args,&nbsp;**kwargs)</td>
+<td>Returns new dataset calling <cite>Var.composite</cite> on each variable.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">Dataset.flatten</span></code>(*args,&nbsp;**kwargs)</td>
+<td>Returns new dataset calling <cite>Var.flatten</cite> on each variable.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">Dataset.fft_smooth</span></code>(*args,&nbsp;**kwargs)</td>
+<td>Returns new dataset calling <cite>Var.fft_smooth</cite> on each variable.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">Dataset.lag</span></code>(*args,&nbsp;**kwargs)</td>
+<td>Returns new dataset calling <cite>Var.lag</cite> on each variable.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">Dataset.interpolate</span></code>(*args,&nbsp;**kwargs)</td>
+<td>Returns new dataset calling <cite>Var.interpolate</cite> on each variable.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">Dataset.squeeze</span></code>(*args,&nbsp;**kwargs)</td>
+<td>Returns new dataset calling <cite>Var.squeeze</cite> on each variable.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">Dataset.extend</span></code>(*args,&nbsp;**kwargs)</td>
+<td>Returns new dataset calling <cite>Var.extend</cite> on each variable.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">Dataset.transpose</span></code>(*args,&nbsp;**kwargs)</td>
+<td>Returns new dataset calling <cite>Var.transpose</cite> on each variable.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">Dataset.sorted</span></code>(*args,&nbsp;**kwargs)</td>
+<td>Returns new dataset calling <cite>Var.sorted</cite> on each variable.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">Dataset.replace_axes</span></code>(*args,&nbsp;**kwargs)</td>
+<td>Returns new dataset calling <cite>Var.replace_axes</cite> on each variable.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">Dataset.rename</span></code>(*args,&nbsp;**kwargs)</td>
+<td>Returns new dataset calling <cite>Var.rename</cite> on each variable.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">Dataset.rename_axes</span></code>(*args,&nbsp;**kwargs)</td>
+<td>Returns new dataset calling <cite>Var.rename_axes</cite> on each variable.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">Dataset.fill</span></code>(*args,&nbsp;**kwargs)</td>
+<td>Returns new dataset calling <cite>Var.fill</cite> on each variable.</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">Dataset.unfill</span></code>(*args,&nbsp;**kwargs)</td>
+<td>Returns new dataset calling <cite>Var.unfill</cite> on each variable.</td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">Dataset.as_type</span></code>(*args,&nbsp;**kwargs)</td>
+<td>Returns new dataset calling <cite>Var.as_type</cite> on each variable.</td>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<div class="section" id="dataset-attributes">
+<h2>Dataset Attributes<a class="headerlink" href="#dataset-attributes" title="Permalink to this headline">¶</a></h2>
 <dl class="attribute">
 <dt id="pygeode.Dataset.vars">
-<tt class="descclassname">Dataset.</tt><tt class="descname">vars</tt><a class="headerlink" href="#pygeode.Dataset.vars" title="Permalink to this definition">¶</a></dt>
-<dd><p>A simple Python list containing all the variables of the Dataset.</p>
-<p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">t1</span><span class="o">.</span><span class="n">vars</span>
-<span class="go">[&lt;Var &#39;Temp&#39;&gt;]</span>
-</pre></div>
-</div>
+<code class="descclassname">Dataset.</code><code class="descname">vars</code><em class="property"> list of Var instances</em><a class="headerlink" href="#pygeode.Dataset.vars" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of variables contained by the Dataset. See <cite>Var</cite> class.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pygeode.Dataset.vardict">
+<code class="descclassname">Dataset.</code><code class="descname">vardict</code><em class="property"> dictionary of Var instances</em><a class="headerlink" href="#pygeode.Dataset.vardict" title="Permalink to this definition">¶</a></dt>
+<dd><p>A dictionary of variables contained by the Dataset, indexed by name.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="pygeode.Dataset.axes">
-<tt class="descclassname">Dataset.</tt><tt class="descname">axes</tt><a class="headerlink" href="#pygeode.Dataset.axes" title="Permalink to this definition">¶</a></dt>
-<dd><p>A list of all the axes from all the Vars in the Dataset.</p>
-<p class="rubric">Examples</p>
-<p>Normally, we only see the axis <em>classes</em> when printing the list:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">t1</span><span class="o">.</span><span class="n">axes</span>
-<span class="go">  [&lt;Lat&gt;, &lt;Lon&gt;]</span>
-</pre></div>
-</div>
-<p>But, with a small list comprehension, we can get the names of these particular axes (not that it makes much difference in this dataset):</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="p">[</span><span class="n">a</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">t1</span><span class="o">.</span><span class="n">axes</span><span class="p">]</span>
-<span class="go">  [&#39;lat&#39;, &#39;lon&#39;]</span>
-</pre></div>
-</div>
+<code class="descclassname">Dataset.</code><code class="descname">axes</code><em class="property"> list of Axis instances</em><a class="headerlink" href="#pygeode.Dataset.axes" title="Permalink to this definition">¶</a></dt>
+<dd><p>A list of axes contained by the Dataset. See <cite>Axis</cite> class.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="pygeode.Dataset.atts">
-<tt class="descclassname">Dataset.</tt><tt class="descname">atts</tt><a class="headerlink" href="#pygeode.Dataset.atts" title="Permalink to this definition">¶</a></dt>
-<dd><p>Any metadata associated with the data (sometimes referred to as <em>global attributes</em>).</p>
-<p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">t1</span><span class="o">.</span><span class="n">atts</span>
-<span class="go">{&#39;history&#39;: &#39;Synthetic Temperature data generated by pygeode&#39;}</span>
-</pre></div>
-</div>
+<code class="descclassname">Dataset.</code><code class="descname">atts</code><em class="property"> dictionary</em><a class="headerlink" href="#pygeode.Dataset.atts" title="Permalink to this definition">¶</a></dt>
+<dd><p>A dictionary of metadata associated with the dataset. Sometimes referred
+to as global attributes.</p>
 </dd></dl>
 
+</div>
+<div class="section" id="dataset-methods">
+<h2>Dataset Methods<a class="headerlink" href="#dataset-methods" title="Permalink to this headline">¶</a></h2>
 <dl class="method">
 <dt id="pygeode.Dataset.__init__">
-<tt class="descclassname">Dataset.</tt><tt class="descname">__init__</tt><big>(</big><em>vars</em>, <em>atts={}</em>, <em>print_warnings=True</em><big>)</big><a class="headerlink" href="#pygeode.Dataset.__init__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pygeode.Dataset.add">
-<tt class="descclassname">Dataset.</tt><tt class="descname">add</tt><big>(</big><em>*vars</em><big>)</big><a class="headerlink" href="#pygeode.Dataset.add" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pygeode.Dataset.copy">
-<tt class="descclassname">Dataset.</tt><tt class="descname">copy</tt><big>(</big><big>)</big><a class="headerlink" href="#pygeode.Dataset.copy" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pygeode.Dataset.map">
-<tt class="descclassname">Dataset.</tt><tt class="descname">map</tt><big>(</big><em>f</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pygeode.Dataset.map" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pygeode.Dataset.remove">
-<tt class="descclassname">Dataset.</tt><tt class="descname">remove</tt><big>(</big><em>*varnames</em><big>)</big><a class="headerlink" href="#pygeode.Dataset.remove" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pygeode.Dataset.rename_vars">
-<tt class="descclassname">Dataset.</tt><tt class="descname">rename_vars</tt><big>(</big><em>vardict={}</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pygeode.Dataset.rename_vars" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="pygeode.Dataset.replace_vars">
-<tt class="descclassname">Dataset.</tt><tt class="descname">replace_vars</tt><big>(</big><em>vardict={}</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pygeode.Dataset.replace_vars" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="pygeode.dataset.asdataset">
-<tt class="descclassname">pygeode.dataset.</tt><tt class="descname">asdataset</tt><big>(</big><em>vars</em>, <em>copy=False</em>, <em>print_warnings=True</em><big>)</big><a class="headerlink" href="#pygeode.dataset.asdataset" title="Permalink to this definition">¶</a></dt>
-<dd><p>Tries to convert a collection of objects into a single dataset.</p>
+<code class="descclassname">Dataset.</code><code class="descname">__init__</code><span class="sig-paren">(</span><em>vars</em>, <em>atts={}</em>, <em>print_warnings=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/dataset.html#Dataset.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.Dataset.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new <a class="reference internal" href="#pygeode.Dataset" title="pygeode.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a> from a list of variables.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>vars</strong> : collection</p>
-<blockquote>
-<div><p>The collection to convert. See Notes.</p>
-</div></blockquote>
-<p><strong>copy</strong> : boolean</p>
-<p><strong>print_warnings</strong> : boolean</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>vars: list</strong></dt>
+<dd><p class="first last">The list of <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a> objects to include.</p>
+</dd>
+<dt><strong>atts: dictionary, optional</strong></dt>
+<dd><p class="first last">A dictionary of attributes available in the <a class="reference internal" href="#pygeode.Dataset.atts" title="pygeode.Dataset.atts"><code class="xref py py-attr docutils literal notranslate"><span class="pre">Dataset.atts</span></code></a> attribute.</p>
+</dd>
+<dt><strong>print_warnings: boolean, optional [True]</strong></dt>
+<dd><p class="first last">If True, print out warnings when variables and axes are renamed.</p>
+</dd>
+</dl>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>dataset</strong> : <tt class="xref py py-class docutils literal"><span class="pre">Dataset</span></tt></p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>The new :class:`Dataset` object.</strong></dt>
+<dd></dd>
+</dl>
 </td>
 </tr>
 </tbody>
 </table>
 <p class="rubric">Notes</p>
-<p>If <tt class="docutils literal"><span class="pre">vars</span></tt> is a single variable or list of variables, asdataset()
-returns a Dataset wrapping them. If there are datasets present in the
-list, it merges them into a single dataset.</p>
+<p>Variable names and axis names must be unique. If multiple variables share
+the same name they will be renamed so that they are unique. If variables
+have axes with matching names but which are not matching, they will also be
+renamed. If any names are modified and <code class="docutils literal notranslate"><span class="pre">print_warnings</span></code> is True, a
+warning will be displayed indicating how objects have been renamed.</p>
 </dd></dl>
 
-<dl class="function">
-<dt id="pygeode.dataset.concat">
-<tt class="descclassname">pygeode.dataset.</tt><tt class="descname">concat</tt><big>(</big><em>*datasets</em><big>)</big><a class="headerlink" href="#pygeode.dataset.concat" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dl class="method">
+<dt id="pygeode.Dataset.__getitem__">
+<code class="descclassname">Dataset.</code><code class="descname">__getitem__</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/dataset.html#Dataset.__getitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.Dataset.__getitem__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets a variable or axis object.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>key</strong> <span class="classifier-delimiter">:</span> <span class="classifier">string</span></dt>
+<dd><p class="first last">Name of axis or variable to return.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>:class:`Var` or :class:`Axis` object matching the requested name. Raises :class:`KeyError` if</strong></dt>
+<dd></dd>
+<dt><strong>no such member is found.</strong></dt>
+<dd></dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
-<div class="section" id="creating-a-dataset">
-<h2>Creating a Dataset<a class="headerlink" href="#creating-a-dataset" title="Permalink to this headline">¶</a></h2>
-<p>TODO</p>
+<dl class="method">
+<dt id="pygeode.Dataset.__call__">
+<code class="descclassname">Dataset.</code><code class="descname">__call__</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/dataset.html#Dataset.__call__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.Dataset.__call__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Subsets all variables in this dataset. Behaves in the same way as <a class="reference internal" href="varops.html#pygeode.Var.__call__" title="pygeode.Var.__call__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Var.__call__()</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>slices</strong> <span class="classifier-delimiter">:</span> <span class="classifier">list of slices</span></dt>
+<dd><p class="first last">See <a class="reference internal" href="varops.html#pygeode.Var.__call__" title="pygeode.Var.__call__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Var.__call__()</span></code></a> for details.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>:class:`Dataset`</strong></dt>
+<dd><p class="first last">A new Dataset, in which all variables have been restricted to the
+specified domain.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="varops.html#pygeode.Var.__call__" title="pygeode.Var.__call__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.__call__</span></code></a></p>
 </div>
-<div class="section" id="neat-tricks">
-<h2>Neat tricks<a class="headerlink" href="#neat-tricks" title="Permalink to this headline">¶</a></h2>
-<p>TODO</p>
+<p class="rubric">Notes</p>
+<p>Not all variables need to have the axes being sliced (any slice that
+doesn’t apply to a given variable is simply ignored). This is usually
+more convenient, but it does mean that if an axis name is misspelled (for
+example), the call will return successfully without performing any
+subsetting.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygeode.Dataset.add">
+<code class="descclassname">Dataset.</code><code class="descname">add</code><span class="sig-paren">(</span><em>*vars</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/dataset.html#Dataset.add"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.Dataset.add" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds variables to the dataset.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>*vars</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a> objects</span></dt>
+<dd><p class="first last">The variables to add</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>A new :class:`Dataset` with the variables added.</strong></dt>
+<dd></dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>The same naming rules are applied in case of name collisions as in
+<a class="reference internal" href="#pygeode.Dataset.__init__" title="pygeode.Dataset.__init__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Dataset.__init__()</span></code></a>. The addition operator is also overloaded to do
+the same thing; in that case provide a list of the variables to add.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="k">import</span> <span class="n">t1</span><span class="p">,</span> <span class="n">t2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">t2</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">t1</span><span class="o">.</span><span class="n">Temp</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s1">&#39;Temp2&#39;</span><span class="p">)))</span>
+<span class="go">&lt;Dataset&gt;:</span>
+<span class="go">Vars:</span>
+<span class="go">  Temp  (time,pres,lat,lon)  (3650,20,31,60)</span>
+<span class="go">  U     (time,pres,lat,lon)  (3650,20,31,60)</span>
+<span class="go">  Temp2 (lat,lon)            (31,60)</span>
+<span class="go">Axes:</span>
+<span class="go">  time &lt;ModelTime365&gt;:  Jan 1, 2011 00:00:00 to Dec 31, 2020 00:00:00 (3650 values)</span>
+<span class="go">  pres &lt;Pres&gt;    :  1000 hPa to 50 hPa (20 values)</span>
+<span class="go">  lat &lt;Lat&gt;      :  90 S to 90 N (31 values)</span>
+<span class="go">  lon &lt;Lon&gt;      :  0 E to 354 E (60 values)</span>
+<span class="go">Global Attributes:</span>
+<span class="go">  {&#39;history&#39;: &#39;Synthetic Temperature and Wind data generated by pygeode&#39;}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">t2</span> <span class="o">+</span> <span class="n">t1</span><span class="o">.</span><span class="n">Temp</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s1">&#39;Temp2&#39;</span><span class="p">))</span>
+<span class="go">&lt;Dataset&gt;:</span>
+<span class="go">Vars:</span>
+<span class="go">  Temp  (time,pres,lat,lon)  (3650,20,31,60)</span>
+<span class="go">  U     (time,pres,lat,lon)  (3650,20,31,60)</span>
+<span class="go">  Temp2 (lat,lon)            (31,60)</span>
+<span class="go">Axes:</span>
+<span class="go">  time &lt;ModelTime365&gt;:  Jan 1, 2011 00:00:00 to Dec 31, 2020 00:00:00 (3650 values)</span>
+<span class="go">  pres &lt;Pres&gt;    :  1000 hPa to 50 hPa (20 values)</span>
+<span class="go">  lat &lt;Lat&gt;      :  90 S to 90 N (31 values)</span>
+<span class="go">  lon &lt;Lon&gt;      :  0 E to 354 E (60 values)</span>
+<span class="go">Global Attributes:</span>
+<span class="go">  {&#39;history&#39;: &#39;Synthetic Temperature and Wind data generated by pygeode&#39;}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygeode.Dataset.copy">
+<code class="descclassname">Dataset.</code><code class="descname">copy</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/dataset.html#Dataset.copy"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.Dataset.copy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a new copy of this dataset. New instances of the internal lists
+and dictionaries are created, but the variable still rever to the same
+<a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a> objects.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>A new :class:`Dataset` object.</strong></dt>
+<dd></dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygeode.Dataset.load">
+<code class="descclassname">Dataset.</code><code class="descname">load</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/dataset.html#Dataset.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.Dataset.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads data from all variables in the dataset.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>A new dataset in which :meth:`Var.load()` has been called</strong></dt>
+<dd></dd>
+<dt><strong>on each variable, loading their data into memory.</strong></dt>
+<dd></dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygeode.Dataset.map">
+<code class="descclassname">Dataset.</code><code class="descname">map</code><span class="sig-paren">(</span><em>f</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/dataset.html#Dataset.map"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.Dataset.map" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calls a given function on every variable in the dataset.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>f: callable</strong></dt>
+<dd><p class="first last">Method to call. Must take the variable as its first argument, and return
+either a single variable, or None. Further positional and keyword
+arguments can be passed through <code class="docutils literal notranslate"><span class="pre">args</span></code> and <code class="docutils literal notranslate"><span class="pre">kwargs</span></code>.</p>
+</dd>
+<dt><strong>args, kwargs: positional and keyword arguments</strong></dt>
+<dd><p class="first last">These are passed on to f.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>A new :class:`Dataset` with the results of the calls to f. f can return None; in that</strong></dt>
+<dd></dd>
+<dt><strong>case no corresponding variable is included in the new Dataset object.</strong></dt>
+<dd></dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygeode.Dataset.remove">
+<code class="descclassname">Dataset.</code><code class="descname">remove</code><span class="sig-paren">(</span><em>*varnames</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/dataset.html#Dataset.remove"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.Dataset.remove" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes variables from the dataset.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>*varnames</strong> <span class="classifier-delimiter">:</span> <span class="classifier">strings</span></dt>
+<dd><p class="first last">The names of the variables to remove.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>A new :class:`Dataset` with the specified variables removed.</strong></dt>
+<dd></dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>The sutraction operator is also overloaded to do the same thing;
+in that case provide a list of strings again specifying the names
+of the variables to remove.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="k">import</span> <span class="n">t2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">t2</span><span class="p">)</span>
+<span class="go">&lt;Dataset&gt;:</span>
+<span class="go">Vars:</span>
+<span class="go">  Temp (time,pres,lat,lon)  (3650,20,31,60)</span>
+<span class="go">  U    (time,pres,lat,lon)  (3650,20,31,60)</span>
+<span class="go">Axes:</span>
+<span class="go">  time &lt;ModelTime365&gt;:  Jan 1, 2011 00:00:00 to Dec 31, 2020 00:00:00 (3650 values)</span>
+<span class="go">  pres &lt;Pres&gt;    :  1000 hPa to 50 hPa (20 values)</span>
+<span class="go">  lat &lt;Lat&gt;      :  90 S to 90 N (31 values)</span>
+<span class="go">  lon &lt;Lon&gt;      :  0 E to 354 E (60 values)</span>
+<span class="go">Global Attributes:</span>
+<span class="go">  {&#39;history&#39;: &#39;Synthetic Temperature and Wind data generated by pygeode&#39;}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">t2</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">&#39;Temp&#39;</span><span class="p">))</span>
+<span class="go">&lt;Dataset&gt;:</span>
+<span class="go">Vars:</span>
+<span class="go">  U (time,pres,lat,lon)  (3650,20,31,60)</span>
+<span class="go">Axes:</span>
+<span class="go">  time &lt;ModelTime365&gt;:  Jan 1, 2011 00:00:00 to Dec 31, 2020 00:00:00 (3650 values)</span>
+<span class="go">  pres &lt;Pres&gt;    :  1000 hPa to 50 hPa (20 values)</span>
+<span class="go">  lat &lt;Lat&gt;      :  90 S to 90 N (31 values)</span>
+<span class="go">  lon &lt;Lon&gt;      :  0 E to 354 E (60 values)</span>
+<span class="go">Global Attributes:</span>
+<span class="go">  {&#39;history&#39;: &#39;Synthetic Temperature and Wind data generated by pygeode&#39;}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">t2</span> <span class="o">-</span> <span class="p">[</span><span class="s1">&#39;U&#39;</span><span class="p">])</span>
+<span class="go">&lt;Dataset&gt;:</span>
+<span class="go">Vars:</span>
+<span class="go">  Temp (time,pres,lat,lon)  (3650,20,31,60)</span>
+<span class="go">Axes:</span>
+<span class="go">  time &lt;ModelTime365&gt;:  Jan 1, 2011 00:00:00 to Dec 31, 2020 00:00:00 (3650 values)</span>
+<span class="go">  pres &lt;Pres&gt;    :  1000 hPa to 50 hPa (20 values)</span>
+<span class="go">  lat &lt;Lat&gt;      :  90 S to 90 N (31 values)</span>
+<span class="go">  lon &lt;Lon&gt;      :  0 E to 354 E (60 values)</span>
+<span class="go">Global Attributes:</span>
+<span class="go">  {&#39;history&#39;: &#39;Synthetic Temperature and Wind data generated by pygeode&#39;}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygeode.Dataset.rename_vars">
+<code class="descclassname">Dataset.</code><code class="descname">rename_vars</code><span class="sig-paren">(</span><em>vardict={}</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/dataset.html#Dataset.rename_vars"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.Dataset.rename_vars" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rename variables in dataset. Variables to rename can be passed
+as keyword arguments, or as a dictionary.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>vardict: dictionary, optional</strong></dt>
+<dd><p class="first last">A dictionary with keys corresponding to the existing variables to rename and
+values giving their new names.</p>
+</dd>
+<dt><strong>**kwargs: keyword arguments</strong></dt>
+<dd><p class="first last">One or more keyword arguments. The parameters are the existing variable names
+and the values are the new names to substitute.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>A new :class:`Dataset` object with the same contents but renamed variables.</strong></dt>
+<dd></dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="k">import</span> <span class="n">t2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">t2</span><span class="p">)</span>
+<span class="go">&lt;Dataset&gt;:</span>
+<span class="go">Vars:</span>
+<span class="go">  Temp (time,pres,lat,lon)  (3650,20,31,60)</span>
+<span class="go">  U    (time,pres,lat,lon)  (3650,20,31,60)</span>
+<span class="go">Axes:</span>
+<span class="go">  time &lt;ModelTime365&gt;:  Jan 1, 2011 00:00:00 to Dec 31, 2020 00:00:00 (3650 values)</span>
+<span class="go">  pres &lt;Pres&gt;    :  1000 hPa to 50 hPa (20 values)</span>
+<span class="go">  lat &lt;Lat&gt;      :  90 S to 90 N (31 values)</span>
+<span class="go">  lon &lt;Lon&gt;      :  0 E to 354 E (60 values)</span>
+<span class="go">Global Attributes:</span>
+<span class="go">  {&#39;history&#39;: &#39;Synthetic Temperature and Wind data generated by pygeode&#39;}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">t2</span><span class="o">.</span><span class="n">rename_vars</span><span class="p">(</span><span class="n">Temp</span> <span class="o">=</span> <span class="s1">&#39;T&#39;</span><span class="p">,</span> <span class="n">U</span> <span class="o">=</span> <span class="s1">&#39;Wind&#39;</span><span class="p">))</span>
+<span class="go">&lt;Dataset&gt;:</span>
+<span class="go">Vars:</span>
+<span class="go">  T    (time,pres,lat,lon)  (3650,20,31,60)</span>
+<span class="go">  Wind (time,pres,lat,lon)  (3650,20,31,60)</span>
+<span class="go">Axes:</span>
+<span class="go">  time &lt;ModelTime365&gt;:  Jan 1, 2011 00:00:00 to Dec 31, 2020 00:00:00 (3650 values)</span>
+<span class="go">  pres &lt;Pres&gt;    :  1000 hPa to 50 hPa (20 values)</span>
+<span class="go">  lat &lt;Lat&gt;      :  90 S to 90 N (31 values)</span>
+<span class="go">  lon &lt;Lon&gt;      :  0 E to 354 E (60 values)</span>
+<span class="go">Global Attributes:</span>
+<span class="go">  {&#39;history&#39;: &#39;Synthetic Temperature and Wind data generated by pygeode&#39;}</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygeode.Dataset.replace_vars">
+<code class="descclassname">Dataset.</code><code class="descname">replace_vars</code><span class="sig-paren">(</span><em>vardict={}</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/dataset.html#Dataset.replace_vars"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.Dataset.replace_vars" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replaces variables in the dataset.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>vardict: dictionary, optional</strong></dt>
+<dd><p class="first last">A dictionary with keys corresponding to the existing variables to replace and
+values giving the new <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a> instances.</p>
+</dd>
+<dt><strong>**kwargs: keyword arguments</strong></dt>
+<dd><p class="first last">One or more keyword arguments. The parameters are the existing variable names
+and the values are the new <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a> instances.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>A new :class:`Dataset` with the specified variables replaced.</strong></dt>
+<dd></dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="k">import</span> <span class="n">t1</span><span class="p">,</span> <span class="n">t2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">t2</span><span class="o">.</span><span class="n">replace_vars</span><span class="p">(</span><span class="n">Temp</span> <span class="o">=</span> <span class="n">t1</span><span class="o">.</span><span class="n">Temp</span><span class="p">))</span>
+<span class="go">&lt;Dataset&gt;:</span>
+<span class="go">Vars:</span>
+<span class="go">  Temp (lat,lon)            (31,60)</span>
+<span class="go">  U    (time,pres,lat,lon)  (3650,20,31,60)</span>
+<span class="go">Axes:</span>
+<span class="go">  lat &lt;Lat&gt;      :  90 S to 90 N (31 values)</span>
+<span class="go">  lon &lt;Lon&gt;      :  0 E to 354 E (60 values)</span>
+<span class="go">  time &lt;ModelTime365&gt;:  Jan 1, 2011 00:00:00 to Dec 31, 2020 00:00:00 (3650 values)</span>
+<span class="go">  pres &lt;Pres&gt;    :  1000 hPa to 50 hPa (20 values)</span>
+<span class="go">Global Attributes:</span>
+<span class="go">  {&#39;history&#39;: &#39;Synthetic Temperature and Wind data generated by pygeode&#39;}</span>
+</pre></div>
+</div>
+</dd></dl>
+
 </div>
 </div>
 
 
-          </div>
-        </div>
       </div>
-      <div class="sphinxsidebar">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Dataset overview</a><ul>
-<li><a class="reference internal" href="#creating-a-dataset">Creating a Dataset</a></li>
-<li><a class="reference internal" href="#neat-tricks">Neat tricks</a></li>
-</ul>
-</li>
-</ul>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        «&#160;&#160;<a href="timeaxes.html">Time axes objects reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="gallery/index.html">Gallery</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="genops.html">General Operations</a>&#160;&#160;»
+        </p>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="timeaxes.html"
-                        title="previous chapter">Time axes objects reference</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="plot.html"
-                        title="next chapter">Plot module</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/dataset.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="plot.html" title="Plot module"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="timeaxes.html" title="Time axes objects reference"
-             >previous</a> |</li>
-        <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li>
-          <li><a href="reference.html" >Reference</a> &raquo;</li> 
-      </ul>
-    </div>
-    <div class="footer">
-        &copy; Copyright 2013, Mike Neish, Peter Hitchcock.
-      Last updated on Sep 13, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Mike Neish, Peter Hitchcock.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.
     </div>
   </body>
 </html>

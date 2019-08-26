@@ -1,150 +1,310 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Plot module &mdash; PyGeode 1.0 alpha documentation</title>
-    
+    <title>Plot module &#8212; PyGeode 1.3 pre-release documentation</title>
     <link rel="stylesheet" href="_static/pygtheme.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '1.0 alpha',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
+    <link rel="stylesheet" type="text/css" href="_static/gallery.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="PyGeode 1.0 alpha documentation" href="index.html" />
-    <link rel="up" title="Reference" href="reference.html" />
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="File Input and Output" href="fileio.html" />
-    <link rel="prev" title="Dataset overview" href="dataset.html" />
+    <link rel="prev" title="General Operations" href="genops.html" />
 <link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
 
-  </head>
-  <body>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="fileio.html" title="File Input and Output"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="dataset.html" title="Dataset overview"
-             accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li>
-          <li><a href="reference.html" accesskey="U">Reference</a> &raquo;</li> 
-      </ul>
-    </div>  
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="index.html">
+          <span>PyGeode 1.3 pre-release documentation</span></a></h1>
+        <h2 class="heading"><span>Plot module</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        «&#160;&#160;<a href="genops.html">General Operations</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="gallery/index.html">Gallery</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="fileio.html">File Input and Output</a>&#160;&#160;»
+        </p>
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
-            
+      </div>
+      <div class="content">
+        
+        
   <div class="section" id="plot-module">
 <h1>Plot module<a class="headerlink" href="#plot-module" title="Permalink to this headline">¶</a></h1>
+<div class="module docutils container">
+<p>pygeode.plot</p>
+<p>Module containing most plotting-related commands for PyGeode.</p>
+<p class="rubric">Top-level routines</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pygeode.showvar" title="pygeode.showvar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">showvar</span></code></a>(var,&nbsp;*args,&nbsp;**kwargs)</td>
+<td>Plot variable, showing a contour plot for 2d variables or a line plot for 1d variables.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pygeode.showgrid" title="pygeode.showgrid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">showgrid</span></code></a>(vf[,&nbsp;vl,&nbsp;ncol,&nbsp;size,&nbsp;lbl])</td>
+<td>Create grid of contour plots of multiple variables.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pygeode.showlines" title="pygeode.showlines"><code class="xref py py-obj docutils literal notranslate"><span class="pre">showlines</span></code></a>(vs[,&nbsp;fmts,&nbsp;labels,&nbsp;size,&nbsp;lblx,&nbsp;lbly])</td>
+<td>Produce line plots of a list of 1D variables on a single figure.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Second-level routines</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pygeode.vplot" title="pygeode.vplot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vplot</span></code></a>(var[,&nbsp;fmt,&nbsp;axes,&nbsp;transpose,&nbsp;lblx,&nbsp;lbly])</td>
+<td>Create a line plot of a variable.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pygeode.vcontour" title="pygeode.vcontour"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vcontour</span></code></a>(var[,&nbsp;clevs,&nbsp;clines,&nbsp;axes,&nbsp;lblx,&nbsp;…])</td>
+<td>Create a contour plot (lines, filled, or both) from a variable.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pygeode.vscatter" title="pygeode.vscatter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vscatter</span></code></a>(varx,&nbsp;vary[,&nbsp;axes,&nbsp;lblx,&nbsp;lbly])</td>
+<td>Create a scatter plot from two variables with the same shape.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pygeode.vhist" title="pygeode.vhist"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vhist</span></code></a>(var[,&nbsp;axes,&nbsp;lblx,&nbsp;lbly])</td>
+<td>Create a histogram of values taken by a variable.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pygeode.vsigmask" title="pygeode.vsigmask"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vsigmask</span></code></a>(pval,&nbsp;axes[,&nbsp;mjsig,&nbsp;mnsig,&nbsp;mjsigp,&nbsp;…])</td>
+<td>Add significance shading to a contour plot from a variable.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pygeode.vstreamplot" title="pygeode.vstreamplot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vstreamplot</span></code></a>(varu,&nbsp;varv[,&nbsp;axes,&nbsp;lblx,&nbsp;lbly,&nbsp;…])</td>
+<td>Create a streamplot from two variables.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pygeode.vquiver" title="pygeode.vquiver"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vquiver</span></code></a>(varu,&nbsp;varv[,&nbsp;varc,&nbsp;axes,&nbsp;lblx,&nbsp;…])</td>
+<td>Create a quiver plot from two variables.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Contouring helper functions</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pygeode.clfdict" title="pygeode.clfdict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clfdict</span></code></a>(cdelt[,&nbsp;min,&nbsp;mid,&nbsp;nf,&nbsp;nl,&nbsp;ndiv,&nbsp;…])</td>
+<td>Returns kwargs to <a class="reference internal" href="#pygeode.showvar" title="pygeode.showvar"><code class="xref py py-meth docutils literal notranslate"><span class="pre">showvar()</span></code></a> for a filled contour plot.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pygeode.cldict" title="pygeode.cldict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cldict</span></code></a>(cdelt[,&nbsp;range,&nbsp;min,&nbsp;mid,&nbsp;cidelt,&nbsp;nozero])</td>
+<td>Returns kwargs to <a class="reference internal" href="#pygeode.showvar" title="pygeode.showvar"><code class="xref py py-meth docutils literal notranslate"><span class="pre">showvar()</span></code></a> for a line contour plot.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pygeode.log1sdict" title="pygeode.log1sdict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">log1sdict</span></code></a>(cmin[,&nbsp;cdelt,&nbsp;nf,&nbsp;nl,&nbsp;ndiv])</td>
+<td>Returns kwargs to <a class="reference internal" href="#pygeode.showvar" title="pygeode.showvar"><code class="xref py py-meth docutils literal notranslate"><span class="pre">showvar()</span></code></a> for a one-sided logarithmically-spaced contour plot.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pygeode.log2sdict" title="pygeode.log2sdict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">log2sdict</span></code></a>(cmin[,&nbsp;cdelt,&nbsp;nf,&nbsp;nl,&nbsp;ndiv,&nbsp;nozero])</td>
+<td>Returns kwargs to <a class="reference internal" href="#pygeode.showvar" title="pygeode.showvar"><code class="xref py py-meth docutils literal notranslate"><span class="pre">showvar()</span></code></a> for a two-sided logarithmically-spaced contour plot.</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Matplotlib wrappers</p>
+<p>PyGeode uses a thin set of wrapper classes around matplotlib. The central
+object is the AxesWrapper class which provides an object that can produce a
+matplotlib plot. It was intended to make it possible to pickle and unpickle
+plots, though this often doesn’t work. Most of the higher-level plotting
+functions return an AxesWrapper instance.</p>
+<p>The routines (most accessible as equivalent member functions of
+AxesWrapper) permit modifying and adding to plots much as one would with
+standard matplotlib figures. AxesWrappers can also be combined using
+into compound plots using <a class="reference internal" href="#pygeode.plot.grid" title="pygeode.plot.grid"><code class="xref py py-func docutils literal notranslate"><span class="pre">plot.grid()</span></code></a>.</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="#pygeode.plot.AxesWrapper" title="pygeode.plot.AxesWrapper"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot.AxesWrapper</span></code></a>([parent,&nbsp;rect,&nbsp;size,&nbsp;pad,&nbsp;…])</td>
+<td><p class="rubric">Methods</p>
+</td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot.plot</span></code>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot.fill_between</span></code>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot.scatter</span></code>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot.hist</span></code>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot.axhline</span></code>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot.axvline</span></code>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot.legend</span></code>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot.text</span></code>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot.colorbar</span></code>(axes,&nbsp;cnt[,&nbsp;cax,&nbsp;rect])</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot.contour</span></code>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot.contourf</span></code>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot.quiver</span></code>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-even"><td><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot.quiverkey</span></code>(*args,&nbsp;**kwargs)</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pygeode.plot.grid" title="pygeode.plot.grid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot.grid</span></code></a>(axes[,&nbsp;size])</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div>
 <dl class="function">
 <dt id="pygeode.showvar">
-<tt class="descclassname">pygeode.</tt><tt class="descname">showvar</tt><big>(</big><em>var</em>, <em>*args</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pygeode.showvar" title="Permalink to this definition">¶</a></dt>
-<dd><p>Plot variable, showing a contour plot for 2d variables or a line plot for 1d variables.</p>
+<code class="descclassname">pygeode.</code><code class="descname">showvar</code><span class="sig-paren">(</span><em>var</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/plot/pyg_helpers.html#showvar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.showvar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot variable, showing a contour plot for 2d variables or a line plot for
+1d variables.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>var</strong> :  <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a></p>
-<blockquote>
-<div><p>The variable to plot. Should have either 1 or 2 non-degenerate axes.</p>
-</div></blockquote>
-<p><strong>*args, **kwargs</strong> : arguments to pass on to underlying plotting routines, see</p>
-<blockquote class="last">
-<div><p>Notes.</p>
-</div></blockquote>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>var</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a></span></dt>
+<dd><p class="first last">The variable to plot. Should have either 1 or 2 non-degenerate axes.
+Arguments below relevant only for the 1 dimensional case are labelled [1D],
+those relevant only for the 2 dimensional case are labelled [2D].</p>
+</dd>
+<dt><strong>fmt</strong> <span class="classifier-delimiter">:</span> <span class="classifier">string, optional</span></dt>
+<dd><p class="first last">[1D] matplotlib format to plot line. See <code class="xref py py-func docutils literal notranslate"><span class="pre">matplotlib.plot()</span></code>. Will also
+be recognized as the second positional argument (after var).</p>
+</dd>
+<dt><strong>type</strong> <span class="classifier-delimiter">:</span> <span class="classifier">string, optional [‘clf’]</span></dt>
+<dd><p class="first last">[2D] style of plot to produce. See Notes.</p>
+</dd>
+<dt><strong>axes</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">AxesWrapper</span></code> instance, optional</span></dt>
+<dd><p class="first last">Axes object on which to plot variable. A new one is created if this is not specified.</p>
+</dd>
+<dt><strong>transpose: boolean, optional [False]</strong></dt>
+<dd><p class="first last">If True, reverse axes.</p>
+</dd>
+<dt><strong>lblx: boolean, optional [True]</strong></dt>
+<dd><p class="first last">If True, label horizontal axes</p>
+</dd>
+<dt><strong>lbly: boolean, optional [True]</strong></dt>
+<dd><p class="first last">If True, label vertical axes</p>
+</dd>
+<dt><strong>*args, **kwargs :</strong></dt>
+<dd><p class="first last">Further arguments are passed on to the underlying plotting routine. See
+Notes.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>:class:`AxesWrapper` object with plot.</strong></dt>
+<dd></dd>
+</dl>
 </td>
 </tr>
 </tbody>
 </table>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="#pygeode.vplot" title="pygeode.vplot"><tt class="xref py py-obj docutils literal"><span class="pre">vplot</span></tt></a>, <a class="reference internal" href="#pygeode.vcontour" title="pygeode.vcontour"><tt class="xref py py-obj docutils literal"><span class="pre">vcontour</span></tt></a>, <tt class="xref py py-obj docutils literal"><span class="pre">colorbar</span></tt></p>
+<p class="last"><a class="reference internal" href="#pygeode.vplot" title="pygeode.vplot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vplot</span></code></a>, <a class="reference internal" href="#pygeode.vcontour" title="pygeode.vcontour"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vcontour</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">colorbar</span></code></p>
 </div>
 <p class="rubric">Notes</p>
 <p>This function is intended as the simplest way to display the contents of a
 variable, choosing appropriate parameter values as automatically as possible.
-For 1d variables it calls <tt class="xref py py-func docutils literal"><span class="pre">Var.vplot()</span></tt>, and for 2d variables
-<tt class="xref py py-func docutils literal"><span class="pre">Var.vcontour()</span></tt>. In the latter case, if filled contours were produced, it
-calls <cite>AxesWrapper.colorbar()&#8217;. A dictionary ``colorbar`</cite> can be provided to
-pass arguments through. Setting <tt class="docutils literal"><span class="pre">colorbar</span></tt> to <tt class="docutils literal"><span class="pre">False</span></tt> suppresses the
+For 1d variables it calls <code class="xref py py-func docutils literal notranslate"><span class="pre">Var.vplot()</span></code>, and for 2d variables
+<code class="xref py py-func docutils literal notranslate"><span class="pre">Var.vcontour()</span></code>. In the latter case, if filled contours were produced, it
+calls <code class="xref py py-func docutils literal notranslate"><span class="pre">AxesWrapper.colorbar()</span></code>. A dictionary <code class="docutils literal notranslate"><span class="pre">colorbar</span></code> can be provided to
+pass arguments through. Setting <code class="docutils literal notranslate"><span class="pre">colorbar</span></code> to <code class="docutils literal notranslate"><span class="pre">False</span></code> suppresses the
 colorbar.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="pygeode.showcol">
-<tt class="descclassname">pygeode.</tt><tt class="descname">showcol</tt><big>(</big><em>vs</em>, <em>size=(4.1</em>, <em>2)</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pygeode.showcol" title="Permalink to this definition">¶</a></dt>
-<dd><p>Plot variable, showing a contour plot for 2d variables or a line plot for 1d variables.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>v</strong> :  list of lists of <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a></p>
-<blockquote class="last">
-<div><p>The variables to plot. Should have either 1 or 2 non-degenerate axes.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
-<p class="rubric">Notes</p>
-<p>This function is intended as the simplest way to display the contents of a variable,
-choosing appropriate parameter values as automatically as possible.</p>
-</dd></dl>
-
-<dl class="function">
 <dt id="pygeode.showgrid">
-<tt class="descclassname">pygeode.</tt><tt class="descname">showgrid</tt><big>(</big><em>vf</em>, <em>vl=</em>, <span class="optional">[</span><span class="optional">]</span><em>ncol=1</em>, <em>size=(3.5</em>, <em>1.5)</em>, <em>lbl=True</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pygeode.showgrid" title="Permalink to this definition">¶</a></dt>
-<dd><p>Plot contours</p>
+<code class="descclassname">pygeode.</code><code class="descname">showgrid</code><span class="sig-paren">(</span><em>vf</em>, <em>vl=[]</em>, <em>ncol=1</em>, <em>size=(3.5</em>, <em>1.5)</em>, <em>lbl=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/plot/pyg_helpers.html#showgrid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.showgrid" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create grid of contour plots of multiple variables.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>v</strong> :  list of lists of <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a></p>
-<blockquote class="last">
-<div><p>The variables to plot. Should have either 1 or 2 non-degenerate axes.</p>
-</div></blockquote>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>vf</strong> <span class="classifier-delimiter">:</span> <span class="classifier">list of lists of <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a></span></dt>
+<dd><p class="first last">The variables to plot. Should have 2 non-degenerate axes.</p>
+</dd>
+<dt><strong>ncol</strong> <span class="classifier-delimiter">:</span> <span class="classifier">integer</span></dt>
+<dd><p class="first last">Number of columns</p>
+</dd>
+</dl>
 </td>
 </tr>
 </tbody>
 </table>
-<p class="rubric">Notes</p>
-<p>This function is intended as the simplest way to display the contents of a variable,
-choosing appropriate parameter values as automatically as possible.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="pygeode.showlines">
-<tt class="descclassname">pygeode.</tt><tt class="descname">showlines</tt><big>(</big><em>vs</em>, <em>fmts=None</em>, <em>labels=None</em>, <em>size=(4.1</em>, <em>2)</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pygeode.showlines" title="Permalink to this definition">¶</a></dt>
-<dd><p>Plot line plots of a list of 1D variables on the same plot.</p>
+<code class="descclassname">pygeode.</code><code class="descname">showlines</code><span class="sig-paren">(</span><em>vs</em>, <em>fmts=None</em>, <em>labels=None</em>, <em>size=(4.1</em>, <em>2)</em>, <em>lblx=True</em>, <em>lbly=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/plot/pyg_helpers.html#showlines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.showlines" title="Permalink to this definition">¶</a></dt>
+<dd><p>Produce line plots of a list of 1D variables on a single figure.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>vs</strong> :  list of <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a></p>
-<blockquote class="last">
-<div><p>The variables to plot. Should all have 1 non-degenerate axis.</p>
-</div></blockquote>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>vs</strong> <span class="classifier-delimiter">:</span> <span class="classifier">list of <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a></span></dt>
+<dd><p class="first last">The variables to plot. Should all have 1 non-degenerate axis.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pygeode.vplot">
+<code class="descclassname">pygeode.</code><code class="descname">vplot</code><span class="sig-paren">(</span><em>var</em>, <em>fmt=''</em>, <em>axes=None</em>, <em>transpose=False</em>, <em>lblx=True</em>, <em>lbly=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/plot/pyg_helpers.html#vplot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.vplot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a line plot of a variable.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>var</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a></span></dt>
+<dd><p class="first last">The variable to plot. Should have 1 non-degenerate axis.</p>
+</dd>
+<dt><strong>fmt</strong> <span class="classifier-delimiter">:</span> <span class="classifier">string, optional</span></dt>
+<dd><p class="first last">Format of the line. See <code class="xref py py-func docutils literal notranslate"><span class="pre">pylab.plot()</span></code>.</p>
+</dd>
+</dl>
 </td>
 </tr>
 </tbody>
@@ -153,114 +313,87 @@ choosing appropriate parameter values as automatically as possible.</p>
 
 <dl class="function">
 <dt id="pygeode.vcontour">
-<tt class="descclassname">pygeode.</tt><tt class="descname">vcontour</tt><big>(</big><em>var</em>, <em>clevs=None</em>, <em>clines=None</em>, <em>axes=None</em>, <em>lblx=True</em>, <em>lbly=True</em>, <em>label=True</em>, <em>transpose=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pygeode.vcontour" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pygeode.</code><code class="descname">vcontour</code><span class="sig-paren">(</span><em>var</em>, <em>clevs=None</em>, <em>clines=None</em>, <em>axes=None</em>, <em>lblx=True</em>, <em>lbly=True</em>, <em>label=True</em>, <em>transpose=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/plot/pyg_helpers.html#vcontour"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.vcontour" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a contour plot (lines, filled, or both) from a variable.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>var</strong> :  <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a></p>
-<blockquote>
-<div><p>The variable to plot. Should have 2 non-degenerate axes.</p>
-</div></blockquote>
-<p><strong>clevs</strong> : integer or collection of numbers, optional</p>
-<blockquote>
-<div><p>Levels at which to construct filled contours through an underlying call to 
-<tt class="xref py py-func docutils literal"><span class="pre">matplotlib.contourf()</span></tt>. If None is specified, no filled contours will 
-be produced, unless clines is also None. If a number is specified, that 
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>var</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a></span></dt>
+<dd><p class="first last">The variable to plot. Should have 2 non-degenerate axes.</p>
+</dd>
+<dt><strong>clevs</strong> <span class="classifier-delimiter">:</span> <span class="classifier">integer or collection of numbers, optional</span></dt>
+<dd><p class="first last">Levels at which to construct filled contours through an underlying call to
+<code class="xref py py-func docutils literal notranslate"><span class="pre">matplotlib.contourf()</span></code>. If None is specified, no filled contours will
+be produced, unless clines is also None. If a number is specified, that
 number of equally spaced contours are chosen. Otherwise the explicit
 values are used.</p>
-</div></blockquote>
-<p><strong>clines</strong> : integer or collection of numbers, optional</p>
-<blockquote>
-<div><p>Levels at which to construct contour lines through an underlying call to 
-<tt class="xref py py-func docutils literal"><span class="pre">matplotlib.contour()</span></tt>. If None is specified, no contour lines are
+</dd>
+<dt><strong>clines</strong> <span class="classifier-delimiter">:</span> <span class="classifier">integer or collection of numbers, optional</span></dt>
+<dd><p class="first last">Levels at which to construct contour lines through an underlying call to
+<code class="xref py py-func docutils literal notranslate"><span class="pre">matplotlib.contour()</span></code>. If None is specified, no contour lines are
 produced.  If a number is specified, that number of equally spaced contours
 are chosen. Otherwise the explicit values are used.</p>
-</div></blockquote>
-<p><strong>axes</strong> : <tt class="xref py py-class docutils literal"><span class="pre">AxisWrapper</span></tt>, optional</p>
-<blockquote>
-<div><p>Axes on which to produce contour plot. If none is specified, one is created.</p>
-</div></blockquote>
-<p><strong>lblx</strong> : bool, optional</p>
-<blockquote>
-<div><p>If True, add appropriate tick labels and an axis label on the x axis; if
+</dd>
+<dt><strong>axes</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">AxisWrapper</span></code>, optional</span></dt>
+<dd><p class="first last">Axes on which to produce contour plot. If none is specified, one is created.</p>
+</dd>
+<dt><strong>lblx</strong> <span class="classifier-delimiter">:</span> <span class="classifier">bool, optional</span></dt>
+<dd><p class="first last">If True, add appropriate tick labels and an axis label on the x axis; if
 False, the x axis a is left unlabeled. Defaults to True.</p>
-</div></blockquote>
-<p><strong>lbly</strong> : bool, optional</p>
-<blockquote>
-<div><p>If True, add appropriate tick labels and an axis label on the y axis; if
+</dd>
+<dt><strong>lbly</strong> <span class="classifier-delimiter">:</span> <span class="classifier">bool, optional</span></dt>
+<dd><p class="first last">If True, add appropriate tick labels and an axis label on the y axis; if
 False, the y axis a is left unlabeled. Defaults to True.</p>
-</div></blockquote>
-<p><strong>transpose</strong> : bool, optional</p>
-<blockquote>
-<div><p>The x and y axes are chosen based on the two degenerate axes of the variable
+</dd>
+<dt><strong>transpose</strong> <span class="classifier-delimiter">:</span> <span class="classifier">bool, optional</span></dt>
+<dd><p class="first last">The x and y axes are chosen based on the two degenerate axes of the variable
 to plot. This order can be reversed by setting transpose to True.</p>
-</div></blockquote>
-<p><strong>map</strong> : dict, optional</p>
-<blockquote>
-<div><p>If</p>
-</div></blockquote>
-<p><strong>*args, **kwargs</strong> : arguments to pass on to underlying matplotlib contour</p>
-<blockquote>
-<div><p>plotting routines, see Notes.</p>
-</div></blockquote>
+</dd>
+<dt><strong>map</strong> <span class="classifier-delimiter">:</span> <span class="classifier">dict, optional</span></dt>
+<dd><p class="first last">If</p>
+</dd>
+<dt><strong>*args, **kwargs</strong> <span class="classifier-delimiter">:</span> <span class="classifier">arguments to pass on to underlying matplotlib contour</span></dt>
+<dd><p class="first last">plotting routines, see Notes.</p>
+</dd>
+</dl>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>axes</strong> : <tt class="xref py py-class docutils literal"><span class="pre">AxesWrapper</span></tt></p>
-<blockquote class="last">
-<div><p>The axes object containing the contour plots.</p>
-</div></blockquote>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>axes</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">AxesWrapper</span></code></span></dt>
+<dd><p class="first last">The axes object containing the contour plots.</p>
+</dd>
+</dl>
 </td>
 </tr>
 </tbody>
 </table>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="#pygeode.showvar" title="pygeode.showvar"><tt class="xref py py-obj docutils literal"><span class="pre">showvar</span></tt></a>, <tt class="xref py py-obj docutils literal"><span class="pre">colorbar</span></tt></p>
+<p class="last"><a class="reference internal" href="#pygeode.showvar" title="pygeode.showvar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">showvar</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">colorbar</span></code></p>
 </div>
 <p class="rubric">Notes</p>
-<p>If the two axes of the variable are a <a class="reference internal" href="horizontalaxes.html#pygeode.Lat" title="pygeode.Lat"><tt class="xref py py-class docutils literal"><span class="pre">Lat</span></tt></a> and <a class="reference internal" href="horizontalaxes.html#pygeode.Lon" title="pygeode.Lon"><tt class="xref py py-class docutils literal"><span class="pre">Lon</span></tt></a> axes,
+<p>If the two axes of the variable are a <a class="reference internal" href="horizontalaxes.html#pygeode.Lat" title="pygeode.Lat"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lat</span></code></a> and <a class="reference internal" href="horizontalaxes.html#pygeode.Lon" title="pygeode.Lon"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lon</span></code></a> axes,
 a map projection is created automatically.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="pygeode.vplot">
-<tt class="descclassname">pygeode.</tt><tt class="descname">vplot</tt><big>(</big><em>var</em>, <em>fmt=''</em>, <em>axes=None</em>, <em>transpose=False</em>, <em>lblx=True</em>, <em>lbly=True</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pygeode.vplot" title="Permalink to this definition">¶</a></dt>
-<dd><p>Plot variable, showing a contour plot for 2d variables or a line plot for 1d variables.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>var</strong> :  <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a></p>
-<blockquote class="last">
-<div><p>The variable to plot. Should have either 1 or 2 non-degenerate axes.</p>
-</div></blockquote>
-</td>
-</tr>
-</tbody>
-</table>
-<p class="rubric">Notes</p>
-<p>This function is intended as the simplest way to display the contents of a variable,
-choosing appropriate parameter values as automatically as possible.</p>
-</dd></dl>
-
-<dl class="function">
 <dt id="pygeode.vscatter">
-<tt class="descclassname">pygeode.</tt><tt class="descname">vscatter</tt><big>(</big><em>varx</em>, <em>vary</em>, <em>axes=None</em>, <em>lblx=True</em>, <em>lbly=True</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pygeode.vscatter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Do a scatter plot of a variable.</p>
+<code class="descclassname">pygeode.</code><code class="descname">vscatter</code><span class="sig-paren">(</span><em>varx</em>, <em>vary</em>, <em>axes=None</em>, <em>lblx=True</em>, <em>lbly=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/plot/pyg_helpers.html#vscatter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.vscatter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a scatter plot from two variables with the same shape.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>varx</strong> :  <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a></p>
-<blockquote>
-<div><p>Variable to use as abscissa values. Must have the same size as vary.</p>
-</div></blockquote>
-<p><strong>vary</strong> :  <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a></p>
-<blockquote class="last">
-<div><p>Variable to use as ordinate values.</p>
-</div></blockquote>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>varx</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a></span></dt>
+<dd><p class="first last">Variable to use as abscissa values. Must have the same size as vary.</p>
+</dd>
+<dt><strong>vary</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a></span></dt>
+<dd><p class="first last">Variable to use as ordinate values.</p>
+</dd>
+</dl>
 </td>
 </tr>
 </tbody>
@@ -270,87 +403,191 @@ choosing appropriate parameter values as automatically as possible.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="pygeode.vquiver">
-<tt class="descclassname">pygeode.</tt><tt class="descname">vquiver</tt><big>(</big><em>varu</em>, <em>varv</em>, <em>varc=None</em>, <em>axes=None</em>, <em>lblx=True</em>, <em>lbly=True</em>, <em>label=True</em>, <em>transpose=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pygeode.vquiver" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="pygeode.vstreamplot">
-<tt class="descclassname">pygeode.</tt><tt class="descname">vstreamplot</tt><big>(</big><em>varu</em>, <em>varv</em>, <em>axes=None</em>, <em>lblx=True</em>, <em>lbly=True</em>, <em>label=True</em>, <em>transpose=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pygeode.vstreamplot" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt id="pygeode.vhist">
+<code class="descclassname">pygeode.</code><code class="descname">vhist</code><span class="sig-paren">(</span><em>var</em>, <em>axes=None</em>, <em>lblx=True</em>, <em>lbly=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/plot/pyg_helpers.html#vhist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.vhist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a histogram of values taken by a variable.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>var</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a></span></dt>
+<dd><p class="first last">The variable to compute the histogram of.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="function">
 <dt id="pygeode.vsigmask">
-<tt class="descclassname">pygeode.</tt><tt class="descname">vsigmask</tt><big>(</big><em>var</em>, <em>axes</em>, <em>mjsig=0.9</em>, <em>mjc='0.8'</em>, <em>mjalpha=1.0</em>, <em>mnsig=None</em>, <em>mnc='0.9'</em>, <em>mnalpha=1.0</em>, <em>transpose=None</em><big>)</big><a class="headerlink" href="#pygeode.vsigmask" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descclassname">pygeode.</code><code class="descname">vsigmask</code><span class="sig-paren">(</span><em>pval</em>, <em>axes</em>, <em>mjsig=0.95</em>, <em>mnsig=None</em>, <em>mjsigp=None</em>, <em>mnsigp=None</em>, <em>nsigp=None</em>, <em>transpose=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/plot/pyg_helpers.html#vsigmask"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.vsigmask" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add significance shading to a contour plot from a variable.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>pval</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a></span></dt>
+<dd><p class="first last">The variable containing a p-value of the significance mask. The mask will
+be applied where abs(pval) &gt; mjsig (and optionally an additional mask will
+be applied for mnsig &lt; abs(pval) &lt; mjsig. Signed p-values for two-sided
+tests ensure that a gap will appear between significant regions of opposite sign.
+Should have two non-degenerate axes that match the quantity plotted.</p>
+</dd>
+<dt><strong>axes</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">AxesWrapper</span></code></span></dt>
+<dd><p class="first last">The axis on which to add the mask.</p>
+</dd>
+<dt><strong>mjsig</strong> <span class="classifier-delimiter">:</span> <span class="classifier">float, optional [0.95]</span></dt>
+<dd><p class="first last">The p-value dividing significant from non-significant values.</p>
+</dd>
+<dt><strong>mnsig</strong> <span class="classifier-delimiter">:</span> <span class="classifier">float or None, optional [None]</span></dt>
+<dd><p class="first last">The p-value dividing minor significance from non-significant values.</p>
+</dd>
+<dt><strong>mjsigp</strong> <span class="classifier-delimiter">:</span> <span class="classifier">dictionary, optional</span></dt>
+<dd><p class="first last">A dictionary of keyword arguments that determine the properties of the
+(major) significant filled contours. See notes.</p>
+</dd>
+<dt><strong>mnsigp</strong> <span class="classifier-delimiter">:</span> <span class="classifier">dictionary, optional</span></dt>
+<dd><p class="first last">A dictionary of keyword arguments that determine the properties of the
+minor significant filled contours. See notes.</p>
+</dd>
+<dt><strong>nsigp</strong> <span class="classifier-delimiter">:</span> <span class="classifier">dictionary, optional</span></dt>
+<dd><p class="first last">A dictionary of keyword arguments that determine the properties of the
+non-significant filled contour. See notes.</p>
+</dd>
+<dt><strong>transpose</strong> <span class="classifier-delimiter">:</span> <span class="classifier">bool or None, optional [None]</span></dt>
+<dd><p class="first last">If True, transpose the axes of the plot.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>:class:`AxesWrapper` object with plot.</strong></dt>
+<dd></dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>The significance mask is plotted as three (or five) filled contours, with
+boundaries at [-1.1, -mjsig, mjsig, 1.1] or [-1.1, -mjsig, -mnsig, mnsig,
+mjsig, 1.1]. Their respective graphical properties can be set using the
+dictionary kw arguments.</p>
+<p>By default, the non-significant contours are set to be invisible and the
+significant contours are set to a hatching pattern; this is equivalent to
+passing in mjsigp = dict(alpha = 0., hatch = ‘…’) and nsigp = dict(visible
+= False). Any property of the filled contour can be set.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pygeode.vstreamplot">
+<code class="descclassname">pygeode.</code><code class="descname">vstreamplot</code><span class="sig-paren">(</span><em>varu</em>, <em>varv</em>, <em>axes=None</em>, <em>lblx=True</em>, <em>lbly=True</em>, <em>label=True</em>, <em>transpose=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/plot/pyg_helpers.html#vstreamplot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.vstreamplot" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a streamplot from two variables.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pygeode.vquiver">
+<code class="descclassname">pygeode.</code><code class="descname">vquiver</code><span class="sig-paren">(</span><em>varu</em>, <em>varv</em>, <em>varc=None</em>, <em>axes=None</em>, <em>lblx=True</em>, <em>lbly=True</em>, <em>label=True</em>, <em>transpose=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/plot/pyg_helpers.html#vquiver"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.vquiver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a quiver plot from two variables.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pygeode.clfdict">
+<code class="descclassname">pygeode.</code><code class="descname">clfdict</code><span class="sig-paren">(</span><em>cdelt</em>, <em>min=None</em>, <em>mid=0.0</em>, <em>nf=6</em>, <em>nl=2</em>, <em>ndiv=3</em>, <em>nozero=False</em>, <em>style='div'</em>, <em>clr=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/plot/cnt_helpers.html#clfdict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.clfdict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns kwargs to <a class="reference internal" href="#pygeode.showvar" title="pygeode.showvar"><code class="xref py py-meth docutils literal notranslate"><span class="pre">showvar()</span></code></a> for a filled contour plot.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>cdelt</strong> <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
+<dd><p class="first last">Spacing of a single division. Each division is spanned by a certain number of filled
+contours and contour lines, and the colorbar will span a set number of divisions. See notes.</p>
+</dd>
+<dt><strong>min</strong> <span class="classifier-delimiter">:</span> <span class="classifier">float or None (optional)</span></dt>
+<dd><p class="first last">If specified, contours span ndiv equal divisions starting with the value
+min. If None, the colorbar is centred on the value of mid. Default is None.</p>
+</dd>
+<dt><strong>mid</strong> <span class="classifier-delimiter">:</span> <span class="classifier">float (optional)</span></dt>
+<dd><p class="first last">If min is None, contours span ndiv equal divisions both above and below the value of mid.</p>
+</dd>
+<dt><strong>nf</strong> <span class="classifier-delimiter">:</span> <span class="classifier">integer (optional)</span></dt>
+<dd><p class="first last">Number of filled contours per division. Default is 6.</p>
+</dd>
+<dt><strong>nl</strong> <span class="classifier-delimiter">:</span> <span class="classifier">integer (optional)</span></dt>
+<dd><p class="first last">Number of contour lines per division. Default is 2.</p>
+</dd>
+<dt><strong>nozero</strong> <span class="classifier-delimiter">:</span> <span class="classifier">boolean (optional)</span></dt>
+<dd><p class="first last">If True, the contour line at mid is omitted. Defalt is False.</p>
+</dd>
+<dt><strong>style</strong> <span class="classifier-delimiter">:</span> <span class="classifier">string (optional)</span></dt>
+<dd><p class="first last">Either ‘seq’ or ‘div’. Deterimines which style of colourmap to use; a
+sequential or divergent. Default is ‘div’.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="pygeode.cldict">
+<code class="descclassname">pygeode.</code><code class="descname">cldict</code><span class="sig-paren">(</span><em>cdelt</em>, <em>range=None</em>, <em>min=None</em>, <em>mid=0</em>, <em>cidelt=0.0</em>, <em>nozero=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/plot/cnt_helpers.html#cldict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.cldict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns kwargs to <a class="reference internal" href="#pygeode.showvar" title="pygeode.showvar"><code class="xref py py-meth docutils literal notranslate"><span class="pre">showvar()</span></code></a> for a line contour plot.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pygeode.log1sdict">
+<code class="descclassname">pygeode.</code><code class="descname">log1sdict</code><span class="sig-paren">(</span><em>cmin</em>, <em>cdelt=10.0</em>, <em>nf=6</em>, <em>nl=2</em>, <em>ndiv=5</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/plot/cnt_helpers.html#log1sdict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.log1sdict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns kwargs to <a class="reference internal" href="#pygeode.showvar" title="pygeode.showvar"><code class="xref py py-meth docutils literal notranslate"><span class="pre">showvar()</span></code></a> for a one-sided
+logarithmically-spaced contour plot.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pygeode.log2sdict">
+<code class="descclassname">pygeode.</code><code class="descname">log2sdict</code><span class="sig-paren">(</span><em>cmin</em>, <em>cdelt=10</em>, <em>nf=6</em>, <em>nl=2</em>, <em>ndiv=3</em>, <em>nozero=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/plot/cnt_helpers.html#log2sdict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.log2sdict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns kwargs to <a class="reference internal" href="#pygeode.showvar" title="pygeode.showvar"><code class="xref py py-meth docutils literal notranslate"><span class="pre">showvar()</span></code></a> for a two-sided logarithmically-spaced contour plot.</p>
+</dd></dl>
 
 <span class="target" id="module-pygeode.plot"></span><dl class="class">
 <dt id="pygeode.plot.AxesWrapper">
-<em class="property">class </em><tt class="descclassname">pygeode.plot.</tt><tt class="descname">AxesWrapper</tt><a class="headerlink" href="#pygeode.plot.AxesWrapper" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">pygeode.plot.</code><code class="descname">AxesWrapper</code><a class="reference internal" href="_modules/pygeode/plot/wrappers.html#AxesWrapper"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.plot.AxesWrapper" title="Permalink to this definition">¶</a></dt>
 <dd><p>A PyGeode wrapper class for a matplotlib figure or subplot</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="pygeode.plot.grid">
-<tt class="descclassname">pygeode.plot.</tt><tt class="descname">grid</tt><big>(</big><em>axes</em>, <em>size=None</em><big>)</big><a class="headerlink" href="#pygeode.plot.grid" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pygeode.plot.</code><code class="descname">grid</code><span class="sig-paren">(</span><em>axes</em>, <em>size=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/plot/wrappers.html#grid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.plot.grid" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
 
 
-          </div>
-        </div>
       </div>
-      <div class="sphinxsidebar">
-        <div class="sphinxsidebarwrapper">
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="dataset.html"
-                        title="previous chapter">Dataset overview</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="fileio.html"
-                        title="next chapter">File Input and Output</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/plot.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        «&#160;&#160;<a href="genops.html">General Operations</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="gallery/index.html">Gallery</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="fileio.html">File Input and Output</a>&#160;&#160;»
+        </p>
+
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="fileio.html" title="File Input and Output"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="dataset.html" title="Dataset overview"
-             >previous</a> |</li>
-        <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li>
-          <li><a href="reference.html" >Reference</a> &raquo;</li> 
-      </ul>
-    </div>
-    <div class="footer">
-        &copy; Copyright 2013, Mike Neish, Peter Hitchcock.
-      Last updated on Sep 13, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Mike Neish, Peter Hitchcock.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.
     </div>
   </body>
 </html>

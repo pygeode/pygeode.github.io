@@ -1,0 +1,145 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>pygeode.ensemble &#8212; PyGeode 1.3 pre-release documentation</title>
+    <link rel="stylesheet" href="../../_static/pygtheme.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
+
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../../index.html">
+          <span>PyGeode 1.3 pre-release documentation</span></a></h1>
+        <h2 class="heading"><span>pygeode.ensemble</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        <a class="uplink" href="../../reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../gallery/index.html">Gallery</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <h1>Source code for pygeode.ensemble</h1><div class="highlight"><pre>
+<span></span><span class="c1">#TODO: allow variables to be omitted in some ensembles</span>
+
+<span class="kn">from</span> <span class="nn">pygeode.axis</span> <span class="k">import</span> <span class="n">Index</span>
+<span class="k">class</span> <span class="nc">Ensemble</span><span class="p">(</span><span class="n">Index</span><span class="p">):</span> <span class="k">pass</span>
+<span class="k">del</span> <span class="n">Index</span>
+
+<span class="k">def</span> <span class="nf">make_ensemble</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">ensdict</span><span class="o">=</span><span class="p">{}):</span>
+  <span class="k">if</span> <span class="n">n</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ensdict</span><span class="p">:</span> <span class="n">ensdict</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">Ensemble</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">ensdict</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
+
+<span class="kn">from</span> <span class="nn">pygeode.var</span> <span class="k">import</span> <span class="n">Var</span>
+<span class="k">class</span> <span class="nc">EnsembleVar</span><span class="p">(</span><span class="n">Var</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">varlist</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">pygeode.var</span> <span class="k">import</span> <span class="n">Var</span><span class="p">,</span> <span class="n">combine_meta</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">varlist</span> <span class="o">=</span> <span class="n">varlist</span>
+    <span class="c1"># assume the vars have already been checked for consistency</span>
+    <span class="n">var0</span> <span class="o">=</span> <span class="n">varlist</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">axes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">var0</span><span class="o">.</span><span class="n">axes</span><span class="p">)</span>
+<span class="c1">#    axes = [Ensemble(len(varlist))] + axes</span>
+    <span class="n">axes</span> <span class="o">=</span> <span class="p">[</span><span class="n">make_ensemble</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">varlist</span><span class="p">))]</span> <span class="o">+</span> <span class="n">axes</span>
+    <span class="n">Var</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">var0</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+<span class="c1">#    copy_meta (var0, self)</span>
+<span class="c1">#    self.atts = common_dict(var.atts for var in varlist)</span>
+<span class="c1">#    self.plotatts = common_dict(var.plotatts for var in varlist)</span>
+    <span class="n">combine_meta</span> <span class="p">(</span><span class="n">varlist</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">varlist</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+  <span class="k">def</span> <span class="nf">getview</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">pbar</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+    <span class="n">subview</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">integer_indices</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">chunks</span> <span class="o">=</span> <span class="p">[[</span><span class="n">subview</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">varlist</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">pbar</span><span class="o">=</span><span class="n">pbar</span><span class="o">.</span><span class="n">part</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">N</span><span class="p">))]</span>
+              <span class="k">for</span> <span class="n">n</span><span class="p">,</span><span class="n">i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">integer_indices</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">chunks</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="k">del</span> <span class="n">Var</span>
+
+<span class="c1"># Collect vars into an ensemble</span>
+
+<div class="viewcode-block" id="ensemble"><a class="viewcode-back" href="../../genops.html#pygeode.ensemble">[docs]</a><span class="k">def</span> <span class="nf">ensemble</span> <span class="p">(</span><span class="o">*</span><span class="n">varlists</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Creates an ensemble out of a set of similar variables.</span>
+<span class="sd">  The corresponding variable must have the same axes and the same name.</span>
+<span class="sd">  If a bunch of vars are passed as inputs, then a single ensemble var is returned.</span>
+<span class="sd">  If a bunch of datasets are passed as inputs, then a single dataset is returned, consisting of an ensemble of the internal vars.  Each input dataset must have matching vars.</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="kn">from</span> <span class="nn">pygeode.var</span> <span class="k">import</span> <span class="n">Var</span>
+  <span class="kn">from</span> <span class="nn">pygeode.dataset</span> <span class="k">import</span> <span class="n">Dataset</span><span class="p">,</span> <span class="n">asdataset</span>
+  <span class="kn">from</span> <span class="nn">pygeode.tools</span> <span class="k">import</span> <span class="n">common_dict</span>
+  <span class="n">datasets</span> <span class="o">=</span> <span class="p">[</span><span class="n">asdataset</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">varlists</span><span class="p">]</span>
+
+  <span class="n">varnames</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">datasets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">vars</span><span class="p">]</span>
+
+  <span class="c1"># Make sure we have the same varnames in each dataset</span>
+  <span class="k">for</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="n">datasets</span><span class="p">:</span> <span class="k">assert</span> <span class="nb">set</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">vardict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">==</span> <span class="nb">set</span><span class="p">(</span><span class="n">varnames</span><span class="p">),</span> <span class="s2">&quot;inconsistent variable names between datasets&quot;</span>
+
+  <span class="c1"># Make sure the varlists are all in the same order</span>
+  <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">datasets</span><span class="p">):</span>
+    <span class="n">varlist</span> <span class="o">=</span> <span class="p">[</span><span class="n">dataset</span><span class="p">[</span><span class="n">varname</span><span class="p">]</span> <span class="k">for</span> <span class="n">varname</span> <span class="ow">in</span> <span class="n">varnames</span><span class="p">]</span>
+    <span class="n">datasets</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">Dataset</span><span class="p">(</span><span class="n">varlist</span><span class="p">,</span> <span class="n">atts</span><span class="o">=</span><span class="n">dataset</span><span class="o">.</span><span class="n">atts</span><span class="p">)</span>
+
+  <span class="k">for</span> <span class="n">varname</span> <span class="ow">in</span> <span class="n">varnames</span><span class="p">:</span>
+    <span class="n">var0</span> <span class="o">=</span> <span class="n">datasets</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">varname</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="n">datasets</span><span class="p">:</span>
+      <span class="n">var</span> <span class="o">=</span> <span class="n">dataset</span><span class="p">[</span><span class="n">varname</span><span class="p">]</span>
+      <span class="c1"># Make sure the axes are the same between ensemble vars</span>
+      <span class="k">assert</span> <span class="n">var</span><span class="o">.</span><span class="n">axes</span> <span class="o">==</span> <span class="n">var0</span><span class="o">.</span><span class="n">axes</span><span class="p">,</span> <span class="s2">&quot;inconsistent axes for </span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span><span class="n">varname</span>
+
+  <span class="c1"># Collect the ensembles together</span>
+  <span class="n">ensembles</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="k">for</span> <span class="n">varname</span> <span class="ow">in</span> <span class="n">varnames</span><span class="p">:</span>
+    <span class="n">ensemble</span> <span class="o">=</span> <span class="n">EnsembleVar</span><span class="p">([</span><span class="n">dataset</span><span class="p">[</span><span class="n">varname</span><span class="p">]</span> <span class="k">for</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="n">datasets</span><span class="p">])</span>
+    <span class="n">ensembles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ensemble</span><span class="p">)</span>
+
+  <span class="c1"># Global attributes</span>
+  <span class="n">atts</span> <span class="o">=</span> <span class="n">common_dict</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">atts</span> <span class="k">for</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="n">datasets</span><span class="p">)</span>
+  <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">varlists</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">Dataset</span><span class="p">):</span> <span class="k">return</span> <span class="n">Dataset</span><span class="p">(</span><span class="n">ensembles</span><span class="p">,</span> <span class="n">atts</span><span class="o">=</span><span class="n">atts</span><span class="p">)</span>
+  <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">varlists</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">Var</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">ensembles</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">ensembles</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+  <span class="k">return</span> <span class="n">ensembles</span></div>
+</pre></div>
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        <a class="uplink" href="../../reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../gallery/index.html">Gallery</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Mike Neish, Peter Hitchcock.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.
+    </div>
+  </body>
+</html>

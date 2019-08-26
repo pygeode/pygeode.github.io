@@ -1,0 +1,611 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>pygeode.view &#8212; PyGeode 1.3 pre-release documentation</title>
+    <link rel="stylesheet" href="../../_static/pygtheme.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
+
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../../index.html">
+          <span>PyGeode 1.3 pre-release documentation</span></a></h1>
+        <h2 class="heading"><span>pygeode.view</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        <a class="uplink" href="../../reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../gallery/index.html">Gallery</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <h1>Source code for pygeode.view</h1><div class="highlight"><pre>
+<span></span><span class="c1"># An interface to describe a &#39;view&#39; of a grid.</span>
+<span class="c1"># Consists of a bunch of axes and ranges.</span>
+<span class="c1"># Used in variable read routines, to simplify the mapping between input and output variables.</span>
+
+
+<span class="c1"># Attributes:</span>
+<span class="c1">#   axes    - a list of axis objects to use for the view (whole axis, not subsetted)</span>
+<span class="c1">#   slices  - a list of slices describing what parts of the axes we&#39;re actually viewing</span>
+<span class="c1">#             (can include non-uniform lists of indices in addition to slices)</span>
+<span class="c1">#   integer_indices - an explicit array of integer indices, indicating which values along the axes have been selected.</span>
+
+<div class="viewcode-block" id="expand"><a class="viewcode-back" href="../../view.html#pygeode.view.expand">[docs]</a><span class="k">def</span> <span class="nf">expand</span> <span class="p">(</span><span class="n">ind</span><span class="p">,</span> <span class="n">upper_bound</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+  <span class="sd">&#39;&#39;&#39;Expand a slice or integer into an explicit array of indices&#39;&#39;&#39;</span>
+  <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+  <span class="c1"># already a list?</span>
+  <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">ind</span><span class="p">,</span><span class="s1">&#39;__len__&#39;</span><span class="p">):</span> <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">ind</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;int32&#39;</span><span class="p">)</span>
+  <span class="c1"># a single integer index?</span>
+  <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ind</span><span class="p">,</span><span class="nb">int</span><span class="p">):</span> <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">ind</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;int32&#39;</span><span class="p">)</span>
+  <span class="c1"># Otherwise, we should have a slice now</span>
+  <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">ind</span><span class="p">,</span><span class="nb">slice</span><span class="p">),</span> <span class="s2">&quot;unknown slicing mechanism - &quot;</span><span class="o">+</span><span class="nb">repr</span><span class="p">(</span><span class="n">ind</span><span class="p">)</span>
+  <span class="c1"># Make sure start, stop, and step are positive integers</span>
+<span class="c1">#  ind = fix_slice(ind, upper_bound)</span>
+<span class="c1">#  return np.arange(ind.start, ind.stop, ind.step)</span>
+
+  <span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">step</span> <span class="o">=</span> <span class="n">ind</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">ind</span><span class="o">.</span><span class="n">stop</span><span class="p">,</span> <span class="n">ind</span><span class="o">.</span><span class="n">step</span>
+  <span class="k">if</span> <span class="n">step</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">step</span> <span class="o">=</span> <span class="mi">1</span>
+  <span class="k">assert</span> <span class="n">step</span> <span class="o">!=</span> <span class="mi">0</span>
+  <span class="k">if</span> <span class="n">start</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">step</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span> <span class="n">start</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">else</span><span class="p">:</span> <span class="n">start</span> <span class="o">=</span> <span class="n">upper_bound</span><span class="o">-</span><span class="mi">1</span>
+  <span class="k">if</span> <span class="n">start</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span> <span class="n">start</span> <span class="o">+=</span> <span class="n">upper_bound</span>
+
+  <span class="k">if</span> <span class="n">stop</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">step</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span> <span class="n">stop</span> <span class="o">=</span> <span class="n">upper_bound</span>
+    <span class="k">else</span><span class="p">:</span> <span class="n">stop</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+  <span class="k">elif</span> <span class="n">stop</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span> <span class="n">stop</span> <span class="o">+=</span> <span class="n">upper_bound</span>
+
+  <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">step</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;int32&#39;</span><span class="p">)</span></div>
+<span class="c1"># }}}</span>
+
+
+<div class="viewcode-block" id="simplify"><a class="viewcode-back" href="../../view.html#pygeode.view.simplify">[docs]</a><span class="k">def</span> <span class="nf">simplify</span> <span class="p">(</span><span class="n">ind</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+  <span class="sd">&#39;&#39;&#39;Simplify an index list into a slice, if possible</span>
+<span class="sd">    does *not* return single integer indices, since that screws up the dimensions</span>
+<span class="sd">    when applying these slices to numpy arrays.&#39;&#39;&#39;</span>
+  <span class="k">assert</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">ind</span><span class="p">,</span><span class="s1">&#39;__len__&#39;</span><span class="p">),</span> <span class="s2">&quot;not an array of indices&quot;</span>
+  <span class="c1"># Single value?</span>
+  <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">ind</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="n">ind</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ind</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">return</span> <span class="nb">slice</span><span class="p">(</span><span class="n">ind</span><span class="p">,</span><span class="n">ind</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+  <span class="c1"># otherwise, check the distance between each value - see if it&#39;s regular</span>
+  <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+  <span class="n">delt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">ind</span><span class="p">))</span>
+  <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">delt</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">delt</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="k">return</span> <span class="n">ind</span>  <span class="c1"># irregular indices, can&#39;t do anything</span>
+  <span class="n">delt</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">delt</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+  <span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">step</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ind</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">int</span><span class="p">(</span><span class="n">ind</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span><span class="o">+</span><span class="n">delt</span><span class="p">,</span> <span class="n">delt</span>
+  <span class="c1"># Special case: going in reverse, ending at the start of the array - stop will be just before index 0, i.e. a negative stop value</span>
+  <span class="c1"># (because of the way negative indices are wrapped in numpy, this won&#39;t behave the way we&#39;d want)</span>
+  <span class="c1"># so, for this case only, set &#39;stop&#39; equal to None, which should tell numpy to go until you can&#39;t go anymore</span>
+  <span class="k">if</span> <span class="n">stop</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span> <span class="n">stop</span> <span class="o">=</span> <span class="kc">None</span>
+  <span class="k">return</span> <span class="nb">slice</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">,</span> <span class="n">step</span><span class="p">)</span></div>
+<span class="c1"># }}}</span>
+
+<div class="viewcode-block" id="contiguate"><a class="viewcode-back" href="../../view.html#pygeode.view.contiguate">[docs]</a><span class="k">def</span> <span class="nf">contiguate</span> <span class="p">(</span><span class="n">ind</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+  <span class="sd">&#39;&#39;&#39;how to contiguate(?) the slices without actually returning the contiguous slices</span>
+<span class="sd">      (returns what you would pass to slice_into to get the contiguous slices)&#39;&#39;&#39;</span>
+  <span class="k">assert</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">ind</span><span class="p">,</span><span class="s1">&#39;__len__&#39;</span><span class="p">),</span> <span class="s2">&quot;not an array of indices&quot;</span>
+  <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+  <span class="n">delt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">ind</span><span class="p">)</span>
+  <span class="c1"># Find all non-contiguous &#39;jumps&#39;</span>
+  <span class="n">stops</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">delt</span><span class="o">!=</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">ind</span><span class="p">)]</span>
+  <span class="n">starts</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">stops</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+  <span class="k">return</span> <span class="p">[</span><span class="nb">slice</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">j</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">starts</span><span class="p">,</span><span class="n">stops</span><span class="p">)]</span></div>
+<span class="c1"># }}}</span>
+
+
+<span class="c1">#TODO: write a set of integer indices as a superposition of slices</span>
+<span class="c1"># ideally, this should return a minimum number of slices to cover all indices</span>
+<span class="c1"># Assume the indices are in order!</span>
+<span class="k">def</span> <span class="nf">indices_to_slices</span> <span class="p">(</span><span class="n">ind</span><span class="p">):</span>
+  <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+  <span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="n">ind</span><span class="p">)</span>
+  <span class="k">assert</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span> <span class="p">(</span><span class="n">d</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">)</span>
+  <span class="n">slices</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="c1">#TODO</span>
+
+<span class="k">class</span> <span class="nc">View</span><span class="p">:</span>
+<span class="c1"># {{{</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">,</span> <span class="n">slices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">force_slices</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">force_integer_indices</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+  <span class="c1"># {{{  </span>
+
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span><span class="s1">&#39;axes&#39;</span><span class="p">):</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">axes</span><span class="o">.</span><span class="n">axes</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">axes</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">axes</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">naxes</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">axes</span><span class="p">)</span>
+
+    <span class="c1"># if no slices given, default to the whole range</span>
+    <span class="k">if</span> <span class="n">slices</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">slices</span> <span class="o">=</span> <span class="p">[</span><span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">)]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">axes</span><span class="p">)</span>
+
+    <span class="c1"># don&#39;t allow a generic &#39;None&#39; as a slice - it causes problems in numpy</span>
+    <span class="k">assert</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">s</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">slices</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">axes</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">slices</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">force_integer_indices</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">integer_indices</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">force_integer_indices</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">integer_indices</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">expand</span><span class="p">(</span><span class="n">sl</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">))</span> <span class="k">for</span> <span class="n">sl</span><span class="p">,</span><span class="n">a</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">slices</span><span class="p">,</span><span class="n">axes</span><span class="p">))</span>
+
+    <span class="k">if</span> <span class="n">force_slices</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">slices</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">force_slices</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">slices</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">simplify</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">integer_indices</span><span class="p">)</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">integer_indices</span><span class="p">)</span> 
+    <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">*=</span> <span class="n">s</span>
+
+    <span class="c1"># Don&#39;t allow empty views?</span>
+    <span class="c1"># Remove this if it interferes with normal operations, I just added it</span>
+    <span class="c1"># to shorten the stack trace when a bad mapping was taking</span>
+<span class="c1">#    assert not any(len(ind) == 0 for ind in self.integer_indices), self.slices</span>
+
+  <span class="c1"># }}}</span>
+
+  <span class="k">def</span> <span class="nf">map_to</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">[]):</span>
+  <span class="c1"># {{{</span>
+    <span class="sd">&#39;&#39;&#39;Map one view onto another.</span>
+<span class="sd">        Modifies the slices to work with the new list of axes.</span>
+<span class="sd">        &#39;strict&#39; indicates if all the output axes must correspond to an input axes</span>
+<span class="sd">          (if not, the default behaviour is to include the entire axis if it&#39;s not mentioned in the input view)</span>
+<span class="sd">        &#39;order&#39; returns the ordering of the output axes to get the original axes back (-1 for things that can&#39;t be mapped)&#39;&#39;&#39;</span>
+
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">order</span><span class="p">,</span><span class="nb">list</span><span class="p">),</span> <span class="s2">&quot;can&#39;t output order to a non-list&quot;</span>
+
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span><span class="s1">&#39;axes&#39;</span><span class="p">):</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">axes</span><span class="o">.</span><span class="n">axes</span>  <span class="c1"># check if a var or view was passed</span>
+
+    <span class="n">slices</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">order</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">out_i</span><span class="p">,</span><span class="n">out_a</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">axes</span><span class="p">):</span>
+      <span class="c1">#TODO: remove this special case, let Axis.map_to handle it</span>
+      <span class="k">if</span> <span class="n">out_a</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">:</span>
+        <span class="n">in_i</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">out_a</span><span class="p">)</span>
+        <span class="n">slices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">slices</span><span class="p">[</span><span class="n">in_i</span><span class="p">])</span>
+        <span class="n">order</span><span class="p">[</span><span class="n">in_i</span><span class="p">]</span> <span class="o">=</span> <span class="n">out_i</span>
+        <span class="k">continue</span>
+      <span class="c1"># Look for a mapping</span>
+      <span class="nb">map</span> <span class="o">=</span> <span class="kc">None</span>
+      <span class="k">for</span> <span class="n">in_i</span><span class="p">,</span><span class="n">in_a</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">subaxes</span><span class="p">()):</span>
+        <span class="nb">map</span> <span class="o">=</span> <span class="n">out_a</span><span class="o">.</span><span class="n">map_to</span><span class="p">(</span><span class="n">in_a</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">map</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+          <span class="n">slices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">simplify</span><span class="p">(</span><span class="nb">map</span><span class="p">))</span>
+          <span class="n">order</span><span class="p">[</span><span class="n">in_i</span><span class="p">]</span> <span class="o">=</span> <span class="n">out_i</span>
+          <span class="k">break</span>
+      <span class="k">if</span> <span class="nb">map</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span> <span class="k">continue</span>  <span class="c1"># found a map</span>
+      <span class="c1"># otherwise, nothing of interest was found, so default to a full slice on the axis</span>
+      <span class="k">assert</span> <span class="n">strict</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;Can&#39;t do a strict mapping from </span><span class="si">%s</span><span class="s2"> to </span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">,</span> <span class="n">axes</span><span class="p">)</span>
+      <span class="n">slices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">))</span>
+
+<span class="c1"># eventually, want:</span>
+<span class="c1"># -&gt;  out[:,x,y] = in[[0,1,2,3,4,5,6,7,8,9,10,11,0,1,2,3,4,5,6,7,8,9,10,11,...],x,y]</span>
+<span class="c1">#</span>
+<span class="c1"># so, out_times can map to in_times (climatology)</span>
+<span class="c1"># so, we would have out_time.map_to(in_time) = [0,1,2,3,4,5,6,7,8,9,10,11,0,1,2,3,4,5,6,7,8,9,10,11,...]</span>
+<span class="c1"># assume our view is on the output</span>
+<span class="c1"># view.map_to(in) = [[0,1,2,3,4,5,6,7,8,9,10,11,0,1,2,3,4,5,6,7,8,9,10,11,...],x,y]</span>
+<span class="c1">#             = [out_time.map_to(in_time), out_x.map_to(in_x), ...]</span>
+    <span class="k">assert</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">s</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">slices</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">View</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">slices</span> <span class="o">=</span> <span class="n">slices</span><span class="p">)</span>
+
+  <span class="c1"># }}}</span>
+
+  <span class="k">def</span> <span class="nf">subaxis</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iaxis</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Returns the specified axis, after selecting the elements that are in the current view.&#39;&#39;&#39;</span>
+    <span class="n">iaxis</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">iaxis</span><span class="p">)</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">iaxis</span><span class="p">]</span><span class="o">.</span><span class="n">slice</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">slices</span><span class="p">[</span><span class="n">iaxis</span><span class="p">]]</span>
+
+  <span class="k">def</span> <span class="nf">subaxes</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">subaxis</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">naxes</span><span class="p">))</span>
+
+  <span class="k">def</span> <span class="nf">clip</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+  <span class="c1"># {{{</span>
+    <span class="sd">&#39;&#39;&#39;Return the same view, but with the axes clipped to cover only the selected region</span>
+<span class="sd">    (the axes could cover more than the selection)</span>
+<span class="sd">    i.e. latitude axis could be from 90S to 90N, but the view region is 45S to 45N</span>
+<span class="sd">    Having a larger axis than needed could be useful in some cases, such as</span>
+<span class="sd">    when the current view needs to be extended to take more values</span>
+<span class="sd">    (i.e., taking a derivative might need to extend latitudes to 46N to 46S to do a finite difference)</span>
+<span class="sd">    One useful case for clipping is if you want a 1:1 mapping from the view to an output array</span>
+<span class="sd">    (and the output array would only be defined on the view region)&#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="n">View</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">subaxes</span><span class="p">())</span>
+  <span class="c1"># }}}</span>
+
+  <span class="k">def</span> <span class="nf">get</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">pbar</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">conform</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+  <span class="c1"># {{{</span>
+    <span class="sd">&#39;&#39;&#39;Applies this view to the given variable, returning </span>
+<span class="sd">      the data conformed to the shape of this view. (strict, conform keywords?)&#39;&#39;&#39;</span>
+
+<span class="c1">#    from pygeode.progress import FakePBar</span>
+<span class="c1">#    assert not isinstance(pbar, FakePBar)</span>
+
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+    <span class="kn">from</span> <span class="nn">warnings</span> <span class="k">import</span> <span class="n">warn</span>
+
+    <span class="kn">from</span> <span class="nn">pygeode.progress</span> <span class="k">import</span> <span class="n">FakePBar</span>
+    <span class="k">if</span> <span class="n">pbar</span> <span class="ow">is</span> <span class="kc">False</span> <span class="ow">or</span> <span class="n">pbar</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">pbar</span> <span class="o">=</span> <span class="n">FakePBar</span><span class="p">()</span>
+
+    <span class="k">assert</span> <span class="n">strict</span> <span class="ow">in</span> <span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">conform</span> <span class="ow">in</span> <span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+
+    <span class="c1"># If we allow the output axes to contain things not found in the input axes,</span>
+    <span class="c1"># then it is impossible(?) to conform the array to match the inputs</span>
+    <span class="k">assert</span> <span class="ow">not</span> <span class="p">(</span><span class="n">strict</span> <span class="ow">is</span> <span class="kc">False</span> <span class="ow">and</span> <span class="n">conform</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">),</span> <span class="s2">&quot;Can&#39;t conform an array from an unstrict get&quot;</span>
+
+    <span class="c1"># Map to the var&#39;s axes, and read the data</span>
+    <span class="c1"># Keep track of how to reverse this operation (if it can be reversed)</span>
+    <span class="n">order</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">newview</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">map_to</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">axes</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="n">strict</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">)</span>  <span class="c1"># It rubs the lotion on its skin</span>
+
+    <span class="c1"># If the shape is degenerate, then we can just return the empty array here</span>
+    <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">s</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">newview</span><span class="o">.</span><span class="n">shape</span><span class="p">):</span>
+<span class="c1">#      print &#39;FAIL:&#39;</span>
+<span class="c1">#      print &#39;input var:&#39;, repr(var), var.axes</span>
+<span class="c1">#      print &#39;view:&#39;, self.axes, self.slices</span>
+<span class="c1">#      print &#39;mapped view:&#39;, newview.axes, newview.slices</span>
+<span class="c1">#      raise Exception</span>
+
+      <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">([</span><span class="n">s</span> <span class="k">if</span> <span class="n">o</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span> <span class="k">else</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">s</span><span class="p">,</span><span class="n">o</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">newview</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span><span class="n">order</span><span class="p">)],</span> <span class="n">var</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">newview</span><span class="o">.</span><span class="n">axes</span> <span class="o">==</span> <span class="n">var</span><span class="o">.</span><span class="n">axes</span>                              <span class="c1"># Or it gets the hose again</span>
+
+    <span class="c1"># Only request unique elements from the input</span>
+    <span class="n">unique_indices</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">ind</span><span class="p">)</span> <span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="n">newview</span><span class="o">.</span><span class="n">integer_indices</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">u</span> <span class="o">==</span> <span class="n">ind</span><span class="p">)</span> <span class="k">for</span> <span class="n">u</span><span class="p">,</span><span class="n">ind</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">unique_indices</span><span class="p">,</span> <span class="n">newview</span><span class="o">.</span><span class="n">integer_indices</span><span class="p">)):</span>
+      <span class="c1"># already unique</span>
+      <span class="n">duplicator</span> <span class="o">=</span> <span class="p">()</span>
+      <span class="n">unique_view</span> <span class="o">=</span> <span class="n">newview</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="c1"># uniquify</span>
+      <span class="n">duplicator</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">searchsorted</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">ind</span><span class="p">)</span> <span class="k">for</span> <span class="n">u</span><span class="p">,</span><span class="n">ind</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">unique_indices</span><span class="p">,</span> <span class="n">newview</span><span class="o">.</span><span class="n">integer_indices</span><span class="p">)]</span>
+      <span class="c1"># need to massage this into something numpy can handle</span>
+      <span class="n">duplicator</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">([</span><span class="n">d</span><span class="o">.</span><span class="n">reshape</span><span class="p">([</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">i</span><span class="o">+</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="n">newview</span><span class="o">.</span><span class="n">naxes</span><span class="o">-</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">d</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">duplicator</span><span class="p">)])</span>
+      <span class="n">unique_view</span> <span class="o">=</span> <span class="n">View</span><span class="p">(</span><span class="n">newview</span><span class="o">.</span><span class="n">axes</span><span class="p">,</span> <span class="n">force_integer_indices</span> <span class="o">=</span> <span class="n">unique_indices</span><span class="p">)</span>
+
+<span class="c1">#    from pygeode.var import Var</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">var</span><span class="p">,</span><span class="s1">&#39;values&#39;</span><span class="p">):</span>
+<span class="c1">#      values = var.values[unique_view.slices]</span>
+<span class="c1">#  ^^ can&#39;t do this if we are slicing by integer indices.</span>
+<span class="c1"># (Refer to issue 6 - https://github.com/pygeode/pygeode/issues/6 )</span>
+<span class="c1"># Instead, apply the slices one at a time.</span>
+<span class="c1"># (TODO: instead, conform the index array shapes the way duplicator is done</span>
+<span class="c1">#  above, but need to have addictional check if we have slices or indices.)</span>
+      <span class="n">values</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">values</span>
+      <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">sl</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">unique_view</span><span class="o">.</span><span class="n">slices</span><span class="p">):</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="nb">tuple</span><span class="p">([</span><span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">)]</span><span class="o">*</span><span class="n">i</span> <span class="o">+</span> <span class="p">[</span><span class="n">sl</span><span class="p">])]</span>
+
+    <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">var</span><span class="p">,</span><span class="s1">&#39;getview&#39;</span><span class="p">):</span>
+      <span class="c1"># Can we use the progress bar?</span>
+      <span class="k">if</span> <span class="s1">&#39;pbar&#39;</span> <span class="ow">in</span> <span class="n">var</span><span class="o">.</span><span class="n">getview</span><span class="o">.</span><span class="vm">__code__</span><span class="o">.</span><span class="n">co_varnames</span><span class="p">:</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">getview</span><span class="p">(</span><span class="n">unique_view</span><span class="p">,</span> <span class="n">pbar</span><span class="o">=</span><span class="n">pbar</span><span class="p">)</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;no pbar in&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">var</span><span class="p">))</span>
+        <span class="n">values</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">getview</span><span class="p">(</span><span class="n">unique_view</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">var</span><span class="p">,</span><span class="s1">&#39;getvalues&#39;</span><span class="p">):</span>
+      <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">unique_view</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+      <span class="c1"># Loop over contiguous pieces, build the result</span>
+      <span class="n">loop</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">unique_view</span><span class="o">.</span><span class="n">loop_contiguous</span><span class="p">())</span>
+      <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">outsl</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">loop</span><span class="p">):</span>
+        <span class="n">values</span><span class="p">[</span><span class="n">outsl</span><span class="p">]</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">getvalues</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">count</span><span class="p">)</span>
+        <span class="n">pbar</span><span class="o">.</span><span class="n">update</span> <span class="p">(</span><span class="mf">100.</span><span class="o">/</span><span class="nb">len</span><span class="p">(</span><span class="n">loop</span><span class="p">)</span> <span class="o">*</span> <span class="n">i</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="s2">&quot;can&#39;t determine how to extract values from &quot;</span><span class="o">+</span><span class="nb">repr</span><span class="p">(</span><span class="n">var</span><span class="p">))</span>
+
+    <span class="n">pbar</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+
+    <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">values</span><span class="p">,(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">number</span><span class="p">)),</span> <span class="s2">&quot;did not receive a valid array from </span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span><span class="nb">repr</span><span class="p">(</span><span class="n">var</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">values</span><span class="o">.</span><span class="n">dtype</span> <span class="o">!=</span> <span class="n">var</span><span class="o">.</span><span class="n">dtype</span><span class="p">:</span>
+      <span class="n">warn</span> <span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> is supposed to return a </span><span class="si">%s</span><span class="s2">, but is returning </span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">var</span><span class="p">),</span><span class="n">var</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">name</span><span class="p">,</span><span class="n">values</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+      <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">values</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+      <span class="n">warn</span> <span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> is returning a numpy scalar instead of an ndarray - re-wrapping it now&quot;</span><span class="o">%</span><span class="nb">type</span><span class="p">(</span><span class="n">var</span><span class="p">))</span>
+      <span class="n">values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+
+    <span class="c1"># Use these unique elements to generate the expected array, including duplicates</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="n">duplicator</span><span class="p">]</span>
+
+    <span class="c1">#TODO: better error messages</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">values</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">axes</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">strict</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+      <span class="k">assert</span> <span class="n">values</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">newview</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="s2">&quot;expected shape </span><span class="si">%s</span><span class="s2">, got shape </span><span class="si">%s</span><span class="s2"> (culprit is </span><span class="si">%s</span><span class="s2">) view is </span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">newview</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span><span class="n">values</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span><span class="n">var</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="c1"># conform the array to the view shape</span>
+    <span class="k">if</span> <span class="n">conform</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span>
+<span class="c1">#      print &quot;conforming!&quot;</span>
+<span class="c1">#      print &quot;order from %s to %s is %s&quot;%(self.axes,var.axes,order)</span>
+      <span class="n">values</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">transpose</span><span class="p">([</span><span class="n">o</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">order</span> <span class="k">if</span> <span class="n">o</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+      <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">order</span><span class="p">)</span>
+      <span class="n">values</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">reshape</span><span class="p">([</span><span class="n">s</span> <span class="k">if</span> <span class="n">o</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span> <span class="k">else</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">s</span><span class="p">,</span><span class="n">o</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span><span class="n">order</span><span class="p">)])</span>  <span class="c1"># It puts the lotion in the basket</span>
+
+<span class="c1">#    pbar.update(100)</span>
+
+    <span class="c1"># Write-protect the values, just in case they&#39;re shared by multiple components</span>
+    <span class="c1"># Can&#39;t write-protect scalars, though?</span>
+    <span class="k">if</span> <span class="n">values</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span> <span class="n">values</span><span class="o">.</span><span class="n">flags</span><span class="o">.</span><span class="n">writeable</span> <span class="o">=</span> <span class="kc">False</span>
+
+<span class="c1">#    if values.max() == 0 and values.min() == 0:</span>
+<span class="c1">#      warn (&quot;%s chunk is all zeros&quot;%repr(var))</span>
+
+    <span class="k">return</span> <span class="n">values</span>
+  <span class="c1"># }}}</span>
+
+
+  <span class="c1">###########################################################################</span>
+  <span class="c1"># View modification functions</span>
+  <span class="c1">#</span>
+
+  <span class="k">def</span> <span class="nf">add_axis</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iaxis</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">sl</span><span class="p">):</span>
+  <span class="c1"># {{{</span>
+    <span class="sd">&#39;&#39;&#39;Add a new axis (and slice) to the view&#39;&#39;&#39;</span>
+    <span class="n">iaxis</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">iaxis</span><span class="p">)</span>
+    <span class="n">axes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">[:</span><span class="n">iaxis</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">axis</span><span class="p">,)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">iaxis</span><span class="p">:]</span>
+    <span class="n">slices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">slices</span><span class="p">[:</span><span class="n">iaxis</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">sl</span><span class="p">,)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">slices</span><span class="p">[</span><span class="n">iaxis</span><span class="p">:]</span>
+    <span class="k">return</span> <span class="n">View</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">slices</span><span class="p">)</span>
+  <span class="c1"># }}}</span>
+
+  <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">iaxes</span><span class="p">):</span>
+  <span class="c1"># {{{</span>
+    <span class="sd">&#39;&#39;&#39;  Remove specified axes from the view entirely&#39;&#39;&#39;</span>
+    <span class="n">ind</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">iaxis</span> <span class="ow">in</span> <span class="n">iaxes</span><span class="p">:</span>
+      <span class="n">ind</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">iaxis</span><span class="p">))</span>
+    <span class="n">rind</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">slices</span><span class="p">))</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ind</span><span class="p">]</span>
+    <span class="n">axes</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">rind</span><span class="p">]</span>
+    <span class="n">slices</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">slices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">rind</span><span class="p">]</span>
+    <span class="n">integer_indices</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">integer_indices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">rind</span><span class="p">]</span>
+<span class="c1">#    return View (axes, slices)</span>
+    <span class="k">return</span> <span class="n">View</span> <span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">force_slices</span> <span class="o">=</span> <span class="n">slices</span><span class="p">,</span> <span class="n">force_integer_indices</span> <span class="o">=</span> <span class="n">integer_indices</span><span class="p">)</span>
+  <span class="c1"># }}}</span>
+
+  <span class="k">def</span> <span class="nf">replace_axis</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iaxis</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">sl</span><span class="o">=</span><span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">)):</span>
+  <span class="c1"># {{{</span>
+    <span class="n">iaxis</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">iaxis</span><span class="p">)</span>
+    <span class="n">axes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">iaxis</span><span class="p">]</span> <span class="o">=</span> <span class="n">axis</span>
+    <span class="n">slices</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">slices</span><span class="p">)</span>
+    <span class="n">slices</span><span class="p">[</span><span class="n">iaxis</span><span class="p">]</span> <span class="o">=</span> <span class="n">sl</span>
+    <span class="k">return</span> <span class="n">View</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">slices</span><span class="p">)</span>
+  <span class="c1"># }}}</span>
+
+  <span class="k">def</span> <span class="nf">modify_slice</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iaxis</span><span class="p">,</span> <span class="n">newslice</span><span class="p">):</span>
+  <span class="c1"># {{{</span>
+    <span class="sd">&#39;&#39;&#39;Modify a slice of the view&#39;&#39;&#39;</span>
+    <span class="n">iaxis</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">iaxis</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">View</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">slices</span><span class="p">[:</span><span class="n">iaxis</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">newslice</span><span class="p">,)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">slices</span><span class="p">[</span><span class="n">iaxis</span><span class="o">+</span><span class="mi">1</span><span class="p">:])</span>
+  <span class="c1"># }}}</span>
+
+  <span class="k">def</span> <span class="nf">unslice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">iaxes</span><span class="p">):</span>
+  <span class="c1"># {{{</span>
+    <span class="sd">&#39;&#39;&#39;  Remove any slicing on the specified axes&#39;&#39;&#39;</span>
+    <span class="kn">from</span> <span class="nn">pygeode.axis</span> <span class="k">import</span> <span class="n">Axis</span>
+    <span class="n">slices</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">slices</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">iaxis</span> <span class="ow">in</span> <span class="n">iaxes</span><span class="p">:</span>
+      <span class="n">ind</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">iaxis</span><span class="p">)</span>
+      <span class="k">if</span> <span class="n">ind</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span> <span class="n">slices</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">View</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">,</span> <span class="n">slices</span><span class="p">)</span>
+  <span class="c1"># }}}</span>
+
+  <span class="k">def</span> <span class="nf">only_slice</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">iaxes</span><span class="p">):</span>
+  <span class="c1"># {{{</span>
+    <span class="sd">&#39;&#39;&#39;Remove slicing for all but the specified axes&#39;&#39;&#39;</span>
+    <span class="n">slices</span> <span class="o">=</span> <span class="p">[</span><span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">)]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">slices</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">iaxis</span> <span class="ow">in</span> <span class="n">iaxes</span><span class="p">:</span>
+      <span class="n">ind</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">iaxis</span><span class="p">)</span>
+      <span class="k">if</span> <span class="n">ind</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span> <span class="n">slices</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">slices</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">View</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">,</span> <span class="n">slices</span><span class="p">)</span>
+  <span class="c1"># }}}</span>
+
+  <span class="c1">#Note: this is very similar to Var.whichaxis().</span>
+  <span class="c1">#Is there some (sensible) way to remove these kinds of redundancies between Vars and Views?</span>
+  <span class="c1"># (both have a list of axes associated with them, and methods to lookup / modify them)</span>
+  <span class="k">def</span> <span class="nf">index</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axis</span><span class="p">):</span>
+  <span class="c1"># {{{</span>
+    <span class="sd">&#39;&#39;&#39; Returns index of matching axis if present; -1 otherwise. &#39;&#39;&#39;</span>
+    <span class="kn">from</span> <span class="nn">pygeode.axis</span> <span class="k">import</span> <span class="n">Axis</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+      <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">axis</span> <span class="o">&lt;=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">)</span>  <span class="c1"># TODO: need more strict upper bound?</span>
+      <span class="k">return</span> <span class="n">axis</span>
+
+    <span class="c1"># axis object?</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">axis</span><span class="p">,</span> <span class="n">Axis</span><span class="p">):</span> 
+      <span class="k">try</span><span class="p">:</span> 
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">)</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">axis</span><span class="p">)</span>
+      <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span> 
+        <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+
+    <span class="c1"># axis class?</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">):</span>
+      <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">axis</span><span class="p">):</span> <span class="k">return</span> <span class="n">i</span>
+
+    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+  <span class="c1"># }}}</span>
+
+  <span class="c1">#############</span>
+  <span class="c1"># iterators</span>
+  <span class="c1">#############</span>
+
+
+  <span class="k">def</span> <span class="nf">loop_contiguous</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+  <span class="c1"># {{{</span>
+    <span class="sd">&#39;&#39;&#39;Break a non-contiguous view up into contiguous pieces</span>
+<span class="sd">      (so that we don&#39;t have to handle it at a lower level)</span>
+<span class="sd">      Input: this view</span>
+<span class="sd">      Generates: outsl, start, count</span>
+<span class="sd">         outsl is the current slice into an array that contains the view in a</span>
+<span class="sd">               contiguous piece of memory</span>
+<span class="sd">         start, count are corresponding arrays giving the start of the slice &amp; its length.</span>
+<span class="sd">      NOTE: These pieces might not fit in memory (see loop_mem for handling that).</span>
+<span class="sd">            The only guarantee is that the pieces will be contiguous.  If the input</span>
+<span class="sd">            view is already contiguous, then the slice will be over the *whole* view.&#39;&#39;&#39;</span>
+    <span class="c1">#TODO: use itertools.product when everyone has python &gt;= 2.6</span>
+    <span class="kn">from</span> <span class="nn">itertools</span> <span class="k">import</span> <span class="n">product</span>
+    <span class="c1">#from pygeode.tools import product</span>
+    <span class="n">outslices</span> <span class="o">=</span> <span class="p">[</span><span class="n">contiguate</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">integer_indices</span><span class="p">]</span>
+    <span class="n">inslices</span> <span class="o">=</span> <span class="p">[[</span><span class="n">simplify</span><span class="p">(</span><span class="n">ind</span><span class="p">[</span><span class="n">osl</span><span class="p">])</span> <span class="k">for</span> <span class="n">osl</span> <span class="ow">in</span> <span class="n">outsl</span><span class="p">]</span> <span class="k">for</span> <span class="n">ind</span><span class="p">,</span><span class="n">outsl</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">integer_indices</span><span class="p">,</span> <span class="n">outslices</span><span class="p">)]</span>
+    <span class="k">for</span> <span class="n">outsl</span><span class="p">,</span> <span class="n">insl</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">product</span><span class="p">(</span><span class="o">*</span><span class="n">outslices</span><span class="p">),</span> <span class="n">product</span><span class="p">(</span><span class="o">*</span><span class="n">inslices</span><span class="p">)):</span>
+      <span class="n">start</span> <span class="o">=</span> <span class="p">[</span><span class="n">sl</span><span class="o">.</span><span class="n">start</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sl</span><span class="p">,</span><span class="nb">slice</span><span class="p">)</span> <span class="k">else</span> <span class="n">sl</span> <span class="k">for</span> <span class="n">sl</span> <span class="ow">in</span> <span class="n">insl</span><span class="p">]</span>
+      <span class="n">count</span> <span class="o">=</span> <span class="p">[</span><span class="n">sl</span><span class="o">.</span><span class="n">stop</span> <span class="o">-</span> <span class="n">sl</span><span class="o">.</span><span class="n">start</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sl</span><span class="p">,</span><span class="nb">slice</span><span class="p">)</span> <span class="k">else</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">sl</span> <span class="ow">in</span> <span class="n">insl</span><span class="p">]</span>
+      <span class="k">yield</span> <span class="n">outsl</span><span class="p">,</span> <span class="n">start</span><span class="p">,</span> <span class="n">count</span>
+
+
+  <span class="c1"># }}}</span>
+
+  <span class="k">def</span> <span class="nf">_loop_mem</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">preserve</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+  <span class="c1"># {{{</span>
+    <span class="sd">&#39;&#39;&#39;Loop over smaller pieces of the view that fit in memory&#39;&#39;&#39;</span>
+    <span class="kn">from</span> <span class="nn">pygeode</span> <span class="k">import</span> <span class="n">MAX_ARRAY_SIZE</span>
+    <span class="c1">#TODO: use itertools.product when everyone has python &gt;= 2.6</span>
+    <span class="kn">from</span> <span class="nn">itertools</span> <span class="k">import</span> <span class="n">product</span>
+    <span class="c1">#from pygeode.tools import product</span>
+    <span class="c1"># Determine the largest chunk that can be loaded, given the size constraint</span>
+    <span class="n">maxsize</span> <span class="o">=</span> <span class="n">MAX_ARRAY_SIZE</span>
+ 
+    <span class="c1"># Get the shape of a single chunk</span>
+    <span class="n">indices</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">)))):</span>
+      <span class="c1"># Number of values along this axis we can get at a time</span>
+      <span class="n">N</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>  <span class="c1"># total length of this axis</span>
+      <span class="n">n</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">maxsize</span><span class="p">,</span><span class="n">N</span><span class="p">)</span>  <span class="c1"># amount we can fix in a single chunk</span>
+      <span class="c1"># break up the axis into subslices</span>
+      <span class="n">input_indices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">integer_indices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+      <span class="n">ind</span> <span class="o">=</span> <span class="p">[</span><span class="n">input_indices</span><span class="p">[</span><span class="n">j</span><span class="p">:</span><span class="nb">min</span><span class="p">(</span><span class="n">j</span><span class="o">+</span><span class="n">n</span><span class="p">,</span><span class="n">N</span><span class="p">)]</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="n">n</span><span class="p">)]</span>
+      <span class="c1"># Build the subslices from the last axis to the first</span>
+      <span class="n">indices</span> <span class="o">=</span> <span class="p">[</span><span class="n">ind</span><span class="p">]</span> <span class="o">+</span> <span class="n">indices</span>
+      <span class="c1"># Take into account the count along this axis when looking at the faster-varying axes</span>
+      <span class="n">maxsize</span> <span class="o">//=</span> <span class="n">n</span>
+ 
+    <span class="c1"># Loop over all combinations of slices to cover the whole view</span>
+    <span class="c1"># (take the cartesian product)</span>
+    <span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="o">*</span><span class="n">indices</span><span class="p">):</span>
+      <span class="k">yield</span> <span class="n">View</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">,</span> <span class="n">ind</span><span class="p">)</span>
+  <span class="c1"># }}}</span>
+
+  <span class="k">def</span> <span class="nf">loop_mem</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">preserve</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+  <span class="c1"># {{{</span>
+    <span class="sd">&#39;&#39;&#39;Loop over smaller pieces of the view that fit in memory. preserve</span>
+<span class="sd">        can optionally be a list of integer indices of axes that should be loaded</span>
+<span class="sd">        in their entirety in each chunk. A warning is thrown if this ends up being</span>
+<span class="sd">        larger than MAX_ARRAY_SIZE, but not an exception; memory allocation problems</span>
+<span class="sd">        may result in this case. &#39;&#39;&#39;</span>
+
+    <span class="kn">from</span> <span class="nn">pygeode</span> <span class="k">import</span> <span class="n">MAX_ARRAY_SIZE</span>
+<span class="c1">#TODO: use itertools.product when everyone has python &gt;= 2.6</span>
+    <span class="kn">from</span> <span class="nn">itertools</span> <span class="k">import</span> <span class="n">product</span>
+    <span class="c1">#from pygeode.tools import product</span>
+    <span class="kn">from</span> <span class="nn">warnings</span> <span class="k">import</span> <span class="n">warn</span>
+    <span class="c1"># Determine the largest chunk that can be loaded, given the size constraint</span>
+    <span class="n">maxsize</span> <span class="o">=</span> <span class="n">MAX_ARRAY_SIZE</span>
+
+    <span class="c1"># Get the shape of a single chunk</span>
+    <span class="n">indices</span> <span class="o">=</span> <span class="p">[[]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">preserve</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">preserve</span><span class="p">:</span>
+        <span class="n">N</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">indices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">integer_indices</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+        <span class="k">if</span> <span class="n">maxsize</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">:</span> 
+          <span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Data request involves arrays larger than MAX_ARRAY_SIZE; continuing for now but memory allocation problems may result.&#39;</span><span class="p">)</span>
+          <span class="n">maxsize</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+          <span class="n">maxsize</span> <span class="o">//=</span> <span class="n">N</span>
+      <span class="n">others</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">))</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">preserve</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">others</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">)))</span>
+
+    <span class="c1"># Build the subslices from the last axis to the first</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">others</span><span class="p">):</span>
+      <span class="c1"># Number of values along this axis we can get at a time</span>
+      <span class="n">N</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>  <span class="c1"># total length of this axis</span>
+      <span class="n">n</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">maxsize</span><span class="p">,</span><span class="n">N</span><span class="p">)</span>  <span class="c1"># amount we can fix in a single chunk</span>
+      <span class="c1"># break up the axis into subslices</span>
+      <span class="n">input_indices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">integer_indices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+      <span class="n">indices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">input_indices</span><span class="p">[</span><span class="n">j</span><span class="p">:</span><span class="nb">min</span><span class="p">(</span><span class="n">j</span><span class="o">+</span><span class="n">n</span><span class="p">,</span><span class="n">N</span><span class="p">)]</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">N</span><span class="p">,</span><span class="n">n</span><span class="p">)]</span>
+      <span class="c1"># Take into account the count along this axis when looking at the faster-varying axes</span>
+      <span class="n">maxsize</span> <span class="o">//=</span> <span class="n">n</span>
+
+    <span class="c1"># Loop over all combinations of slices to cover the whole view</span>
+    <span class="c1"># (take the cartesian product)</span>
+    <span class="k">for</span> <span class="n">ind</span> <span class="ow">in</span> <span class="n">product</span><span class="p">(</span><span class="o">*</span><span class="n">indices</span><span class="p">):</span>
+      <span class="k">yield</span> <span class="n">View</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">,</span> <span class="n">ind</span><span class="p">)</span>
+  <span class="c1"># }}}</span>
+
+  <span class="c1">#######################</span>
+  <span class="c1"># string representations</span>
+  <span class="c1">#######################</span>
+  
+  <span class="k">def</span> <span class="nf">strtok</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+  <span class="c1"># {{{  </span>
+    <span class="n">out</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">a</span><span class="p">,</span><span class="n">s</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">slices</span><span class="p">):</span>
+      <span class="n">v</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">s</span><span class="p">]</span>
+      <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="s1">&#39;__len__&#39;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+          <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">name</span><span class="o">+</span><span class="s1">&#39;: &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">formatvalue</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span><span class="o">+</span><span class="s1">&#39; to &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">formatvalue</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])))</span>
+        <span class="k">else</span><span class="p">:</span> <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">name</span><span class="o">+</span><span class="s1">&#39;: &lt;none&gt;&#39;</span><span class="p">)</span>
+      <span class="k">else</span><span class="p">:</span>
+       <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">name</span><span class="o">+</span><span class="s1">&#39;: &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">formatvalue</span><span class="p">(</span><span class="n">v</span><span class="p">)))</span>
+    <span class="k">return</span> <span class="n">out</span>
+  <span class="c1"># }}}</span>
+
+  <span class="k">def</span> <span class="nf">__str__</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+  <span class="c1"># {{{</span>
+    <span class="k">return</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">strtok</span><span class="p">())</span>
+  <span class="c1"># }}}</span>
+
+  <span class="k">def</span> <span class="nf">__repr__</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+  <span class="c1"># {{{</span>
+    <span class="k">return</span> <span class="s1">&#39;View(&#39;</span> <span class="o">+</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">strtok</span><span class="p">())</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span>
+  <span class="c1"># }}}</span>
+<span class="c1"># }}}</span>
+
+
+</pre></div>
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        <a class="uplink" href="../../reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../gallery/index.html">Gallery</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Mike Neish, Peter Hitchcock.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.
+    </div>
+  </body>
+</html>

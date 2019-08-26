@@ -1,80 +1,71 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Variable input and output &mdash; PyGeode 1.0 alpha documentation</title>
-    
+    <title>Variable input and output &#8212; PyGeode 1.3 pre-release documentation</title>
     <link rel="stylesheet" href="_static/pygtheme.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '1.0 alpha',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
+    <link rel="stylesheet" type="text/css" href="_static/gallery.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="PyGeode 1.0 alpha documentation" href="index.html" />
-    <link rel="up" title="Tutorial" href="tutorial.html" />
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Plotting" href="tut_plot.html" />
     <link rel="prev" title="Basic Operations" href="tut_basics.html" />
 <link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
 
-  </head>
-  <body>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="tut_plot.html" title="Plotting"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="tut_basics.html" title="Basic Operations"
-             accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li>
-          <li><a href="tutorial.html" accesskey="U">Tutorial</a> &raquo;</li> 
-      </ul>
-    </div>  
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="index.html">
+          <span>PyGeode 1.3 pre-release documentation</span></a></h1>
+        <h2 class="heading"><span>Variable input and output</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        «&#160;&#160;<a href="tut_basics.html">Basic Operations</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="gallery/index.html">Gallery</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="tut_plot.html">Plotting</a>&#160;&#160;»
+        </p>
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
-            
+      </div>
+      <div class="content">
+        
+        
   <div class="section" id="variable-input-and-output">
 <h1>Variable input and output<a class="headerlink" href="#variable-input-and-output" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="reading-from-a-single-file">
 <h2>Reading from a single file<a class="headerlink" href="#reading-from-a-single-file" title="Permalink to this headline">¶</a></h2>
 <p>PyGeode was intended for dealing with large gridded datasets - nearly always
 such datasets will be serialized on disk, sometimes in a single file, but often
-spread over many files. PyGeode supports a number of different <a class="reference internal" href="fileio.html#formats"><em>formats</em></a>, and the commands for loading and saving data to disk are to a large
+spread over many files. PyGeode supports a number of different <a class="reference internal" href="fileio.html#formats"><span class="std std-ref">formats</span></a>, and the commands for loading and saving data to disk are to a large
 extent independent of the format used, and attempts are made to automatically
 detect which format you are working with. This being said, NetCDF files are the
-most completely supported. We&#8217;ll start by looking at reading a single file.</p>
+most completely supported. We’ll start by looking at reading a single file.</p>
 <div class="section" id="the-basics">
 <h3>The basics<a class="headerlink" href="#the-basics" title="Permalink to this headline">¶</a></h3>
 <p>The most basic form of reading a single file from disk is to simply call
-<a class="reference internal" href="fileio.html#pygeode.open" title="pygeode.open"><tt class="xref py py-meth docutils literal"><span class="pre">open()</span></tt></a>. We&#8217;ll open the file written out at the end of the <a class="reference internal" href="tut_gettingstarted.html#tutsavefile"><em>Getting
-Started</em></a> section of the tutorial:</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">pygeode</span> <span class="kn">as</span> <span class="nn">pyg</span><span class="o">,</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<a class="reference internal" href="fileio.html#pygeode.open" title="pygeode.open"><code class="xref py py-meth docutils literal notranslate"><span class="pre">open()</span></code></a>. We’ll open the file written out at the end of the <a class="reference internal" href="tut_gettingstarted.html#tutsavefile"><span class="std std-ref">Getting
+Started</span></a> section of the tutorial:</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">pygeode</span> <span class="kn">as</span> <span class="nn">pyg</span><span class="o">,</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
 
-<span class="gp">In [2]: </span><span class="n">ds</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s">&#39;sample_data/file.nc&#39;</span><span class="p">)</span>
+<span class="gp">In [2]: </span><span class="n">ds</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;sample_data/file.nc&#39;</span><span class="p">)</span>
 
-<span class="gp">In [3]: </span><span class="k">print</span> <span class="n">ds</span>
+<span class="gp">In [3]: </span><span class="k">print</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span>
 <span class="go">&lt;Dataset&gt;:</span>
 <span class="go">Vars:</span>
 <span class="go">  Temp (lat,lon)  (31,60)</span>
@@ -86,14 +77,14 @@ Started</em></a> section of the tutorial:</p>
 <span class="go">  &#39;CF-1.0&#39;}</span>
 </pre></div>
 </div>
-<p>As you can see, this returns a <a class="reference internal" href="dataset.html#pygeode.Dataset" title="pygeode.Dataset"><tt class="xref py py-class docutils literal"><span class="pre">Dataset</span></tt></a> object with the contents of the
+<p>As you can see, this returns a <a class="reference internal" href="dataset.html#pygeode.Dataset" title="pygeode.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a> object with the contents of the
 file. The format of the file has been automatically detected. In this case the
-netcdf file was generated by an eariler call to <a class="reference internal" href="fileio.html#pygeode.save" title="pygeode.save"><tt class="xref py py-meth docutils literal"><span class="pre">save()</span></tt></a>, which fills in
+netcdf file was generated by an eariler call to <a class="reference internal" href="fileio.html#pygeode.save" title="pygeode.save"><code class="xref py py-meth docutils literal notranslate"><span class="pre">save()</span></code></a>, which fills in
 metadata recognized by PyGeode that indicate, for instance, what kind of
-PyGeode axis each NetCDF dimension coresponds to. Let&#8217;s take a look at the
+PyGeode axis each NetCDF dimension coresponds to. Let’s take a look at the
 contents of this particular NetCDF file to get a quick sense of what metadata
 PyGeode recognizes and how it affects the dataset returned.</p>
-<div class="highlight-python"><div class="highlight"><pre>$ ncdump -h file.nc
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ ncdump -h file.nc
 netcdf file {
 dimensions:
   lat = 31 ;
@@ -118,25 +109,25 @@ variables:
 </div>
 <p>We can see there is a set of metadata (NetCDF attributes) which PyGeode has
 interpreted, recognizing, for instance, that the NetCDF variables <cite>lat</cite> and
-<cite>lon</cite> represent coordinate axes, and should be treated as PyGeode <a class="reference internal" href="horizontalaxes.html#pygeode.Lat" title="pygeode.Lat"><tt class="xref py py-class docutils literal"><span class="pre">Lat</span></tt></a>
-and <a class="reference internal" href="horizontalaxes.html#pygeode.Lon" title="pygeode.Lon"><tt class="xref py py-class docutils literal"><span class="pre">Lon</span></tt></a> axes¸ respectively. Because these are coordinate axes, they
-are treated as (possibly child classes of) <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><tt class="xref py py-class docutils literal"><span class="pre">Axis</span></tt></a> objects, and not the
-more generic <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a> objects. The NetCDF variable <cite>Temp</cite> becomes a PyGeode
+<cite>lon</cite> represent coordinate axes, and should be treated as PyGeode <a class="reference internal" href="horizontalaxes.html#pygeode.Lat" title="pygeode.Lat"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lat</span></code></a>
+and <a class="reference internal" href="horizontalaxes.html#pygeode.Lon" title="pygeode.Lon"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lon</span></code></a> axes¸ respectively. Because these are coordinate axes, they
+are treated as (possibly child classes of) <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><code class="xref py py-class docutils literal notranslate"><span class="pre">Axis</span></code></a> objects, and not the
+more generic <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a> objects. The NetCDF variable <cite>Temp</cite> becomes a PyGeode
 variable, defined on the axes <cite>lat</cite> and <cite>lon</cite>.</p>
 <p>There is one final NetCDF variable, <cite>lat_weights</cite>. This is referenced in the
 metadata of the <cite>lat</cite> coordinate variable, as an ancillary variable defining a
 set of weights for the latitude axis. PyGeode recognizes this and loads it into
-the <cite>weights</cite> member of the <a class="reference internal" href="horizontalaxes.html#pygeode.Lat" title="pygeode.Lat"><tt class="xref py py-class docutils literal"><span class="pre">Lat</span></tt></a> axis, which is recognized when, for
-instance, taking averages (<tt class="xref py py-meth docutils literal"><span class="pre">mean()</span></tt>) over the latitude axis.</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [4]: </span><span class="k">print</span> <span class="n">ds</span><span class="o">.</span><span class="n">lat</span><span class="o">.</span><span class="n">weights</span>
-<span class="go">[  6.12323400e-17   1.04528463e-01   2.07911691e-01   3.09016994e-01</span>
-<span class="go">   4.06736643e-01   5.00000000e-01   5.87785252e-01   6.69130606e-01</span>
-<span class="go">   7.43144825e-01   8.09016994e-01   8.66025404e-01   9.13545458e-01</span>
-<span class="go">   9.51056516e-01   9.78147601e-01   9.94521895e-01   1.00000000e+00</span>
-<span class="go">   9.94521895e-01   9.78147601e-01   9.51056516e-01   9.13545458e-01</span>
-<span class="go">   8.66025404e-01   8.09016994e-01   7.43144825e-01   6.69130606e-01</span>
-<span class="go">   5.87785252e-01   5.00000000e-01   4.06736643e-01   3.09016994e-01</span>
-<span class="go">   2.07911691e-01   1.04528463e-01   6.12323400e-17]</span>
+the <cite>weights</cite> member of the <a class="reference internal" href="horizontalaxes.html#pygeode.Lat" title="pygeode.Lat"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lat</span></code></a> axis, which is recognized when, for
+instance, taking averages (<code class="xref py py-meth docutils literal notranslate"><span class="pre">mean()</span></code>) over the latitude axis.</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [4]: </span><span class="k">print</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">lat</span><span class="o">.</span><span class="n">weights</span><span class="p">)</span>
+<span class="go">[6.12323400e-17 1.04528463e-01 2.07911691e-01 3.09016994e-01</span>
+<span class="go"> 4.06736643e-01 5.00000000e-01 5.87785252e-01 6.69130606e-01</span>
+<span class="go"> 7.43144825e-01 8.09016994e-01 8.66025404e-01 9.13545458e-01</span>
+<span class="go"> 9.51056516e-01 9.78147601e-01 9.94521895e-01 1.00000000e+00</span>
+<span class="go"> 9.94521895e-01 9.78147601e-01 9.51056516e-01 9.13545458e-01</span>
+<span class="go"> 8.66025404e-01 8.09016994e-01 7.43144825e-01 6.69130606e-01</span>
+<span class="go"> 5.87785252e-01 5.00000000e-01 4.06736643e-01 3.09016994e-01</span>
+<span class="go"> 2.07911691e-01 1.04528463e-01 6.12323400e-17]</span>
 </pre></div>
 </div>
 </div>
@@ -145,14 +136,14 @@ instance, taking averages (<tt class="xref py py-meth docutils literal"><span cl
 <p>All of this is convenient when one has a well-formed NetCDF file, however, one often
 encounters rather bare NetCDF files in the wild, with either no or (even worse) incorrect
 metadata. In this case PyGeode will not be able to recognize what kind of
-<a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><tt class="xref py py-class docutils literal"><span class="pre">Axis</span></tt></a> it should associate with each each axis:</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [5]: </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t1</span>
+<a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><code class="xref py py-class docutils literal notranslate"><span class="pre">Axis</span></code></a> it should associate with each each axis:</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [5]: </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t1</span>
 
-<span class="gp">In [6]: </span><span class="n">pyg</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s">&#39;sample_data/file_nometa.nc&#39;</span><span class="p">,</span> <span class="n">t1</span><span class="p">,</span> <span class="n">cfmeta</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="gp">In [6]: </span><span class="n">pyg</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;sample_data/file_nometa.nc&#39;</span><span class="p">,</span> <span class="n">t1</span><span class="p">,</span> <span class="n">cfmeta</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 
-<span class="gp">In [7]: </span><span class="n">ds2</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s">&#39;sample_data/file_nometa.nc&#39;</span><span class="p">)</span>
+<span class="gp">In [7]: </span><span class="n">ds2</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;sample_data/file_nometa.nc&#39;</span><span class="p">)</span>
 
-<span class="gp">In [8]: </span><span class="k">print</span> <span class="n">ds2</span>
+<span class="gp">In [8]: </span><span class="k">print</span><span class="p">(</span><span class="n">ds2</span><span class="p">)</span>
 <span class="go">&lt;Dataset&gt;:</span>
 <span class="go">Vars:</span>
 <span class="go">  Temp (lat,lon)  (31,60)</span>
@@ -163,23 +154,23 @@ metadata. In this case PyGeode will not be able to recognize what kind of
 <span class="go">  {&#39;history&#39;: &#39;Synthetic Temperature data generated by pygeode&#39;}</span>
 
 
-<span class="gp">In [11]: </span><span class="n">pyg</span><span class="o">.</span><span class="n">showvar</span><span class="p">(</span><span class="n">ds2</span><span class="o">.</span><span class="n">Temp</span><span class="p">)</span>
-<span class="gr">Out[11]: </span><span class="o">&lt;</span><span class="n">pygeode</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">wrappers</span><span class="o">.</span><span class="n">AxesWrapper</span> <span class="n">instance</span> <span class="n">at</span> <span class="mh">0x2af01ca64c20</span><span class="o">&gt;</span>
+<span class="gp">In [9]: </span><span class="n">pyg</span><span class="o">.</span><span class="n">showvar</span><span class="p">(</span><span class="n">ds2</span><span class="o">.</span><span class="n">Temp</span><span class="p">)</span>
+<span class="gh">Out[9]: </span><span class="go">&lt;pygeode.plot.wrappers.AxesWrapper at 0x7fa6ebf38550&gt;</span>
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="_images/t1Temp_nometadata.png"><img alt="_images/t1Temp_nometadata.png" src="_images/t1Temp_nometadata.png" style="width: 4in;" /></a>
-<p>As you can see, the <tt class="docutils literal"><span class="pre">lat</span></tt> and <tt class="docutils literal"><span class="pre">lon</span></tt> axes are now the default type
-<tt class="xref py py-class docutils literal"><span class="pre">NamedAxes</span></tt>. While this is still a perfectly useable PyGeode dataset,
-PyGeode no longer knows how to properly annotate and format plots.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">lat</span></code> and <code class="docutils literal notranslate"><span class="pre">lon</span></code> axes are now the default type <code class="xref py py-class docutils literal notranslate"><span class="pre">NamedAxes</span></code>. While
+this is still a perfectly useable PyGeode dataset, PyGeode no longer knows how
+to properly annotate and format plots.</p>
 <p>However, if you know what the contents of the file represent, you can provide
 this information to PyGeode when opening it by passing special keyword
-arguments to <a class="reference internal" href="fileio.html#pygeode.open" title="pygeode.open"><tt class="xref py py-meth docutils literal"><span class="pre">open()</span></tt></a>. The most important of this is the <tt class="docutils literal"><span class="pre">dimtypes</span></tt>
+arguments to <a class="reference internal" href="fileio.html#pygeode.open" title="pygeode.open"><code class="xref py py-meth docutils literal notranslate"><span class="pre">open()</span></code></a>. The most important of this is the <code class="docutils literal notranslate"><span class="pre">dimtypes</span></code>
 argument, which takes a dictionary whose keys are the names of the axes in the
 file being opened, and whose values tell PyGeode what kind of Axis class to
 associate with that dimension. This is perhaps best illustrated by example:</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [12]: </span><span class="n">dt</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">lat</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">Lat</span><span class="p">,</span> <span class="n">lon</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">regularlon</span><span class="p">(</span><span class="mi">60</span><span class="p">))</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [10]: </span><span class="n">dt</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">lat</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">Lat</span><span class="p">,</span> <span class="n">lon</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">regularlon</span><span class="p">(</span><span class="mi">60</span><span class="p">))</span>
 
-<span class="gp">In [13]: </span><span class="k">print</span> <span class="n">pyg</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s">&#39;sample_data/file_nometa.nc&#39;</span><span class="p">,</span> <span class="n">dimtypes</span><span class="o">=</span><span class="n">dt</span><span class="p">)</span>
+<span class="gp">In [11]: </span><span class="k">print</span><span class="p">(</span><span class="n">pyg</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;sample_data/file_nometa.nc&#39;</span><span class="p">,</span> <span class="n">dimtypes</span><span class="o">=</span><span class="n">dt</span><span class="p">))</span>
 <span class="go">&lt;Dataset&gt;:</span>
 <span class="go">Vars:</span>
 <span class="go">  Temp (lat,lon)  (31,60)</span>
@@ -190,14 +181,14 @@ associate with that dimension. This is perhaps best illustrated by example:</p>
 <span class="go">  {&#39;history&#39;: &#39;Synthetic Temperature data generated by pygeode&#39;}</span>
 </pre></div>
 </div>
-<p>We can see that now the <a class="reference internal" href="namedaxis.html#pygeode.NamedAxis" title="pygeode.NamedAxis"><tt class="xref py py-class docutils literal"><span class="pre">NamedAxis</span></tt></a> objects have been replaced by the
-appropriate axis types, <a class="reference internal" href="horizontalaxes.html#pygeode.Lat" title="pygeode.Lat"><tt class="xref py py-class docutils literal"><span class="pre">Lat</span></tt></a> and <a class="reference internal" href="horizontalaxes.html#pygeode.Lon" title="pygeode.Lon"><tt class="xref py py-class docutils literal"><span class="pre">Lon</span></tt></a>, respectively. You will
+<p>We can see that now the <a class="reference internal" href="namedaxis.html#pygeode.NamedAxis" title="pygeode.NamedAxis"><code class="xref py py-class docutils literal notranslate"><span class="pre">NamedAxis</span></code></a> objects have been replaced by the
+appropriate axis types, <a class="reference internal" href="horizontalaxes.html#pygeode.Lat" title="pygeode.Lat"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lat</span></code></a> and <a class="reference internal" href="horizontalaxes.html#pygeode.Lon" title="pygeode.Lon"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lon</span></code></a>, respectively. You will
 notice we have used two different ways of specifying the axes types. In the case
-of <tt class="docutils literal"><span class="pre">lat</span></tt>, we have simply passed the PyGeode class itself. In this case,
-PyGeode reads the values for the <tt class="docutils literal"><span class="pre">lat</span></tt> dimension from the file and uses these
-to create a new instance of <a class="reference internal" href="horizontalaxes.html#pygeode.Lat" title="pygeode.Lat"><tt class="xref py py-class docutils literal"><span class="pre">Lat</span></tt></a>.</p>
-<p>In contrast, for the <tt class="docutils literal"><span class="pre">lon</span></tt> axis, we have created an instance of the
-<a class="reference internal" href="horizontalaxes.html#pygeode.Lon" title="pygeode.Lon"><tt class="xref py py-class docutils literal"><span class="pre">Lon</span></tt></a> class (with a helper function <a class="reference internal" href="horizontalaxes.html#pygeode.regularlon" title="pygeode.regularlon"><tt class="xref py py-meth docutils literal"><span class="pre">regularlon()</span></tt></a>) prior to opening
+of <code class="docutils literal notranslate"><span class="pre">lat</span></code>, we have simply passed the PyGeode class itself. In this case,
+PyGeode reads the values for the <code class="docutils literal notranslate"><span class="pre">lat</span></code> dimension from the file and uses these
+to create a new instance of <a class="reference internal" href="horizontalaxes.html#pygeode.Lat" title="pygeode.Lat"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lat</span></code></a>.</p>
+<p>In contrast, for the <code class="docutils literal notranslate"><span class="pre">lon</span></code> axis, we have created an instance of the
+<a class="reference internal" href="horizontalaxes.html#pygeode.Lon" title="pygeode.Lon"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lon</span></code></a> class (with a helper function <a class="reference internal" href="horizontalaxes.html#pygeode.regularlon" title="pygeode.regularlon"><code class="xref py py-meth docutils literal notranslate"><span class="pre">regularlon()</span></code></a>) prior to opening
 the file. In this case, PyGeode simply uses the already-created axis, and avoids
 reading in the coordinates for the axis being overridden. Of course, the length
 of the axis must mach the length of the dimension in the file. This is useful
@@ -206,16 +197,16 @@ very large files, depending on the details of how the file data has been
 structured, even just reading the coordinate metadata can be quite a slow
 operation. If you regularly work with such a file, passing in an already created
 axis instance can speed up call to open the file considerably.</p>
-<p>There is one more form that can be used in the <tt class="docutils literal"><span class="pre">dimtypes</span></tt> dictionary, for
+<p>There is one more form that can be used in the <code class="docutils literal notranslate"><span class="pre">dimtypes</span></code> dictionary, for
 when one wants to construct an axis using data from the file, but when the axis
 type in question requires additional arguments to be properly constructed. To
 give a contrived example, consider the following code (which is unfortunately a
 bit opaque):</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [14]: </span><span class="n">kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="s">&#39;days&#39;</span><span class="p">,</span> <span class="n">startdate</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="mi">2001</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [12]: </span><span class="n">kwargs</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="s1">&#39;days&#39;</span><span class="p">,</span> <span class="n">startdate</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="mi">2001</span><span class="p">,</span> <span class="n">month</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
 
-<span class="gp">In [15]: </span><span class="n">dt2</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">lon</span> <span class="o">=</span> <span class="p">(</span><span class="n">pyg</span><span class="o">.</span><span class="n">StandardTime</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">))</span>
+<span class="gp">In [13]: </span><span class="n">dt2</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">lon</span> <span class="o">=</span> <span class="p">(</span><span class="n">pyg</span><span class="o">.</span><span class="n">StandardTime</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">))</span>
 
-<span class="gp">In [16]: </span><span class="k">print</span> <span class="n">pyg</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s">&#39;sample_data/file_nometa.nc&#39;</span><span class="p">,</span> <span class="n">dimtypes</span><span class="o">=</span><span class="n">dt2</span><span class="p">)</span>
+<span class="gp">In [14]: </span><span class="k">print</span><span class="p">(</span><span class="n">pyg</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;sample_data/file_nometa.nc&#39;</span><span class="p">,</span> <span class="n">dimtypes</span><span class="o">=</span><span class="n">dt2</span><span class="p">))</span>
 <span class="go">&lt;Dataset&gt;:</span>
 <span class="go">Vars:</span>
 <span class="go">  Temp (lat,time)  (31,60)</span>
@@ -226,22 +217,22 @@ bit opaque):</p>
 <span class="go">  {&#39;history&#39;: &#39;Synthetic Temperature data generated by pygeode&#39;}</span>
 </pre></div>
 </div>
-<p>Here we have decided to treat the <tt class="docutils literal"><span class="pre">lon</span></tt> axis describing a time axis, but for
+<p>Here we have decided to treat the <code class="docutils literal notranslate"><span class="pre">lon</span></code> axis describing a time axis, but for
 some reason we wish to use the coordinate data as actual time information. As
-will be explained in more detail in a later section (<a class="reference internal" href="tut_axes.html"><em>Working with Axes</em></a>),
+will be explained in more detail in a later section (<a class="reference internal" href="tut_axes.html"><span class="doc">Working with Axes</span></a>),
 time axes generally need a bit more information when they are constructed to
-define the calendar. We need give these additional arguments (the <tt class="docutils literal"><span class="pre">units</span></tt> and
-<tt class="docutils literal"><span class="pre">startdate</span></tt> items in the <tt class="docutils literal"><span class="pre">kwargs</span></tt> dictionary) which we pass in along with
+define the calendar. We need give these additional arguments (the <code class="docutils literal notranslate"><span class="pre">units</span></code> and
+<code class="docutils literal notranslate"><span class="pre">startdate</span></code> items in the <code class="docutils literal notranslate"><span class="pre">kwargs</span></code> dictionary) which we pass in along with
 the class object itself.  PyGeode then calls the constructor of the
-<a class="reference internal" href="timeaxes.html#pygeode.StandardTime" title="pygeode.StandardTime"><tt class="xref py py-class docutils literal"><span class="pre">StandardTime</span></tt></a> with the values read from the file and with the additional
+<a class="reference internal" href="timeaxes.html#pygeode.StandardTime" title="pygeode.StandardTime"><code class="xref py py-class docutils literal notranslate"><span class="pre">StandardTime</span></code></a> with the values read from the file and with the additional
 keyword arguments to create a new axis object, which is then assigned to the
-<tt class="docutils literal"><span class="pre">lon</span></tt> dimension of any variable.</p>
-<p>There are a few other arguments recognized by <a class="reference internal" href="fileio.html#pygeode.open" title="pygeode.open"><tt class="xref py py-meth docutils literal"><span class="pre">open()</span></tt></a>, but we&#8217;ll just
-mention one more, perhaps the second most useful: <tt class="docutils literal"><span class="pre">namemap</span></tt>. This allows you
+<code class="docutils literal notranslate"><span class="pre">lon</span></code> dimension of any variable.</p>
+<p>There are a few other arguments recognized by <a class="reference internal" href="fileio.html#pygeode.open" title="pygeode.open"><code class="xref py py-meth docutils literal notranslate"><span class="pre">open()</span></code></a>, but we’ll just
+mention one more, perhaps the second most useful: <code class="docutils literal notranslate"><span class="pre">namemap</span></code>. This allows you
 to simply rename variables and axes:</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [17]: </span><span class="n">nm</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">lon</span> <span class="o">=</span> <span class="s">&#39;Longitude&#39;</span><span class="p">,</span> <span class="n">Temp</span><span class="o">=</span><span class="s">&#39;Temperature&#39;</span><span class="p">)</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [15]: </span><span class="n">nm</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">lon</span> <span class="o">=</span> <span class="s1">&#39;Longitude&#39;</span><span class="p">,</span> <span class="n">Temp</span><span class="o">=</span><span class="s1">&#39;Temperature&#39;</span><span class="p">)</span>
 
-<span class="gp">In [18]: </span><span class="k">print</span> <span class="n">pyg</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s">&#39;sample_data/file_nometa.nc&#39;</span><span class="p">,</span> <span class="n">namemap</span><span class="o">=</span><span class="n">nm</span><span class="p">,</span> <span class="n">dimtypes</span><span class="o">=</span><span class="n">dt</span><span class="p">)</span>
+<span class="gp">In [16]: </span><span class="k">print</span><span class="p">(</span><span class="n">pyg</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;sample_data/file_nometa.nc&#39;</span><span class="p">,</span> <span class="n">namemap</span><span class="o">=</span><span class="n">nm</span><span class="p">,</span> <span class="n">dimtypes</span><span class="o">=</span><span class="n">dt</span><span class="p">))</span>
 <span class="go">&lt;Dataset&gt;:</span>
 <span class="go">Vars:</span>
 <span class="go">  Temperature (lat,Longitude)  (31,60)</span>
@@ -253,15 +244,15 @@ to simply rename variables and axes:</p>
 </pre></div>
 </div>
 <p>As you can see, the original axes names as defined in the file are still used to
-replace axis types in the <tt class="docutils literal"><span class="pre">dimtypes</span></tt> dictionary; the axis is renamed after it
+replace axis types in the <code class="docutils literal notranslate"><span class="pre">dimtypes</span></code> dictionary; the axis is renamed after it
 has been replaced by the newly specified axis class.</p>
 </div>
 </div>
 <div class="section" id="reading-from-multiple-files">
 <h2>Reading from multiple files<a class="headerlink" href="#reading-from-multiple-files" title="Permalink to this headline">¶</a></h2>
 <p>PyGeode is intended for use with very large datasets, which are often
-distributed across many files. It has two additional methods, <a class="reference internal" href="fileio.html#pygeode.openall" title="pygeode.openall"><tt class="xref py py-meth docutils literal"><span class="pre">openall()</span></tt></a>
-and <a class="reference internal" href="fileio.html#pygeode.open_multi" title="pygeode.open_multi"><tt class="xref py py-meth docutils literal"><span class="pre">open_multi()</span></tt></a>, which are intended for use with such datasets. The
+distributed across many files. It has two additional methods, <a class="reference internal" href="fileio.html#pygeode.openall" title="pygeode.openall"><code class="xref py py-meth docutils literal notranslate"><span class="pre">openall()</span></code></a>
+and <a class="reference internal" href="fileio.html#pygeode.open_multi" title="pygeode.open_multi"><code class="xref py py-meth docutils literal notranslate"><span class="pre">open_multi()</span></code></a>, which are intended for use with such datasets. The
 first, which is the simpler of the two, is better suited for moderately large
 datasets which consist of multiple files, but not a large number of files. This
 works by opening each file explicitly, then merging the contents of each file
@@ -271,7 +262,7 @@ files. A subtler issue is that the concatenation PyGeode uses in this case is
 also, at present, somewhat less efficient than it could be. As a result,
 accessing the data opened with this method is not as fast as the second
 method.</p>
-<p>The second, <a class="reference internal" href="fileio.html#pygeode.open_multi" title="pygeode.open_multi"><tt class="xref py py-meth docutils literal"><span class="pre">open_multi()</span></tt></a>, is somewhat more complicated to use, but is
+<p>The second, <a class="reference internal" href="fileio.html#pygeode.open_multi" title="pygeode.open_multi"><code class="xref py py-meth docutils literal notranslate"><span class="pre">open_multi()</span></code></a>, is somewhat more complicated to use, but is
 better suited for very large datasets, particularly in which the dataset is
 separated along the time axis. In this case PyGeode simply opens the first and
 last file in the dataset, reads in their metadata, then infers the contents of
@@ -279,22 +270,22 @@ the rest of the files given an addition (user-defined) function that maps
 filenames to dates. Since only two files are opened, this is a very efficient
 operation even for extremely large datasets. As was just mentioned, the data is
 also loaded more efficiently than from datasets opened with the first method.</p>
-<p>To demonstrate these two methods, we&#8217;ll need a sample dataset to work with. To
-keep the dataset small, we&#8217;ll write out the zonal mean of the temperature field
+<p>To demonstrate these two methods, we’ll need a sample dataset to work with. To
+keep the dataset small, we’ll write out the zonal mean of the temperature field
 from the second tutorial dataset, one year per file</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [19]: </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t2</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [17]: </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t2</span>
 
-<span class="gp">In [20]: </span><span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">2021</span><span class="p">):</span>
-<span class="gp">   ....:</span>    <span class="n">pyg</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s">&#39;sample_data/temp_zm_y</span><span class="si">%d</span><span class="s">.nc&#39;</span> <span class="o">%</span> <span class="n">y</span><span class="p">,</span> <span class="n">t2</span><span class="o">.</span><span class="n">Temp</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s">&#39;lon&#39;</span><span class="p">))</span>
-<span class="gp">   ....:</span> 
+<span class="gp">In [18]: </span><span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2011</span><span class="p">,</span> <span class="mi">2021</span><span class="p">):</span>
+<span class="gp">   ....: </span>  <span class="n">pyg</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;sample_data/temp_zm_y</span><span class="si">%d</span><span class="s1">.nc&#39;</span> <span class="o">%</span> <span class="n">y</span><span class="p">,</span> <span class="n">t2</span><span class="o">.</span><span class="n">Temp</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s1">&#39;lon&#39;</span><span class="p">))</span>
+<span class="gp">   ....: </span>
 </pre></div>
 </div>
 <p>This produces ten files, each with a year of data in them.</p>
-<p>To demonstrate <a class="reference internal" href="fileio.html#pygeode.openall" title="pygeode.openall"><tt class="xref py py-meth docutils literal"><span class="pre">openall()</span></tt></a>, we can simply provide a wildcard filename which matches
+<p>To demonstrate <a class="reference internal" href="fileio.html#pygeode.openall" title="pygeode.openall"><code class="xref py py-meth docutils literal notranslate"><span class="pre">openall()</span></code></a>, we can simply provide a wildcard filename which matches
 the filenames:</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [21]: </span><span class="n">ds</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">openall</span><span class="p">(</span><span class="s">&#39;sample_data/temp_zm_*.nc&#39;</span><span class="p">,</span> <span class="n">namemap</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">Temp</span><span class="o">=</span><span class="s">&#39;T&#39;</span><span class="p">))</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [19]: </span><span class="n">ds</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">openall</span><span class="p">(</span><span class="s1">&#39;sample_data/temp_zm_*.nc&#39;</span><span class="p">,</span> <span class="n">namemap</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">Temp</span><span class="o">=</span><span class="s1">&#39;T&#39;</span><span class="p">))</span>
 
-<span class="gp">In [22]: </span><span class="k">print</span> <span class="n">ds</span><span class="o">.</span><span class="n">T</span>
+<span class="gp">In [20]: </span><span class="k">print</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
 <span class="go">&lt;Var &#39;T&#39;&gt;:</span>
 <span class="go">  Shape:  (time,pres,lat)  (3650,20,31)</span>
 <span class="go">  Axes:</span>
@@ -310,37 +301,37 @@ the filenames:</p>
 datasets. The result is a single dataset object with 10 years of temperature data that
 you can use without worrying further about how the data is distributed on disk. The filenames
 can alternatively be specified as a list; in fact in this case PyGeode expands each item
-in the list if there are wildcards (using <a class="reference external" href="http://docs.python.org/library/glob.html#glob.glob" title="(in Python v2.7)"><tt class="xref py py-func docutils literal"><span class="pre">glob.glob()</span></tt></a>).</p>
-<p>The same arguments (<tt class="docutils literal"><span class="pre">dimtypes</span></tt> and <tt class="docutils literal"><span class="pre">namemap</span></tt>) apply; here we&#8217;ve renamed the
-variable <tt class="docutils literal"><span class="pre">Temp</span></tt> to <tt class="docutils literal"><span class="pre">T</span></tt>. In addition, if you need to do more sophisticated
+in the list if there are wildcards (using <a class="reference external" href="https://docs.python.org/3/library/glob.html#glob.glob" title="(in Python v3.7)"><code class="xref py py-func docutils literal notranslate"><span class="pre">glob.glob()</span></code></a>).</p>
+<p>The same arguments (<code class="docutils literal notranslate"><span class="pre">dimtypes</span></code> and <code class="docutils literal notranslate"><span class="pre">namemap</span></code>) apply; here we’ve renamed the
+variable <code class="docutils literal notranslate"><span class="pre">Temp</span></code> to <code class="docutils literal notranslate"><span class="pre">T</span></code>. In addition, if you need to do more sophisticated
 manipulations of the data in each file before PyGeode concatenates the
 individual datasets, you can provide a function that takes the filename (as a
 string) as a single argument, and returns the modified dataset. This can be
 useful, for instance, for correcting issues in individual files:</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [23]: </span><span class="k">def</span> <span class="nf">opener</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
-<span class="gp">   ....:</span>    <span class="n">ds</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
-<span class="gp">   ....:</span>    <span class="k">if</span> <span class="s">&#39;2016&#39;</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span> <span class="c"># Replace the data in this file with a dummy value</span>
-<span class="gp">   ....:</span>      <span class="k">return</span> <span class="n">pyg</span><span class="o">.</span><span class="n">Dataset</span><span class="p">([</span><span class="n">ds</span><span class="o">.</span><span class="n">Temp</span> <span class="o">*</span> <span class="mi">0</span> <span class="o">+</span> <span class="mf">250.</span><span class="p">])</span>
-<span class="gp">   ....:</span>    <span class="k">else</span><span class="p">:</span>
-<span class="gp">   ....:</span>      <span class="k">return</span> <span class="n">ds</span>
-<span class="gp">   ....:</span> 
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [21]: </span><span class="k">def</span> <span class="nf">opener</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+<span class="gp">   ....: </span>  <span class="n">ds</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+<span class="gp">   ....: </span>  <span class="k">if</span> <span class="s1">&#39;2016&#39;</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span> <span class="c1"># Replace the data in this file with a dummy value</span>
+<span class="gp">   ....: </span>    <span class="k">return</span> <span class="n">pyg</span><span class="o">.</span><span class="n">Dataset</span><span class="p">([</span><span class="n">ds</span><span class="o">.</span><span class="n">Temp</span> <span class="o">*</span> <span class="mi">0</span> <span class="o">+</span> <span class="mf">250.</span><span class="p">])</span>
+<span class="gp">   ....: </span>  <span class="k">else</span><span class="p">:</span>
+<span class="gp">   ....: </span>    <span class="k">return</span> <span class="n">ds</span>
+<span class="gp">   ....: </span>
 
-<span class="gp">In [24]: </span><span class="n">ds</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">openall</span><span class="p">(</span><span class="s">&#39;sample_data/temp_zm_*.nc&#39;</span><span class="p">,</span> <span class="n">opener</span><span class="o">=</span><span class="n">opener</span><span class="p">)</span>
+<span class="gp">In [22]: </span><span class="n">ds</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">openall</span><span class="p">(</span><span class="s1">&#39;sample_data/temp_zm_*.nc&#39;</span><span class="p">,</span> <span class="n">opener</span><span class="o">=</span><span class="n">opener</span><span class="p">)</span>
 
-<span class="gp">In [25]: </span><span class="n">pyg</span><span class="o">.</span><span class="n">showvar</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">Temp</span><span class="p">(</span><span class="n">lat</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">pres</span><span class="o">=</span><span class="mi">500</span><span class="p">))</span>
-<span class="gr">Out[25]: </span><span class="o">&lt;</span><span class="n">pygeode</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">wrappers</span><span class="o">.</span><span class="n">AxesWrapper</span> <span class="n">instance</span> <span class="n">at</span> <span class="mh">0x2af01d45ed88</span><span class="o">&gt;</span>
+<span class="gp">In [23]: </span><span class="n">pyg</span><span class="o">.</span><span class="n">showvar</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">Temp</span><span class="p">(</span><span class="n">lat</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">pres</span><span class="o">=</span><span class="mi">500</span><span class="p">))</span>
+<span class="gh">Out[23]: </span><span class="go">&lt;pygeode.plot.wrappers.AxesWrapper at 0x7fa6ebd6e630&gt;</span>
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="_images/t1Temp_modified.png"><img alt="_images/t1Temp_modified.png" src="_images/t1Temp_modified.png" style="width: 4in;" /></a>
-<p>Using <a class="reference internal" href="fileio.html#pygeode.open_multi" title="pygeode.open_multi"><tt class="xref py py-meth docutils literal"><span class="pre">open_multi()</span></tt></a> is in most respects very similar. The main difference is that
+<p>Using <a class="reference internal" href="fileio.html#pygeode.open_multi" title="pygeode.open_multi"><code class="xref py py-meth docutils literal notranslate"><span class="pre">open_multi()</span></code></a> is in most respects very similar. The main difference is that
 in addition to specifying the filenames, this method assumes that the dataset
 is divided along the time axis, and you need to provide a way for PyGeode to
 map each filename to a date.</p>
 <p>In simple cases this can be done by simply specifying a regular expression that matches
 the components of the date in the filename. For instance:</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [26]: </span><span class="n">patt</span> <span class="o">=</span> <span class="s">&#39;temp_zm_y(?P&lt;year&gt;[0-9]{4}).nc&#39;</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [24]: </span><span class="n">patt</span> <span class="o">=</span> <span class="s1">&#39;temp_zm_y(?P&lt;year&gt;[0-9]{4}).nc&#39;</span>
 
-<span class="gp">In [27]: </span><span class="k">print</span> <span class="n">pyg</span><span class="o">.</span><span class="n">open_multi</span><span class="p">(</span><span class="s">&#39;sample_data/temp_zm_*.nc&#39;</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="n">patt</span><span class="p">)</span>
+<span class="gp">In [25]: </span><span class="k">print</span><span class="p">(</span><span class="n">pyg</span><span class="o">.</span><span class="n">open_multi</span><span class="p">(</span><span class="s1">&#39;sample_data/temp_zm_*.nc&#39;</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="n">patt</span><span class="p">))</span>
 <span class="go">&lt;Dataset&gt;:</span>
 <span class="go">Vars:</span>
 <span class="go">  Temp (time,pres,lat)  (3650,20,31)</span>
@@ -356,9 +347,9 @@ the components of the date in the filename. For instance:</p>
 that PyGeode can understand. Since this four digit format is commonly encountered,
 there is an abbreviation for it you can use which saves you the trouble of remembering
 how Python regular expressions work:</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [28]: </span><span class="n">patt</span> <span class="o">=</span> <span class="s">&#39;temp_zm_y$Y.nc&#39;</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [26]: </span><span class="n">patt</span> <span class="o">=</span> <span class="s1">&#39;temp_zm_y$Y.nc&#39;</span>
 
-<span class="gp">In [29]: </span><span class="k">print</span> <span class="n">pyg</span><span class="o">.</span><span class="n">open_multi</span><span class="p">(</span><span class="s">&#39;sample_data/temp_zm_*.nc&#39;</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="n">patt</span><span class="p">)</span>
+<span class="gp">In [27]: </span><span class="k">print</span><span class="p">(</span><span class="n">pyg</span><span class="o">.</span><span class="n">open_multi</span><span class="p">(</span><span class="s1">&#39;sample_data/temp_zm_*.nc&#39;</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="n">patt</span><span class="p">))</span>
 <span class="go">&lt;Dataset&gt;:</span>
 <span class="go">Vars:</span>
 <span class="go">  Temp (time,pres,lat)  (3650,20,31)</span>
@@ -371,21 +362,21 @@ how Python regular expressions work:</p>
 </pre></div>
 </div>
 <p>Similar abbreviations exist for 2-digit month, day, hour, and minute fields
-(see <a class="reference internal" href="fileio.html#pygeode.open_multi" title="pygeode.open_multi"><tt class="xref py py-meth docutils literal"><span class="pre">open_multi()</span></tt></a> for details), though if the filenames you&#8217;re working
-with aren&#8217;t in the appropriate format, you&#8217;ll have to provide the full regular
+(see <a class="reference internal" href="fileio.html#pygeode.open_multi" title="pygeode.open_multi"><code class="xref py py-meth docutils literal notranslate"><span class="pre">open_multi()</span></code></a> for details), though if the filenames you’re working
+with aren’t in the appropriate format, you’ll have to provide the full regular
 expression.</p>
-<p>In some cases the filenames themselves don&#8217;t quite have enough information, or
-else it&#8217;s difficult to write an appropriate regular expression to parse out the
+<p>In some cases the filenames themselves don’t quite have enough information, or
+else it’s difficult to write an appropriate regular expression to parse out the
 right information. As an alternative, you can also specify a Python function that
 takes the filename as an argument, and returns the corresponding date dictionary.
 As a simple example,</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [30]: </span><span class="k">def</span> <span class="nf">f2d</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
-<span class="gp">   ....:</span>    <span class="n">date</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">month</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="gp">   ....:</span>    <span class="n">date</span><span class="p">[</span><span class="s">&#39;year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">fn</span><span class="p">[</span><span class="o">-</span><span class="mi">7</span><span class="p">:</span><span class="o">-</span><span class="mi">3</span><span class="p">])</span> <span class="c"># Extract the year from the filename and convert to an integer</span>
-<span class="gp">   ....:</span>    <span class="k">return</span> <span class="n">date</span>
-<span class="gp">   ....:</span> 
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [28]: </span><span class="k">def</span> <span class="nf">f2d</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
+<span class="gp">   ....: </span>  <span class="n">date</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">month</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">day</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">   ....: </span>  <span class="n">date</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">fn</span><span class="p">[</span><span class="o">-</span><span class="mi">7</span><span class="p">:</span><span class="o">-</span><span class="mi">3</span><span class="p">])</span> <span class="c1"># Extract the year from the filename and convert to an integer</span>
+<span class="gp">   ....: </span>  <span class="k">return</span> <span class="n">date</span>
+<span class="gp">   ....: </span>
 
-<span class="gp">In [31]: </span><span class="k">print</span> <span class="n">pyg</span><span class="o">.</span><span class="n">open_multi</span><span class="p">(</span><span class="s">&#39;sample_data/temp_zm_*.nc&#39;</span><span class="p">,</span> <span class="n">file2date</span> <span class="o">=</span> <span class="n">f2d</span><span class="p">)</span>
+<span class="gp">In [29]: </span><span class="k">print</span><span class="p">(</span><span class="n">pyg</span><span class="o">.</span><span class="n">open_multi</span><span class="p">(</span><span class="s1">&#39;sample_data/temp_zm_*.nc&#39;</span><span class="p">,</span> <span class="n">file2date</span> <span class="o">=</span> <span class="n">f2d</span><span class="p">))</span>
 <span class="go">&lt;Dataset&gt;:</span>
 <span class="go">Vars:</span>
 <span class="go">  Temp (time,pres,lat)  (3650,20,31)</span>
@@ -408,21 +399,21 @@ from each file in the dataset to confirm that all the files are well-formed.</p>
 <div class="section" id="saving-to-files">
 <h2>Saving to files<a class="headerlink" href="#saving-to-files" title="Permalink to this headline">¶</a></h2>
 <p>In contrast to reading files, saving PyGeode variables and datasets to disk is
-typically a much simpler operation, and we&#8217;ve seen examples of this already in
-a couple places in this tutorial. The <a class="reference internal" href="fileio.html#pygeode.save" title="pygeode.save"><tt class="xref py py-meth docutils literal"><span class="pre">save()</span></tt></a> method takes a filename and
-either a single <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a> object, or a <a class="reference internal" href="dataset.html#pygeode.Dataset" title="pygeode.Dataset"><tt class="xref py py-class docutils literal"><span class="pre">Dataset</span></tt></a> object (in fact it
-uses the helper function <tt class="xref py py-meth docutils literal"><span class="pre">asdataset()</span></tt> which recognizes various other
+typically a much simpler operation, and we’ve seen examples of this already in
+a couple places in this tutorial. The <a class="reference internal" href="fileio.html#pygeode.save" title="pygeode.save"><code class="xref py py-meth docutils literal notranslate"><span class="pre">save()</span></code></a> method takes a filename and
+either a single <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a> object, or a <a class="reference internal" href="dataset.html#pygeode.Dataset" title="pygeode.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a> object (in fact it
+uses the helper function <a class="reference internal" href="genops.html#pygeode.asdataset" title="pygeode.asdataset"><code class="xref py py-meth docutils literal notranslate"><span class="pre">asdataset()</span></code></a> which recognizes various other
 kinds of collections of variables as well). As with reading files, writing to
 NetCDF files is the best supported option. By default, PyGeode writes NetCDF
 version 3 format files for greater compatibility, but this version has a number
 of limitations, including a maximum file size. Alternatively, version 4 format
 files can be written by specifying</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [32]: </span><span class="n">pyg</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s">&#39;sample_data/file_v4.nc&#39;</span><span class="p">,</span> <span class="n">t1</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [30]: </span><span class="n">pyg</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;sample_data/file_v4.nc&#39;</span><span class="p">,</span> <span class="n">t1</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>which permits larger files to be written. There are several other options,
 including built-in compression (this is a feature of the NetCDF 4 library), and
-packing, which can be done in any format. See <a class="reference internal" href="fileio.html#pygeode.save" title="pygeode.save"><tt class="xref py py-meth docutils literal"><span class="pre">save()</span></tt></a> for details.</p>
+packing, which can be done in any format. See <a class="reference internal" href="fileio.html#pygeode.save" title="pygeode.save"><code class="xref py py-meth docutils literal notranslate"><span class="pre">save()</span></code></a> for details.</p>
 <p>If you have a large dataset you wish to write out in multiple files, you can
 simply select the subset you wish before saving the variable or dataset to
 disk.</p>
@@ -430,73 +421,26 @@ disk.</p>
 </div>
 
 
-          </div>
-        </div>
       </div>
-      <div class="sphinxsidebar">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Variable input and output</a><ul>
-<li><a class="reference internal" href="#reading-from-a-single-file">Reading from a single file</a><ul>
-<li><a class="reference internal" href="#the-basics">The basics</a></li>
-<li><a class="reference internal" href="#overriding-metadata">Overriding metadata</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#reading-from-multiple-files">Reading from multiple files</a></li>
-<li><a class="reference internal" href="#saving-to-files">Saving to files</a></li>
-</ul>
-</li>
-</ul>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        «&#160;&#160;<a href="tut_basics.html">Basic Operations</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="gallery/index.html">Gallery</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="tut_plot.html">Plotting</a>&#160;&#160;»
+        </p>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="tut_basics.html"
-                        title="previous chapter">Basic Operations</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="tut_plot.html"
-                        title="next chapter">Plotting</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/tut_io.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="tut_plot.html" title="Plotting"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="tut_basics.html" title="Basic Operations"
-             >previous</a> |</li>
-        <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li>
-          <li><a href="tutorial.html" >Tutorial</a> &raquo;</li> 
-      </ul>
-    </div>
-    <div class="footer">
-        &copy; Copyright 2013, Mike Neish, Peter Hitchcock.
-      Last updated on Sep 13, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Mike Neish, Peter Hitchcock.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.
     </div>
   </body>
 </html>

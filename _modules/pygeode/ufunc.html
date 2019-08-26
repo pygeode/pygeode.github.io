@@ -1,0 +1,345 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>pygeode.ufunc &#8212; PyGeode 1.3 pre-release documentation</title>
+    <link rel="stylesheet" href="../../_static/pygtheme.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
+
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../../index.html">
+          <span>PyGeode 1.3 pre-release documentation</span></a></h1>
+        <h2 class="heading"><span>pygeode.ufunc</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        <a class="uplink" href="../../reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../gallery/index.html">Gallery</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <h1>Source code for pygeode.ufunc</h1><div class="highlight"><pre>
+<span></span><span class="c1"># This module defines all operations that are applied element by element.</span>
+<span class="c1"># This is essentially a wrapper to apply numpy universal functions (ufunc)</span>
+<span class="c1"># to PyGeode variables.</span>
+
+<span class="kn">from</span> <span class="nn">.var</span> <span class="k">import</span> <span class="n">Var</span>
+<span class="k">class</span> <span class="nc">UfuncVar</span> <span class="p">(</span><span class="n">Var</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+  <span class="n">op</span> <span class="o">=</span> <span class="kc">None</span>
+  <span class="n">symbol</span> <span class="o">=</span> <span class="kc">None</span>
+
+  <span class="c1"># If any of the arguments are not scalars or Vars, then defer the op</span>
+  <span class="c1"># to some other module that may handle it (such as Dataset).</span>
+  <span class="k">def</span> <span class="nf">__new__</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+    <span class="kn">from</span> <span class="nn">pygeode.var</span> <span class="k">import</span> <span class="n">Var</span>
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+    <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+      <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,(</span><span class="nb">int</span><span class="p">,</span><span class="nb">float</span><span class="p">,</span><span class="nb">complex</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">number</span><span class="p">,</span><span class="n">Var</span><span class="p">)):</span>
+        <span class="k">return</span> <span class="bp">NotImplemented</span>
+    <span class="k">return</span> <span class="nb">object</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+<span class="c1"># }}}</span>
+
+  <span class="k">def</span> <span class="nf">__init__</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+  <span class="c1"># {{{</span>
+    <span class="kn">from</span> <span class="nn">pygeode.tools</span> <span class="k">import</span> <span class="n">combine_axes</span>
+    <span class="kn">from</span> <span class="nn">pygeode.var</span> <span class="k">import</span> <span class="n">combine_meta</span>
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+    <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">op</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;can&#39;t instantiate UfuncVar directly&quot;</span>
+
+    <span class="n">ivars</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">Var</span><span class="p">)]</span>
+    <span class="nb">vars</span> <span class="o">=</span> <span class="p">[</span><span class="n">args</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ivars</span><span class="p">]</span>
+
+    <span class="n">axes</span> <span class="o">=</span> <span class="n">combine_axes</span><span class="p">(</span><span class="nb">vars</span><span class="p">)</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">args</span> <span class="o">=</span> <span class="n">args</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ivars</span> <span class="o">=</span> <span class="n">ivars</span>
+
+<span class="c1">#    dtype = common_dtype(args)</span>
+    <span class="c1"># create some dummy scalar args to test the dtype</span>
+    <span class="n">dummy_dtypes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;int64&#39;</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="nb">int</span><span class="p">)</span> <span class="k">else</span> <span class="s1">&#39;float64&#39;</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="nb">float</span><span class="p">)</span> <span class="k">else</span> <span class="s1">&#39;complex128&#39;</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="nb">complex</span><span class="p">)</span> <span class="k">else</span> <span class="n">a</span><span class="o">.</span><span class="n">dtype</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">args</span><span class="p">]</span>
+    <span class="n">dummy_args</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="n">d</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">dummy_dtypes</span><span class="p">]</span>
+    <span class="n">dtype</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">op</span><span class="p">(</span><span class="o">*</span><span class="n">dummy_args</span><span class="p">)</span><span class="o">.</span><span class="n">dtype</span>
+
+    <span class="c1"># TODO: Type check arguments. numpy arrays probably shouldn&#39;t be allowed</span>
+
+    <span class="c1"># Generate a default name</span>
+    <span class="n">symbol</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">symbol</span>
+    <span class="n">names</span> <span class="o">=</span> <span class="p">[(</span><span class="n">arg</span><span class="o">.</span><span class="n">name</span> <span class="ow">or</span> <span class="s1">&#39;??&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span><span class="n">Var</span><span class="p">)</span> <span class="k">else</span> <span class="nb">str</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span> <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">args</span><span class="p">]</span>
+    <span class="c1"># Strip out parentheses if there&#39;s only one name?</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">names</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;(&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">names</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;)&#39;</span><span class="p">):</span>
+        <span class="n">names</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">names</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">symbol</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">op</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39;(&#39;</span> <span class="o">+</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">names</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span>
+
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">symbol</span><span class="p">,(</span><span class="nb">list</span><span class="p">,</span><span class="nb">tuple</span><span class="p">)):</span>
+      <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span>
+      <span class="n">name</span> <span class="o">=</span> <span class="n">symbol</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">names</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">symbol</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">else</span><span class="p">:</span>
+      <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">symbol</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span>
+      <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;(&#39;</span> <span class="o">+</span> <span class="n">symbol</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">names</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span>
+
+    <span class="c1"># Special case: applying a scalar to a Var object with a simple name.</span>
+    <span class="c1"># In this case, keep the original name.</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="nb">vars</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># One scalar, one var</span>
+      <span class="k">if</span> <span class="s1">&#39;(&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">vars</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span> <span class="ow">and</span> <span class="s1">&#39;)&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="nb">vars</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">symbol</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;+&#39;</span><span class="p">,</span><span class="s1">&#39;-&#39;</span><span class="p">,</span><span class="s1">&#39;*&#39;</span><span class="p">,</span><span class="s1">&#39;/&#39;</span><span class="p">):</span>  <span class="c1"># Basic arithmetic only</span>
+          <span class="n">name</span> <span class="o">=</span> <span class="nb">vars</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+
+<span class="c1">#    # Copy any common generic metadata</span>
+<span class="c1">#    self.atts = common_dict(v.atts for v in vars)</span>
+<span class="c1">#    self.plotatts = common_dict(v.plotatts for v in vars)</span>
+
+    <span class="n">Var</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+
+    <span class="c1"># Copy any common generic metadata</span>
+    <span class="n">combine_meta</span><span class="p">(</span><span class="nb">vars</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+    <span class="c1"># Use our locally derived name (override combine_meta)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+
+  <span class="c1"># }}}</span>
+
+  <span class="k">def</span> <span class="nf">getview</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">pbar</span><span class="p">):</span>
+  <span class="c1"># {{{</span>
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="p">)</span>
+
+    <span class="c1"># Relative progress of each variable</span>
+    <span class="n">sizes</span> <span class="o">=</span> <span class="p">[</span><span class="n">args</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">size</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ivars</span><span class="p">]</span>
+    <span class="n">prog</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">([</span><span class="mf">0.</span><span class="p">]</span><span class="o">+</span><span class="n">sizes</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">sizes</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+
+    <span class="k">for</span> <span class="n">I</span><span class="p">,</span><span class="n">i</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ivars</span><span class="p">):</span>
+      <span class="c1"># For each variable, get appropriate subranges, reshape, and transpose array</span>
+      <span class="n">args</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">pbar</span><span class="o">=</span><span class="n">pbar</span><span class="o">.</span><span class="n">subset</span><span class="p">(</span><span class="n">prog</span><span class="p">[</span><span class="n">I</span><span class="p">],</span><span class="n">prog</span><span class="p">[</span><span class="n">I</span><span class="o">+</span><span class="mi">1</span><span class="p">]))</span>
+      <span class="c1"># Fix for 0-dimensions variables, which will return a scalar</span>
+      <span class="n">args</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+    <span class="c1"># Ensure that the output is still a numpy array</span>
+    <span class="c1"># (if the input arrays are degenerate, numpy wants to return a scalar</span>
+    <span class="c1">#  by default)</span>
+    <span class="kn">import</span> <span class="nn">numpy</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">op</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">values</span>
+  <span class="c1"># }}}</span>
+<span class="c1"># }}}</span>
+
+
+
+
+
+<span class="c1"># Take a function that operates on numpy arrays, create a</span>
+<span class="c1"># function that operates on PyGeode arrays.</span>
+<span class="k">def</span> <span class="nf">wrap_npfunc</span> <span class="p">(</span><span class="n">nterms</span><span class="p">,</span> <span class="n">npfunc</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">symbol</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+  <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+  <span class="kn">from</span> <span class="nn">types</span> <span class="k">import</span> <span class="n">FunctionType</span>
+
+  <span class="c1"># Create a ufunc subclass</span>
+  <span class="n">_symbol</span> <span class="o">=</span> <span class="n">symbol</span>  <span class="c1"># change the name so it doesn&#39;t collide with the class member below</span>
+  <span class="k">class</span> <span class="nc">C</span><span class="p">(</span><span class="n">UfuncVar</span><span class="p">):</span>
+    <span class="n">op</span> <span class="o">=</span> <span class="nb">staticmethod</span><span class="p">(</span><span class="n">npfunc</span><span class="p">)</span>
+    <span class="n">symbol</span> <span class="o">=</span> <span class="n">_symbol</span>
+  <span class="n">C</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="n">npfunc</span><span class="o">.</span><span class="vm">__name__</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;_Var&quot;</span>
+  <span class="c1"># Create a function for creating the class</span>
+  <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">nterms</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">nterms</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">):</span> <span class="k">return</span> <span class="n">C</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+  <span class="k">elif</span> <span class="n">nterms</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span> <span class="k">return</span> <span class="n">C</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+  <span class="k">elif</span> <span class="n">nterms</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="k">return</span> <span class="n">C</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+  <span class="k">else</span><span class="p">:</span> <span class="k">raise</span> <span class="ne">Exception</span>
+  <span class="n">f</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="n">npfunc</span><span class="o">.</span><span class="vm">__name__</span>
+  <span class="n">f</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="n">doc</span>
+
+  <span class="c1"># Is this a trivial wrapper of something from numpy?</span>
+  <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">np</span><span class="p">,</span> <span class="n">npfunc</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">is</span> <span class="n">npfunc</span><span class="p">:</span>
+    <span class="c1"># Use proper sentence structure?</span>
+    <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+      <span class="n">f</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="vm">__doc__</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)</span>
+      <span class="n">f</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">+=</span> <span class="s2">&quot;.  &quot;</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">npfunc</span><span class="p">)</span> <span class="ow">is</span> <span class="n">FunctionType</span><span class="p">:</span>
+      <span class="n">f</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">+=</span> <span class="s2">&quot;Wraps :func:`numpy.</span><span class="si">%s</span><span class="s2">`&quot;</span><span class="o">%</span><span class="n">npfunc</span><span class="o">.</span><span class="vm">__name__</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="c1"># Ufunc things (such as sin) are ufunc types, not functions?</span>
+      <span class="n">f</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">+=</span> <span class="s2">&quot;Wraps :data:`numpy.</span><span class="si">%s</span><span class="s2">`&quot;</span><span class="o">%</span><span class="n">npfunc</span><span class="o">.</span><span class="vm">__name__</span>
+
+  <span class="k">return</span> <span class="n">f</span>
+
+<span class="k">def</span> <span class="nf">wrap_unary</span> <span class="p">(</span><span class="n">npfunc</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">symbol</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+  <span class="k">return</span> <span class="n">wrap_npfunc</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">npfunc</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">symbol</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">wrap_binary</span> <span class="p">(</span><span class="n">npfunc</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">symbol</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+  <span class="k">return</span> <span class="n">wrap_npfunc</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">npfunc</span><span class="p">,</span> <span class="n">doc</span><span class="p">,</span> <span class="n">symbol</span><span class="p">)</span>
+
+<span class="c1"># Chain a sequence of unary functions</span>
+<span class="c1">#TODO: use some standard function for this?</span>
+<span class="k">def</span> <span class="nf">chain</span> <span class="p">(</span><span class="o">*</span><span class="n">f</span><span class="p">):</span>
+  <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
+  <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span> <span class="k">return</span> <span class="n">f</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+  <span class="k">def</span> <span class="nf">make_chain</span> <span class="p">(</span><span class="n">f1</span><span class="p">,</span><span class="n">f2</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">f3</span><span class="p">(</span><span class="n">x</span><span class="p">):</span> <span class="k">return</span> <span class="n">f1</span><span class="p">(</span><span class="n">f2</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">f3</span>
+  <span class="k">return</span> <span class="n">make_chain</span> <span class="p">(</span><span class="n">f</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">chain</span><span class="p">(</span><span class="o">*</span><span class="n">f</span><span class="p">[</span><span class="mi">1</span><span class="p">:]))</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<span class="nb">abs</span>  <span class="o">=</span> <span class="n">wrap_unary</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">,</span>    <span class="s2">&quot;Absolute value&quot;</span><span class="p">)</span>
+<span class="n">absolute</span>  <span class="o">=</span> <span class="n">wrap_unary</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">,</span>    <span class="s2">&quot;Absolute value&quot;</span><span class="p">)</span>
+<span class="n">sign</span>  <span class="o">=</span> <span class="n">wrap_unary</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sign</span><span class="p">,</span>  <span class="s2">&quot;Sign (+1 = *positive*, -1 = *negative*)&quot;</span><span class="p">)</span>
+<span class="n">exp</span>   <span class="o">=</span> <span class="n">wrap_unary</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">,</span>   <span class="s2">&quot;Natural exponent&quot;</span><span class="p">)</span>
+<span class="n">log</span>   <span class="o">=</span> <span class="n">wrap_unary</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">,</span>   <span class="s2">&quot;Natural logarithm&quot;</span><span class="p">)</span>
+<span class="n">log10</span> <span class="o">=</span> <span class="n">wrap_unary</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">,</span> <span class="s2">&quot;Base-10 logarithm&quot;</span><span class="p">)</span>
+<span class="n">cos</span>   <span class="o">=</span> <span class="n">wrap_unary</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">,</span>   <span class="s2">&quot;Cosine of angle (in radians)&quot;</span><span class="p">)</span>
+<span class="n">sin</span>   <span class="o">=</span> <span class="n">wrap_unary</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">,</span>   <span class="s2">&quot;Sine of angle (in radians)&quot;</span><span class="p">)</span>
+<span class="n">tan</span>   <span class="o">=</span> <span class="n">wrap_unary</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">,</span>   <span class="s2">&quot;Tangent of angle (in radians)&quot;</span><span class="p">)</span>
+<span class="n">cosh</span>  <span class="o">=</span> <span class="n">wrap_unary</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cosh</span><span class="p">,</span>  <span class="s2">&quot;Hyperbolic cosine&quot;</span><span class="p">)</span>
+<span class="n">sinh</span>  <span class="o">=</span> <span class="n">wrap_unary</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sinh</span><span class="p">,</span>  <span class="s2">&quot;Hyperbolic sine&quot;</span><span class="p">)</span>
+<span class="n">tanh</span>  <span class="o">=</span> <span class="n">wrap_unary</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">tanh</span><span class="p">,</span>  <span class="s2">&quot;Hyperbolic tangent&quot;</span><span class="p">)</span>
+<span class="n">sqrt</span>  <span class="o">=</span> <span class="n">wrap_unary</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">,</span>  <span class="s2">&quot;Square root&quot;</span><span class="p">)</span>
+<span class="n">real</span>  <span class="o">=</span> <span class="n">wrap_unary</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">,</span>  <span class="s2">&quot;Real part of a complex array&quot;</span><span class="p">)</span>
+<span class="n">imag</span>  <span class="o">=</span> <span class="n">wrap_unary</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">,</span>  <span class="s2">&quot;Imaginary part of a complex array&quot;</span><span class="p">)</span>
+<span class="n">conj</span>  <span class="o">=</span> <span class="n">wrap_unary</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">conj</span><span class="p">,</span>  <span class="s2">&quot;Complex conjugate of a complex array&quot;</span><span class="p">);</span> <span class="n">conj</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="s1">&#39;conj&#39;</span>
+<span class="n">angle</span> <span class="o">=</span> <span class="n">wrap_unary</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">angle</span><span class="p">,</span> <span class="s2">&quot;Angles (arguments) of a complex array&quot;</span><span class="p">)</span>
+<span class="n">arccos</span>  <span class="o">=</span> <span class="n">wrap_unary</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arccos</span><span class="p">,</span>  <span class="s2">&quot;Inverse cosine (in radians)&quot;</span><span class="p">)</span>
+<span class="n">arcsin</span>  <span class="o">=</span> <span class="n">wrap_unary</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arcsin</span><span class="p">,</span>  <span class="s2">&quot;Inverse sine (in radians)&quot;</span><span class="p">)</span>
+<span class="n">arctan</span>  <span class="o">=</span> <span class="n">wrap_unary</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">,</span>  <span class="s2">&quot;Inverse tangent (in radians)&quot;</span><span class="p">)</span>
+<span class="n">arccosh</span> <span class="o">=</span> <span class="n">wrap_unary</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arccosh</span><span class="p">,</span> <span class="s2">&quot;Inverse hyperbolic cosine&quot;</span><span class="p">)</span>
+<span class="n">arcsinh</span> <span class="o">=</span> <span class="n">wrap_unary</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arcsinh</span><span class="p">,</span> <span class="s2">&quot;Inverse hyperbolic sine&quot;</span><span class="p">)</span>
+<span class="n">arctanh</span> <span class="o">=</span> <span class="n">wrap_unary</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arctanh</span><span class="p">,</span> <span class="s2">&quot;Inverse hyperbolic tangent&quot;</span><span class="p">)</span>
+<span class="n">nan_to_num</span> <span class="o">=</span> <span class="n">wrap_unary</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">,</span> <span class="s2">&quot;Replace nan with zero and inf with finite numbers&quot;</span><span class="p">)</span>
+<span class="n">arctan2</span> <span class="o">=</span> <span class="n">wrap_binary</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arctan2</span><span class="p">,</span> <span class="s2">&quot;Inverse tangent. Explicit x/y given. Returns radians&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">_deg2rad</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+  <span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">pi</span>
+  <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">/</span> <span class="mf">180.</span>
+<span class="n">deg2rad</span> <span class="o">=</span> <span class="n">wrap_unary</span> <span class="p">(</span><span class="n">_deg2rad</span><span class="p">,</span> <span class="s2">&quot;Converts values from degrees to radians&quot;</span><span class="p">)</span>
+<span class="n">cosd</span> <span class="o">=</span> <span class="n">chain</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">,</span><span class="n">_deg2rad</span><span class="p">);</span> <span class="n">cosd</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="s1">&#39;cosd&#39;</span>
+<span class="n">sind</span> <span class="o">=</span> <span class="n">chain</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">,</span><span class="n">_deg2rad</span><span class="p">);</span> <span class="n">sind</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="s1">&#39;sind&#39;</span>
+<span class="n">tand</span> <span class="o">=</span> <span class="n">chain</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">,</span><span class="n">_deg2rad</span><span class="p">);</span> <span class="n">tand</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="s1">&#39;tand&#39;</span>
+<span class="n">cosd</span> <span class="o">=</span> <span class="n">wrap_unary</span> <span class="p">(</span><span class="n">cosd</span><span class="p">,</span> <span class="s2">&quot;Cosine of angle (in degrees)&quot;</span><span class="p">)</span>
+<span class="n">sind</span> <span class="o">=</span> <span class="n">wrap_unary</span> <span class="p">(</span><span class="n">sind</span><span class="p">,</span> <span class="s2">&quot;Sine of angle (in degrees)&quot;</span><span class="p">)</span>
+<span class="n">tand</span> <span class="o">=</span> <span class="n">wrap_unary</span> <span class="p">(</span><span class="n">tand</span><span class="p">,</span> <span class="s2">&quot;Tangent of angle (in degrees)&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_rad2deg</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+  <span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">pi</span>
+  <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="mf">180.</span> <span class="o">/</span> <span class="n">pi</span>
+<span class="n">rad2deg</span> <span class="o">=</span> <span class="n">wrap_unary</span> <span class="p">(</span><span class="n">_rad2deg</span><span class="p">,</span> <span class="s2">&quot;Converts values from radians to degress&quot;</span><span class="p">)</span>
+<span class="n">arccosd</span> <span class="o">=</span> <span class="n">chain</span><span class="p">(</span><span class="n">_rad2deg</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">arccos</span><span class="p">);</span> <span class="n">arccosd</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="s1">&#39;arccosd&#39;</span>
+<span class="n">arcsind</span> <span class="o">=</span> <span class="n">chain</span><span class="p">(</span><span class="n">_rad2deg</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">arcsin</span><span class="p">);</span> <span class="n">arcsind</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="s1">&#39;arcsind&#39;</span>
+<span class="n">arctand</span> <span class="o">=</span> <span class="n">chain</span><span class="p">(</span><span class="n">_rad2deg</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">arctan</span><span class="p">);</span> <span class="n">arctand</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="s1">&#39;arctand&#39;</span>
+<span class="n">arccosd</span> <span class="o">=</span> <span class="n">wrap_unary</span> <span class="p">(</span><span class="n">arccosd</span><span class="p">,</span> <span class="s2">&quot;Inverse cosine (in degrees).&quot;</span><span class="p">)</span>
+<span class="n">arcsind</span> <span class="o">=</span> <span class="n">wrap_unary</span> <span class="p">(</span><span class="n">arcsind</span><span class="p">,</span> <span class="s2">&quot;Inverse sine (in degrees).&quot;</span><span class="p">)</span>
+<span class="n">arctand</span> <span class="o">=</span> <span class="n">wrap_unary</span> <span class="p">(</span><span class="n">arctand</span><span class="p">,</span> <span class="s2">&quot;Inverse tangent (in degrees).&quot;</span><span class="p">)</span>
+<span class="n">arctand2</span> <span class="o">=</span> <span class="n">chain</span><span class="p">(</span><span class="n">_rad2deg</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">arctan2</span><span class="p">);</span> <span class="n">arctand2</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="s1">&#39;arctand2&#39;</span>
+<span class="n">arctand2</span> <span class="o">=</span> <span class="n">wrap_binary</span> <span class="p">(</span><span class="n">arctand2</span><span class="p">,</span> <span class="s2">&quot;Inverse tangent.  Explicit x/y given.  Returns degrees.&quot;</span><span class="p">)</span>
+
+<span class="n">minimum</span> <span class="o">=</span> <span class="n">wrap_binary</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">,</span> <span class="s2">&quot;Element-wise minimum of the two given arguments.&quot;</span><span class="p">)</span>
+<span class="n">maximum</span> <span class="o">=</span> <span class="n">wrap_binary</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">,</span> <span class="s2">&quot;Element-wise maximum of the two given arguments.&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="vprod"><a class="viewcode-back" href="../../genops.html#pygeode.vprod">[docs]</a><span class="k">def</span> <span class="nf">vprod</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+  <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="k">return</span> <span class="mi">1</span>
+  <span class="n">ans</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+  <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+    <span class="n">ans</span> <span class="o">=</span> <span class="n">ans</span> <span class="o">*</span> <span class="n">arg</span>
+  <span class="k">return</span> <span class="n">ans</span></div>
+<span class="n">vprod</span> <span class="o">=</span> <span class="n">wrap_npfunc</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">vprod</span><span class="p">,</span> <span class="s2">&quot;Multiplies an arbitrary number of variables together&quot;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="vsum"><a class="viewcode-back" href="../../genops.html#pygeode.vsum">[docs]</a><span class="k">def</span> <span class="nf">vsum</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+<span class="c1">#  from numpy import sum</span>
+<span class="c1">#  return sum(args, 0)</span>
+  <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="k">return</span> <span class="mi">0</span>
+  <span class="n">ans</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+  <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">:]:</span>
+    <span class="n">ans</span> <span class="o">=</span> <span class="n">ans</span> <span class="o">+</span> <span class="n">arg</span>
+  <span class="k">return</span> <span class="n">ans</span></div>
+<span class="n">vsum</span> <span class="o">=</span> <span class="n">wrap_npfunc</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">vsum</span><span class="p">,</span> <span class="s2">&quot;Adds an arbitrary number of variables together&quot;</span><span class="p">)</span>
+
+<span class="n">clip</span> <span class="o">=</span> <span class="n">wrap_npfunc</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">,</span> <span class="s2">&quot;Clips values to given interval.&quot;</span><span class="p">)</span>
+
+
+
+<span class="k">del</span> <span class="n">np</span>
+
+<span class="n">unary_flist</span> <span class="o">=</span> <span class="p">(</span><span class="nb">abs</span><span class="p">,</span> <span class="n">sign</span><span class="p">,</span> <span class="n">exp</span><span class="p">,</span> <span class="n">log</span><span class="p">,</span> <span class="n">log10</span><span class="p">,</span> <span class="n">cos</span><span class="p">,</span> <span class="n">sin</span><span class="p">,</span> <span class="n">tan</span><span class="p">,</span> <span class="n">cosd</span><span class="p">,</span> <span class="n">sind</span><span class="p">,</span> <span class="n">tand</span><span class="p">,</span>
+    <span class="n">cosh</span><span class="p">,</span> <span class="n">sinh</span><span class="p">,</span> <span class="n">tanh</span><span class="p">,</span> <span class="n">arccos</span><span class="p">,</span> <span class="n">arcsin</span><span class="p">,</span> <span class="n">arctan</span><span class="p">,</span>
+    <span class="n">arccosd</span><span class="p">,</span> <span class="n">arcsind</span><span class="p">,</span> <span class="n">arctand</span><span class="p">,</span> <span class="n">arccosh</span><span class="p">,</span> <span class="n">arcsinh</span><span class="p">,</span> <span class="n">arctanh</span><span class="p">,</span>
+    <span class="n">sqrt</span><span class="p">,</span> <span class="n">nan_to_num</span><span class="p">,</span> <span class="n">real</span><span class="p">,</span> <span class="n">imag</span><span class="p">,</span> <span class="n">conj</span><span class="p">,</span> <span class="n">angle</span><span class="p">,</span>
+    <span class="n">clip</span>
+<span class="p">)</span>
+
+<span class="n">binary_flist</span> <span class="o">=</span> <span class="p">(</span><span class="n">arctan2</span><span class="p">,</span> <span class="n">arctand2</span><span class="p">,</span> <span class="n">minimum</span><span class="p">,</span> <span class="n">maximum</span><span class="p">)</span>
+
+<span class="n">vararg_flist</span> <span class="o">=</span> <span class="p">(</span><span class="n">vprod</span><span class="p">,</span> <span class="n">vsum</span><span class="p">)</span>
+
+<span class="n">all_flist</span> <span class="o">=</span> <span class="n">unary_flist</span> <span class="o">+</span> <span class="n">binary_flist</span> <span class="o">+</span> <span class="n">vararg_flist</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="vm">__name__</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">all_flist</span><span class="p">))</span>
+
+<span class="c1">#__all__ = </span>
+
+<span class="c1"># Collect these functions into a list, which Var can load into itself dynamically</span>
+<span class="c1">#class_flist = (__add__, __sub__, __mul__, __div__, __pow__,</span>
+<span class="c1">#    __abs__, __neg__, __pos__, __mod__, __rmod__, __trunc__,</span>
+<span class="c1">#    __lt__, __le__, __gt__, __ge__ , __eq__, __ne__,</span>
+<span class="c1">#    __radd__, __rsub__, __rmul__, __rdiv__, __rpow__,</span>
+<span class="c1">#    sign, exp, log, log10, cos, sin, tan, cosd, sind, tand,</span>
+<span class="c1">#    cosh, sinh, tanh, arccos, arcsin, arctan, arctan2,</span>
+<span class="c1">#    arccosd, arcsind, arctand, arctand2, arccosh, arcsinh, arctanh,</span>
+<span class="c1">#    sqrt, nan_to_num, real, imag, angle</span>
+<span class="c1">#)</span>
+<span class="c1">#generic_flist = (</span>
+<span class="c1">#    exp, log, log10, cos, sin, tan, cosd, sind, tand,</span>
+<span class="c1">#    cosh, sinh, tanh, arccos, arcsin, arctan, arctan2,</span>
+<span class="c1">#    arccosd, arcsind, arctand, arctand2, arccosh, arcsinh, arctanh,</span>
+<span class="c1">#    sqrt, nan_to_num, real, imag, angle</span>
+<span class="c1">#)</span>
+
+</pre></div>
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        <a class="uplink" href="../../reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../gallery/index.html">Gallery</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Mike Neish, Peter Hitchcock.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.
+    </div>
+  </body>
+</html>

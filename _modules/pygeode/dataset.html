@@ -1,0 +1,811 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>pygeode.dataset &#8212; PyGeode 1.3 pre-release documentation</title>
+    <link rel="stylesheet" href="../../_static/pygtheme.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
+
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../../index.html">
+          <span>PyGeode 1.3 pre-release documentation</span></a></h1>
+        <h2 class="heading"><span>pygeode.dataset</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        <a class="uplink" href="../../reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../gallery/index.html">Gallery</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <h1>Source code for pygeode.dataset</h1><div class="highlight"><pre>
+<span></span><span class="c1">#TODO: filter function (similar to map, but use a boolean selection function</span>
+<span class="c1">#      instead of a transformation).</span>
+
+<span class="c1"># Dataset</span>
+<div class="viewcode-block" id="Dataset"><a class="viewcode-back" href="../../dataset.html#pygeode.Dataset">[docs]</a><span class="k">class</span> <span class="nc">Dataset</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Container class for :class:`Var` objects. Provides tools for organizing and</span>
+<span class="sd">    working with a set of variables.</span>
+
+<span class="sd">    :ivar vars</span>
+<span class="sd">    :ivar axes</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+
+  <span class="c1">#: A list of variables contained by the Dataset. See `Var` class.</span>
+  <span class="nb">vars</span> <span class="o">=</span> <span class="kc">None</span>
+
+  <span class="c1">#: A dictionary of variables contained by the Dataset, indexed by name.</span>
+  <span class="n">vardict</span> <span class="o">=</span> <span class="kc">None</span>
+
+  <span class="c1">#: A list of axes contained by the Dataset. See `Axis` class.</span>
+  <span class="n">axes</span> <span class="o">=</span> <span class="kc">None</span>
+
+  <span class="c1">#: A dictionary of metadata associated with the dataset. Sometimes referred</span>
+  <span class="c1">#: to as global attributes.</span>
+  <span class="n">atts</span> <span class="o">=</span> <span class="kc">None</span>
+
+  <span class="c1"># Get a variable by name</span>
+<div class="viewcode-block" id="Dataset.__getitem__"><a class="viewcode-back" href="../../dataset.html#pygeode.Dataset.__getitem__">[docs]</a>  <span class="k">def</span> <span class="nf">__getitem__</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+    <span class="sd">&#39;&#39;&#39;Gets a variable or axis object.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    key : string</span>
+<span class="sd">      Name of axis or variable to return.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    :class:`Var` or :class:`Axis` object matching the requested name. Raises :class:`KeyError` if</span>
+<span class="sd">    no such member is found.&#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">vardict</span><span class="p">:</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">vardict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">axisdict</span><span class="p">:</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">axisdict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+    <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> not in </span><span class="si">%s</span><span class="s2">.  Valid keys are </span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">key</span><span class="p">,</span><span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="p">),</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vardict</span><span class="o">.</span><span class="n">keys</span><span class="p">())))</span></div>
+<span class="c1"># }}}</span>
+
+  <span class="c1"># Check if we have a variable of the given name</span>
+  <span class="k">def</span> <span class="nf">__contains__</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+    <span class="k">return</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">vardict</span> <span class="ow">or</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">axisdict</span>
+<span class="c1"># }}}</span>
+
+  <span class="c1"># Reference a axis/variable as an attribute (for the super lazy)</span>
+  <span class="k">def</span> <span class="nf">__getattr__</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+    <span class="c1"># Disregard metaclass stuff</span>
+    <span class="k">if</span> <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;__&#39;</span><span class="p">):</span> <span class="k">raise</span> <span class="ne">AttributeError</span>
+<span class="c1">#    print &#39;dataset getattr ??&#39;, name</span>
+    <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span> <span class="k">return</span> <span class="bp">self</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+    <span class="k">raise</span> <span class="ne">AttributeError</span> <span class="p">(</span><span class="n">name</span><span class="p">)</span>
+<span class="c1"># }}}</span>
+
+  <span class="k">def</span> <span class="nf">__dir__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+    <span class="n">l</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">+</span> <span class="nb">dir</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">l</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vardict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">axisdict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+<span class="c1"># }}}</span>
+
+  <span class="c1"># Iterate over the variables</span>
+  <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vars</span><span class="p">)</span>
+
+  <span class="c1"># Dataset Initialization</span>
+  <span class="c1"># Takes a list of Vars, and any global attributes</span>
+  <span class="c1"># Vars and axes may be renamed within the Dataset to ensure uniqueness</span>
+<div class="viewcode-block" id="Dataset.__init__"><a class="viewcode-back" href="../../dataset.html#pygeode.Dataset.__init__">[docs]</a>  <span class="k">def</span> <span class="nf">__init__</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">vars</span><span class="p">,</span> <span class="n">atts</span><span class="o">=</span><span class="p">{},</span> <span class="n">print_warnings</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+    <span class="sd">&#39;&#39;&#39; Create a new :class:`Dataset` from a list of variables.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    vars: list</span>
+<span class="sd">      The list of :class:`Var` objects to include.</span>
+
+<span class="sd">    atts: dictionary, optional</span>
+<span class="sd">      A dictionary of attributes available in the :attr:`Dataset.atts` attribute.</span>
+
+<span class="sd">    print_warnings: boolean, optional [True]</span>
+<span class="sd">      If True, print out warnings when variables and axes are renamed.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    The new :class:`Dataset` object.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    Variable names and axis names must be unique. If multiple variables share</span>
+<span class="sd">    the same name they will be renamed so that they are unique. If variables</span>
+<span class="sd">    have axes with matching names but which are not matching, they will also be</span>
+<span class="sd">    renamed. If any names are modified and ``print_warnings`` is True, a</span>
+<span class="sd">    warning will be displayed indicating how objects have been renamed.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="kn">from</span> <span class="nn">pygeode.var</span> <span class="k">import</span> <span class="n">Var</span>
+    <span class="kn">from</span> <span class="nn">warnings</span> <span class="k">import</span> <span class="n">warn</span>
+    <span class="n">atts</span> <span class="o">=</span> <span class="n">atts</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="nb">vars</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">vars</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">vars</span><span class="p">:</span> <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="n">Var</span><span class="p">)</span>
+
+    <span class="n">namedict</span> <span class="o">=</span> <span class="n">axis_name_clumping</span><span class="p">(</span><span class="nb">vars</span><span class="p">)</span>
+
+    <span class="c1"># Rename axes that share a common name</span>
+    <span class="n">newaxes</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">oldname</span><span class="p">,</span> <span class="n">eqlist</span> <span class="ow">in</span> <span class="n">namedict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+      <span class="c1"># Case 1: the name is unique</span>
+      <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">eqlist</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">newaxis</span> <span class="o">=</span> <span class="n">eqlist</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">eqlist</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span> <span class="n">newaxes</span><span class="p">[</span><span class="nb">id</span><span class="p">(</span><span class="n">a</span><span class="p">)]</span> <span class="o">=</span> <span class="n">newaxis</span>
+      <span class="c1"># Case 2: there is more than one axis with that name</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">eq</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">eqlist</span><span class="p">):</span>
+          <span class="n">newname</span> <span class="o">=</span> <span class="n">oldname</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="si">%02d</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+          <span class="c1"># It&#39;s possible that we still have a name conflict</span>
+          <span class="k">while</span> <span class="n">newname</span> <span class="ow">in</span> <span class="n">namedict</span><span class="p">:</span>  <span class="n">newname</span> <span class="o">+=</span> <span class="s1">&#39;x&#39;</span>
+          <span class="k">if</span> <span class="n">print_warnings</span><span class="p">:</span>
+            <span class="n">warn</span> <span class="p">(</span><span class="s2">&quot;renaming non-unique axis &#39;</span><span class="si">%s</span><span class="s2">&#39; to &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">oldname</span><span class="p">,</span><span class="n">newname</span><span class="p">),</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+          <span class="n">newaxis</span> <span class="o">=</span> <span class="n">eq</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">newname</span><span class="p">)</span>
+          <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">eq</span><span class="p">:</span>
+            <span class="n">newaxes</span><span class="p">[</span><span class="nb">id</span><span class="p">(</span><span class="n">a</span><span class="p">)]</span> <span class="o">=</span> <span class="n">newaxis</span>
+
+    <span class="c1"># Wrap the vars with these new axes</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">vars</span><span class="p">):</span>
+      <span class="n">axes</span> <span class="o">=</span> <span class="p">[</span><span class="n">newaxes</span><span class="p">[</span><span class="nb">id</span><span class="p">(</span><span class="n">a</span><span class="p">)]</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">v</span><span class="o">.</span><span class="n">axes</span><span class="p">]</span>
+      <span class="c1"># Check if we&#39;re already using the right axes</span>
+      <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">a1</span> <span class="ow">is</span> <span class="n">a2</span> <span class="k">for</span> <span class="n">a1</span><span class="p">,</span><span class="n">a2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">axes</span><span class="p">,</span><span class="n">axes</span><span class="p">)):</span> <span class="k">continue</span>
+      <span class="nb">vars</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">replace_axes</span><span class="p">(</span><span class="n">newaxes</span><span class="o">=</span><span class="n">axes</span><span class="p">)</span>
+
+
+    <span class="c1"># Gather all axes together into a list (unique axes only, semi-ordered)</span>
+    <span class="n">axes</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">axis_ids</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">vars</span><span class="p">:</span>
+      <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">v</span><span class="o">.</span><span class="n">axes</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">id</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">axis_ids</span><span class="p">:</span>
+          <span class="n">axes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+          <span class="n">axis_ids</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">id</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">axes</span> <span class="o">=</span> <span class="n">axes</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">axisdict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([</span><span class="n">a</span><span class="o">.</span><span class="n">name</span><span class="p">,</span><span class="n">a</span><span class="p">]</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">axes</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">atts</span> <span class="o">=</span> <span class="n">atts</span>  <span class="c1"># global attributes</span>
+
+    <span class="c1"># Handle name clobbering here</span>
+
+    <span class="c1"># Get list of names, fill in blanks</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">vars</span><span class="p">)):</span>
+      <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">print_warnings</span><span class="p">:</span>
+          <span class="n">warn</span> <span class="p">(</span><span class="s1">&#39;unnamed variables found - using default name &quot;var&quot;&#39;</span><span class="p">)</span>
+        <span class="nb">vars</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s1">&#39;var&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Check for duplicate variable names</span>
+    <span class="n">oldnames</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">vars</span><span class="p">]</span>
+    <span class="n">namecount</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">oldnames</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">n</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">namecount</span><span class="p">:</span> <span class="n">namecount</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+      <span class="n">namecount</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">replace_name</span> <span class="o">=</span> <span class="p">[</span><span class="kc">False</span> <span class="k">if</span> <span class="n">namecount</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="kc">True</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">oldnames</span><span class="p">]</span>
+    <span class="n">namecount</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([</span><span class="n">n</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="n">oldnames</span><span class="p">))</span>
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">vars</span><span class="p">)):</span>
+      <span class="k">if</span> <span class="n">replace_name</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+        <span class="n">n</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">name</span>
+        <span class="k">if</span> <span class="n">print_warnings</span><span class="p">:</span>
+          <span class="n">warn</span> <span class="p">(</span><span class="s1">&#39;multiple variables with the name &quot;</span><span class="si">%s</span><span class="s1">&quot; found - adding integer suffixes&#39;</span><span class="o">%</span><span class="n">n</span><span class="p">)</span>
+        <span class="n">namecount</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">newname</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">%s%02d</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">namecount</span><span class="p">[</span><span class="n">n</span><span class="p">])</span>
+        <span class="c1"># It&#39;s possible that we still have a naming conflict</span>
+        <span class="k">while</span> <span class="n">newname</span> <span class="ow">in</span> <span class="n">namecount</span><span class="p">:</span>  <span class="n">newname</span> <span class="o">+=</span> <span class="s1">&#39;x&#39;</span>
+        <span class="nb">vars</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">newname</span><span class="p">)</span>
+
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">vars</span> <span class="o">=</span> <span class="nb">vars</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">vardict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([</span><span class="n">v</span><span class="o">.</span><span class="n">name</span><span class="p">,</span><span class="n">v</span><span class="p">]</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">vars</span><span class="p">)</span></div>
+<span class="c1"># }}}</span>
+
+  <span class="c1"># String arrays representing the variables, dimensions, etc.</span>
+  <span class="c1"># Feeds into __str__ below, to simplify it a bit</span>
+  <span class="k">def</span> <span class="nf">__str_vararr__</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+    <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">vars</span><span class="p">:</span>
+      <span class="n">oldname</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">name</span>
+      <span class="c1"># Get the name used as the reference for the dataset</span>
+      <span class="c1"># (not necessarily the var&#39;s name)</span>
+      <span class="n">name</span> <span class="o">=</span> <span class="p">[</span><span class="n">n</span> <span class="k">for</span> <span class="n">n</span><span class="p">,</span><span class="n">v2</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">vardict</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">v2</span> <span class="ow">is</span> <span class="n">v</span><span class="p">]</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+      <span class="n">axes</span> <span class="o">=</span> <span class="s1">&#39;(&#39;</span> <span class="o">+</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">v</span><span class="o">.</span><span class="n">axes</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span>
+      <span class="n">shape</span> <span class="o">=</span> <span class="s1">&#39; (&#39;</span> <span class="o">+</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">))</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">v</span><span class="o">.</span><span class="n">axes</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;)&#39;</span>
+      <span class="k">yield</span> <span class="n">name</span><span class="p">,</span> <span class="n">axes</span><span class="p">,</span> <span class="n">shape</span>
+<span class="c1"># }}}</span>
+
+  <span class="c1"># String representation</span>
+  <span class="k">def</span> <span class="nf">__str__</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+    <span class="kn">from</span> <span class="nn">textwrap</span> <span class="k">import</span> <span class="n">TextWrapper</span>
+    <span class="c1"># Degenerate case - no variables??</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vars</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="k">return</span> <span class="s1">&#39;&lt;empty Dataset&gt;&#39;</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__str_vararr__</span><span class="p">())</span>
+    <span class="n">pad1</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">pad2</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+
+    <span class="n">s</span> <span class="o">=</span> <span class="s1">&#39;&lt;&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">+</span> <span class="s1">&#39;&gt;:</span><span class="se">\n</span><span class="s1">&#39;</span>
+
+    <span class="n">s</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="s1">&#39;Vars:</span><span class="se">\n</span><span class="s1">&#39;</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span><span class="n">dims</span><span class="p">,</span><span class="n">shape</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+     <span class="n">s</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="s1">&#39;  &#39;</span> <span class="o">+</span> <span class="n">name</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="n">pad1</span><span class="p">)</span> <span class="o">+</span> <span class="n">dims</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="n">pad2</span><span class="p">)</span> <span class="o">+</span> <span class="n">shape</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+
+    <span class="n">s</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="s1">&#39;Axes:</span><span class="se">\n</span><span class="s1">  &#39;</span> <span class="o">+</span> <span class="s1">&#39;  &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">+</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">])</span>
+
+    <span class="n">w</span> <span class="o">=</span> <span class="n">TextWrapper</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">80</span><span class="p">)</span>
+    <span class="n">w</span><span class="o">.</span><span class="n">initial_indent</span> <span class="o">=</span> <span class="n">w</span><span class="o">.</span><span class="n">subsequent_indent</span> <span class="o">=</span> <span class="s1">&#39;  &#39;</span>
+    <span class="n">w</span><span class="o">.</span><span class="n">break_on_hyphens</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="s1">&#39;Global Attributes:</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">w</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">atts</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">s</span>
+<span class="c1"># }}}</span>
+
+  <span class="c1"># Make a copy of a dataset</span>
+  <span class="c1"># (copies the internal lists and dictionaries, does *not* copy the vars)</span>
+<div class="viewcode-block" id="Dataset.copy"><a class="viewcode-back" href="../../dataset.html#pygeode.Dataset.copy">[docs]</a>  <span class="k">def</span> <span class="nf">copy</span> <span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+    <span class="sd">&#39;&#39;&#39;Creates a new copy of this dataset. New instances of the internal lists</span>
+<span class="sd">    and dictionaries are created, but the variable still rever to the same</span>
+<span class="sd">    :class:`Var` objects.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    A new :class:`Dataset` object.&#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="n">asdataset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+<span class="c1"># }}}</span>
+
+  <span class="c1"># Rename some variables in the dataset</span>
+  <span class="c1"># (need to update vars, vardict)</span>
+<div class="viewcode-block" id="Dataset.rename_vars"><a class="viewcode-back" href="../../dataset.html#pygeode.Dataset.rename_vars">[docs]</a>  <span class="k">def</span> <span class="nf">rename_vars</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vardict</span><span class="o">=</span><span class="p">{},</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+    <span class="sd">&#39;&#39;&#39; Rename variables in dataset. Variables to rename can be passed</span>
+<span class="sd">    as keyword arguments, or as a dictionary.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    vardict: dictionary, optional</span>
+<span class="sd">      A dictionary with keys corresponding to the existing variables to rename and</span>
+<span class="sd">      values giving their new names.</span>
+
+<span class="sd">    **kwargs: keyword arguments</span>
+<span class="sd">      One or more keyword arguments. The parameters are the existing variable names</span>
+<span class="sd">      and the values are the new names to substitute.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    A new :class:`Dataset` object with the same contents but renamed variables.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from pygeode.tutorial import t2</span>
+<span class="sd">    &gt;&gt;&gt; print(t2)</span>
+<span class="sd">    &lt;Dataset&gt;:</span>
+<span class="sd">    Vars:</span>
+<span class="sd">      Temp (time,pres,lat,lon)  (3650,20,31,60)</span>
+<span class="sd">      U    (time,pres,lat,lon)  (3650,20,31,60)</span>
+<span class="sd">    Axes:</span>
+<span class="sd">      time &lt;ModelTime365&gt;:  Jan 1, 2011 00:00:00 to Dec 31, 2020 00:00:00 (3650 values)</span>
+<span class="sd">      pres &lt;Pres&gt;    :  1000 hPa to 50 hPa (20 values)</span>
+<span class="sd">      lat &lt;Lat&gt;      :  90 S to 90 N (31 values)</span>
+<span class="sd">      lon &lt;Lon&gt;      :  0 E to 354 E (60 values)</span>
+<span class="sd">    Global Attributes:</span>
+<span class="sd">      {&#39;history&#39;: &#39;Synthetic Temperature and Wind data generated by pygeode&#39;}</span>
+<span class="sd">    &gt;&gt;&gt; print(t2.rename_vars(Temp = &#39;T&#39;, U = &#39;Wind&#39;))</span>
+<span class="sd">    &lt;Dataset&gt;:</span>
+<span class="sd">    Vars:</span>
+<span class="sd">      T    (time,pres,lat,lon)  (3650,20,31,60)</span>
+<span class="sd">      Wind (time,pres,lat,lon)  (3650,20,31,60)</span>
+<span class="sd">    Axes:</span>
+<span class="sd">      time &lt;ModelTime365&gt;:  Jan 1, 2011 00:00:00 to Dec 31, 2020 00:00:00 (3650 values)</span>
+<span class="sd">      pres &lt;Pres&gt;    :  1000 hPa to 50 hPa (20 values)</span>
+<span class="sd">      lat &lt;Lat&gt;      :  90 S to 90 N (31 values)</span>
+<span class="sd">      lon &lt;Lon&gt;      :  0 E to 354 E (60 values)</span>
+<span class="sd">    Global Attributes:</span>
+<span class="sd">      {&#39;history&#39;: &#39;Synthetic Temperature and Wind data generated by pygeode&#39;}</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">vardict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">vardict</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">varlist</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vars</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">varlist</span><span class="p">):</span>
+      <span class="c1"># Rename this var?</span>
+      <span class="n">oldname</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">name</span>
+      <span class="k">if</span> <span class="n">oldname</span> <span class="ow">in</span> <span class="n">vardict</span><span class="p">:</span>
+        <span class="n">newname</span> <span class="o">=</span> <span class="n">vardict</span><span class="p">[</span><span class="n">oldname</span><span class="p">]</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">newname</span><span class="p">,</span><span class="nb">str</span><span class="p">)</span>
+        <span class="n">varlist</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">newname</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">Dataset</span><span class="p">(</span><span class="n">varlist</span><span class="p">,</span> <span class="n">atts</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">atts</span><span class="p">)</span></div>
+<span class="c1"># }}}</span>
+
+  <span class="c1"># Remove some variables from the dataset</span>
+<div class="viewcode-block" id="Dataset.remove"><a class="viewcode-back" href="../../dataset.html#pygeode.Dataset.remove">[docs]</a>  <span class="k">def</span> <span class="nf">remove</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">varnames</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+    <span class="sd">&#39;&#39;&#39;Removes variables from the dataset.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    *varnames : strings</span>
+<span class="sd">      The names of the variables to remove.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    A new :class:`Dataset` with the specified variables removed.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    The sutraction operator is also overloaded to do the same thing;</span>
+<span class="sd">    in that case provide a list of strings again specifying the names</span>
+<span class="sd">    of the variables to remove.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from pygeode.tutorial import t2</span>
+<span class="sd">    &gt;&gt;&gt; print(t2)</span>
+<span class="sd">    &lt;Dataset&gt;:</span>
+<span class="sd">    Vars:</span>
+<span class="sd">      Temp (time,pres,lat,lon)  (3650,20,31,60)</span>
+<span class="sd">      U    (time,pres,lat,lon)  (3650,20,31,60)</span>
+<span class="sd">    Axes:</span>
+<span class="sd">      time &lt;ModelTime365&gt;:  Jan 1, 2011 00:00:00 to Dec 31, 2020 00:00:00 (3650 values)</span>
+<span class="sd">      pres &lt;Pres&gt;    :  1000 hPa to 50 hPa (20 values)</span>
+<span class="sd">      lat &lt;Lat&gt;      :  90 S to 90 N (31 values)</span>
+<span class="sd">      lon &lt;Lon&gt;      :  0 E to 354 E (60 values)</span>
+<span class="sd">    Global Attributes:</span>
+<span class="sd">      {&#39;history&#39;: &#39;Synthetic Temperature and Wind data generated by pygeode&#39;}</span>
+<span class="sd">    &gt;&gt;&gt; print(t2.remove(&#39;Temp&#39;))</span>
+<span class="sd">    &lt;Dataset&gt;:</span>
+<span class="sd">    Vars:</span>
+<span class="sd">      U (time,pres,lat,lon)  (3650,20,31,60)</span>
+<span class="sd">    Axes:</span>
+<span class="sd">      time &lt;ModelTime365&gt;:  Jan 1, 2011 00:00:00 to Dec 31, 2020 00:00:00 (3650 values)</span>
+<span class="sd">      pres &lt;Pres&gt;    :  1000 hPa to 50 hPa (20 values)</span>
+<span class="sd">      lat &lt;Lat&gt;      :  90 S to 90 N (31 values)</span>
+<span class="sd">      lon &lt;Lon&gt;      :  0 E to 354 E (60 values)</span>
+<span class="sd">    Global Attributes:</span>
+<span class="sd">      {&#39;history&#39;: &#39;Synthetic Temperature and Wind data generated by pygeode&#39;}</span>
+<span class="sd">    &gt;&gt;&gt; print(t2 - [&#39;U&#39;])</span>
+<span class="sd">    &lt;Dataset&gt;:</span>
+<span class="sd">    Vars:</span>
+<span class="sd">      Temp (time,pres,lat,lon)  (3650,20,31,60)</span>
+<span class="sd">    Axes:</span>
+<span class="sd">      time &lt;ModelTime365&gt;:  Jan 1, 2011 00:00:00 to Dec 31, 2020 00:00:00 (3650 values)</span>
+<span class="sd">      pres &lt;Pres&gt;    :  1000 hPa to 50 hPa (20 values)</span>
+<span class="sd">      lat &lt;Lat&gt;      :  90 S to 90 N (31 values)</span>
+<span class="sd">      lon &lt;Lon&gt;      :  0 E to 354 E (60 values)</span>
+<span class="sd">    Global Attributes:</span>
+<span class="sd">      {&#39;history&#39;: &#39;Synthetic Temperature and Wind data generated by pygeode&#39;}</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">varnames</span><span class="p">:</span>
+      <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="nb">str</span><span class="p">)</span>
+      <span class="k">assert</span> <span class="n">n</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">vardict</span><span class="p">,</span> <span class="s2">&quot;&#39;</span><span class="si">%s</span><span class="s2">&#39; not found in the dataset&quot;</span><span class="o">%</span><span class="n">n</span>
+    <span class="nb">vars</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">vars</span> <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">varnames</span><span class="p">]</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">Dataset</span><span class="p">(</span><span class="nb">vars</span><span class="p">,</span> <span class="n">atts</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">atts</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">d</span></div>
+<span class="c1"># }}}</span>
+
+  <span class="k">def</span> <span class="nf">__sub__</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">varnames</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+    <span class="k">if</span> <span class="nb">isinstance</span> <span class="p">(</span><span class="n">varnames</span><span class="p">,(</span><span class="nb">list</span><span class="p">,</span><span class="nb">tuple</span><span class="p">)):</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="o">*</span><span class="n">varnames</span><span class="p">)</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">varnames</span><span class="p">)</span>
+<span class="c1"># }}}</span>
+
+  <span class="c1"># Add some more variables to the dataset</span>
+<div class="viewcode-block" id="Dataset.add"><a class="viewcode-back" href="../../dataset.html#pygeode.Dataset.add">[docs]</a>  <span class="k">def</span> <span class="nf">add</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="nb">vars</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+    <span class="sd">&#39;&#39;&#39;Adds variables to the dataset.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    *vars : :class:`Var` objects</span>
+<span class="sd">      The variables to add</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    A new :class:`Dataset` with the variables added.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    The same naming rules are applied in case of name collisions as in</span>
+<span class="sd">    :meth:`Dataset.__init__`. The addition operator is also overloaded to do</span>
+<span class="sd">    the same thing; in that case provide a list of the variables to add.</span>
+
+<span class="sd">		See Also</span>
+<span class="sd">		--------</span>
+
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from pygeode.tutorial import t1, t2</span>
+<span class="sd">    &gt;&gt;&gt; print(t2.add(t1.Temp.rename(&#39;Temp2&#39;)))</span>
+<span class="sd">    &lt;Dataset&gt;:</span>
+<span class="sd">    Vars:</span>
+<span class="sd">      Temp  (time,pres,lat,lon)  (3650,20,31,60)</span>
+<span class="sd">      U     (time,pres,lat,lon)  (3650,20,31,60)</span>
+<span class="sd">      Temp2 (lat,lon)            (31,60)</span>
+<span class="sd">    Axes:</span>
+<span class="sd">      time &lt;ModelTime365&gt;:  Jan 1, 2011 00:00:00 to Dec 31, 2020 00:00:00 (3650 values)</span>
+<span class="sd">      pres &lt;Pres&gt;    :  1000 hPa to 50 hPa (20 values)</span>
+<span class="sd">      lat &lt;Lat&gt;      :  90 S to 90 N (31 values)</span>
+<span class="sd">      lon &lt;Lon&gt;      :  0 E to 354 E (60 values)</span>
+<span class="sd">    Global Attributes:</span>
+<span class="sd">      {&#39;history&#39;: &#39;Synthetic Temperature and Wind data generated by pygeode&#39;}</span>
+<span class="sd">    &gt;&gt;&gt; print(t2 + t1.Temp.rename(&#39;Temp2&#39;))</span>
+<span class="sd">    &lt;Dataset&gt;:</span>
+<span class="sd">    Vars:</span>
+<span class="sd">      Temp  (time,pres,lat,lon)  (3650,20,31,60)</span>
+<span class="sd">      U     (time,pres,lat,lon)  (3650,20,31,60)</span>
+<span class="sd">      Temp2 (lat,lon)            (31,60)</span>
+<span class="sd">    Axes:</span>
+<span class="sd">      time &lt;ModelTime365&gt;:  Jan 1, 2011 00:00:00 to Dec 31, 2020 00:00:00 (3650 values)</span>
+<span class="sd">      pres &lt;Pres&gt;    :  1000 hPa to 50 hPa (20 values)</span>
+<span class="sd">      lat &lt;Lat&gt;      :  90 S to 90 N (31 values)</span>
+<span class="sd">      lon &lt;Lon&gt;      :  0 E to 354 E (60 values)</span>
+<span class="sd">    Global Attributes:</span>
+<span class="sd">      {&#39;history&#39;: &#39;Synthetic Temperature and Wind data generated by pygeode&#39;}</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="kn">from</span> <span class="nn">pygeode.var</span> <span class="k">import</span> <span class="n">Var</span>
+    <span class="kn">from</span> <span class="nn">pygeode.tools</span> <span class="k">import</span> <span class="n">common_dict</span>
+    <span class="c1"># Collect global attributes (from any Datasets passsed to us)</span>
+    <span class="n">atts</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">atts</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">d</span><span class="o">.</span><span class="n">atts</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">vars</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">d</span><span class="p">,</span><span class="n">Dataset</span><span class="p">)]</span>
+    <span class="n">atts</span> <span class="o">=</span> <span class="n">common_dict</span><span class="p">(</span><span class="o">*</span><span class="n">atts</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">vars</span><span class="p">:</span>
+      <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,(</span><span class="n">Var</span><span class="p">,</span><span class="n">Dataset</span><span class="p">)),</span> <span class="s2">&quot;&#39;</span><span class="si">%s</span><span class="s2">&#39; is not a Var&quot;</span><span class="o">%</span><span class="nb">repr</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+    <span class="c1"># Expand all Datasets to Vars</span>
+    <span class="nb">vars</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">vars</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="n">Var</span><span class="p">)]</span> <span class="o">+</span> <span class="nb">sum</span><span class="p">([</span>
+           <span class="n">d</span><span class="o">.</span><span class="n">vars</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">vars</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">d</span><span class="p">,</span><span class="n">Dataset</span><span class="p">)],[])</span>
+    <span class="nb">vars</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vars</span><span class="p">)</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="nb">vars</span><span class="p">)</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">Dataset</span><span class="p">(</span><span class="nb">vars</span><span class="p">,</span> <span class="n">atts</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">atts</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">d</span></div>
+<span class="c1"># }}}</span>
+  <span class="k">def</span> <span class="nf">__add__</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">vars</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">vars</span><span class="p">,(</span><span class="nb">list</span><span class="p">,</span><span class="nb">tuple</span><span class="p">)):</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="o">*</span><span class="nb">vars</span><span class="p">)</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="nb">vars</span><span class="p">)</span>
+<span class="c1"># }}}</span>
+  <span class="k">def</span> <span class="nf">__radd__</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">vars</span><span class="p">):</span> <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__add__</span><span class="p">(</span><span class="nb">vars</span><span class="p">)</span>
+
+  <span class="c1"># Replace one or more variables</span>
+<div class="viewcode-block" id="Dataset.replace_vars"><a class="viewcode-back" href="../../dataset.html#pygeode.Dataset.replace_vars">[docs]</a>  <span class="k">def</span> <span class="nf">replace_vars</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vardict</span><span class="o">=</span><span class="p">{},</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+    <span class="sd">&#39;&#39;&#39;Replaces variables in the dataset.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    vardict: dictionary, optional</span>
+<span class="sd">      A dictionary with keys corresponding to the existing variables to replace and</span>
+<span class="sd">      values giving the new :class:`Var` instances.</span>
+
+<span class="sd">    **kwargs: keyword arguments</span>
+<span class="sd">      One or more keyword arguments. The parameters are the existing variable names</span>
+<span class="sd">      and the values are the new :class:`Var` instances.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    A new :class:`Dataset` with the specified variables replaced.</span>
+
+<span class="sd">    Examples</span>
+<span class="sd">    --------</span>
+<span class="sd">    &gt;&gt;&gt; from pygeode.tutorial import t1, t2</span>
+<span class="sd">    &gt;&gt;&gt; print(t2.replace_vars(Temp = t1.Temp))</span>
+<span class="sd">    &lt;Dataset&gt;:</span>
+<span class="sd">    Vars:</span>
+<span class="sd">      Temp (lat,lon)            (31,60)</span>
+<span class="sd">      U    (time,pres,lat,lon)  (3650,20,31,60)</span>
+<span class="sd">    Axes:</span>
+<span class="sd">      lat &lt;Lat&gt;      :  90 S to 90 N (31 values)</span>
+<span class="sd">      lon &lt;Lon&gt;      :  0 E to 354 E (60 values)</span>
+<span class="sd">      time &lt;ModelTime365&gt;:  Jan 1, 2011 00:00:00 to Dec 31, 2020 00:00:00 (3650 values)</span>
+<span class="sd">      pres &lt;Pres&gt;    :  1000 hPa to 50 hPa (20 values)</span>
+<span class="sd">    Global Attributes:</span>
+<span class="sd">      {&#39;history&#39;: &#39;Synthetic Temperature and Wind data generated by pygeode&#39;}</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">vardict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">vardict</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">varlist</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">vars</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">varlist</span><span class="p">):</span>
+      <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="n">vardict</span><span class="p">:</span>
+        <span class="n">varlist</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">vardict</span><span class="p">[</span><span class="n">v</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">Dataset</span><span class="p">(</span><span class="n">varlist</span><span class="p">,</span> <span class="n">atts</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">atts</span><span class="p">)</span></div>
+<span class="c1"># }}}</span>
+
+  <span class="c1"># Apply the specified var-&gt;var function to all variables in the dataset,</span>
+  <span class="c1"># and make a new dataset.  Anything that gets mapped to &#39;None&#39; is ignored.</span>
+<div class="viewcode-block" id="Dataset.map"><a class="viewcode-back" href="../../dataset.html#pygeode.Dataset.map">[docs]</a>  <span class="k">def</span> <span class="nf">map</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+    <span class="sd">&#39;&#39;&#39; Calls a given function on every variable in the dataset.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    f: callable</span>
+<span class="sd">      Method to call. Must take the variable as its first argument, and return</span>
+<span class="sd">      either a single variable, or None. Further positional and keyword</span>
+<span class="sd">      arguments can be passed through ``args`` and ``kwargs``.</span>
+
+<span class="sd">    args, kwargs: positional and keyword arguments</span>
+<span class="sd">      These are passed on to f.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    A new :class:`Dataset` with the results of the calls to f. f can return None; in that</span>
+<span class="sd">    case no corresponding variable is included in the new Dataset object.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="kn">from</span> <span class="nn">pygeode.var</span> <span class="k">import</span> <span class="n">Var</span>
+    <span class="c1"># Special case: f is a string representing a Var method</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="nb">str</span><span class="p">):</span>
+      <span class="n">fname</span> <span class="o">=</span> <span class="n">f</span>
+      <span class="k">assert</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">Var</span><span class="p">,</span><span class="n">fname</span><span class="p">),</span> <span class="s2">&quot;unknown function &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span><span class="o">%</span><span class="n">fname</span>
+      <span class="n">f</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">Var</span><span class="p">,</span><span class="n">fname</span><span class="p">)</span>
+      <span class="k">assert</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">f</span><span class="p">,</span><span class="s1">&#39;__call__&#39;</span><span class="p">),</span> <span class="s2">&quot;Var.</span><span class="si">%s</span><span class="s2"> is not a function&quot;</span><span class="o">%</span><span class="n">fname</span>
+      <span class="k">del</span> <span class="n">fname</span>
+    <span class="c1"># Allow the function to gracefully fail on vars it can&#39;t be applied to.</span>
+    <span class="k">if</span> <span class="s1">&#39;ignore_mismatch&#39;</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="vm">__code__</span><span class="o">.</span><span class="n">co_varnames</span><span class="p">:</span>
+      <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;ignore_mismatch&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">varlist</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">vars</span><span class="p">]</span>
+    <span class="n">varlist</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">varlist</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">varlist</span><span class="p">:</span> <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span><span class="n">Var</span><span class="p">),</span> <span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> does not map vars to vars&quot;</span><span class="o">%</span><span class="n">f</span>
+    <span class="k">return</span> <span class="n">Dataset</span><span class="p">(</span><span class="n">varlist</span><span class="p">,</span> <span class="n">atts</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">atts</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span></div>
+<span class="c1"># }}}</span>
+
+  <span class="c1"># Load all the variables in the dataset</span>
+<div class="viewcode-block" id="Dataset.load"><a class="viewcode-back" href="../../dataset.html#pygeode.Dataset.load">[docs]</a>  <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+    <span class="sd">&#39;&#39;&#39; Loads data from all variables in the dataset.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    A new dataset in which :meth:`Var.load()` has been called</span>
+<span class="sd">    on each variable, loading their data into memory.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="nb">vars</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span><span class="o">.</span><span class="n">load</span><span class="p">()</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">vars</span><span class="p">]</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">Dataset</span><span class="p">(</span><span class="nb">vars</span><span class="p">,</span> <span class="n">atts</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">atts</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">d</span></div>
+<span class="c1"># }}}</span>
+
+  <span class="c1"># Slicing</span>
+  <span class="c1"># Applies the keyword-based axis slicing to *all* the vars in the dataset.</span>
+  <span class="c1">#TODO: more efficient method?</span>
+  <span class="c1"># Right now, each var is sliced independantly, so the same axis will be sliced multiple times.</span>
+<div class="viewcode-block" id="Dataset.__call__"><a class="viewcode-back" href="../../dataset.html#pygeode.Dataset.__call__">[docs]</a>  <span class="k">def</span> <span class="nf">__call__</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Subsets all variables in this dataset. Behaves in the same way as :meth:`Var.__call__`.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    slices : list of slices</span>
+<span class="sd">      See :meth:`Var.__call__` for details.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    :class:`Dataset`</span>
+<span class="sd">      A new Dataset, in which all variables have been restricted to the</span>
+<span class="sd">      specified domain.</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    Not all variables need to have the axes being sliced (any slice that</span>
+<span class="sd">    doesn&#39;t apply to a given variable is simply ignored). This is usually</span>
+<span class="sd">    more convenient, but it does mean that if an axis name is misspelled (for</span>
+<span class="sd">    example), the call will return successfully without performing any</span>
+<span class="sd">    subsetting.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    Var.__call__</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">map</span> <span class="p">(</span><span class="s1">&#39;__call__&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+  <span class="k">def</span> <span class="nf">hasaxis</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iaxis</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Checks if the specified axis exists in the dataset.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    Var.hasaxis</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="kn">from</span> <span class="nn">pygeode.tools</span> <span class="k">import</span> <span class="n">whichaxis</span>
+    <span class="k">try</span><span class="p">:</span>
+      <span class="n">i</span> <span class="o">=</span> <span class="n">whichaxis</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">,</span><span class="n">iaxis</span><span class="p">)</span>
+      <span class="k">return</span> <span class="kc">True</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+      <span class="k">return</span> <span class="kc">False</span>
+
+  <span class="k">def</span> <span class="nf">getaxis</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iaxis</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Get an axis from the dataset.</span>
+
+<span class="sd">    See Also</span>
+<span class="sd">    --------</span>
+<span class="sd">    Var.getaxis</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="kn">from</span> <span class="nn">pygeode.tools</span> <span class="k">import</span> <span class="n">whichaxis</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">whichaxis</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">,</span><span class="n">iaxis</span><span class="p">)</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span></div>
+
+<span class="c1"># }}}</span>
+
+<span class="c1"># Wrap a variable (or a list of variables) into a dataset</span>
+<span class="c1"># Use this if you want to make sure something is a dataset, in case it&#39;s</span>
+<span class="c1">#  possible that it&#39;s currently a Var list.</span>
+<div class="viewcode-block" id="asdataset"><a class="viewcode-back" href="../../genops.html#pygeode.asdataset">[docs]</a><span class="k">def</span> <span class="nf">asdataset</span> <span class="p">(</span><span class="nb">vars</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">print_warnings</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+  <span class="sd">&#39;&#39;&#39; Tries to convert a collection of objects into a single dataset.</span>
+
+<span class="sd">      Parameters</span>
+<span class="sd">      ==========</span>
+<span class="sd">      vars : collection</span>
+<span class="sd">        The collection to convert. See Notes.</span>
+
+<span class="sd">      copy : boolean</span>
+
+<span class="sd">      print_warnings : boolean</span>
+
+<span class="sd">      Returns</span>
+<span class="sd">      =======</span>
+<span class="sd">      dataset : :class:`Dataset`</span>
+
+<span class="sd">      Notes</span>
+<span class="sd">      =====</span>
+<span class="sd">      If ``vars`` is a single variable or list of variables, asdataset()</span>
+<span class="sd">      returns a Dataset wrapping them. If there are datasets present in the</span>
+<span class="sd">      list, it merges them into a single dataset. &#39;&#39;&#39;</span>
+
+  <span class="kn">from</span> <span class="nn">copy</span> <span class="k">import</span> <span class="n">copy</span>
+  <span class="kn">from</span> <span class="nn">pygeode.var</span> <span class="k">import</span> <span class="n">Var</span>
+  <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="nb">vars</span><span class="p">,</span> <span class="s1">&#39;__len__&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">any</span><span class="p">([</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">Dataset</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">vars</span><span class="p">]):</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="p">[</span><span class="n">d</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">vars</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">Dataset</span><span class="p">)]</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">vars</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">Var</span><span class="p">)]</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="nb">vars</span><span class="p">),</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> must consist of vars and datasets only.&#39;</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">+</span> <span class="n">v</span>
+    <span class="k">return</span> <span class="n">d</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
+  <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">vars</span><span class="p">,</span><span class="n">Dataset</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">copy</span><span class="p">:</span> <span class="k">return</span> <span class="nb">vars</span>
+    <span class="n">dataset</span> <span class="o">=</span> <span class="n">copy</span><span class="p">(</span><span class="nb">vars</span><span class="p">)</span>
+    <span class="c1">#TODO: update if more members are added to this class</span>
+    <span class="n">dataset</span><span class="o">.</span><span class="n">vars</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">vars</span><span class="p">)</span>
+    <span class="n">dataset</span><span class="o">.</span><span class="n">vardict</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">vardict</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">dataset</span><span class="o">.</span><span class="n">axes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">dataset</span><span class="o">.</span><span class="n">axes</span><span class="p">)</span>
+    <span class="n">dataset</span><span class="o">.</span><span class="n">axisdict</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">axisdict</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">dataset</span><span class="o">.</span><span class="n">atts</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">atts</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">dataset</span>
+  <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">vars</span><span class="p">,</span> <span class="n">Var</span><span class="p">):</span> <span class="nb">vars</span> <span class="o">=</span> <span class="p">[</span><span class="nb">vars</span><span class="p">]</span>
+  <span class="k">return</span> <span class="n">Dataset</span><span class="p">(</span><span class="nb">vars</span><span class="p">,</span> <span class="n">print_warnings</span><span class="o">=</span><span class="n">print_warnings</span><span class="p">)</span></div>
+<span class="c1"># }}}</span>
+
+<span class="k">def</span> <span class="nf">axis_name_clumping</span> <span class="p">(</span><span class="n">varlist</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+  <span class="c1"># Name-based dictionary pointing to all related axes</span>
+  <span class="c1"># each name maps to a list of &#39;distinct&#39; axis lists</span>
+  <span class="c1"># each of these sublists contains all the equivalent axes</span>
+  <span class="n">namedict</span> <span class="o">=</span> <span class="p">{}</span>
+  <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">varlist</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">v</span><span class="o">.</span><span class="n">axes</span><span class="p">:</span>
+      <span class="n">name</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">name</span>
+      <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">namedict</span><span class="p">:</span> <span class="n">namedict</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+      <span class="n">eqlist</span> <span class="o">=</span> <span class="n">namedict</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+      <span class="c1"># Check if it&#39;s in an existing family</span>
+      <span class="k">if</span> <span class="nb">any</span> <span class="p">(</span><span class="n">a</span> <span class="ow">is</span> <span class="n">A</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">eqlist</span> <span class="k">for</span> <span class="n">A</span> <span class="ow">in</span> <span class="n">e</span><span class="p">):</span> <span class="k">continue</span>
+      <span class="c1"># Check if it&#39;s comparable to something in a family</span>
+      <span class="c1"># If so, then append it</span>
+      <span class="n">match</span> <span class="o">=</span> <span class="kc">False</span>
+      <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">eqlist</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">a</span> <span class="o">==</span> <span class="n">e</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+          <span class="n">e</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+          <span class="n">match</span> <span class="o">=</span> <span class="kc">True</span>
+          <span class="k">break</span>
+      <span class="c1"># If it&#39;s not comparable to anything, start a new family</span>
+      <span class="k">if</span> <span class="ow">not</span> <span class="n">match</span><span class="p">:</span> <span class="n">eqlist</span><span class="o">.</span><span class="n">append</span><span class="p">([</span><span class="n">a</span><span class="p">])</span>
+  <span class="k">return</span> <span class="n">namedict</span>
+<span class="c1"># }}}</span>
+
+<span class="c1"># Concatenate a bunch of datasets together</span>
+<span class="k">def</span> <span class="nf">concat</span><span class="p">(</span><span class="o">*</span><span class="n">datasets</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+  <span class="kn">from</span> <span class="nn">pygeode.concat</span> <span class="k">import</span> <span class="n">concat</span>
+  <span class="kn">from</span> <span class="nn">pygeode.tools</span> <span class="k">import</span> <span class="n">common_dict</span><span class="p">,</span> <span class="n">islist</span>
+
+  <span class="c1"># Did we get passed a list of datasets already?</span>
+  <span class="c1"># (need to break out of the outer list)</span>
+  <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">datasets</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">islist</span><span class="p">(</span><span class="n">datasets</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span> <span class="n">datasets</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">datasets</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+  <span class="c1">#  If we only have one dataset, then return it</span>
+  <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">datasets</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span> <span class="k">return</span> <span class="n">datasets</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+  <span class="c1"># Collect a list of variable names (in the order they&#39;re found in the datasets)</span>
+  <span class="c1"># and, a corresponding dictionary mapping the names to vars</span>
+
+  <span class="n">varnames</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="n">vardict</span> <span class="o">=</span> <span class="p">{}</span>
+  <span class="k">for</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="n">datasets</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">dataset</span><span class="o">.</span><span class="n">vars</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">vardict</span><span class="p">:</span>
+        <span class="n">vardict</span><span class="p">[</span><span class="n">v</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">varnames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+      <span class="n">vardict</span><span class="p">[</span><span class="n">v</span><span class="o">.</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+
+  <span class="c1"># Merge the var segments together</span>
+  <span class="c1"># If only one segment, just use the variable itself</span>
+  <span class="nb">vars</span> <span class="o">=</span> <span class="p">[</span><span class="n">vardict</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">varnames</span><span class="p">]</span>
+  <span class="nb">vars</span> <span class="o">=</span> <span class="p">[</span><span class="n">concat</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span><span class="o">&gt;</span><span class="mi">1</span> <span class="k">else</span> <span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">vars</span><span class="p">]</span>
+
+  <span class="n">d</span> <span class="o">=</span> <span class="n">Dataset</span><span class="p">(</span><span class="nb">vars</span><span class="p">)</span>
+
+  <span class="c1"># Keep any common global attributes</span>
+  <span class="c1"># Collect all attributes found in the datasets</span>
+  <span class="n">atts</span> <span class="o">=</span> <span class="n">common_dict</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">atts</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">datasets</span><span class="p">])</span>
+  <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">atts</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">d</span><span class="o">.</span><span class="n">atts</span> <span class="o">=</span> <span class="n">atts</span>
+  <span class="k">return</span> <span class="n">d</span>
+<span class="c1"># }}}</span>
+
+<span class="c1">##################################################</span>
+<span class="c1"># Hook in Var methods</span>
+<span class="c1">##################################################</span>
+
+<span class="c1"># Wrapper to convert functions from working on Vars to Datasets</span>
+<span class="k">def</span> <span class="nf">dataset_method</span> <span class="p">(</span><span class="n">f</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+  <span class="kn">from</span> <span class="nn">pygeode.var</span> <span class="k">import</span> <span class="n">Var</span>
+  <span class="k">def</span> <span class="nf">new_f</span> <span class="p">(</span><span class="n">dataset</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="c1"># Degenerate case: passed a single var (return a single var)</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span><span class="n">Var</span><span class="p">):</span> <span class="k">return</span> <span class="n">f</span><span class="p">(</span><span class="n">dataset</span><span class="p">,</span><span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="c1"># Otherwise, apply the function to the vars in the dataset, construct a new dataset</span>
+    <span class="k">return</span> <span class="n">dataset</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+  <span class="n">new_f</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="vm">__name__</span>
+  <span class="n">new_f</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="s1">&#39;Returns new dataset calling `Var.</span><span class="si">%s</span><span class="s1">` on each variable.&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="vm">__name__</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">new_f</span>
+<span class="c1"># }}}</span>
+
+<span class="kn">from</span> <span class="nn">pygeode.var</span> <span class="k">import</span> <span class="n">class_hooks</span>
+<span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">class_hooks</span><span class="p">:</span>
+  <span class="c1"># Don&#39;t use built-in operator methods (__xxx__)</span>
+  <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="vm">__name__</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;__&#39;</span><span class="p">):</span> <span class="k">continue</span>
+  <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="vm">__name__</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;__&#39;</span><span class="p">):</span> <span class="k">continue</span>
+  <span class="c1"># Don&#39;t override functions already defined here</span>
+  <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">Dataset</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="vm">__name__</span><span class="p">):</span> <span class="k">continue</span>
+  <span class="nb">setattr</span><span class="p">(</span><span class="n">Dataset</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">dataset_method</span><span class="p">(</span><span class="n">f</span><span class="p">))</span>
+
+<span class="k">del</span> <span class="n">class_hooks</span><span class="p">,</span> <span class="n">f</span>
+</pre></div>
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        <a class="uplink" href="../../reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../gallery/index.html">Gallery</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Mike Neish, Peter Hitchcock.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.
+    </div>
+  </body>
+</html>

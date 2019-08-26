@@ -1,0 +1,357 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>pygeode.svd &#8212; PyGeode 1.3 pre-release documentation</title>
+    <link rel="stylesheet" href="../../_static/pygtheme.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
+
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../../index.html">
+          <span>PyGeode 1.3 pre-release documentation</span></a></h1>
+        <h2 class="heading"><span>pygeode.svd</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        <a class="uplink" href="../../reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../gallery/index.html">Gallery</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <h1>Source code for pygeode.svd</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Singular value decomposition</span>
+
+
+<span class="c1"># &#39;order&#39; axis  i.e., the EOF number</span>
+<span class="kn">from</span> <span class="nn">pygeode.axis</span> <span class="k">import</span> <span class="n">Index</span>
+<span class="k">class</span> <span class="nc">order</span> <span class="p">(</span><span class="n">Index</span><span class="p">):</span> <span class="k">pass</span>
+<span class="k">del</span> <span class="n">Index</span>
+
+
+<span class="kn">from</span> <span class="nn">pygeode.timeaxis</span> <span class="k">import</span> <span class="n">Time</span>
+<span class="c1"># Finds the coupled EOFs between two fields</span>
+<div class="viewcode-block" id="SVD"><a class="viewcode-back" href="../../eof.html#pygeode.SVD">[docs]</a><span class="k">def</span> <span class="nf">SVD</span> <span class="p">(</span><span class="n">var1</span><span class="p">,</span> <span class="n">var2</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">subspace</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">iaxis</span><span class="o">=</span><span class="n">Time</span><span class="p">,</span> <span class="n">weight1</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">weight2</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">matrix</span><span class="o">=</span><span class="s1">&#39;cov&#39;</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Finds coupled EOFs of two fields.  Note that the mean/trend/etc. is NOT</span>
+<span class="sd">  removed in this routine.</span>
+
+<span class="sd">  Parameters</span>
+<span class="sd">  ----------</span>
+<span class="sd">  var1, var2 : :class:`Var`</span>
+<span class="sd">    The variables to analyse.</span>
+
+<span class="sd">  num : integer</span>
+<span class="sd">    The number of EOFs to compute (default is ``1``).</span>
+
+<span class="sd">  weight1, weight2 : optional </span>
+<span class="sd">    Weights to use for defining orthogonality in the var1, var2 domains,</span>
+<span class="sd">    respectively.  Patterns X and Y in the var1 domain are orthogonal if the</span>
+<span class="sd">    sum over X*Y*weights1 is 0. Patterns Z and W in the var2 domain are</span>
+<span class="sd">    orthogonal if the sum over Z*W*weights2 is 0. Default is to use internal</span>
+<span class="sd">    weights defined for var1 accessed by :meth:`Var.getweights()`. If set to</span>
+<span class="sd">    ``False`` no weighting is used.</span>
+
+<span class="sd">  matrix : string, optional [&#39;cov&#39;]</span>
+<span class="sd">    Which matrix we are diagonalizing (default is &#39;cov&#39;). </span>
+<span class="sd">     * &#39;cov&#39;: covariance matrix of var1 &amp; var2</span>
+<span class="sd">     * &#39;cov&#39;: correlation matrix of var1 &amp; var2</span>
+
+<span class="sd">  iaxis : Axis identifier</span>
+<span class="sd">    The principal component / expansion coefficient axis, i.e., the &#39;time&#39;</span>
+<span class="sd">    axis. Can be an integer (the axis number, leftmost = 0), the axis name</span>
+<span class="sd">    (string), or a Pygeode axis class.  If not specified, will try to use</span>
+<span class="sd">    pygeode.timeaxis.Time, and if that fails, the leftmost axis.</span>
+
+<span class="sd">  Returns</span>
+<span class="sd">  -------</span>
+<span class="sd">  (eof1, pc1, eof2, pc2): tuple</span>
+<span class="sd">    * eof1: The coupled eof patterns for var1. </span>
+<span class="sd">    * pc1: The principal component / expansion coefficients for var1.</span>
+<span class="sd">    * eof2: The coupled eof patterns for var2.</span>
+<span class="sd">    * pc2: The principal component / expansion coefficients for var2.</span>
+
+<span class="sd">  Notes</span>
+<span class="sd">  -----</span>
+<span class="sd">    Multiple orders of EOFs are concatenated along an &#39;order&#39; axis.</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+  <span class="kn">from</span> <span class="nn">pygeode.timeaxis</span> <span class="k">import</span> <span class="n">Time</span>
+  <span class="kn">from</span> <span class="nn">pygeode.var</span> <span class="k">import</span> <span class="n">Var</span>
+  <span class="kn">from</span> <span class="nn">pygeode.view</span> <span class="k">import</span> <span class="n">View</span>
+  <span class="kn">from</span> <span class="nn">pygeode</span> <span class="k">import</span> <span class="n">MAX_ARRAY_SIZE</span>
+  <span class="kn">from</span> <span class="nn">warnings</span> <span class="k">import</span> <span class="n">warn</span>
+  <span class="kn">from</span> <span class="nn">pygeode</span> <span class="k">import</span> <span class="n">svdcore</span> <span class="k">as</span> <span class="n">lib</span>
+
+  <span class="k">if</span> <span class="n">matrix</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;cov&#39;</span><span class="p">,</span> <span class="s1">&#39;covariance&#39;</span><span class="p">):</span> <span class="n">matrix</span> <span class="o">=</span> <span class="s1">&#39;cov&#39;</span>
+  <span class="k">elif</span> <span class="n">matrix</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;cor&#39;</span><span class="p">,</span> <span class="s1">&#39;corr&#39;</span><span class="p">,</span> <span class="s1">&#39;correlation&#39;</span><span class="p">):</span> <span class="n">matrix</span> <span class="o">=</span> <span class="s1">&#39;cor&#39;</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="n">warn</span> <span class="p">(</span><span class="s2">&quot;invalid matrix type &#39;%&#39;.  Defaulting to covariance.&quot;</span><span class="o">%</span><span class="n">matrix</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">matrix</span> <span class="o">=</span> <span class="s1">&#39;cov&#39;</span>
+
+  <span class="n">MAX_ITER</span> <span class="o">=</span> <span class="mi">1000</span>
+
+  <span class="c1"># Iterate over more EOFs than we need</span>
+  <span class="c1"># (this helps with convergence)</span>
+  <span class="c1"># TODO: a more rigorous formula for the optimum number of EOFs to use</span>
+  <span class="k">if</span> <span class="n">subspace</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span> <span class="n">subspace</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">num</span> <span class="o">+</span> <span class="mi">8</span>
+  <span class="k">if</span> <span class="n">subspace</span> <span class="o">&lt;</span> <span class="n">num</span><span class="p">:</span> <span class="n">subspace</span> <span class="o">=</span> <span class="n">num</span>  <span class="c1"># Just in case</span>
+
+  <span class="c1"># Remember the names</span>
+  <span class="n">prefix1</span> <span class="o">=</span> <span class="n">var1</span><span class="o">.</span><span class="n">name</span><span class="o">+</span><span class="s1">&#39;_&#39;</span> <span class="k">if</span> <span class="n">var1</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
+  <span class="n">prefix2</span> <span class="o">=</span> <span class="n">var2</span><span class="o">.</span><span class="n">name</span><span class="o">+</span><span class="s1">&#39;_&#39;</span> <span class="k">if</span> <span class="n">var2</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span>
+
+  <span class="c1"># Apply weights?</span>
+<span class="c1">#  if weight1 is not None: var1 *= weight1.sqrt()</span>
+<span class="c1">#  if weight2 is not None: var2 *= weight2.sqrt()</span>
+  <span class="k">if</span> <span class="n">weight1</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span> <span class="n">weight1</span> <span class="o">=</span> <span class="n">var1</span><span class="o">.</span><span class="n">getweights</span><span class="p">()</span>
+  <span class="k">if</span> <span class="n">weight1</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">False</span><span class="p">:</span>
+    <span class="k">assert</span> <span class="ow">not</span> <span class="n">weight1</span><span class="o">.</span><span class="n">hasaxis</span><span class="p">(</span><span class="n">iaxis</span><span class="p">),</span> <span class="s2">&quot;Can&#39;t handle weights along the record axis&quot;</span>
+    <span class="c1"># Normalize the weights</span>
+    <span class="n">W</span> <span class="o">=</span> <span class="n">weight1</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="n">weight1</span><span class="o">.</span><span class="n">size</span>
+    <span class="n">weight1</span> <span class="o">/=</span> <span class="n">W</span>
+    <span class="c1"># Apply the weights</span>
+    <span class="n">var1</span> <span class="o">*=</span> <span class="n">weight1</span><span class="o">.</span><span class="n">sqrt</span><span class="p">()</span>
+  <span class="k">if</span> <span class="n">weight2</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span> <span class="n">weight2</span> <span class="o">=</span> <span class="n">var2</span><span class="o">.</span><span class="n">getweights</span><span class="p">()</span>
+  <span class="k">if</span> <span class="n">weight2</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">False</span><span class="p">:</span>
+    <span class="k">assert</span> <span class="ow">not</span> <span class="n">weight2</span><span class="o">.</span><span class="n">hasaxis</span><span class="p">(</span><span class="n">iaxis</span><span class="p">),</span> <span class="s2">&quot;Can&#39;t handle weights along the record axis&quot;</span>
+    <span class="c1"># Normalize the weights</span>
+    <span class="n">W</span> <span class="o">=</span> <span class="n">weight2</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">/</span> <span class="n">weight2</span><span class="o">.</span><span class="n">size</span>
+    <span class="n">weight2</span> <span class="o">/=</span> <span class="n">W</span>
+    <span class="c1"># Apply the weights</span>
+    <span class="n">var2</span> <span class="o">*=</span> <span class="n">weight2</span><span class="o">.</span><span class="n">sqrt</span><span class="p">()</span>
+
+
+  <span class="c1">#TODO: allow multiple iteration axes (i.e., time and ensemble)</span>
+<span class="c1">#  if iaxis is None:</span>
+<span class="c1">#    if var1.hasaxis(Time) and var2.hasaxis(Time):</span>
+<span class="c1">#      iaxis1 = var1.whichaxis(Time)</span>
+<span class="c1">#      iaxis2 = var2.whichaxis(Time)</span>
+<span class="c1">#    else:</span>
+<span class="c1">#      iaxis1 = 0</span>
+<span class="c1">#      iaxis2 = 0</span>
+<span class="c1">#  else:</span>
+  <span class="n">iaxis1</span> <span class="o">=</span> <span class="n">var1</span><span class="o">.</span><span class="n">whichaxis</span><span class="p">(</span><span class="n">iaxis</span><span class="p">)</span>
+  <span class="n">iaxis2</span> <span class="o">=</span> <span class="n">var2</span><span class="o">.</span><span class="n">whichaxis</span><span class="p">(</span><span class="n">iaxis</span><span class="p">)</span>
+
+  <span class="k">assert</span> <span class="n">var1</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">iaxis1</span><span class="p">]</span> <span class="o">==</span> <span class="n">var2</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">iaxis2</span><span class="p">],</span> <span class="s2">&quot;incompatible iteration axes&quot;</span>
+  <span class="k">del</span> <span class="n">iaxis</span>  <span class="c1"># so we don&#39;t use this by accident</span>
+
+
+  <span class="c1"># Special case: can load entire variable in memory</span>
+  <span class="c1"># This will save some time, especially if the field is stored on disk, or is heavily derived</span>
+  <span class="k">if</span> <span class="n">var1</span><span class="o">.</span><span class="n">size</span> <span class="o">&lt;=</span> <span class="n">MAX_ARRAY_SIZE</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;preloading &#39;</span><span class="o">+</span><span class="nb">repr</span><span class="p">(</span><span class="n">var1</span><span class="p">))</span>
+    <span class="n">var1</span> <span class="o">=</span> <span class="n">var1</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+  <span class="k">if</span> <span class="n">var2</span><span class="o">.</span><span class="n">size</span> <span class="o">&lt;=</span> <span class="n">MAX_ARRAY_SIZE</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;preloading &#39;</span><span class="o">+</span><span class="nb">repr</span><span class="p">(</span><span class="n">var2</span><span class="p">))</span>
+    <span class="n">var2</span> <span class="o">=</span> <span class="n">var2</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+
+  <span class="c1"># Use correlation instead of covariance?</span>
+  <span class="c1"># (normalize by standard deviation)</span>
+  <span class="k">if</span> <span class="n">matrix</span> <span class="o">==</span> <span class="s1">&#39;cor&#39;</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;computing standard deviations&#39;</span><span class="p">)</span>
+    <span class="n">std1</span> <span class="o">=</span> <span class="n">var1</span><span class="o">.</span><span class="n">stdev</span><span class="p">(</span><span class="n">iaxis1</span><span class="p">)</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+    <span class="n">std2</span> <span class="o">=</span> <span class="n">var2</span><span class="o">.</span><span class="n">stdev</span><span class="p">(</span><span class="n">iaxis2</span><span class="p">)</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+    <span class="c1"># account for grid points with zero standard deviation?</span>
+    <span class="n">std1</span><span class="o">.</span><span class="n">values</span> <span class="o">=</span> <span class="n">std1</span><span class="o">.</span><span class="n">values</span> <span class="o">+</span> <span class="p">(</span><span class="n">std1</span><span class="o">.</span><span class="n">values</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">std2</span><span class="o">.</span><span class="n">values</span> <span class="o">=</span> <span class="n">std2</span><span class="o">.</span><span class="n">values</span> <span class="o">+</span> <span class="p">(</span><span class="n">std2</span><span class="o">.</span><span class="n">values</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">var1</span> <span class="o">/=</span> <span class="n">std1</span>
+    <span class="n">var2</span> <span class="o">/=</span> <span class="n">std2</span>
+
+
+  <span class="n">eofshape1</span> <span class="o">=</span>  <span class="p">(</span><span class="n">subspace</span><span class="p">,)</span> <span class="o">+</span> <span class="n">var1</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="n">iaxis1</span><span class="p">]</span> <span class="o">+</span> <span class="n">var1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">iaxis1</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span>
+  <span class="n">eofshape2</span> <span class="o">=</span>  <span class="p">(</span><span class="n">subspace</span><span class="p">,)</span> <span class="o">+</span> <span class="n">var2</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="n">iaxis2</span><span class="p">]</span> <span class="o">+</span> <span class="n">var2</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">iaxis2</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span>
+
+  <span class="n">pcshape1</span> <span class="o">=</span>  <span class="p">(</span><span class="n">var1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">iaxis1</span><span class="p">],</span> <span class="n">subspace</span><span class="p">)</span>
+  <span class="n">pcshape2</span> <span class="o">=</span>  <span class="p">(</span><span class="n">var2</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">iaxis2</span><span class="p">],</span> <span class="n">subspace</span><span class="p">)</span>
+
+  <span class="c1"># number of spatial grid points</span>
+  <span class="n">NX1</span> <span class="o">=</span> <span class="n">var1</span><span class="o">.</span><span class="n">size</span> <span class="o">//</span> <span class="n">var1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">iaxis1</span><span class="p">]</span>
+  <span class="k">assert</span> <span class="n">NX1</span> <span class="o">&lt;=</span> <span class="n">MAX_ARRAY_SIZE</span><span class="p">,</span> <span class="s1">&#39;field is too large!&#39;</span>
+  <span class="n">NX2</span> <span class="o">=</span> <span class="n">var2</span><span class="o">.</span><span class="n">size</span> <span class="o">//</span> <span class="n">var2</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">iaxis2</span><span class="p">]</span>
+  <span class="k">assert</span> <span class="n">NX2</span> <span class="o">&lt;=</span> <span class="n">MAX_ARRAY_SIZE</span><span class="p">,</span> <span class="s1">&#39;field is too large!&#39;</span>
+
+  <span class="c1"># Total number of timesteps</span>
+  <span class="n">NT</span> <span class="o">=</span> <span class="n">var1</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">iaxis1</span><span class="p">]</span>
+  <span class="c1"># Number of timesteps we can do in one fetch</span>
+  <span class="n">dt</span> <span class="o">=</span> <span class="n">MAX_ARRAY_SIZE</span> <span class="o">//</span> <span class="nb">max</span><span class="p">(</span><span class="n">NX1</span><span class="p">,</span><span class="n">NX2</span><span class="p">)</span>
+
+  <span class="n">pcs1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">pcshape1</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;d&#39;</span><span class="p">)</span>
+  <span class="n">pcs2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">pcshape2</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;d&#39;</span><span class="p">)</span>
+
+  <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">eofshape2</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;d&#39;</span><span class="p">)</span>
+  <span class="n">U</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">eofshape1</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;d&#39;</span><span class="p">)</span>
+  <span class="c1"># Seed with sinusoids superimposed on random values</span>
+  <span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="o">*</span><span class="n">eofshape1</span><span class="p">)</span>
+  <span class="n">V</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="o">*</span><span class="n">eofshape2</span><span class="p">)</span>
+  <span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">pi</span>
+  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">subspace</span><span class="p">):</span>
+    <span class="n">Y</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="o">...</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">NX1</span><span class="p">)[:]</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">NX1</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;d&#39;</span><span class="p">)</span> <span class="o">/</span> <span class="n">NX1</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">*</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+    <span class="n">V</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="o">...</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">NX2</span><span class="p">)[:]</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">NX2</span><span class="p">,</span><span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;d&#39;</span><span class="p">)</span> <span class="o">/</span> <span class="n">NX2</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">*</span> <span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>
+
+<span class="c1">#  raise Exception</span>
+
+  <span class="c1"># Workspace for C code</span>
+  <span class="n">UtAX</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">([</span><span class="n">subspace</span><span class="p">,</span><span class="n">subspace</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;d&#39;</span><span class="p">)</span>
+  <span class="n">XtAtU</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">([</span><span class="n">subspace</span><span class="p">,</span><span class="n">subspace</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;d&#39;</span><span class="p">)</span>
+  <span class="n">VtV</span>   <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">([</span><span class="n">subspace</span><span class="p">,</span><span class="n">subspace</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;d&#39;</span><span class="p">)</span>
+  <span class="n">YtY</span>   <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">([</span><span class="n">subspace</span><span class="p">,</span><span class="n">subspace</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;d&#39;</span><span class="p">)</span>
+
+  <span class="c1"># Views over whole variables</span>
+  <span class="c1"># (rearranged to be compatible with our output eof arrays)</span>
+  <span class="n">view1</span> <span class="o">=</span> <span class="n">View</span><span class="p">(</span> <span class="p">(</span><span class="n">var1</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">iaxis1</span><span class="p">],)</span> <span class="o">+</span> <span class="n">var1</span><span class="o">.</span><span class="n">axes</span><span class="p">[:</span><span class="n">iaxis1</span><span class="p">]</span> <span class="o">+</span> <span class="n">var1</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">iaxis1</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span> <span class="p">)</span>
+  <span class="n">view2</span> <span class="o">=</span> <span class="n">View</span><span class="p">(</span> <span class="p">(</span><span class="n">var2</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">iaxis2</span><span class="p">],)</span> <span class="o">+</span> <span class="n">var2</span><span class="o">.</span><span class="n">axes</span><span class="p">[:</span><span class="n">iaxis2</span><span class="p">]</span> <span class="o">+</span> <span class="n">var2</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">iaxis2</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span> <span class="p">)</span>
+
+
+  <span class="k">for</span> <span class="n">iter_num</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">MAX_ITER</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;iter_num: </span><span class="si">%d</span><span class="s1">&#39;</span><span class="o">%</span><span class="n">iter_num</span><span class="p">)</span>
+
+    <span class="k">assert</span> <span class="n">Y</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">U</span><span class="o">.</span><span class="n">shape</span>
+    <span class="k">assert</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">V</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">U</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">Y</span><span class="p">,</span> <span class="n">U</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">V</span> <span class="o">=</span> <span class="n">V</span><span class="p">,</span> <span class="n">X</span>
+
+    <span class="c1"># Reset the accumulation arrays for the next approximations</span>
+    <span class="n">Y</span><span class="p">[()]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">V</span><span class="p">[()]</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1"># Apply the covariance/correlation matrix</span>
+    <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">NT</span><span class="p">,</span><span class="n">dt</span><span class="p">):</span>
+      <span class="c1"># number of timesteps we actually have</span>
+      <span class="n">nt</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">dt</span><span class="p">,</span><span class="n">NT</span><span class="o">-</span><span class="n">t</span><span class="p">)</span>
+
+      <span class="c1"># Read the data</span>
+      <span class="n">chunk1</span> <span class="o">=</span> <span class="n">view1</span><span class="o">.</span><span class="n">modify_slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">slice</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">t</span><span class="o">+</span><span class="n">nt</span><span class="p">))</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">var1</span><span class="p">)</span>
+      <span class="n">chunk1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ascontiguousarray</span><span class="p">(</span><span class="n">chunk1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;d&#39;</span><span class="p">)</span>
+      <span class="n">chunk2</span> <span class="o">=</span> <span class="n">view2</span><span class="o">.</span><span class="n">modify_slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">slice</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">t</span><span class="o">+</span><span class="n">nt</span><span class="p">))</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">var2</span><span class="p">)</span>
+      <span class="n">chunk2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ascontiguousarray</span><span class="p">(</span><span class="n">chunk2</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;d&#39;</span><span class="p">)</span>
+
+      <span class="n">ier</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">build_svds</span> <span class="p">(</span><span class="n">subspace</span><span class="p">,</span> <span class="n">nt</span><span class="p">,</span> <span class="n">NX1</span><span class="p">,</span> <span class="n">NX2</span><span class="p">,</span> <span class="n">chunk1</span><span class="p">,</span> <span class="n">chunk2</span><span class="p">,</span>
+                            <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">pcs2</span><span class="p">[</span><span class="n">t</span><span class="p">,</span><span class="o">...</span><span class="p">])</span>
+      <span class="k">assert</span> <span class="n">ier</span> <span class="o">==</span> <span class="mi">0</span>
+      <span class="n">ier</span> <span class="o">=</span> <span class="n">lib</span><span class="o">.</span><span class="n">build_svds</span> <span class="p">(</span><span class="n">subspace</span><span class="p">,</span> <span class="n">nt</span><span class="p">,</span> <span class="n">NX2</span><span class="p">,</span> <span class="n">NX1</span><span class="p">,</span> <span class="n">chunk2</span><span class="p">,</span> <span class="n">chunk1</span><span class="p">,</span>
+                            <span class="n">U</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">pcs1</span><span class="p">[</span><span class="n">t</span><span class="p">,</span><span class="o">...</span><span class="p">])</span>
+      <span class="k">assert</span> <span class="n">ier</span> <span class="o">==</span> <span class="mi">0</span>
+
+
+    <span class="c1"># Useful dot products</span>
+    <span class="n">lib</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">subspace</span><span class="p">,</span> <span class="n">NX1</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">UtAX</span><span class="p">)</span>
+    <span class="n">lib</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">subspace</span><span class="p">,</span> <span class="n">NX2</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">VtV</span><span class="p">)</span>
+    <span class="n">lib</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">subspace</span><span class="p">,</span> <span class="n">NX1</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">XtAtU</span><span class="p">)</span>
+    <span class="n">lib</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">subspace</span><span class="p">,</span> <span class="n">NX1</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">YtY</span><span class="p">)</span>
+
+    <span class="c1"># Compute surrogate matrices (using all available information from this iteration)</span>
+    <span class="n">A1</span><span class="p">,</span> <span class="n">residues</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">lstsq</span><span class="p">(</span><span class="n">UtAX</span><span class="p">,</span><span class="n">VtV</span><span class="p">,</span><span class="n">rcond</span><span class="o">=</span><span class="mf">1e-30</span><span class="p">)</span>
+    <span class="n">A2</span><span class="p">,</span> <span class="n">residues</span><span class="p">,</span> <span class="n">rank</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">lstsq</span><span class="p">(</span><span class="n">XtAtU</span><span class="p">,</span><span class="n">YtY</span><span class="p">,</span><span class="n">rcond</span><span class="o">=</span><span class="mf">1e-30</span><span class="p">)</span>
+
+    <span class="c1"># Eigendecomposition on surrogate matrices</span>
+    <span class="n">Dy</span><span class="p">,</span> <span class="n">Qy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A1</span><span class="p">,</span><span class="n">A2</span><span class="p">))</span>
+    <span class="n">Dv</span><span class="p">,</span> <span class="n">Qv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">eig</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A2</span><span class="p">,</span><span class="n">A1</span><span class="p">))</span>
+
+    <span class="c1"># Sort by eigenvalue (largest first)</span>
+    <span class="n">S</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">Dy</span><span class="p">))[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">Dy</span> <span class="o">=</span> <span class="n">Dy</span><span class="p">[</span><span class="n">S</span><span class="p">]</span>
+    <span class="n">Qy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ascontiguousarray</span><span class="p">(</span><span class="n">Qy</span><span class="p">[:,</span><span class="n">S</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;d&#39;</span><span class="p">)</span>
+    <span class="n">S</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">Dv</span><span class="p">))[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">Dv</span> <span class="o">=</span> <span class="n">Dv</span><span class="p">[</span><span class="n">S</span><span class="p">]</span>
+    <span class="n">Qv</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ascontiguousarray</span><span class="p">(</span><span class="n">Qv</span><span class="p">[:,</span><span class="n">S</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;d&#39;</span><span class="p">)</span>
+
+    <span class="c1"># get estimate of true eigenvalues</span>
+    <span class="n">D</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">Dy</span><span class="p">)</span>  <span class="c1"># should also = np.sqrt(Dv) in theory</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">D</span><span class="p">)</span>
+
+    <span class="c1"># Translate the surrogate eigenvectors to an estimate of the true eigenvectors</span>
+    <span class="n">lib</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">subspace</span><span class="p">,</span> <span class="n">NX1</span><span class="p">,</span> <span class="n">Qy</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+    <span class="n">lib</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">subspace</span><span class="p">,</span> <span class="n">NX2</span><span class="p">,</span> <span class="n">Qv</span><span class="p">,</span> <span class="n">V</span><span class="p">)</span>
+
+    <span class="c1"># Normalize</span>
+    <span class="n">lib</span><span class="o">.</span><span class="n">normalize</span> <span class="p">(</span><span class="n">subspace</span><span class="p">,</span> <span class="n">NX1</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+    <span class="n">lib</span><span class="o">.</span><span class="n">normalize</span> <span class="p">(</span><span class="n">subspace</span><span class="p">,</span> <span class="n">NX2</span><span class="p">,</span> <span class="n">V</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">U</span><span class="p">[:</span><span class="n">num</span><span class="p">,</span><span class="o">...</span><span class="p">],</span><span class="n">Y</span><span class="p">[:</span><span class="n">num</span><span class="p">,</span><span class="o">...</span><span class="p">],</span> <span class="n">atol</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span> <span class="k">continue</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">X</span><span class="p">[:</span><span class="n">num</span><span class="p">,</span><span class="o">...</span><span class="p">],</span><span class="n">V</span><span class="p">[:</span><span class="n">num</span><span class="p">,</span><span class="o">...</span><span class="p">],</span> <span class="n">atol</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span> <span class="k">continue</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;converged after </span><span class="si">%d</span><span class="s1"> iterations&#39;</span><span class="o">%</span><span class="n">iter_num</span><span class="p">)</span>
+    <span class="k">break</span>
+
+  <span class="k">assert</span> <span class="n">iter_num</span> <span class="o">!=</span> <span class="n">MAX_ITER</span><span class="p">,</span> <span class="s2">&quot;no convergence&quot;</span>
+
+  <span class="c1"># Flip the sign of the var2 EOFs and PCs so that the covariance is positive</span>
+  <span class="n">lib</span><span class="o">.</span><span class="n">fixcov</span> <span class="p">(</span><span class="n">subspace</span><span class="p">,</span> <span class="n">NT</span><span class="p">,</span> <span class="n">NX2</span><span class="p">,</span> <span class="n">pcs1</span><span class="p">,</span> <span class="n">pcs2</span><span class="p">,</span> <span class="n">V</span><span class="p">)</span>
+
+  <span class="c1"># Wrap as pygeode vars, and return</span>
+  <span class="c1"># Only need some of the eofs for output (the rest might not have even converged yet)</span>
+  <span class="n">orderaxis</span> <span class="o">=</span> <span class="n">order</span><span class="p">(</span><span class="n">num</span><span class="p">)</span>
+
+  <span class="n">eof1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">Y</span><span class="p">[:</span><span class="n">num</span><span class="p">])</span>
+  <span class="n">pc1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pcs1</span><span class="p">[</span><span class="o">...</span><span class="p">,:</span><span class="n">num</span><span class="p">])</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+  <span class="n">eof1</span> <span class="o">=</span> <span class="n">Var</span><span class="p">((</span><span class="n">orderaxis</span><span class="p">,)</span><span class="o">+</span><span class="n">var1</span><span class="o">.</span><span class="n">axes</span><span class="p">[:</span><span class="n">iaxis1</span><span class="p">]</span><span class="o">+</span><span class="n">var1</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">iaxis1</span><span class="o">+</span><span class="mi">1</span><span class="p">:],</span> <span class="n">values</span><span class="o">=</span><span class="n">eof1</span><span class="p">)</span>
+  <span class="n">pc1</span> <span class="o">=</span> <span class="n">Var</span><span class="p">((</span><span class="n">orderaxis</span><span class="p">,</span><span class="n">var1</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">iaxis1</span><span class="p">]),</span> <span class="n">values</span> <span class="o">=</span> <span class="n">pc1</span><span class="p">)</span>
+
+  <span class="n">eof2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">V</span><span class="p">[:</span><span class="n">num</span><span class="p">])</span>
+  <span class="n">pc2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">pcs2</span><span class="p">[</span><span class="o">...</span><span class="p">,:</span><span class="n">num</span><span class="p">])</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span>
+  <span class="n">eof2</span> <span class="o">=</span> <span class="n">Var</span><span class="p">((</span><span class="n">orderaxis</span><span class="p">,)</span><span class="o">+</span><span class="n">var2</span><span class="o">.</span><span class="n">axes</span><span class="p">[:</span><span class="n">iaxis2</span><span class="p">]</span><span class="o">+</span><span class="n">var2</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">iaxis2</span><span class="o">+</span><span class="mi">1</span><span class="p">:],</span> <span class="n">values</span><span class="o">=</span><span class="n">eof2</span><span class="p">)</span>
+  <span class="n">pc2</span> <span class="o">=</span> <span class="n">Var</span><span class="p">((</span><span class="n">orderaxis</span><span class="p">,</span><span class="n">var2</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">iaxis2</span><span class="p">]),</span> <span class="n">values</span> <span class="o">=</span> <span class="n">pc2</span><span class="p">)</span>
+
+  <span class="c1"># Apply weights?</span>
+  <span class="k">if</span> <span class="n">weight1</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">False</span><span class="p">:</span> <span class="n">eof1</span> <span class="o">/=</span> <span class="n">weight1</span><span class="o">.</span><span class="n">sqrt</span><span class="p">()</span>
+  <span class="k">if</span> <span class="n">weight2</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">False</span><span class="p">:</span> <span class="n">eof2</span> <span class="o">/=</span> <span class="n">weight2</span><span class="o">.</span><span class="n">sqrt</span><span class="p">()</span>
+
+  <span class="c1"># Use correlation instead of covariance?</span>
+  <span class="c1"># Re-scale the fields by standard deviation</span>
+  <span class="k">if</span> <span class="n">matrix</span> <span class="o">==</span> <span class="s1">&#39;cor&#39;</span><span class="p">:</span>
+    <span class="n">eof1</span> <span class="o">*=</span> <span class="n">std1</span>
+    <span class="n">eof2</span> <span class="o">*=</span> <span class="n">std2</span>
+
+  <span class="c1"># Give it a name</span>
+  <span class="n">eof1</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">prefix1</span> <span class="o">+</span> <span class="s2">&quot;EOF&quot;</span>
+  <span class="n">pc1</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">prefix1</span> <span class="o">+</span> <span class="s2">&quot;PC&quot;</span>
+  <span class="n">eof2</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">prefix2</span> <span class="o">+</span> <span class="s2">&quot;EOF&quot;</span>
+  <span class="n">pc2</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">prefix2</span> <span class="o">+</span> <span class="s2">&quot;PC&quot;</span>
+
+  <span class="k">return</span> <span class="n">eof1</span><span class="p">,</span> <span class="n">pc1</span><span class="p">,</span> <span class="n">eof2</span><span class="p">,</span> <span class="n">pc2</span></div>
+
+<span class="k">del</span> <span class="n">Time</span>
+</pre></div>
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        <a class="uplink" href="../../reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../gallery/index.html">Gallery</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Mike Neish, Peter Hitchcock.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.
+    </div>
+  </body>
+</html>

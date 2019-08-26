@@ -1,0 +1,627 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>pygeode.climat &#8212; PyGeode 1.3 pre-release documentation</title>
+    <link rel="stylesheet" href="../../_static/pygtheme.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
+
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../../index.html">
+          <span>PyGeode 1.3 pre-release documentation</span></a></h1>
+        <h2 class="heading"><span>pygeode.climat</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        <a class="uplink" href="../../reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../gallery/index.html">Gallery</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <h1>Source code for pygeode.climat</h1><div class="highlight"><pre>
+<span></span><span class="n">__all__</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;climatology&#39;</span><span class="p">,</span> <span class="s1">&#39;dailymean&#39;</span><span class="p">,</span> <span class="s1">&#39;monthlymean&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;yearlymean&#39;</span><span class="p">,</span><span class="s1">&#39;diurnalmean&#39;</span><span class="p">,</span> <span class="s1">&#39;seasonalmean&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;nanclimatology&#39;</span><span class="p">,</span> <span class="s1">&#39;dailynanmean&#39;</span><span class="p">,</span> <span class="s1">&#39;monthlynanmean&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;yearlynanmean&#39;</span><span class="p">,</span><span class="s1">&#39;diurnalnanmean&#39;</span><span class="p">,</span> <span class="s1">&#39;seasonalnanmean&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;climstdev&#39;</span><span class="p">,</span> <span class="s1">&#39;dailystdev&#39;</span><span class="p">,</span> <span class="s1">&#39;monthlystdev&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;yearlystdev&#39;</span><span class="p">,</span><span class="s1">&#39;diurnalstdev&#39;</span><span class="p">,</span> <span class="s1">&#39;seasonalstdev&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;climnanstdev&#39;</span><span class="p">,</span> <span class="s1">&#39;dailynanstdev&#39;</span><span class="p">,</span> <span class="s1">&#39;monthlynanstdev&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;yearlynanstdev&#39;</span><span class="p">,</span><span class="s1">&#39;diurnalnanstdev&#39;</span><span class="p">,</span> <span class="s1">&#39;seasonalnanstdev&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;climcount&#39;</span><span class="p">,</span> <span class="s1">&#39;dailycount&#39;</span><span class="p">,</span> <span class="s1">&#39;monthlycount&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;yearlycount&#39;</span><span class="p">,</span><span class="s1">&#39;diurnalcount&#39;</span><span class="p">,</span> <span class="s1">&#39;seasonalcount&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;climtrend&#39;</span><span class="p">,</span> <span class="s1">&#39;from_trend&#39;</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">pygeode.var</span> <span class="k">import</span> <span class="n">Var</span>
+
+<span class="c1"># Loop over a variable, applying the specified view.</span>
+<span class="c1"># Outputs iterations of:</span>
+<span class="c1"># - slices for fitting the data chunk into the output (after the partial reduction is done)</span>
+<span class="c1"># - a chunk of output data to be partially reduced</span>
+<span class="c1"># - bins along the time axis for reducing the data chunk</span>
+<span class="k">def</span> <span class="nf">loopover</span><span class="p">(</span><span class="n">varlist</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">pbar</span><span class="p">):</span>
+  <span class="kn">from</span> <span class="nn">pygeode.timeaxis</span> <span class="k">import</span> <span class="n">Time</span>
+  <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+  
+
+  <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">varlist</span><span class="p">,</span><span class="s1">&#39;__len__&#39;</span><span class="p">):</span> <span class="n">varlist</span> <span class="o">=</span> <span class="p">[</span><span class="n">varlist</span><span class="p">]</span>
+  <span class="n">nvars</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">varlist</span><span class="p">)</span>
+
+  <span class="c1"># clip the output view so there is nothing &#39;outside&#39; of the selected region</span>
+  <span class="c1"># (so we can use the slices of the current view chunk as a 1:1 correspondence to</span>
+  <span class="c1">#  the slices into the accumulation array)</span>
+  <span class="n">view</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="n">clip</span><span class="p">()</span>
+
+  <span class="c1"># map the climatology axis to the non-climatology axis</span>
+  <span class="n">ti</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">Time</span><span class="p">)</span>
+  <span class="n">ct</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">ti</span><span class="p">]</span>
+  <span class="n">t</span> <span class="o">=</span> <span class="n">varlist</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">getaxis</span><span class="p">(</span><span class="n">Time</span><span class="p">)</span>
+  <span class="n">inmap</span><span class="p">,</span> <span class="n">outmap</span> <span class="o">=</span> <span class="n">Time</span><span class="o">.</span><span class="n">common_map</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">ct</span><span class="p">)</span>
+  <span class="c1"># We should be covering the entire output array (unless there&#39;s something horribly wrong with the logic above)</span>
+  <span class="k">assert</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">outmap</span><span class="p">)</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">integer_indices</span><span class="p">[</span><span class="n">ti</span><span class="p">]))</span>
+  <span class="n">inview</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="n">replace_axis</span><span class="p">(</span><span class="n">Time</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">inmap</span><span class="p">)</span>
+  <span class="n">climview</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="n">replace_axis</span><span class="p">(</span><span class="n">Time</span><span class="p">,</span> <span class="n">ct</span><span class="p">,</span> <span class="n">outmap</span><span class="p">)</span>  <span class="c1">#??? do we need to do this?  can&#39;t we just set climview=view?</span>
+                                                  <span class="c1"># (we might need to, if common_map changes the *order* of the axis elements)</span>
+                                                  <span class="c1"># (I like talking to myself)</span>
+  <span class="c1"># We want to loop over these two views simultaneously</span>
+  <span class="k">assert</span> <span class="n">inview</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">climview</span><span class="o">.</span><span class="n">shape</span>
+  <span class="c1"># To avoid possible coding bugs, make sure the dimension number of the time axis is consistent between views</span>
+  <span class="k">assert</span> <span class="n">inview</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">Time</span><span class="p">)</span> <span class="o">==</span> <span class="n">climview</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">Time</span><span class="p">)</span>
+
+  <span class="c1"># Break the view up into memory-friendly chunks</span>
+  <span class="n">loop</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">inview</span><span class="o">.</span><span class="n">loop_mem</span><span class="p">(),</span> <span class="n">climview</span><span class="o">.</span><span class="n">loop_mem</span><span class="p">()))</span>
+  <span class="c1"># Relative sizes of each var - so we can more accurately divide progress</span>
+  <span class="n">sizes</span> <span class="o">=</span> <span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">size</span> <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">varlist</span><span class="p">]</span>
+  <span class="n">prog</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">([</span><span class="mf">0.</span><span class="p">]</span><span class="o">+</span><span class="n">sizes</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">sizes</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+  <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">inv</span><span class="p">,</span> <span class="n">climv</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">loop</span><span class="p">):</span>
+    <span class="n">subpbar</span> <span class="o">=</span> <span class="n">pbar</span><span class="o">.</span><span class="n">part</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">loop</span><span class="p">))</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">inv</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">pbar</span> <span class="o">=</span> <span class="n">subpbar</span><span class="o">.</span><span class="n">subset</span><span class="p">(</span><span class="n">prog</span><span class="p">[</span><span class="n">j</span><span class="p">],</span><span class="n">prog</span><span class="p">[</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]))</span> <span class="k">for</span> <span class="n">j</span><span class="p">,</span><span class="n">var</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">varlist</span><span class="p">)]</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ascontiguousarray</span><span class="p">(</span><span class="n">d</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">data</span><span class="p">]</span>
+    <span class="n">slices</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">climv</span><span class="o">.</span><span class="n">slices</span><span class="p">)</span>
+    <span class="n">slices</span><span class="p">[</span><span class="n">ti</span><span class="p">]</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+    <span class="k">yield</span> <span class="n">slices</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">climv</span><span class="o">.</span><span class="n">integer_indices</span><span class="p">[</span><span class="n">ti</span><span class="p">]</span>
+
+
+
+<span class="c1">###############################################################################</span>
+<span class="c1"># Define how the time unit is mapped</span>
+
+<span class="k">class</span> <span class="nc">TimeMap</span><span class="p">(</span><span class="n">Var</span><span class="p">):</span>
+  <span class="c1"># Returns the output time axis</span>
+  <span class="nd">@staticmethod</span>
+  <span class="k">def</span> <span class="nf">get_outtime</span> <span class="p">(</span><span class="n">intime</span><span class="p">):</span> <span class="k">return</span> <span class="n">intime</span>  <span class="c1"># Overridden in subclasses</span>
+  <span class="c1"># Returns the input time axis</span>
+  <span class="c1"># (sometimes, we have to massage the input time axis into a form that makes</span>
+  <span class="c1">#  the mapping easier  (see Seasonal class)</span>
+  <span class="nd">@staticmethod</span>
+  <span class="k">def</span> <span class="nf">get_intime</span> <span class="p">(</span><span class="n">intime</span><span class="p">):</span> <span class="k">return</span> <span class="n">intime</span>
+
+<span class="k">class</span> <span class="nc">Clim</span><span class="p">(</span><span class="n">TimeMap</span><span class="p">):</span>
+  <span class="n">name_suffix1</span> <span class="o">=</span> <span class="s1">&#39;_clim&#39;</span>
+  <span class="nd">@staticmethod</span>
+  <span class="k">def</span> <span class="nf">get_outtime</span> <span class="p">(</span><span class="n">intime</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">pygeode.timeutils</span> <span class="k">import</span> <span class="n">modify</span>
+    <span class="k">return</span> <span class="n">modify</span><span class="p">(</span><span class="n">intime</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="n">uniquify</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Diurnal</span><span class="p">(</span><span class="n">TimeMap</span><span class="p">):</span>
+  <span class="n">name_suffix1</span> <span class="o">=</span> <span class="s1">&#39;_diurnal&#39;</span>
+  <span class="nd">@staticmethod</span>
+  <span class="k">def</span> <span class="nf">get_outtime</span> <span class="p">(</span><span class="n">intime</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">pygeode.timeutils</span> <span class="k">import</span> <span class="n">modify</span>
+    <span class="k">return</span> <span class="n">modify</span><span class="p">(</span><span class="n">intime</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">,</span><span class="s1">&#39;month&#39;</span><span class="p">,</span><span class="s1">&#39;day&#39;</span><span class="p">],</span> <span class="n">uniquify</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">Daily</span><span class="p">(</span><span class="n">TimeMap</span><span class="p">):</span>
+  <span class="n">name_suffix1</span> <span class="o">=</span> <span class="s1">&#39;_daily&#39;</span>
+  <span class="nd">@staticmethod</span>
+  <span class="k">def</span> <span class="nf">get_outtime</span> <span class="p">(</span><span class="n">intime</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">pygeode.timeutils</span> <span class="k">import</span> <span class="n">modify</span>
+    <span class="n">outtime</span> <span class="o">=</span> <span class="n">modify</span><span class="p">(</span><span class="n">intime</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="s1">&#39;day&#39;</span><span class="p">,</span> <span class="n">uniquify</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">outtime</span><span class="p">,</span> <span class="s1">&#39;day&#39;</span><span class="p">)</span>  <span class="c1"># can we even do a daily mean?</span>
+    <span class="k">return</span> <span class="n">outtime</span>
+
+<span class="k">class</span> <span class="nc">Monthly</span><span class="p">(</span><span class="n">TimeMap</span><span class="p">):</span>
+  <span class="n">name_suffix1</span> <span class="o">=</span> <span class="s1">&#39;_monthly&#39;</span>
+  <span class="nd">@staticmethod</span>
+  <span class="k">def</span> <span class="nf">get_outtime</span> <span class="p">(</span><span class="n">intime</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">pygeode.timeutils</span> <span class="k">import</span> <span class="n">modify</span>
+    <span class="n">outtime</span> <span class="o">=</span> <span class="n">modify</span><span class="p">(</span><span class="n">intime</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="s1">&#39;month&#39;</span><span class="p">,</span> <span class="n">uniquify</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">outtime</span><span class="p">,</span> <span class="s1">&#39;month&#39;</span><span class="p">)</span>  <span class="c1"># can we even do a monthly mean?</span>
+    <span class="k">return</span> <span class="n">outtime</span>
+
+<span class="k">class</span> <span class="nc">Yearly</span><span class="p">(</span><span class="n">TimeMap</span><span class="p">):</span>
+  <span class="n">name_suffix1</span> <span class="o">=</span> <span class="s1">&#39;_yearly&#39;</span>
+  <span class="nd">@staticmethod</span>
+  <span class="k">def</span> <span class="nf">get_outtime</span> <span class="p">(</span><span class="n">intime</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">pygeode.timeutils</span> <span class="k">import</span> <span class="n">modify</span>
+    <span class="n">outtime</span> <span class="o">=</span> <span class="n">modify</span><span class="p">(</span><span class="n">intime</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="s1">&#39;year&#39;</span><span class="p">,</span> <span class="n">uniquify</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">outtime</span><span class="p">,</span> <span class="s1">&#39;year&#39;</span><span class="p">)</span>  <span class="c1"># can we even do a yearly mean?</span>
+    <span class="k">return</span> <span class="n">outtime</span>
+
+<span class="c1"># Note: in the seasonal stuff below, &#39;syear&#39; represents a year field that has</span>
+<span class="c1"># been adjusted so DJFs are contiguous (see &#39;Seasonal&#39; class below)</span>
+
+<span class="c1"># Mapping to a seasonal time axis</span>
+<span class="k">class</span> <span class="nc">Seasonal</span><span class="p">(</span><span class="n">TimeMap</span><span class="p">):</span>
+  <span class="n">name_suffix1</span> <span class="o">=</span> <span class="s1">&#39;_seasonal&#39;</span>
+
+  <span class="nd">@classmethod</span>
+  <span class="k">def</span> <span class="nf">get_outtime</span> <span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">intime</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">pygeode.timeaxis</span> <span class="k">import</span> <span class="n">SeasonalTAxes</span>
+    <span class="kn">from</span> <span class="nn">pygeode.timeutils</span> <span class="k">import</span> <span class="n">_uniquify</span>
+    <span class="k">try</span><span class="p">:</span>
+      <span class="n">SeasonalAxis</span> <span class="o">=</span> <span class="n">SeasonalTAxes</span><span class="p">[</span><span class="n">intime</span><span class="o">.</span><span class="vm">__class__</span><span class="p">]</span>
+    <span class="k">except</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="bp">NotImplemented</span><span class="p">(</span><span class="s1">&#39;Seasonal Time axis not implemented for this calendar&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Wrap in axis with a seasonal axis to allow reduction</span>
+    <span class="n">outax</span> <span class="o">=</span> <span class="n">SeasonalAxis</span><span class="p">(</span><span class="n">values</span> <span class="o">=</span> <span class="n">intime</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> \
+                        <span class="n">startdate</span> <span class="o">=</span> <span class="n">intime</span><span class="o">.</span><span class="n">startdate</span><span class="p">,</span> \
+                        <span class="n">units</span> <span class="o">=</span> <span class="n">intime</span><span class="o">.</span><span class="n">units</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s1">&#39;year&#39;</span> <span class="ow">in</span> <span class="n">outax</span><span class="o">.</span><span class="n">auxarrays</span><span class="p">:</span>
+      <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span><span class="n">outax</span><span class="o">.</span><span class="n">auxarrays</span><span class="p">[</span><span class="s1">&#39;year&#39;</span><span class="p">],</span> <span class="n">outax</span><span class="o">.</span><span class="n">auxarrays</span><span class="p">[</span><span class="s1">&#39;season&#39;</span><span class="p">]]</span>
+      <span class="n">fields</span> <span class="o">=</span> <span class="n">_uniquify</span><span class="p">(</span><span class="n">fields</span><span class="p">)</span>
+      <span class="n">auxarrays</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;year&#39;</span><span class="p">:</span><span class="n">fields</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;season&#39;</span><span class="p">:</span><span class="n">fields</span><span class="p">[</span><span class="mi">1</span><span class="p">]}</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">fields</span> <span class="o">=</span> <span class="p">[</span><span class="n">outax</span><span class="o">.</span><span class="n">auxarrays</span><span class="p">[</span><span class="s1">&#39;season&#39;</span><span class="p">]]</span>
+      <span class="n">fields</span> <span class="o">=</span> <span class="n">_uniquify</span><span class="p">(</span><span class="n">fields</span><span class="p">)</span>
+      <span class="n">auxarrays</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;season&#39;</span><span class="p">:</span><span class="n">fields</span><span class="p">[</span><span class="mi">0</span><span class="p">]}</span>
+
+    <span class="k">return</span> <span class="n">SeasonalAxis</span> <span class="p">(</span><span class="n">startdate</span><span class="o">=</span><span class="n">intime</span><span class="o">.</span><span class="n">startdate</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="n">intime</span><span class="o">.</span><span class="n">units</span><span class="p">,</span> <span class="o">**</span><span class="n">auxarrays</span><span class="p">)</span>
+
+  <span class="nd">@classmethod</span>
+  <span class="c1"># Endow input time axis with a season (and a season-aligned year)</span>
+  <span class="k">def</span> <span class="nf">get_intime</span> <span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">intime</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">pygeode.timeaxis</span> <span class="k">import</span> <span class="n">SeasonalTAxes</span>
+    <span class="k">try</span><span class="p">:</span>
+      <span class="n">SeasonalAxis</span> <span class="o">=</span> <span class="n">SeasonalTAxes</span><span class="p">[</span><span class="n">intime</span><span class="o">.</span><span class="vm">__class__</span><span class="p">]</span>
+    <span class="k">except</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="bp">NotImplemented</span><span class="p">(</span><span class="s1">&#39;Seasonal Time axis not implemented for this calendar&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Wrap in axis with a seasonal axis to allow reduction</span>
+    <span class="k">return</span> <span class="n">SeasonalAxis</span><span class="p">(</span><span class="n">values</span> <span class="o">=</span> <span class="n">intime</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> \
+                        <span class="n">startdate</span> <span class="o">=</span> <span class="n">intime</span><span class="o">.</span><span class="n">startdate</span><span class="p">,</span> \
+                        <span class="n">units</span> <span class="o">=</span> <span class="n">intime</span><span class="o">.</span><span class="n">units</span><span class="p">)</span>
+
+<span class="c1">###############################################################################</span>
+<span class="c1"># Define the operation that&#39;s done in the mapping</span>
+
+<span class="k">class</span> <span class="nc">TimeOp</span><span class="p">(</span><span class="n">Var</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+  <span class="n">extra_dims</span> <span class="o">=</span> <span class="p">()</span>  <span class="c1"># Override this in a subclass if needed (see Trend class)</span>
+  <span class="k">def</span> <span class="nf">__init__</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">pygeode.var</span> <span class="k">import</span> <span class="n">Var</span>
+    <span class="kn">from</span> <span class="nn">pygeode.timeaxis</span> <span class="k">import</span> <span class="n">CalendarTime</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ti</span>  <span class="o">=</span> <span class="n">ti</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">whichaxis</span><span class="p">(</span><span class="n">CalendarTime</span><span class="p">)</span>
+    <span class="n">intime</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">ti</span><span class="p">]</span>
+    <span class="n">outtime</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_outtime</span><span class="p">(</span><span class="n">intime</span><span class="p">)</span>
+    <span class="c1"># Fudge the input axis?  (endow it with extra information that it normally wouldn&#39;t have?)</span>
+    <span class="n">new_intime</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_intime</span><span class="p">(</span><span class="n">intime</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">new_intime</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">intime</span><span class="p">:</span> <span class="n">var</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">replace_axes</span><span class="p">({</span><span class="n">CalendarTime</span><span class="p">:</span><span class="n">new_intime</span><span class="p">})</span>
+
+    <span class="k">if</span> <span class="n">var</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">name_suffix1</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">name_suffix2</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">var</span> <span class="o">=</span> <span class="n">var</span>
+
+    <span class="n">axes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">axes</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">ti</span><span class="p">]</span> <span class="o">=</span> <span class="n">outtime</span>
+    <span class="n">Var</span><span class="o">.</span><span class="fm">__init__</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="o">+</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">extra_dims</span><span class="p">),</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">atts</span><span class="o">=</span><span class="n">var</span><span class="o">.</span><span class="n">atts</span><span class="p">)</span>
+<span class="c1"># }}}</span>
+
+<span class="k">class</span> <span class="nc">Mean</span><span class="p">(</span><span class="n">TimeOp</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+  <span class="n">name_suffix2</span> <span class="o">=</span> <span class="s1">&#39;_mean&#39;</span>
+
+  <span class="k">def</span> <span class="nf">getview</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">pbar</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">pygeode.tools</span> <span class="k">import</span> <span class="n">partial_sum</span>
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+    <span class="n">ti</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ti</span>
+
+    <span class="nb">sum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span> <span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span> <span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;int32&#39;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">slices</span><span class="p">,</span> <span class="p">[</span><span class="n">data</span><span class="p">],</span> <span class="n">bins</span> <span class="ow">in</span> <span class="n">loopover</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">pbar</span><span class="p">):</span>
+      <span class="n">partial_sum</span> <span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">slices</span><span class="p">,</span> <span class="nb">sum</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">ti</span><span class="p">,</span> <span class="n">bins</span><span class="p">)</span>
+
+    <span class="nb">sum</span> <span class="o">/=</span> <span class="n">count</span>
+    <span class="k">return</span> <span class="nb">sum</span>
+<span class="c1"># }}}</span>
+
+<span class="k">class</span> <span class="nc">NANMean</span><span class="p">(</span><span class="n">TimeOp</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+  <span class="n">name_suffix2</span> <span class="o">=</span> <span class="s1">&#39;_nanmean&#39;</span>
+
+  <span class="k">def</span> <span class="nf">getview</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">pbar</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">pygeode.tools</span> <span class="k">import</span> <span class="n">partial_nan_sum</span>
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+    <span class="n">ti</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ti</span>
+
+    <span class="nb">sum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span> <span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span> <span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;int32&#39;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">slices</span><span class="p">,</span> <span class="p">[</span><span class="n">data</span><span class="p">],</span> <span class="n">bins</span> <span class="ow">in</span> <span class="n">loopover</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">pbar</span><span class="p">):</span>
+      <span class="n">partial_nan_sum</span> <span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">slices</span><span class="p">,</span> <span class="nb">sum</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">ti</span><span class="p">,</span> <span class="n">bins</span><span class="p">)</span>
+
+    <span class="n">inodata</span> <span class="o">=</span> <span class="p">(</span><span class="n">count</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">inodata</span><span class="p">):</span>
+      <span class="n">count</span> <span class="o">=</span> <span class="n">count</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;d&#39;</span><span class="p">)</span>
+      <span class="n">count</span><span class="p">[</span><span class="n">inodata</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+    <span class="nb">sum</span> <span class="o">/=</span> <span class="n">count</span>
+    <span class="k">return</span> <span class="nb">sum</span>
+<span class="c1"># }}}</span>
+
+<span class="k">class</span> <span class="nc">Stdev</span><span class="p">(</span><span class="n">TimeOp</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+  <span class="n">name_suffix2</span> <span class="o">=</span> <span class="s1">&#39;_stdev&#39;</span>
+
+  <span class="k">def</span> <span class="nf">getview</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">pbar</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">pygeode.tools</span> <span class="k">import</span> <span class="n">partial_sum</span>
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+    <span class="n">ti</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ti</span>
+
+    <span class="n">xx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span> <span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span> <span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="n">nx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span> <span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;int32&#39;</span><span class="p">)</span>
+    <span class="n">nx2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span> <span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;int32&#39;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">slices</span><span class="p">,</span> <span class="p">[</span><span class="n">data</span><span class="p">],</span> <span class="n">bins</span> <span class="ow">in</span> <span class="n">loopover</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">pbar</span><span class="p">):</span>
+      <span class="n">partial_sum</span> <span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">slices</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">nx</span><span class="p">,</span> <span class="n">ti</span><span class="p">,</span> <span class="n">bins</span><span class="p">)</span>
+      <span class="n">partial_sum</span> <span class="p">(</span><span class="n">data</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">slices</span><span class="p">,</span> <span class="n">xx</span><span class="p">,</span> <span class="n">nx2</span><span class="p">,</span> <span class="n">ti</span><span class="p">,</span> <span class="n">bins</span><span class="p">)</span>
+
+    <span class="n">x</span> <span class="o">/=</span> <span class="n">nx</span>
+    <span class="n">var</span> <span class="o">=</span> <span class="p">(</span><span class="n">xx</span> <span class="o">-</span> <span class="n">nx</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">nx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">var</span><span class="p">)</span>
+<span class="c1"># }}}</span>
+
+<span class="k">class</span> <span class="nc">NANStdev</span><span class="p">(</span><span class="n">TimeOp</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+  <span class="n">name_suffix2</span> <span class="o">=</span> <span class="s1">&#39;_nanstdev&#39;</span>
+
+  <span class="k">def</span> <span class="nf">getview</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">pbar</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">pygeode.tools</span> <span class="k">import</span> <span class="n">partial_nan_sum</span>
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+    <span class="n">ti</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ti</span>
+
+    <span class="n">xx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span> <span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span> <span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="n">nx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span> <span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;int32&#39;</span><span class="p">)</span>
+    <span class="n">nx2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span> <span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;int32&#39;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">slices</span><span class="p">,</span> <span class="p">[</span><span class="n">data</span><span class="p">],</span> <span class="n">bins</span> <span class="ow">in</span> <span class="n">loopover</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">pbar</span><span class="p">):</span>
+      <span class="n">partial_nan_sum</span> <span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">slices</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">nx</span><span class="p">,</span> <span class="n">ti</span><span class="p">,</span> <span class="n">bins</span><span class="p">)</span>
+      <span class="n">partial_nan_sum</span> <span class="p">(</span><span class="n">data</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">slices</span><span class="p">,</span> <span class="n">xx</span><span class="p">,</span> <span class="n">nx2</span><span class="p">,</span> <span class="n">ti</span><span class="p">,</span> <span class="n">bins</span><span class="p">)</span>
+
+    <span class="n">inodata</span> <span class="o">=</span> <span class="p">(</span><span class="n">nx</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">inodata</span><span class="p">):</span>
+      <span class="n">nx</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;d&#39;</span><span class="p">)</span>
+      <span class="n">nx</span><span class="p">[</span><span class="n">inodata</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+
+    <span class="n">x</span> <span class="o">/=</span> <span class="n">nx</span>
+    <span class="n">var</span> <span class="o">=</span> <span class="p">(</span><span class="n">xx</span> <span class="o">-</span> <span class="n">nx</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">nx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">var</span><span class="p">)</span>
+<span class="c1"># }}}</span>
+
+<span class="k">class</span> <span class="nc">Count</span><span class="p">(</span><span class="n">TimeOp</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+  <span class="n">name_suffix2</span> <span class="o">=</span> <span class="s1">&#39;_nancount&#39;</span>
+
+  <span class="k">def</span> <span class="nf">getview</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">pbar</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">pygeode.tools</span> <span class="k">import</span> <span class="n">partial_nan_sum</span>
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+    <span class="n">ti</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ti</span>
+
+    <span class="nb">sum</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span> <span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="n">count</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span> <span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;int32&#39;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">slices</span><span class="p">,</span> <span class="p">[</span><span class="n">data</span><span class="p">],</span> <span class="n">bins</span> <span class="ow">in</span> <span class="n">loopover</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">pbar</span><span class="p">):</span>
+      <span class="n">partial_nan_sum</span> <span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">slices</span><span class="p">,</span> <span class="nb">sum</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">ti</span><span class="p">,</span> <span class="n">bins</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">count</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+<span class="c1"># }}}</span>
+
+<span class="k">class</span> <span class="nc">Trend</span><span class="p">(</span><span class="n">TimeOp</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+  <span class="n">name_suffix2</span> <span class="o">=</span> <span class="s1">&#39;_trend&#39;</span>
+  <span class="kn">from</span> <span class="nn">pygeode.axis</span> <span class="k">import</span> <span class="n">Coef</span>
+  <span class="n">extra_dims</span> <span class="o">=</span> <span class="p">(</span><span class="n">Coef</span><span class="p">(</span><span class="mi">2</span><span class="p">),)</span>
+  <span class="k">del</span> <span class="n">Coef</span>
+
+  <span class="k">def</span> <span class="nf">__init__</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="p">):</span>
+    <span class="c1"># verify that we have more than one timestep, otherwise the &#39;trend&#39; is not well defined!</span>
+    <span class="n">TimeOp</span><span class="o">.</span><span class="fm">__init__</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">var</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">ti</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;need more than one timestep for a trend&quot;</span>
+
+  <span class="k">def</span> <span class="nf">getview</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">pbar</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">pygeode.tools</span> <span class="k">import</span> <span class="n">partial_sum</span>
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+    <span class="kn">from</span> <span class="nn">pygeode.axis</span> <span class="k">import</span> <span class="n">Coef</span>
+    <span class="kn">from</span> <span class="nn">pygeode.var</span> <span class="k">import</span> <span class="n">Var</span>
+
+    <span class="n">ti</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ti</span>
+    <span class="n">taxis</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">ti</span><span class="p">]</span>
+    <span class="c1"># Get number of seconds since start of data</span>
+    <span class="n">secs</span> <span class="o">=</span> <span class="n">taxis</span><span class="o">.</span><span class="n">reltime</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="s1">&#39;seconds&#39;</span><span class="p">)</span>
+    <span class="c1"># Wrap it as a var, so we can use it in the loop below</span>
+    <span class="n">secs</span> <span class="o">=</span> <span class="n">Var</span><span class="p">([</span><span class="n">taxis</span><span class="p">],</span> <span class="n">values</span><span class="o">=</span><span class="n">secs</span><span class="p">)</span>
+
+    <span class="n">cview</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">Coef</span><span class="p">)</span>  <span class="c1"># view without regard to a &#39;coefficient&#39; axis</span>
+
+    <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">cview</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="n">nX</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">cview</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+    <span class="n">F</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">cview</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="n">nF</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">cview</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+    <span class="n">XF</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">cview</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="n">nXF</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">cview</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+    <span class="n">X2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">cview</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="n">nX2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">cview</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="nb">int</span><span class="p">)</span>
+
+
+    <span class="k">for</span> <span class="n">slices</span><span class="p">,</span> <span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="n">t</span><span class="p">),</span> <span class="n">bins</span> <span class="ow">in</span> <span class="n">loopover</span> <span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">,</span> <span class="n">secs</span><span class="p">],</span> <span class="n">cview</span><span class="p">,</span> <span class="n">pbar</span><span class="p">):</span>
+      <span class="n">partial_sum</span> <span class="p">(</span><span class="n">data</span><span class="p">,</span>   <span class="n">slices</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span>  <span class="n">nF</span><span class="p">,</span>  <span class="n">ti</span><span class="p">,</span> <span class="n">bins</span><span class="p">)</span>
+      <span class="n">partial_sum</span> <span class="p">(</span><span class="n">t</span><span class="p">,</span>      <span class="n">slices</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span>  <span class="n">nX</span><span class="p">,</span>  <span class="n">ti</span><span class="p">,</span> <span class="n">bins</span><span class="p">)</span>
+      <span class="n">partial_sum</span> <span class="p">(</span><span class="n">data</span><span class="o">*</span><span class="n">t</span><span class="p">,</span> <span class="n">slices</span><span class="p">,</span> <span class="n">XF</span><span class="p">,</span> <span class="n">nXF</span><span class="p">,</span> <span class="n">ti</span><span class="p">,</span> <span class="n">bins</span><span class="p">)</span>
+      <span class="n">partial_sum</span> <span class="p">(</span><span class="n">t</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span>   <span class="n">slices</span><span class="p">,</span> <span class="n">X2</span><span class="p">,</span> <span class="n">nX2</span><span class="p">,</span> <span class="n">ti</span><span class="p">,</span> <span class="n">bins</span><span class="p">)</span>
+
+    <span class="n">F</span> <span class="o">/=</span> <span class="n">nF</span>
+    <span class="n">X</span> <span class="o">/=</span> <span class="n">nX</span>
+    <span class="n">XF</span> <span class="o">/=</span> <span class="n">nXF</span>
+    <span class="n">X2</span> <span class="o">/=</span> <span class="n">nX2</span>
+
+<span class="c1">#    print &#39;??&#39;, X2 - X**2</span>
+
+    <span class="n">A</span> <span class="o">=</span> <span class="n">XF</span> <span class="o">-</span> <span class="n">X</span><span class="o">*</span><span class="n">F</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">X2</span><span class="o">*</span><span class="n">F</span> <span class="o">-</span> <span class="n">X</span><span class="o">*</span><span class="n">XF</span>
+
+    <span class="n">icoef</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">Coef</span><span class="p">)</span>
+    <span class="n">coef</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="n">integer_indices</span><span class="p">[</span><span class="n">icoef</span><span class="p">]</span>
+
+    <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+
+    <span class="c1">#  Stick the two coefficients together into a single array</span>
+    <span class="n">out</span><span class="p">[</span><span class="o">...</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">coef</span><span class="o">==</span><span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">B</span><span class="p">[</span><span class="o">...</span><span class="p">,</span><span class="kc">None</span><span class="p">]</span>
+    <span class="n">out</span><span class="p">[</span><span class="o">...</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">coef</span><span class="o">==</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="o">...</span><span class="p">,</span><span class="kc">None</span><span class="p">]</span>
+
+    <span class="n">out</span> <span class="o">/=</span> <span class="p">(</span><span class="n">X2</span> <span class="o">-</span> <span class="n">X</span><span class="o">**</span><span class="mi">2</span><span class="p">)[</span><span class="o">...</span><span class="p">,</span><span class="kc">None</span><span class="p">]</span>
+
+    <span class="k">return</span> <span class="n">out</span>
+<span class="c1"># }}}</span>
+
+<span class="c1">###############################################################################</span>
+<span class="c1"># Combine the above classes</span>
+
+<div class="viewcode-block" id="climatology"><a class="viewcode-back" href="../../climat.html#pygeode.climatology">[docs]</a><span class="k">class</span> <span class="nc">climatology</span><span class="p">(</span><span class="n">Clim</span><span class="p">,</span><span class="n">Mean</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Computes a climatological mean.  Averages over all years, returning a single</span>
+<span class="sd">  value for each distinct month, day, hour, etc.</span>
+<span class="sd">  &quot;&quot;&quot;</span></div>
+<div class="viewcode-block" id="dailymean"><a class="viewcode-back" href="../../climat.html#pygeode.dailymean">[docs]</a><span class="k">class</span> <span class="nc">dailymean</span><span class="p">(</span><span class="n">Daily</span><span class="p">,</span><span class="n">Mean</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Computes an average value for each day.</span>
+<span class="sd">  &quot;&quot;&quot;</span></div>
+<div class="viewcode-block" id="monthlymean"><a class="viewcode-back" href="../../climat.html#pygeode.monthlymean">[docs]</a><span class="k">class</span> <span class="nc">monthlymean</span><span class="p">(</span><span class="n">Monthly</span><span class="p">,</span><span class="n">Mean</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Averages over each month.</span>
+<span class="sd">  &quot;&quot;&quot;</span></div>
+<div class="viewcode-block" id="yearlymean"><a class="viewcode-back" href="../../climat.html#pygeode.yearlymean">[docs]</a><span class="k">class</span> <span class="nc">yearlymean</span><span class="p">(</span><span class="n">Yearly</span><span class="p">,</span><span class="n">Mean</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Averages over each year.</span>
+<span class="sd">  &quot;&quot;&quot;</span></div>
+<div class="viewcode-block" id="diurnalmean"><a class="viewcode-back" href="../../climat.html#pygeode.diurnalmean">[docs]</a><span class="k">class</span> <span class="nc">diurnalmean</span><span class="p">(</span><span class="n">Diurnal</span><span class="p">,</span><span class="n">Mean</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Computes an average value for each time of day (averages over all years,</span>
+<span class="sd">  months, days).</span>
+<span class="sd">  &quot;&quot;&quot;</span></div>
+<div class="viewcode-block" id="seasonalmean"><a class="viewcode-back" href="../../climat.html#pygeode.seasonalmean">[docs]</a><span class="k">class</span> <span class="nc">seasonalmean</span><span class="p">(</span><span class="n">Seasonal</span><span class="p">,</span><span class="n">Mean</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Averages over each season.  Currently, the seasons are hard-coded as (DJF,</span>
+<span class="sd">  MAM, JJA, SON).</span>
+<span class="sd">  &quot;&quot;&quot;</span></div>
+
+<span class="k">class</span> <span class="nc">nanclimatology</span><span class="p">(</span><span class="n">Clim</span><span class="p">,</span><span class="n">NANMean</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Computes a climatological nan-aware mean.  Averages over all years, returning a single</span>
+<span class="sd">  value for each distinct month, day, hour, etc.</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+<span class="k">class</span> <span class="nc">dailynanmean</span><span class="p">(</span><span class="n">Daily</span><span class="p">,</span><span class="n">NANMean</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Computes a nan-aware average value for each day.</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+<span class="k">class</span> <span class="nc">monthlynanmean</span><span class="p">(</span><span class="n">Monthly</span><span class="p">,</span><span class="n">NANMean</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Nan-aware Averages over each month.</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+<span class="k">class</span> <span class="nc">yearlynanmean</span><span class="p">(</span><span class="n">Yearly</span><span class="p">,</span><span class="n">NANMean</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Nan-aware Averages over each year.</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+<span class="k">class</span> <span class="nc">diurnalnanmean</span><span class="p">(</span><span class="n">Diurnal</span><span class="p">,</span><span class="n">NANMean</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Computes a nan-aware average value for each time of day (averages over all years,</span>
+<span class="sd">  months, days).</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+<span class="k">class</span> <span class="nc">seasonalnanmean</span><span class="p">(</span><span class="n">Seasonal</span><span class="p">,</span><span class="n">NANMean</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Nan-aware averages over each season.  Currently, the seasons are hard-coded as (DJF,</span>
+<span class="sd">  MAM, JJA, SON).</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="climtrend"><a class="viewcode-back" href="../../climat.html#pygeode.climtrend">[docs]</a><span class="k">class</span> <span class="nc">climtrend</span><span class="p">(</span><span class="n">Clim</span><span class="p">,</span><span class="n">Trend</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  For each month, day, hour, etc., compute a least-squares fit to a linear trend</span>
+<span class="sd">  over all years.  This is similar to the climatology, but instead of averaging</span>
+<span class="sd">  over all years, it computes the rate of change over all years.</span>
+<span class="sd">  &quot;&quot;&quot;</span></div>
+
+<span class="k">class</span> <span class="nc">climstdev</span><span class="p">(</span><span class="n">Clim</span><span class="p">,</span><span class="n">Stdev</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Computes a climatological standard deviation. Computes standard deviation over all years,</span>
+<span class="sd">  returning a single value for each distinct month, day, hour, etc.</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+<span class="k">class</span> <span class="nc">dailystdev</span><span class="p">(</span><span class="n">Daily</span><span class="p">,</span><span class="n">Stdev</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot; Computes daily standard deviation. &quot;&quot;&quot;</span>
+
+<span class="k">class</span> <span class="nc">monthlystdev</span><span class="p">(</span><span class="n">Monthly</span><span class="p">,</span><span class="n">Stdev</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot; Computes monthly standard deviation. &quot;&quot;&quot;</span>
+
+<span class="k">class</span> <span class="nc">seasonalstdev</span><span class="p">(</span><span class="n">Seasonal</span><span class="p">,</span><span class="n">Stdev</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot; Computes seasonal standard deviation. &quot;&quot;&quot;</span>
+
+<span class="k">class</span> <span class="nc">yearlystdev</span><span class="p">(</span><span class="n">Yearly</span><span class="p">,</span><span class="n">Stdev</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot; Computes yearly standard deviation. &quot;&quot;&quot;</span>
+
+<span class="k">class</span> <span class="nc">diurnalstdev</span><span class="p">(</span><span class="n">Diurnal</span><span class="p">,</span><span class="n">Stdev</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot; Computes diurnal standard deviation. &quot;&quot;&quot;</span>
+
+<span class="k">class</span> <span class="nc">climnanstdev</span><span class="p">(</span><span class="n">Clim</span><span class="p">,</span><span class="n">NANStdev</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot; Computes nan-aware climatological standard deviation. &quot;&quot;&quot;</span>
+
+<span class="k">class</span> <span class="nc">dailynanstdev</span><span class="p">(</span><span class="n">Daily</span><span class="p">,</span><span class="n">NANStdev</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot; Computes nan-aware daily standard deviation. &quot;&quot;&quot;</span>
+
+<span class="k">class</span> <span class="nc">monthlynanstdev</span><span class="p">(</span><span class="n">Monthly</span><span class="p">,</span><span class="n">NANStdev</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot; Computes nan-aware monthly standard deviation. &quot;&quot;&quot;</span>
+
+<span class="k">class</span> <span class="nc">seasonalnanstdev</span><span class="p">(</span><span class="n">Seasonal</span><span class="p">,</span><span class="n">NANStdev</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot; Computes nan-aware seasonal standard deviation. &quot;&quot;&quot;</span>
+
+<span class="k">class</span> <span class="nc">yearlynanstdev</span><span class="p">(</span><span class="n">Yearly</span><span class="p">,</span><span class="n">NANStdev</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot; Computes nan-aware yearly standard deviation. &quot;&quot;&quot;</span>
+
+<span class="k">class</span> <span class="nc">diurnalnanstdev</span><span class="p">(</span><span class="n">Diurnal</span><span class="p">,</span><span class="n">NANStdev</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot; Computes nan-aware diurnal standard deviation. &quot;&quot;&quot;</span>
+
+<span class="k">class</span> <span class="nc">climcount</span><span class="p">(</span><span class="n">Clim</span><span class="p">,</span><span class="n">Count</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot; Counts number of non-nan data points contributing to climatology. &quot;&quot;&quot;</span>
+
+<span class="k">class</span> <span class="nc">dailycount</span><span class="p">(</span><span class="n">Daily</span><span class="p">,</span><span class="n">Count</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot; Counts number of non-nan data points contributing to daily mean. &quot;&quot;&quot;</span>
+
+<span class="k">class</span> <span class="nc">monthlycount</span><span class="p">(</span><span class="n">Monthly</span><span class="p">,</span><span class="n">Count</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot; Counts number of non-nan data points contributing to monthly mean. &quot;&quot;&quot;</span>
+
+<span class="k">class</span> <span class="nc">seasonalcount</span><span class="p">(</span><span class="n">Seasonal</span><span class="p">,</span><span class="n">Count</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot; Counts number of non-nan data points contributing to seasonal mean. &quot;&quot;&quot;</span>
+
+<span class="k">class</span> <span class="nc">yearlycount</span><span class="p">(</span><span class="n">Yearly</span><span class="p">,</span><span class="n">Count</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot; Counts number of non-nan data points contributing to yearly mean. &quot;&quot;&quot;</span>
+
+<span class="k">class</span> <span class="nc">diurnalcount</span><span class="p">(</span><span class="n">Diurnal</span><span class="p">,</span><span class="n">Count</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot; Counts number of non-nan data points contributing to diurnal mean. &quot;&quot;&quot;</span>
+
+
+<span class="c1"># Reconstruct a linear dataset given the trend coefficients</span>
+<span class="c1"># I.e., A*t + B</span>
+<div class="viewcode-block" id="from_trend"><a class="viewcode-back" href="../../climat.html#pygeode.from_trend">[docs]</a><span class="k">class</span> <span class="nc">from_trend</span> <span class="p">(</span><span class="n">Var</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Reconstructs linear timeseries from a given trend.</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="k">def</span> <span class="nf">__init__</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">taxis</span><span class="p">,</span> <span class="n">coef</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">A</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">B</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">pygeode.tools</span> <span class="k">import</span> <span class="n">merge_coefs</span>
+    <span class="kn">from</span> <span class="nn">pygeode.var</span> <span class="k">import</span> <span class="n">Var</span>
+    <span class="kn">from</span> <span class="nn">pygeode.timeaxis</span> <span class="k">import</span> <span class="n">Time</span>
+    <span class="kn">from</span> <span class="nn">pygeode.timeutils</span> <span class="k">import</span> <span class="n">modify</span>
+    <span class="c1"># Get the coefficients</span>
+    <span class="k">if</span> <span class="n">coef</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="k">assert</span> <span class="n">A</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">B</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+      <span class="n">coef</span> <span class="o">=</span> <span class="n">merge_coefs</span> <span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span> <span class="k">assert</span> <span class="n">A</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">B</span> <span class="ow">is</span> <span class="kc">None</span>
+    <span class="c1"># Ignore &#39;year&#39; field if it&#39;s constant?</span>
+    <span class="c1">#   (I.e., if there&#39;s a &#39;year&#39; field that&#39;s all zeros, then drop it)</span>
+    <span class="c1">#  - This is an artifact of reading climatological data from a file which can&#39;t/doesn&#39;t specify it&#39;s a climatology</span>
+    <span class="n">coeft</span> <span class="o">=</span> <span class="n">coef</span><span class="o">.</span><span class="n">getaxis</span><span class="p">(</span><span class="n">Time</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">coeft</span><span class="p">,</span><span class="s1">&#39;year&#39;</span><span class="p">):</span>
+      <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+      <span class="kn">from</span> <span class="nn">warnings</span> <span class="k">import</span> <span class="n">warn</span>
+      <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">coeft</span><span class="o">.</span><span class="n">year</span><span class="o">.</span><span class="n">values</span><span class="p">))</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">warn</span> <span class="p">(</span><span class="s2">&quot;ignoring degenerate &#39;year&#39; field&quot;</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">coeft</span> <span class="o">=</span> <span class="n">modify</span><span class="p">(</span><span class="n">coeft</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="s1">&#39;year&#39;</span><span class="p">)</span>
+        <span class="n">coef</span> <span class="o">=</span> <span class="n">coef</span><span class="o">.</span><span class="n">replace_axes</span><span class="p">({</span><span class="n">Time</span><span class="p">:</span><span class="n">coeft</span><span class="p">})</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">coef</span> <span class="o">=</span> <span class="n">coef</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">secs</span> <span class="o">=</span> <span class="n">Var</span><span class="p">([</span><span class="n">taxis</span><span class="p">],</span> <span class="n">values</span><span class="o">=</span><span class="n">taxis</span><span class="o">.</span><span class="n">reltime</span><span class="p">(</span><span class="n">units</span><span class="o">=</span><span class="s1">&#39;seconds&#39;</span><span class="p">))</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ti</span> <span class="o">=</span> <span class="n">ti</span> <span class="o">=</span> <span class="n">coef</span><span class="o">.</span><span class="n">whichaxis</span><span class="p">(</span><span class="n">Time</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ci</span> <span class="o">=</span> <span class="n">ci</span> <span class="o">=</span> <span class="n">coef</span><span class="o">.</span><span class="n">whichaxis</span><span class="p">(</span><span class="s1">&#39;coef&#39;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">caxis</span> <span class="o">=</span> <span class="n">coef</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">ci</span><span class="p">]</span>
+    <span class="n">axes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">coef</span><span class="o">.</span><span class="n">axes</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">axes</span><span class="p">[</span><span class="n">ti</span><span class="p">]</span><span class="o">.</span><span class="n">map_to</span><span class="p">(</span><span class="n">taxis</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="p">(</span>
+      <span class="s2">&quot;the given time axis is not compatible with the coefficients.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">+</span>
+      <span class="s2">&quot;time axis: </span><span class="si">%s</span><span class="se">\n</span><span class="s2"> coefficient time axis: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">taxis</span><span class="p">)),</span><span class="nb">repr</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="n">ti</span><span class="p">])))</span>
+    <span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">ti</span><span class="p">]</span> <span class="o">=</span> <span class="n">taxis</span>
+    <span class="n">axes</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[:</span><span class="n">ci</span><span class="p">]</span> <span class="o">+</span> <span class="n">axes</span><span class="p">[</span><span class="n">ci</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span>
+<span class="c1">#    Var.__init__(self, axes, dtype=coef.dtype)</span>
+    <span class="n">Var</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>  <span class="c1"># because secs is float64</span>
+  <span class="k">def</span> <span class="nf">getview</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">pbar</span><span class="p">):</span>
+    <span class="n">cview</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="n">add_axis</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">caxis</span><span class="p">,</span> <span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">))</span>
+    <span class="n">coef</span> <span class="o">=</span> <span class="n">cview</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coef</span><span class="p">,</span> <span class="n">pbar</span><span class="o">=</span><span class="n">pbar</span><span class="p">)</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">coef</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="o">...</span><span class="p">]</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">coef</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="o">...</span><span class="p">]</span>
+    <span class="n">secs</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">secs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">A</span><span class="o">*</span><span class="n">secs</span> <span class="o">+</span> <span class="n">B</span></div>
+<span class="c1"># }}}</span>
+
+<span class="k">del</span> <span class="n">Var</span>
+
+<span class="c1"># Remove the climatological trend from the data</span>
+<span class="c1"># NOTE: precomputes climatology and stores it in memory</span>
+<span class="c1"># Don&#39;t use this if the climatology won&#39;t fit in memory.</span>
+<span class="c1"># Instead, call &#39;climtrend&#39;, save the output to disk, and then feed that into &#39;from_trend&#39;</span>
+<span class="kn">from</span> <span class="nn">pygeode.timeaxis</span> <span class="k">import</span> <span class="n">Time</span>
+<div class="viewcode-block" id="detrend"><a class="viewcode-back" href="../../climat.html#pygeode.detrend">[docs]</a><span class="k">def</span> <span class="nf">detrend</span> <span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">taxis</span><span class="o">=</span><span class="n">Time</span><span class="p">,</span> <span class="n">return_clim</span> <span class="o">=</span> <span class="kc">False</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+  <span class="n">clim</span> <span class="o">=</span> <span class="n">from_trend</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">getaxis</span><span class="p">(</span><span class="n">taxis</span><span class="p">),</span> <span class="n">climtrend</span><span class="p">(</span><span class="n">var</span><span class="p">)</span><span class="o">.</span><span class="n">load</span><span class="p">())</span>
+  <span class="n">clim</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;clim&#39;</span>
+  <span class="n">out</span> <span class="o">=</span> <span class="n">var</span> <span class="o">-</span> <span class="n">clim</span>
+  <span class="k">if</span> <span class="n">return_clim</span> <span class="ow">is</span> <span class="kc">True</span><span class="p">:</span> <span class="k">return</span> <span class="n">out</span><span class="p">,</span> <span class="n">clim</span>
+  <span class="k">else</span><span class="p">:</span> <span class="k">return</span> <span class="n">out</span></div>
+<span class="c1"># }}}</span>
+
+<span class="k">del</span> <span class="n">Time</span>
+</pre></div>
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        <a class="uplink" href="../../reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../gallery/index.html">Gallery</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Mike Neish, Peter Hitchcock.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.
+    </div>
+  </body>
+</html>

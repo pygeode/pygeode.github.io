@@ -1,0 +1,211 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>pygeode.smooth &#8212; PyGeode 1.3 pre-release documentation</title>
+    <link rel="stylesheet" href="../../_static/pygtheme.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
+
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../../index.html">
+          <span>PyGeode 1.3 pre-release documentation</span></a></h1>
+        <h2 class="heading"><span>pygeode.smooth</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        <a class="uplink" href="../../reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../gallery/index.html">Gallery</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <h1>Source code for pygeode.smooth</h1><div class="highlight"><pre>
+<span></span><span class="c1"># smooth.py - implementation of SmoothVar</span>
+
+<span class="kn">from</span> <span class="nn">pygeode.var</span> <span class="k">import</span> <span class="n">Var</span>
+
+<span class="k">class</span> <span class="nc">SmoothVar</span> <span class="p">(</span><span class="n">Var</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;Smoothing variable. Convolves source variable along </span>
+<span class="sd">      given axis with the specified smoothing kernel.&#39;&#39;&#39;</span>
+
+  <span class="k">def</span> <span class="nf">__init__</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">saxis</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">fft</span><span class="p">):</span>
+  <span class="c1"># {{{</span>
+    <span class="sd">&#39;&#39;&#39; __init__()&#39;&#39;&#39;</span>
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">kernel</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">var</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">saxis</span><span class="p">],</span> <span class="s1">&#39;Kernel must not be longer than dimension being smoothed.&#39;</span>
+
+    <span class="c1"># Construct new variable</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">saxis</span> <span class="o">=</span> <span class="n">saxis</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">var</span> <span class="o">=</span> <span class="n">var</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span> <span class="o">=</span> <span class="n">kernel</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">fft</span> <span class="o">=</span> <span class="n">fft</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">klen</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">kernel</span><span class="p">)</span>
+
+    <span class="c1"># Normalize and reshape kernel</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span> <span class="o">/=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kernel</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span><span class="o">.</span><span class="n">shape</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">klen</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">saxis</span> <span class="k">else</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">naxes</span><span class="p">)]</span>
+
+    <span class="c1"># Determine which convolution function to use</span>
+    <span class="kn">from</span> <span class="nn">scipy</span> <span class="k">import</span> <span class="n">signal</span> <span class="k">as</span> <span class="n">sg</span>
+    <span class="n">tdata</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">kernel</span><span class="p">),</span> <span class="s1">&#39;d&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fft</span><span class="p">:</span>
+      <span class="k">try</span><span class="p">:</span>
+        <span class="n">sg</span><span class="o">.</span><span class="n">fftconvolve</span><span class="p">(</span><span class="n">tdata</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="s1">&#39;same&#39;</span><span class="p">,</span> <span class="n">old_behaviour</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_convolve</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="n">sg</span><span class="o">.</span><span class="n">fftconvolve</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">old_behaviour</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+      <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_convolve</span> <span class="o">=</span> <span class="n">sg</span><span class="o">.</span><span class="n">fftconvolve</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="k">try</span><span class="p">:</span>
+        <span class="n">sg</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span><span class="n">tdata</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="s1">&#39;same&#39;</span><span class="p">,</span> <span class="n">old_behaviour</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_convolve</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">:</span> <span class="n">sg</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">old_behaviour</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+      <span class="k">except</span> <span class="ne">TypeError</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_convolve</span> <span class="o">=</span> <span class="n">sg</span><span class="o">.</span><span class="n">convolve</span>
+
+    <span class="n">Var</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">axes</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">var</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">atts</span><span class="o">=</span><span class="n">var</span><span class="o">.</span><span class="n">atts</span><span class="p">,</span> <span class="n">plotatts</span><span class="o">=</span><span class="n">var</span><span class="o">.</span><span class="n">plotatts</span><span class="p">)</span>
+  <span class="c1"># }}}</span>
+
+  <span class="k">def</span> <span class="nf">getview</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">pbar</span><span class="p">):</span>
+  <span class="c1"># {{{</span>
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+    <span class="kn">from</span> <span class="nn">pygeode.tools</span> <span class="k">import</span> <span class="n">loopover</span>
+
+    <span class="n">saxis</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">saxis</span>
+
+    <span class="c1"># Get bounds of slice on smoothing axis</span>
+    <span class="n">ind</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="n">integer_indices</span><span class="p">[</span><span class="n">saxis</span><span class="p">]</span>
+    <span class="n">st</span><span class="p">,</span> <span class="n">sp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">ind</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">ind</span><span class="p">)</span>
+
+    <span class="c1"># Extend view along smoothing axis; use data past slice if present, otherwise mirror data</span>
+    <span class="n">loffs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">klen</span> <span class="o">//</span> <span class="mi">2</span>
+    <span class="n">roffs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">klen</span> <span class="o">-</span> <span class="n">loffs</span>
+    
+    <span class="c1"># Construct slices for mirroring pre-convolved data</span>
+    <span class="n">ssli</span> <span class="o">=</span> <span class="p">[</span><span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">naxes</span><span class="p">)]</span>
+    <span class="n">sslo</span> <span class="o">=</span> <span class="p">[</span><span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">naxes</span><span class="p">)]</span>
+    <span class="n">mleft_len</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">loffs</span> <span class="o">-</span> <span class="n">st</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="n">mright_len</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">sp</span> <span class="o">+</span> <span class="n">roffs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">saxis</span><span class="p">])</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">saxis</span><span class="p">]</span>
+
+    <span class="c1"># Construct slice into source variable</span>
+    <span class="n">insl</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">st</span> <span class="o">-</span> <span class="n">loffs</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="nb">min</span><span class="p">(</span><span class="n">sp</span> <span class="o">+</span> <span class="n">roffs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">saxis</span><span class="p">]),</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">aview</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="n">modify_slice</span><span class="p">(</span><span class="n">saxis</span><span class="p">,</span> <span class="n">insl</span><span class="p">)</span>
+
+    <span class="c1"># Construct slice into convolved output</span>
+    <span class="n">cnvsl</span> <span class="o">=</span> <span class="p">[</span><span class="n">ind</span> <span class="o">-</span> <span class="p">(</span><span class="n">st</span> <span class="o">-</span> <span class="n">loffs</span><span class="p">)</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">saxis</span> <span class="k">else</span> <span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">naxes</span><span class="p">)]</span>
+
+    <span class="c1"># Extended source data if needed</span>
+    <span class="n">src_saxislen</span> <span class="o">=</span> <span class="n">sp</span> <span class="o">-</span> <span class="n">st</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">klen</span>
+
+    <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">outsl</span><span class="p">,</span> <span class="p">(</span><span class="n">indata</span><span class="p">,)</span> <span class="ow">in</span> <span class="n">loopover</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">,</span> <span class="n">aview</span><span class="p">,</span> <span class="n">preserve</span><span class="o">=</span><span class="p">[</span><span class="n">saxis</span><span class="p">],</span> <span class="n">pbar</span><span class="o">=</span><span class="n">pbar</span><span class="p">):</span>
+      <span class="n">src_shape</span> <span class="o">=</span> <span class="n">indata</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="n">saxis</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">src_saxislen</span><span class="p">,)</span> <span class="o">+</span> <span class="n">indata</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">saxis</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span>
+      <span class="n">src</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">src_shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+      <span class="n">sslo</span><span class="p">[</span><span class="n">saxis</span><span class="p">]</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="n">mleft_len</span><span class="p">,</span> <span class="n">src_saxislen</span> <span class="o">-</span> <span class="n">mright_len</span><span class="p">)</span>
+      <span class="n">src</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">sslo</span><span class="p">)]</span> <span class="o">=</span> <span class="n">indata</span>
+
+      <span class="c1"># Mirror boundaries, if necessary</span>
+      <span class="k">if</span> <span class="n">mleft_len</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">ssli</span><span class="p">[</span><span class="n">saxis</span><span class="p">]</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">mleft_len</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">mleft_len</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">sslo</span><span class="p">[</span><span class="n">saxis</span><span class="p">]</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">mleft_len</span><span class="p">)</span>
+        <span class="n">src</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">sslo</span><span class="p">)]</span> <span class="o">=</span> <span class="n">src</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">ssli</span><span class="p">)]</span>
+
+      <span class="c1"># Mirror boundaries, if necessary</span>
+      <span class="k">if</span> <span class="n">mright_len</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">ssli</span><span class="p">[</span><span class="n">saxis</span><span class="p">]</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="o">-</span><span class="n">mright_len</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="o">*</span><span class="n">mright_len</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">sslo</span><span class="p">[</span><span class="n">saxis</span><span class="p">]</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="o">-</span><span class="n">mright_len</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">src</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">sslo</span><span class="p">)]</span> <span class="o">=</span> <span class="n">src</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">ssli</span><span class="p">)]</span>
+
+      <span class="n">out</span><span class="p">[</span><span class="n">outsl</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convolve</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span><span class="p">,</span> <span class="s1">&#39;same&#39;</span><span class="p">)[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">cnvsl</span><span class="p">)]</span>
+
+    <span class="k">return</span> <span class="n">out</span>
+  <span class="c1"># }}}</span>
+
+<span class="k">def</span> <span class="nf">smooth</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">saxis</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">fft</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39; Smooths this variable along ``saxis`` by convolving it with an averaging</span>
+<span class="sd">      kernel. The returned variable is defined on the same axes.</span>
+
+<span class="sd">      Parameters</span>
+<span class="sd">      ----------</span>
+<span class="sd">      saxis : any axis identifier (string, :class:`Axis`, or int)</span>
+<span class="sd">        Axis over which the smoothing should be performed</span>
+
+<span class="sd">      kernel : sequence or int (optional)</span>
+<span class="sd">        Averaging kernel with which to convolve this variable. Does not need to</span>
+<span class="sd">        be normalized.  If an integer is provided, a Hanning window is used of</span>
+<span class="sd">        length ``kernel`` (:func:`numpy.hanning`)</span>
+
+<span class="sd">      fft : boolean (optional, True by default)</span>
+<span class="sd">        If True, :func:`scipy.signal.fftconvolve` is used to compute the convolution.</span>
+<span class="sd">        Otherwise, :func:`scipy.signal.convolve` is used. In many cases the former</span>
+<span class="sd">        is more efficient.</span>
+
+<span class="sd">      Returns</span>
+<span class="sd">      -------</span>
+<span class="sd">      out : :class:`Var`</span>
+<span class="sd">        Smoothed variable.</span>
+
+<span class="sd">      Notes</span>
+<span class="sd">      -----</span>
+<span class="sd">      When the convolution is performed, the source data is extended on either</span>
+<span class="sd">      end of the axis being smoothed by reflecting the data by enough to ensure</span>
+<span class="sd">      the returned variable is defined on the same grid as the source variable.</span>
+<span class="sd">      That is, if the original data is t1, t2, .., tN, and the kernel is L</span>
+<span class="sd">      items long, the convolved sequence is tj, t_j-1, t1, t1, t2, .. tN-1, tN,</span>
+<span class="sd">      tN, tN-1, .. tN-l, where j = floor(L/2) and l = L - j - 1.</span>
+
+<span class="sd">      Examples</span>
+<span class="sd">      --------</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+  <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">kernel</span><span class="p">,</span> <span class="s1">&#39;__len__&#39;</span><span class="p">):</span>
+    <span class="n">kernel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">kernel</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;d&#39;</span><span class="p">)</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="n">kernel</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hanning</span><span class="p">(</span><span class="n">kernel</span><span class="p">)</span>
+
+  <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">kernel</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">2</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">var</span>
+
+  <span class="k">return</span> <span class="n">SmoothVar</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">whichaxis</span><span class="p">(</span><span class="n">saxis</span><span class="p">),</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">fft</span><span class="o">=</span><span class="n">fft</span><span class="p">)</span>
+</pre></div>
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        <a class="uplink" href="../../reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../gallery/index.html">Gallery</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Mike Neish, Peter Hitchcock.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.
+    </div>
+  </body>
+</html>

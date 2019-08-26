@@ -1,230 +1,256 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Var class overview &mdash; PyGeode 1.0 alpha documentation</title>
-    
+    <title>Var class overview &#8212; PyGeode 1.3 pre-release documentation</title>
     <link rel="stylesheet" href="_static/pygtheme.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '1.0 alpha',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
+    <link rel="stylesheet" type="text/css" href="_static/gallery.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="PyGeode 1.0 alpha documentation" href="index.html" />
-    <link rel="up" title="Reference" href="reference.html" />
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Variable Querying Routines" href="varquery.html" />
     <link rel="prev" title="Reference" href="reference.html" />
 <link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
 
-  </head>
-  <body>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="varquery.html" title="Variable Querying Routines"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="reference.html" title="Reference"
-             accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li>
-          <li><a href="reference.html" accesskey="U">Reference</a> &raquo;</li> 
-      </ul>
-    </div>  
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="index.html">
+          <span>PyGeode 1.3 pre-release documentation</span></a></h1>
+        <h2 class="heading"><span>Var class overview</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        «&#160;&#160;<a href="reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="gallery/index.html">Gallery</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="varquery.html">Variable Querying Routines</a>&#160;&#160;»
+        </p>
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
-            
+      </div>
+      <div class="content">
+        
+        
   <div class="section" id="var-class-overview">
 <h1>Var class overview<a class="headerlink" href="#var-class-overview" title="Permalink to this headline">¶</a></h1>
 <p>In PyGeode, all gridded data is represented by Var objects.  They can be
-thought of as <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/arrays.ndarray.html#arrays-ndarray" title="(in NumPy v1.9)"><em class="xref std std-ref">numpy</em></a> arrays, which have been further
+thought of as <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/arrays.ndarray.html#arrays-ndarray" title="(in NumPy v1.17)"><span class="xref std std-ref">numpy</span></a> arrays, which have been further
 abstracted in the following ways:</p>
 <blockquote>
 <div><ul class="simple">
-<li>They can have a <a class="reference internal" href="#pygeode.Var.name" title="pygeode.Var.name"><tt class="xref py py-attr docutils literal"><span class="pre">name</span></tt></a>, and <a class="reference internal" href="#pygeode.Var.atts" title="pygeode.Var.atts"><tt class="xref py py-attr docutils literal"><span class="pre">other</span></tt></a> useful metadata associated with them</li>
-<li>Each array dimension has an associated <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><tt class="xref py py-class docutils literal"><span class="pre">Axis</span></tt></a> object (a special type of Var), containing the coordinate values.</li>
+<li>They can have a <a class="reference internal" href="#pygeode.Var.name" title="pygeode.Var.name"><code class="xref py py-attr docutils literal notranslate"><span class="pre">name</span></code></a>, and <a class="reference internal" href="#pygeode.Var.atts" title="pygeode.Var.atts"><code class="xref py py-attr docutils literal notranslate"><span class="pre">other</span></code></a> useful metadata associated with them</li>
+<li>Each array dimension has an associated <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><code class="xref py py-class docutils literal notranslate"><span class="pre">Axis</span></code></a> object (a special type of Var), containing the coordinate values.</li>
 <li>The array values are not immediately loaded into memory.  Instead, the Var object knows where to find its values if it needs them, and will only bother to retrieve the values if something else is explicitly requesting them.</li>
 <li>Similarly, operations on the data are not performed immediately.  Instead, a <em>new</em> Var object is constructed, encapsulating the input Vars and the operation.  If any of that data is ever requested, then the corresponding input data is retrieved, and <em>only then</em> is the operation performed.</li>
 </ul>
 </div></blockquote>
 <dl class="class">
 <dt id="pygeode.Var">
-<em class="property">class </em><tt class="descclassname">pygeode.</tt><tt class="descname">Var</tt><a class="headerlink" href="#pygeode.Var" title="Permalink to this definition">¶</a></dt>
-<dd><p class="rubric">Useful attributes</p>
-<table border="1" class="longtable docutils">
+<em class="property">class </em><code class="descclassname">pygeode.</code><code class="descname">Var</code><a class="reference internal" href="_modules/pygeode/var.html#Var"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.Var" title="Permalink to this definition">¶</a></dt>
+<dd><table border="1" class="longtable docutils">
 <colgroup>
 <col width="10%" />
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="#pygeode.Var.name" title="pygeode.Var.name"><tt class="xref py py-obj docutils literal"><span class="pre">Var.name</span></tt></a></td>
-<td>str(object=&#8217;&#8216;) -&gt; string</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#pygeode.Var.axes" title="pygeode.Var.axes"><tt class="xref py py-obj docutils literal"><span class="pre">Var.axes</span></tt></a></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pygeode.Var.atts" title="pygeode.Var.atts"><tt class="xref py py-obj docutils literal"><span class="pre">Var.atts</span></tt></a></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="#pygeode.Var.dtype" title="pygeode.Var.dtype"><tt class="xref py py-obj docutils literal"><span class="pre">Var.dtype</span></tt></a></td>
-<td></td>
+<tr class="row-odd"><td><a class="reference internal" href="#pygeode.Var.__init__" title="pygeode.Var.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.__init__</span></code></a>(axes[,&nbsp;dtype,&nbsp;name,&nbsp;values,&nbsp;…])</td>
+<td>Create a new Var object with the given axes and values.</td>
 </tr>
 </tbody>
 </table>
-<p><a class="reference internal" href="var.get.html"><em>Retrieving values from a variable</em></a></p>
+<p class="rubric">Useful attributes</p>
 <table border="1" class="longtable docutils">
 <colgroup>
 <col width="10%" />
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="var.get.html#pygeode.Var.get" title="pygeode.Var.get"><tt class="xref py py-obj docutils literal"><span class="pre">Var.get</span></tt></a>([pbar])</td>
+<tr class="row-odd"><td><a class="reference internal" href="#pygeode.Var.name" title="pygeode.Var.name"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.name</span></code></a></td>
+<td>A description of the variable (may not be set).</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pygeode.Var.axes" title="pygeode.Var.axes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.axes</span></code></a></td>
+<td>The axes of the variable.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pygeode.Var.naxes" title="pygeode.Var.naxes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.naxes</span></code></a></td>
+<td>The number of axes of this variable.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pygeode.Var.shape" title="pygeode.Var.shape"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.shape</span></code></a></td>
+<td>The dimensions of this variable, as a <code class="docutils literal notranslate"><span class="pre">tuple</span></code>.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pygeode.Var.size" title="pygeode.Var.size"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.size</span></code></a></td>
+<td>The total number of data points represented by this variable.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pygeode.Var.atts" title="pygeode.Var.atts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.atts</span></code></a></td>
+<td>Dictionary of metadata associated with the variable.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#pygeode.Var.dtype" title="pygeode.Var.dtype"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.dtype</span></code></a></td>
+<td>The numerical type of the data as a <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.dtype.html#numpy.dtype" title="(in NumPy v1.17)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.dtype</span></code></a>.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pygeode.Var.units" title="pygeode.Var.units"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.units</span></code></a></td>
+<td>A string representation of the units of the variable.</td>
+</tr>
+</tbody>
+</table>
+<p><a class="reference internal" href="var.get.html"><span class="doc">Retrieving values from a variable</span></a></p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="var.get.html#pygeode.Var.get" title="pygeode.Var.get"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.get</span></code></a>([pbar])</td>
 <td>Gets a raw numpy array containing the values of the variable.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="var.get.html#pygeode.Var.__getitem__" title="pygeode.Var.__getitem__"><tt class="xref py py-obj docutils literal"><span class="pre">Var.__getitem__</span></tt></a>(slices)</td>
-<td></td>
+<tr class="row-even"><td><a class="reference internal" href="var.get.html#pygeode.Var.__getitem__" title="pygeode.Var.__getitem__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.__getitem__</span></code></a>(slices)</td>
+<td>Gets a raw numpy array containing a subset of values of the variable.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="var.get.html#pygeode.Var.load" title="pygeode.Var.load"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.load</span></code></a>([pbar])</td>
+<td>Returns a version of this variable with all data loaded into memory.</td>
 </tr>
 </tbody>
 </table>
-<p><a class="reference internal" href="varquery.html"><em>Variable Querying Routines</em></a></p>
+<p><a class="reference internal" href="varquery.html"><span class="doc">Variable Querying Routines</span></a></p>
 <table border="1" class="longtable docutils">
 <colgroup>
 <col width="10%" />
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="varquery.html#pygeode.Var.hasaxis" title="pygeode.Var.hasaxis"><tt class="xref py py-obj docutils literal"><span class="pre">Var.hasaxis</span></tt></a>(iaxis)</td>
-<td>Determines if a particular <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><tt class="xref py py-class docutils literal"><span class="pre">Axis</span></tt></a> is associated with this variable.</td>
+<tr class="row-odd"><td><a class="reference internal" href="varquery.html#pygeode.Var.hasaxis" title="pygeode.Var.hasaxis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.hasaxis</span></code></a>(iaxis)</td>
+<td>Determines if a particular <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><code class="xref py py-class docutils literal notranslate"><span class="pre">Axis</span></code></a> is associated with this variable.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="varquery.html#pygeode.Var.whichaxis" title="pygeode.Var.whichaxis"><tt class="xref py py-obj docutils literal"><span class="pre">Var.whichaxis</span></tt></a>(iaxis)</td>
-<td>Locates a particular <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><tt class="xref py py-class docutils literal"><span class="pre">Axis</span></tt></a> associated with this variable.</td>
+<tr class="row-even"><td><a class="reference internal" href="varquery.html#pygeode.Var.whichaxis" title="pygeode.Var.whichaxis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.whichaxis</span></code></a>(iaxis)</td>
+<td>Locates a particular <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><code class="xref py py-class docutils literal notranslate"><span class="pre">Axis</span></code></a> associated with this variable.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="varquery.html#pygeode.Var.getaxis" title="pygeode.Var.getaxis"><tt class="xref py py-obj docutils literal"><span class="pre">Var.getaxis</span></tt></a>(iaxis)</td>
-<td>Grabs a reference to a particular <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><tt class="xref py py-class docutils literal"><span class="pre">Axis</span></tt></a> associated with this variable.</td>
+<tr class="row-odd"><td><a class="reference internal" href="varquery.html#pygeode.Var.getaxis" title="pygeode.Var.getaxis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.getaxis</span></code></a>(iaxis)</td>
+<td>Grabs a reference to a particular <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><code class="xref py py-class docutils literal notranslate"><span class="pre">Axis</span></code></a> associated with this variable.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="varquery.html#pygeode.Var.getweights" title="pygeode.Var.getweights"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.getweights</span></code></a>([iaxes])</td>
+<td>Returns weights associated with the axes of this variable.</td>
 </tr>
 </tbody>
 </table>
-<p id="varops-list"><a class="reference internal" href="varops.html"><em>Array manipulation routines</em></a></p>
+<p id="varops-list"><a class="reference internal" href="varops.html"><span class="doc">Array manipulation routines</span></a></p>
 <table border="1" class="longtable docutils">
 <colgroup>
 <col width="10%" />
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="varops.html#pygeode.Var.__call__" title="pygeode.Var.__call__"><tt class="xref py py-obj docutils literal"><span class="pre">Var.__call__</span></tt></a>([ignore_mismatch])</td>
+<tr class="row-odd"><td><a class="reference internal" href="varops.html#pygeode.Var.__call__" title="pygeode.Var.__call__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.__call__</span></code></a>([ignore_mismatch])</td>
 <td>Keyword-based data subsetting.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="varops.html#pygeode.Var.squeeze" title="pygeode.Var.squeeze"><tt class="xref py py-obj docutils literal"><span class="pre">Var.squeeze</span></tt></a>(*iaxes,&nbsp;**kwargs)</td>
+<tr class="row-even"><td><a class="reference internal" href="varops.html#pygeode.Var.slice" title="pygeode.Var.slice"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.slice</span></code></a></td>
+<td>A helper to select subsets of this variable using slice notation.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="varops.html#pygeode.Var._getitem_asvar" title="pygeode.Var._getitem_asvar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var._getitem_asvar</span></code></a>(slices)</td>
+<td>Slice-based data subsetting.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="varops.html#pygeode.Var.squeeze" title="pygeode.Var.squeeze"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.squeeze</span></code></a>(*iaxes,&nbsp;**kwargs)</td>
 <td>Removes degenerate axes from a variable, reducing its dimensionality.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="varops.html#pygeode.Var.extend" title="pygeode.Var.extend"><tt class="xref py py-obj docutils literal"><span class="pre">Var.extend</span></tt></a>(pos,&nbsp;*newaxes)</td>
+<tr class="row-odd"><td><a class="reference internal" href="varops.html#pygeode.Var.extend" title="pygeode.Var.extend"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.extend</span></code></a>(pos,&nbsp;*newaxes)</td>
 <td>Adds more axes to a variable.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="varops.html#pygeode.Var.transpose" title="pygeode.Var.transpose"><tt class="xref py py-obj docutils literal"><span class="pre">Var.transpose</span></tt></a>(*axes)</td>
+<tr class="row-even"><td><a class="reference internal" href="varops.html#pygeode.Var.transpose" title="pygeode.Var.transpose"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.transpose</span></code></a>(*axes)</td>
 <td>Transposes the axes of a variable.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="varops.html#pygeode.Var.sorted" title="pygeode.Var.sorted"><tt class="xref py py-obj docutils literal"><span class="pre">Var.sorted</span></tt></a>(*iaxes,&nbsp;**kwargs)</td>
+<tr class="row-odd"><td><a class="reference internal" href="varops.html#pygeode.Var.sorted" title="pygeode.Var.sorted"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.sorted</span></code></a>(*iaxes,&nbsp;**kwargs)</td>
 <td>Sorts the data so that the axes have monotonically increasing values.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="varops.html#pygeode.Var.replace_axes" title="pygeode.Var.replace_axes"><tt class="xref py py-obj docutils literal"><span class="pre">Var.replace_axes</span></tt></a>([axisdict,&nbsp;...])</td>
+<tr class="row-even"><td><a class="reference internal" href="varops.html#pygeode.Var.replace_axes" title="pygeode.Var.replace_axes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.replace_axes</span></code></a>([axisdict,&nbsp;…])</td>
 <td>Replaces one or more axes of a variable with new axes.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="varops.html#pygeode.Var.rename" title="pygeode.Var.rename"><tt class="xref py py-obj docutils literal"><span class="pre">Var.rename</span></tt></a>(newname)</td>
+<tr class="row-odd"><td><a class="reference internal" href="varops.html#pygeode.Var.rename" title="pygeode.Var.rename"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.rename</span></code></a>(newname)</td>
 <td>Assigns a new name to a variable</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="varops.html#pygeode.Var.rename_axes" title="pygeode.Var.rename_axes"><tt class="xref py py-obj docutils literal"><span class="pre">Var.rename_axes</span></tt></a>([ignore_mismatch,&nbsp;axisdict])</td>
+<tr class="row-even"><td><a class="reference internal" href="varops.html#pygeode.Var.rename_axes" title="pygeode.Var.rename_axes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.rename_axes</span></code></a>([ignore_mismatch,&nbsp;axisdict])</td>
 <td>Renames the axes of a variable.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="varops.html#pygeode.Var.fill" title="pygeode.Var.fill"><tt class="xref py py-obj docutils literal"><span class="pre">Var.fill</span></tt></a>(fill)</td>
-<td>Replaces <tt class="docutils literal"><span class="pre">NaN</span></tt> (missing values) with some fill value.</td>
+<tr class="row-odd"><td><a class="reference internal" href="varops.html#pygeode.Var.fill" title="pygeode.Var.fill"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.fill</span></code></a>(fill)</td>
+<td>Replaces <code class="docutils literal notranslate"><span class="pre">NaN</span></code> (missing values) with some fill value.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="varops.html#pygeode.Var.unfill" title="pygeode.Var.unfill"><tt class="xref py py-obj docutils literal"><span class="pre">Var.unfill</span></tt></a>(fill)</td>
-<td>Replaces all occurrences of the specified value with an <tt class="docutils literal"><span class="pre">NaN</span></tt> (missing value).</td>
+<tr class="row-even"><td><a class="reference internal" href="varops.html#pygeode.Var.unfill" title="pygeode.Var.unfill"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.unfill</span></code></a>(fill)</td>
+<td>Replaces all occurrences of the specified value with an <code class="docutils literal notranslate"><span class="pre">NaN</span></code> (missing value).</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="varops.html#pygeode.Var.as_type" title="pygeode.Var.as_type"><tt class="xref py py-obj docutils literal"><span class="pre">Var.as_type</span></tt></a>(dtype)</td>
+<tr class="row-odd"><td><a class="reference internal" href="varops.html#pygeode.Var.as_type" title="pygeode.Var.as_type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.as_type</span></code></a>(dtype)</td>
 <td>Casts a variable to a new data type (I.e., float32, float64, etc.)</td>
 </tr>
 </tbody>
 </table>
-<p id="reduce-list"><a class="reference internal" href="reduce.html"><em>Axis Reductions</em></a></p>
+<p id="reduce-list"><a class="reference internal" href="reduce.html"><span class="doc">Axis Reductions</span></a></p>
 <table border="1" class="longtable docutils">
 <colgroup>
 <col width="10%" />
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="reduce.html#pygeode.Var.mean" title="pygeode.Var.mean"><tt class="xref py py-obj docutils literal"><span class="pre">Var.mean</span></tt></a>(var,&nbsp;*axes,&nbsp;**kwargs)</td>
+<tr class="row-odd"><td><a class="reference internal" href="reduce.html#pygeode.Var.mean" title="pygeode.Var.mean"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.mean</span></code></a>(*axes,&nbsp;**kwargs)</td>
 <td>Computes the mean of this variable.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="reduce.html#pygeode.Var.nanmean" title="pygeode.Var.nanmean"><tt class="xref py py-obj docutils literal"><span class="pre">Var.nanmean</span></tt></a>(var,&nbsp;*axes,&nbsp;**kwargs)</td>
+<tr class="row-even"><td><a class="reference internal" href="reduce.html#pygeode.Var.nanmean" title="pygeode.Var.nanmean"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.nanmean</span></code></a>(*axes,&nbsp;**kwargs)</td>
 <td>Computes the mean of this variable, ignoring any NaNs in the domain.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="reduce.html#pygeode.Var.sum" title="pygeode.Var.sum"><tt class="xref py py-obj docutils literal"><span class="pre">Var.sum</span></tt></a>(var,&nbsp;*axes,&nbsp;**kwargs)</td>
+<tr class="row-odd"><td><a class="reference internal" href="reduce.html#pygeode.Var.sum" title="pygeode.Var.sum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.sum</span></code></a>(*axes,&nbsp;**kwargs)</td>
 <td>Computes the sum of this variable.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="reduce.html#pygeode.Var.nansum" title="pygeode.Var.nansum"><tt class="xref py py-obj docutils literal"><span class="pre">Var.nansum</span></tt></a>(var,&nbsp;*axes,&nbsp;**kwargs)</td>
+<tr class="row-even"><td><a class="reference internal" href="reduce.html#pygeode.Var.nansum" title="pygeode.Var.nansum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.nansum</span></code></a>(*axes,&nbsp;**kwargs)</td>
 <td>Computes the sum of this variable, ignoring any NaNs.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="reduce.html#pygeode.Var.stdev" title="pygeode.Var.stdev"><tt class="xref py py-obj docutils literal"><span class="pre">Var.stdev</span></tt></a>(var,&nbsp;*axes)</td>
+<tr class="row-odd"><td><a class="reference internal" href="reduce.html#pygeode.Var.stdev" title="pygeode.Var.stdev"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.stdev</span></code></a>(*axes)</td>
 <td>Computes the standard deviation of this variable.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="reduce.html#pygeode.Var.nanstdev" title="pygeode.Var.nanstdev"><tt class="xref py py-obj docutils literal"><span class="pre">Var.nanstdev</span></tt></a>(var,&nbsp;*axes)</td>
+<tr class="row-even"><td><a class="reference internal" href="reduce.html#pygeode.Var.nanstdev" title="pygeode.Var.nanstdev"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.nanstdev</span></code></a>(*axes)</td>
 <td>Computes the standard deviation of this variable, ignoring any NaNs present.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="reduce.html#pygeode.Var.variance" title="pygeode.Var.variance"><tt class="xref py py-obj docutils literal"><span class="pre">Var.variance</span></tt></a>(var,&nbsp;*axes)</td>
+<tr class="row-odd"><td><a class="reference internal" href="reduce.html#pygeode.Var.variance" title="pygeode.Var.variance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.variance</span></code></a>(*axes,&nbsp;**kwargs)</td>
 <td>Computes the variance of this variable.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="reduce.html#pygeode.Var.nanvariance" title="pygeode.Var.nanvariance"><tt class="xref py py-obj docutils literal"><span class="pre">Var.nanvariance</span></tt></a>(var,&nbsp;*axes)</td>
+<tr class="row-even"><td><a class="reference internal" href="reduce.html#pygeode.Var.nanvariance" title="pygeode.Var.nanvariance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.nanvariance</span></code></a>(*axes)</td>
 <td>Computes the variance of this variable, ignoring any NaNs.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="reduce.html#pygeode.Var.min" title="pygeode.Var.min"><tt class="xref py py-obj docutils literal"><span class="pre">Var.min</span></tt></a>(var,&nbsp;*axes)</td>
+<tr class="row-odd"><td><a class="reference internal" href="reduce.html#pygeode.Var.min" title="pygeode.Var.min"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.min</span></code></a>(*axes)</td>
 <td>Computes the minimum value of this variable.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="reduce.html#pygeode.Var.nanmin" title="pygeode.Var.nanmin"><tt class="xref py py-obj docutils literal"><span class="pre">Var.nanmin</span></tt></a>(var,&nbsp;*axes)</td>
+<tr class="row-even"><td><a class="reference internal" href="reduce.html#pygeode.Var.nanmin" title="pygeode.Var.nanmin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.nanmin</span></code></a>(*axes)</td>
 <td>Computes the minimum value of this variable, ignoring NaNs.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="reduce.html#pygeode.Var.max" title="pygeode.Var.max"><tt class="xref py py-obj docutils literal"><span class="pre">Var.max</span></tt></a>(var,&nbsp;*axes)</td>
+<tr class="row-odd"><td><a class="reference internal" href="reduce.html#pygeode.Var.max" title="pygeode.Var.max"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.max</span></code></a>(*axes)</td>
 <td>Computes the maximum value of this variable.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="reduce.html#pygeode.Var.nanmax" title="pygeode.Var.nanmax"><tt class="xref py py-obj docutils literal"><span class="pre">Var.nanmax</span></tt></a>(var,&nbsp;*axes)</td>
+<tr class="row-even"><td><a class="reference internal" href="reduce.html#pygeode.Var.nanmax" title="pygeode.Var.nanmax"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.nanmax</span></code></a>(*axes)</td>
 <td>Computes the maximum value of this variable, ignoring NaNs.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="reduce.html#pygeode.Var.argmin" title="pygeode.Var.argmin"><tt class="xref py py-obj docutils literal"><span class="pre">Var.argmin</span></tt></a>(var,&nbsp;axis)</td>
+<tr class="row-odd"><td><a class="reference internal" href="reduce.html#pygeode.Var.argmin" title="pygeode.Var.argmin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.argmin</span></code></a>(axis)</td>
 <td>Finds the index of the minumum value of this variable along the given axis.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="reduce.html#pygeode.Var.argmax" title="pygeode.Var.argmax"><tt class="xref py py-obj docutils literal"><span class="pre">Var.argmax</span></tt></a>(var,&nbsp;axis)</td>
+<tr class="row-even"><td><a class="reference internal" href="reduce.html#pygeode.Var.argmax" title="pygeode.Var.argmax"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.argmax</span></code></a>(axis)</td>
 <td>Finds the index of the maximum value of this variable along the given axis.</td>
 </tr>
 </tbody>
 </table>
-<p><a class="reference internal" href="var.arith.html"><em>Arithmetic Operations on Variables</em></a></p>
+<p><a class="reference internal" href="var.arith.html"><span class="doc">Arithmetic Operations on Variables</span></a></p>
 <blockquote>
 <div><table border="1" class="docutils">
 <colgroup>
-<col width="20%" />
-<col width="37%" />
-<col width="43%" />
+<col width="18%" />
+<col width="34%" />
+<col width="48%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">Operation</th>
@@ -233,180 +259,201 @@ abstracted in the following ways:</p>
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">x</span> <span class="pre">+</span> <span class="pre">y</span></tt></td>
-<td><tt class="xref py py-func docutils literal"><span class="pre">Var.__add__()</span></tt></td>
-<td>Binary addition</td>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">+</span> <span class="pre">y</span></code></td>
+<td><code class="xref py py-func docutils literal notranslate"><span class="pre">Var.__add__()</span></code></td>
+<td>Element-wise addition</td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">x</span> <span class="pre">-</span> <span class="pre">y</span></tt></td>
-<td><tt class="xref py py-func docutils literal"><span class="pre">Var.__sub__()</span></tt></td>
-<td>Binary subtraction</td>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">-</span> <span class="pre">y</span></code></td>
+<td><code class="xref py py-func docutils literal notranslate"><span class="pre">Var.__sub__()</span></code></td>
+<td>Element-wise subtraction</td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">x</span> <span class="pre">*</span> <span class="pre">y</span></tt></td>
-<td><tt class="xref py py-func docutils literal"><span class="pre">Var.__mul__()</span></tt></td>
-<td>Binary multiplication</td>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">*</span> <span class="pre">y</span></code></td>
+<td><code class="xref py py-func docutils literal notranslate"><span class="pre">Var.__mul__()</span></code></td>
+<td>Element-wise multiplication</td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">x</span> <span class="pre">/</span> <span class="pre">y</span></tt></td>
-<td><tt class="xref py py-func docutils literal"><span class="pre">Var.__div__()</span></tt></td>
-<td>Binary division</td>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">/</span> <span class="pre">y</span></code></td>
+<td><code class="xref py py-func docutils literal notranslate"><span class="pre">Var.__div__()</span></code></td>
+<td>Element-wise division</td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">x</span> <span class="pre">**</span> <span class="pre">y</span></tt></td>
-<td><tt class="xref py py-func docutils literal"><span class="pre">Var.__pow__()</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">**</span> <span class="pre">y</span></code></td>
+<td><code class="xref py py-func docutils literal notranslate"><span class="pre">Var.__pow__()</span></code></td>
 <td>Exponentiation</td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">abs(x)</span></tt></td>
-<td><tt class="xref py py-func docutils literal"><span class="pre">Var.__abs__()</span></tt></td>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">abs(x)</span></code></td>
+<td><code class="xref py py-func docutils literal notranslate"><span class="pre">Var.__abs__()</span></code></td>
 <td>Absolute value</td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">-x</span></tt></td>
-<td><tt class="xref py py-func docutils literal"><span class="pre">Var.__neg__()</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">-x</span></code></td>
+<td><code class="xref py py-func docutils literal notranslate"><span class="pre">Var.__neg__()</span></code></td>
 <td>Negation</td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">+x</span></tt></td>
-<td><tt class="xref py py-func docutils literal"><span class="pre">Var.__pos__()</span></tt></td>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">+x</span></code></td>
+<td><code class="xref py py-func docutils literal notranslate"><span class="pre">Var.__pos__()</span></code></td>
 <td>Null operation</td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">x</span> <span class="pre">%</span> <span class="pre">t</span></tt></td>
-<td><tt class="xref py py-func docutils literal"><span class="pre">Var.__mod__()</span></tt></td>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">%</span> <span class="pre">t</span></code></td>
+<td><code class="xref py py-func docutils literal notranslate"><span class="pre">Var.__mod__()</span></code></td>
 <td>Modulo</td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">x</span> <span class="pre">&lt;</span> <span class="pre">y</span></tt></td>
-<td><tt class="xref py py-func docutils literal"><span class="pre">Var.__lt__()</span></tt></td>
-<td>&nbsp;</td>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">&lt;</span> <span class="pre">y</span></code></td>
+<td><code class="xref py py-func docutils literal notranslate"><span class="pre">Var.__lt__()</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">True</span></code> where <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">&lt;</span> <span class="pre">y</span></code></td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">x</span> <span class="pre">&lt;=</span> <span class="pre">y</span></tt></td>
-<td><tt class="xref py py-func docutils literal"><span class="pre">Var.__le__()</span></tt></td>
-<td>&nbsp;</td>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">&lt;=</span> <span class="pre">y</span></code></td>
+<td><code class="xref py py-func docutils literal notranslate"><span class="pre">Var.__le__()</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">True</span></code> where <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">&lt;=</span> <span class="pre">y</span></code></td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">x</span> <span class="pre">&gt;</span> <span class="pre">y</span></tt></td>
-<td><tt class="xref py py-func docutils literal"><span class="pre">Var.__gt__()</span></tt></td>
-<td>&nbsp;</td>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">&gt;</span> <span class="pre">y</span></code></td>
+<td><code class="xref py py-func docutils literal notranslate"><span class="pre">Var.__gt__()</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">True</span></code> where <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">&gt;</span> <span class="pre">y</span></code></td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">x</span> <span class="pre">&gt;=</span> <span class="pre">y</span></tt></td>
-<td><tt class="xref py py-func docutils literal"><span class="pre">Var.__ge__()</span></tt></td>
-<td>&nbsp;</td>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">&gt;=</span> <span class="pre">y</span></code></td>
+<td><code class="xref py py-func docutils literal notranslate"><span class="pre">Var.__ge__()</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">True</span></code> where <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">&gt;=</span> <span class="pre">y</span></code></td>
 </tr>
-<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">x</span> <span class="pre">==</span> <span class="pre">y</span></tt></td>
-<td><tt class="xref py py-func docutils literal"><span class="pre">Var.__eq__()</span></tt></td>
-<td>&nbsp;</td>
+<tr class="row-odd"><td><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">==</span> <span class="pre">y</span></code></td>
+<td><code class="xref py py-func docutils literal notranslate"><span class="pre">Var.__eq__()</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">True</span></code> where <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">==</span> <span class="pre">y</span></code></td>
 </tr>
-<tr class="row-even"><td><tt class="docutils literal"><span class="pre">x</span> <span class="pre">!=</span> <span class="pre">y</span></tt></td>
-<td><tt class="xref py py-func docutils literal"><span class="pre">Var.__ne__()</span></tt></td>
-<td>&nbsp;</td>
+<tr class="row-even"><td><code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">!=</span> <span class="pre">y</span></code></td>
+<td><code class="xref py py-func docutils literal notranslate"><span class="pre">Var.__ne__()</span></code></td>
+<td><code class="docutils literal notranslate"><span class="pre">True</span></code> where <code class="docutils literal notranslate"><span class="pre">x</span> <span class="pre">!=</span> <span class="pre">y</span></code></td>
 </tr>
 </tbody>
 </table>
 </div></blockquote>
-<p><a class="reference internal" href="ufunc.html"><em>Element-wise math</em></a></p>
+<p><a class="reference internal" href="ufunc.html"><span class="doc">Element-wise math</span></a></p>
 <table border="1" class="longtable docutils">
 <colgroup>
 <col width="10%" />
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.Var.sign" title="pygeode.Var.sign"><tt class="xref py py-obj docutils literal"><span class="pre">Var.sign</span></tt></a>()</td>
+<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.Var.sign" title="pygeode.Var.sign"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.sign</span></code></a>()</td>
 <td>Sign (+1 = <em>positive</em>, -1 = <em>negative</em>).</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.Var.exp" title="pygeode.Var.exp"><tt class="xref py py-obj docutils literal"><span class="pre">Var.exp</span></tt></a>()</td>
+<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.Var.exp" title="pygeode.Var.exp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.exp</span></code></a>()</td>
 <td>Natural exponent.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.Var.log" title="pygeode.Var.log"><tt class="xref py py-obj docutils literal"><span class="pre">Var.log</span></tt></a>()</td>
+<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.Var.log" title="pygeode.Var.log"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.log</span></code></a>()</td>
 <td>Natural logarithm.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.Var.log10" title="pygeode.Var.log10"><tt class="xref py py-obj docutils literal"><span class="pre">Var.log10</span></tt></a>()</td>
+<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.Var.log10" title="pygeode.Var.log10"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.log10</span></code></a>()</td>
 <td>Base-10 logarithm.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.Var.cos" title="pygeode.Var.cos"><tt class="xref py py-obj docutils literal"><span class="pre">Var.cos</span></tt></a>()</td>
+<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.Var.cos" title="pygeode.Var.cos"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.cos</span></code></a>()</td>
 <td>Cosine of angle (in radians).</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.Var.sin" title="pygeode.Var.sin"><tt class="xref py py-obj docutils literal"><span class="pre">Var.sin</span></tt></a>()</td>
+<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.Var.sin" title="pygeode.Var.sin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.sin</span></code></a>()</td>
 <td>Sine of angle (in radians).</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.Var.tan" title="pygeode.Var.tan"><tt class="xref py py-obj docutils literal"><span class="pre">Var.tan</span></tt></a>()</td>
+<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.Var.tan" title="pygeode.Var.tan"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.tan</span></code></a>()</td>
 <td>Tangent of angle (in radians).</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.Var.cosd" title="pygeode.Var.cosd"><tt class="xref py py-obj docutils literal"><span class="pre">Var.cosd</span></tt></a>()</td>
+<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.Var.cosd" title="pygeode.Var.cosd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.cosd</span></code></a>()</td>
 <td>Cosine of angle (in degrees) Called on the Var object.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.Var.sind" title="pygeode.Var.sind"><tt class="xref py py-obj docutils literal"><span class="pre">Var.sind</span></tt></a>()</td>
+<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.Var.sind" title="pygeode.Var.sind"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.sind</span></code></a>()</td>
 <td>Sine of angle (in degrees) Called on the Var object.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.Var.tand" title="pygeode.Var.tand"><tt class="xref py py-obj docutils literal"><span class="pre">Var.tand</span></tt></a>()</td>
+<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.Var.tand" title="pygeode.Var.tand"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.tand</span></code></a>()</td>
 <td>Tangent of angle (in degrees) Called on the Var object.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.Var.sinh" title="pygeode.Var.sinh"><tt class="xref py py-obj docutils literal"><span class="pre">Var.sinh</span></tt></a>()</td>
+<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.Var.sinh" title="pygeode.Var.sinh"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.sinh</span></code></a>()</td>
 <td>Hyperbolic sine.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.Var.cosh" title="pygeode.Var.cosh"><tt class="xref py py-obj docutils literal"><span class="pre">Var.cosh</span></tt></a>()</td>
+<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.Var.cosh" title="pygeode.Var.cosh"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.cosh</span></code></a>()</td>
 <td>Hyperbolic cosine.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.Var.tanh" title="pygeode.Var.tanh"><tt class="xref py py-obj docutils literal"><span class="pre">Var.tanh</span></tt></a>()</td>
+<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.Var.tanh" title="pygeode.Var.tanh"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.tanh</span></code></a>()</td>
 <td>Hyperbolic tangent.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.Var.arcsin" title="pygeode.Var.arcsin"><tt class="xref py py-obj docutils literal"><span class="pre">Var.arcsin</span></tt></a>()</td>
+<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.Var.arcsin" title="pygeode.Var.arcsin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.arcsin</span></code></a>()</td>
 <td>Inverse sine (in radians).</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.Var.arccos" title="pygeode.Var.arccos"><tt class="xref py py-obj docutils literal"><span class="pre">Var.arccos</span></tt></a>()</td>
+<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.Var.arccos" title="pygeode.Var.arccos"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.arccos</span></code></a>()</td>
 <td>Inverse cosine (in radians).</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.Var.arctan" title="pygeode.Var.arctan"><tt class="xref py py-obj docutils literal"><span class="pre">Var.arctan</span></tt></a>()</td>
+<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.Var.arctan" title="pygeode.Var.arctan"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.arctan</span></code></a>()</td>
 <td>Inverse tangent (in radians).</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.Var.arcsind" title="pygeode.Var.arcsind"><tt class="xref py py-obj docutils literal"><span class="pre">Var.arcsind</span></tt></a>()</td>
+<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.Var.arcsind" title="pygeode.Var.arcsind"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.arcsind</span></code></a>()</td>
 <td>Inverse sine (in degrees).</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.Var.arccosd" title="pygeode.Var.arccosd"><tt class="xref py py-obj docutils literal"><span class="pre">Var.arccosd</span></tt></a>()</td>
+<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.Var.arccosd" title="pygeode.Var.arccosd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.arccosd</span></code></a>()</td>
 <td>Inverse cosine (in degrees).</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.Var.arctand" title="pygeode.Var.arctand"><tt class="xref py py-obj docutils literal"><span class="pre">Var.arctand</span></tt></a>()</td>
+<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.Var.arctand" title="pygeode.Var.arctand"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.arctand</span></code></a>()</td>
 <td>Inverse tangent (in degrees).</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.Var.arcsinh" title="pygeode.Var.arcsinh"><tt class="xref py py-obj docutils literal"><span class="pre">Var.arcsinh</span></tt></a>()</td>
+<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.Var.arcsinh" title="pygeode.Var.arcsinh"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.arcsinh</span></code></a>()</td>
 <td>Inverse hyperbolic sine.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.Var.arccosh" title="pygeode.Var.arccosh"><tt class="xref py py-obj docutils literal"><span class="pre">Var.arccosh</span></tt></a>()</td>
+<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.Var.arccosh" title="pygeode.Var.arccosh"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.arccosh</span></code></a>()</td>
 <td>Inverse hyperbolic cosine.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.Var.arctanh" title="pygeode.Var.arctanh"><tt class="xref py py-obj docutils literal"><span class="pre">Var.arctanh</span></tt></a>()</td>
+<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.Var.arctanh" title="pygeode.Var.arctanh"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.arctanh</span></code></a>()</td>
 <td>Inverse hyperbolic tangent.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.Var.sqrt" title="pygeode.Var.sqrt"><tt class="xref py py-obj docutils literal"><span class="pre">Var.sqrt</span></tt></a>()</td>
+<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.Var.sqrt" title="pygeode.Var.sqrt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.sqrt</span></code></a>()</td>
 <td>Square root.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.Var.absolute" title="pygeode.Var.absolute"><tt class="xref py py-obj docutils literal"><span class="pre">Var.absolute</span></tt></a>()</td>
+<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.Var.absolute" title="pygeode.Var.absolute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.absolute</span></code></a>()</td>
 <td>Absolute value.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.Var.nan_to_num" title="pygeode.Var.nan_to_num"><tt class="xref py py-obj docutils literal"><span class="pre">Var.nan_to_num</span></tt></a>()</td>
+<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.Var.nan_to_num" title="pygeode.Var.nan_to_num"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.nan_to_num</span></code></a>()</td>
 <td>Replace nan with zero and inf with finite numbers.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.Var.real" title="pygeode.Var.real"><tt class="xref py py-obj docutils literal"><span class="pre">Var.real</span></tt></a>()</td>
+<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.Var.real" title="pygeode.Var.real"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.real</span></code></a>()</td>
 <td>Real part of a complex array.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.Var.imag" title="pygeode.Var.imag"><tt class="xref py py-obj docutils literal"><span class="pre">Var.imag</span></tt></a>()</td>
+<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.Var.imag" title="pygeode.Var.imag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.imag</span></code></a>()</td>
 <td>Imaginary part of a complex array.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.Var.angle" title="pygeode.Var.angle"><tt class="xref py py-obj docutils literal"><span class="pre">Var.angle</span></tt></a>()</td>
+<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.Var.angle" title="pygeode.Var.angle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.angle</span></code></a>()</td>
 <td>Angles (arguments) of a complex array.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.Var.conj" title="pygeode.Var.conj"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.conj</span></code></a>()</td>
+<td>Complex conjugate of a complex array.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.Var.clip" title="pygeode.Var.clip"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.clip</span></code></a>()</td>
+<td>Clips values to given interval.</td>
 </tr>
 </tbody>
 </table>
-<p><a class="reference internal" href="var.other.html"><em>Other operations</em></a></p>
+<p><a class="reference internal" href="var.other.html"><span class="doc">Other operations</span></a></p>
 <table border="1" class="longtable docutils">
 <colgroup>
 <col width="10%" />
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="var.other.html#pygeode.Var.deriv" title="pygeode.Var.deriv"><tt class="xref py py-obj docutils literal"><span class="pre">Var.deriv</span></tt></a>(var,&nbsp;daxis[,&nbsp;dx,&nbsp;df])</td>
-<td></td>
+<tr class="row-odd"><td><a class="reference internal" href="var.other.html#pygeode.Var.diff" title="pygeode.Var.diff"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.diff</span></code></a>([axis,&nbsp;n])</td>
+<td>Computes the forward difference along the given axis.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="var.other.html#pygeode.Var.integrate" title="pygeode.Var.integrate"><tt class="xref py py-obj docutils literal"><span class="pre">Var.integrate</span></tt></a>(var,&nbsp;iaxis[,&nbsp;dx,&nbsp;v0,&nbsp;order,&nbsp;type])</td>
-<td></td>
+<tr class="row-even"><td><a class="reference internal" href="var.other.html#pygeode.Var.deriv" title="pygeode.Var.deriv"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.deriv</span></code></a>(daxis[,&nbsp;dx,&nbsp;df])</td>
+<td>Computes derivative along the given axis.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="var.other.html#pygeode.Var.interpolate" title="pygeode.Var.interpolate"><tt class="xref py py-obj docutils literal"><span class="pre">Var.interpolate</span></tt></a>(var,&nbsp;inaxis,&nbsp;outaxis[,&nbsp;inx,&nbsp;...])</td>
+<tr class="row-odd"><td><a class="reference internal" href="var.other.html#pygeode.Var.integrate" title="pygeode.Var.integrate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.integrate</span></code></a>(iaxis[,&nbsp;dx,&nbsp;v0,&nbsp;order,&nbsp;type])</td>
+<td>Computes an indefinite integral along the given axis.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="var.other.html#pygeode.Var.interpolate" title="pygeode.Var.interpolate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.interpolate</span></code></a>(inaxis,&nbsp;outaxis[,&nbsp;inx,&nbsp;…])</td>
 <td>Interpolates a variable along a single dimension.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="var.other.html#pygeode.Var.smooth" title="pygeode.Var.smooth"><tt class="xref py py-obj docutils literal"><span class="pre">Var.smooth</span></tt></a>(var,&nbsp;saxis[,&nbsp;kernel,&nbsp;fft])</td>
-<td>Smooths this variable along <tt class="docutils literal"><span class="pre">saxis</span></tt> by convolving it with an averaging kernel.</td>
+<tr class="row-odd"><td><a class="reference internal" href="var.other.html#pygeode.Var.smooth" title="pygeode.Var.smooth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.smooth</span></code></a>(saxis[,&nbsp;kernel,&nbsp;fft])</td>
+<td>Smooths this variable along <code class="docutils literal notranslate"><span class="pre">saxis</span></code> by convolving it with an averaging kernel.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="var.other.html#pygeode.Var.fft_smooth" title="pygeode.Var.fft_smooth"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.fft_smooth</span></code></a>(saxis,&nbsp;maxharm)</td>
+<td>Smooths this variable along <code class="docutils literal notranslate"><span class="pre">saxis</span></code> by retaining leading Fourier components.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="var.other.html#pygeode.Var.composite" title="pygeode.Var.composite"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.composite</span></code></a>(**kwargs)</td>
+<td>Creates a composite based on this variable.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="var.other.html#pygeode.Var.flatten" title="pygeode.Var.flatten"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.flatten</span></code></a>([inner,&nbsp;naxis])</td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="var.other.html#pygeode.Var.lag" title="pygeode.Var.lag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.lag</span></code></a>(iaxis,&nbsp;lags[,&nbsp;reverse])</td>
+<td>Adds a lag axis with offset values.</td>
 </tr>
 </tbody>
 </table>
@@ -417,25 +464,78 @@ abstracted in the following ways:</p>
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">Var.formatstr</span></tt></td>
-<td>str(object=&#8217;&#8216;) -&gt; string</td>
+<tr class="row-odd"><td><a class="reference internal" href="#pygeode.Var.plotatts" title="pygeode.Var.plotatts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.plotatts</span></code></a></td>
+<td>Dictionary of attributes for plotting; see plotting documentation.</td>
 </tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">Var.formatvalue</span></tt>(value[,&nbsp;fmt,&nbsp;units,&nbsp;unitstr])</td>
-<td>Returns formatted string representation of <tt class="docutils literal"><span class="pre">value</span></tt>.</td>
+<tr class="row-even"><td><a class="reference internal" href="#pygeode.Var.formatstr" title="pygeode.Var.formatstr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.formatstr</span></code></a></td>
+<td>Formatting code to use for printing values.</td>
 </tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">Var.formatter</span></tt>()</td>
+<tr class="row-odd"><td><a class="reference internal" href="#pygeode.Var.formatvalue" title="pygeode.Var.formatvalue"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.formatvalue</span></code></a>(value[,&nbsp;fmt,&nbsp;units,&nbsp;unitstr])</td>
+<td>Returns formatted string representation of <code class="docutils literal notranslate"><span class="pre">value</span></code>.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#pygeode.Var.formatter" title="pygeode.Var.formatter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.formatter</span></code></a>()</td>
 <td>Returns a matplotlib formatter (pygeode.AxisFormatter) for use in plotting.</td>
 </tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">Var.locator</span></tt>()</td>
+<tr class="row-odd"><td><a class="reference internal" href="#pygeode.Var.locator" title="pygeode.Var.locator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.locator</span></code></a>()</td>
 <td>Returns a matplotlib locator object for use in plotting.</td>
 </tr>
 </tbody>
 </table>
 </dd></dl>
 
+<dl class="method">
+<dt id="pygeode.Var.__init__">
+<code class="descclassname">Var.</code><code class="descname">__init__</code><span class="sig-paren">(</span><em>axes</em>, <em>dtype=None</em>, <em>name=None</em>, <em>values=None</em>, <em>atts=None</em>, <em>plotatts=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/var.html#Var.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.Var.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new Var object with the given axes and values.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>axes</strong> <span class="classifier-delimiter">:</span> <span class="classifier">list/tuple</span></dt>
+<dd><p class="first last">The <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><code class="xref py py-class docutils literal notranslate"><span class="pre">Axis</span></code></a> objects to associate with each of the data dimensions</p>
+</dd>
+<dt><strong>dtype</strong> <span class="classifier-delimiter">:</span> <span class="classifier">string / Python type / numpy.dtype (optional)</span></dt>
+<dd><p class="first last">The numerical type of the data (can be automatically determined from
+the array)</p>
+</dd>
+<dt><strong>name</strong> <span class="classifier-delimiter">:</span> <span class="classifier">string (optional)</span></dt>
+<dd><p class="first last">What to call the variable (i.e. for plot titles &amp; when saving to file)</p>
+</dd>
+<dt><strong>values</strong> <span class="classifier-delimiter">:</span> <span class="classifier">numpy.ndarray</span></dt>
+<dd><p class="first last">The data to be wrapped.</p>
+</dd>
+<dt><strong>atts</strong> <span class="classifier-delimiter">:</span> <span class="classifier">dict (optional)</span></dt>
+<dd><p class="first last">Any additional metadata to associate with the variable. The dictionary
+keys should be strings.</p>
+</dd>
+<dt><strong>plotatts</strong> <span class="classifier-delimiter">:</span> <span class="classifier">dict (optional)</span></dt>
+<dd><p class="first last">Parameters that control plotting behaviour; default values are available.
+The dictionary keys should be strings.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>out</strong> <span class="classifier-delimiter">:</span> <span class="classifier">Var</span></dt>
+<dd><p class="first last">The array, wrapped as a Var object.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>The <a class="reference internal" href="#pygeode.Var" title="pygeode.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a> class can be instantiated directly (see <cite>constructing-vars</cite>),
+in which case providing an array for the values argument is necessary. Sub-classes
+of <cite>Var</cite> which define their values based on some operation need not provide any
+data; however all subclasses of <a class="reference internal" href="#pygeode.Var" title="pygeode.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a> need to call this __init__ method within
+their own __init__, to properly initialize all attributes.</p>
+</dd></dl>
+
 <dl class="attribute">
 <dt id="pygeode.Var.name">
-<tt class="descclassname">Var.</tt><tt class="descname">name</tt><a class="headerlink" href="#pygeode.Var.name" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">Var.</code><code class="descname">name</code><em class="property"> string</em><a class="headerlink" href="#pygeode.Var.name" title="Permalink to this definition">¶</a></dt>
 <dd><p>A description of the variable (may not be set).  Usually determined at the
 data source (e.g. input file), and may be used to identify the variable
 when saving to an output file.</p>
@@ -443,20 +543,106 @@ when saving to an output file.</p>
 
 <dl class="attribute">
 <dt id="pygeode.Var.axes">
-<tt class="descclassname">Var.</tt><tt class="descname">axes</tt><a class="headerlink" href="#pygeode.Var.axes" title="Permalink to this definition">¶</a></dt>
-<dd><p>The axes of the variable, as a <tt class="docutils literal"><span class="pre">tuple</span></tt>. See <a class="reference internal" href="axes.html"><em>Axis class overview</em></a>.</p>
+<code class="descclassname">Var.</code><code class="descname">axes</code><em class="property"> tuple of Axis classes</em><a class="headerlink" href="#pygeode.Var.axes" title="Permalink to this definition">¶</a></dt>
+<dd><p>The axes of the variable. A <code class="docutils literal notranslate"><span class="pre">tuple</span></code> of <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><code class="xref py py-class docutils literal notranslate"><span class="pre">Axis</span></code></a> instances.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pygeode.Var.naxes">
+<code class="descclassname">Var.</code><code class="descname">naxes</code><em class="property"> integer</em><a class="headerlink" href="#pygeode.Var.naxes" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of axes of this variable.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pygeode.Var.shape">
+<code class="descclassname">Var.</code><code class="descname">shape</code><em class="property"> tuple</em><a class="headerlink" href="#pygeode.Var.shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>The dimensions of this variable, as a <code class="docutils literal notranslate"><span class="pre">tuple</span></code>. Similar to <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.shape.html#numpy.ndarray.shape" title="(in NumPy v1.17)"><code class="xref py py-attr docutils literal notranslate"><span class="pre">numpy.ndarray.shape</span></code></a>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pygeode.Var.size">
+<code class="descclassname">Var.</code><code class="descname">size</code><em class="property"> integer</em><a class="headerlink" href="#pygeode.Var.size" title="Permalink to this definition">¶</a></dt>
+<dd><p>The total number of data points represented by this variable.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="pygeode.Var.atts">
-<tt class="descclassname">Var.</tt><tt class="descname">atts</tt><a class="headerlink" href="#pygeode.Var.atts" title="Permalink to this definition">¶</a></dt>
-<dd><p>A <tt class="docutils literal"><span class="pre">dict</span></tt> of metadata associated with the variable (if applicable).</p>
+<code class="descclassname">Var.</code><code class="descname">atts</code><em class="property"> dictionary</em><a class="headerlink" href="#pygeode.Var.atts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dictionary of metadata associated with the variable.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="pygeode.Var.dtype">
-<tt class="descclassname">Var.</tt><tt class="descname">dtype</tt><a class="headerlink" href="#pygeode.Var.dtype" title="Permalink to this definition">¶</a></dt>
-<dd><p>The type of numeric data that the Var represents.</p>
+<code class="descclassname">Var.</code><code class="descname">dtype</code><em class="property"> numpy dtype</em><a class="headerlink" href="#pygeode.Var.dtype" title="Permalink to this definition">¶</a></dt>
+<dd><p>The numerical type of the data as a <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.dtype.html#numpy.dtype" title="(in NumPy v1.17)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.dtype</span></code></a>. See also <a class="reference internal" href="#pygeode.Var.__init__" title="pygeode.Var.__init__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Var.__init__()</span></code></a>.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pygeode.Var.units">
+<code class="descclassname">Var.</code><code class="descname">units</code><em class="property"> string</em><a class="headerlink" href="#pygeode.Var.units" title="Permalink to this definition">¶</a></dt>
+<dd><p>A string representation of the units of the variable.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pygeode.Var.plotatts">
+<code class="descclassname">Var.</code><code class="descname">plotatts</code><em class="property"> dictionary</em><a class="headerlink" href="#pygeode.Var.plotatts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dictionary of attributes for plotting; see plotting documentation.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="pygeode.Var.formatstr">
+<code class="descclassname">Var.</code><code class="descname">formatstr</code><em class="property"> string</em><a class="headerlink" href="#pygeode.Var.formatstr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Formatting code to use for printing values.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygeode.Var.formatvalue">
+<code class="descclassname">Var.</code><code class="descname">formatvalue</code><span class="sig-paren">(</span><em>value</em>, <em>fmt=None</em>, <em>units=True</em>, <em>unitstr=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/var.html#Var.formatvalue"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.Var.formatvalue" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns formatted string representation of <code class="docutils literal notranslate"><span class="pre">value</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>value</strong> <span class="classifier-delimiter">:</span> <span class="classifier">float or int</span></dt>
+<dd><p class="first last">Value to format.</p>
+</dd>
+<dt><strong>fmt</strong> <span class="classifier-delimiter">:</span> <span class="classifier">string (optional)</span></dt>
+<dd><p class="first last">Format specification. If the default <code class="docutils literal notranslate"><span class="pre">None</span></code> is specified,
+<code class="docutils literal notranslate"><span class="pre">self.formatstr</span></code> is used.</p>
+</dd>
+<dt><strong>units</strong> <span class="classifier-delimiter">:</span> <span class="classifier">boolean (optional)</span></dt>
+<dd><p class="first last">If <code class="docutils literal notranslate"><span class="pre">True</span></code>, will include the units in the string returned.
+Default is <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
+</dd>
+<dt><strong>unitstr</strong> <span class="classifier-delimiter">:</span> <span class="classifier">string (optional)</span></dt>
+<dd><p class="first last">String to use for the units; default is <code class="docutils literal notranslate"><span class="pre">self.units</span></code>.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>If units is True, fmt % value + ‘ ‘ + unitstr. Otherwise fmt % value.</strong></dt>
+<dd></dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>This is overridden in a number of Axis classes for more sophisticated formatting.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygeode.Var.formatter">
+<code class="descclassname">Var.</code><code class="descname">formatter</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/var.html#Var.formatter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.Var.formatter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a matplotlib formatter (pygeode.AxisFormatter) for use in plotting.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygeode.Var.locator">
+<code class="descclassname">Var.</code><code class="descname">locator</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/var.html#Var.locator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.Var.locator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a matplotlib locator object for use in plotting.</p>
 </dd></dl>
 
 <div class="toctree-wrapper compound">
@@ -464,59 +650,26 @@ when saving to an output file.</p>
 </div>
 
 
-          </div>
-        </div>
       </div>
-      <div class="sphinxsidebar">
-        <div class="sphinxsidebarwrapper">
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="reference.html"
-                        title="previous chapter">Reference</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="varquery.html"
-                        title="next chapter">Variable Querying Routines</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/var.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        «&#160;&#160;<a href="reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="gallery/index.html">Gallery</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="varquery.html">Variable Querying Routines</a>&#160;&#160;»
+        </p>
+
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="varquery.html" title="Variable Querying Routines"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="reference.html" title="Reference"
-             >previous</a> |</li>
-        <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li>
-          <li><a href="reference.html" >Reference</a> &raquo;</li> 
-      </ul>
-    </div>
-    <div class="footer">
-        &copy; Copyright 2013, Mike Neish, Peter Hitchcock.
-      Last updated on Sep 13, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Mike Neish, Peter Hitchcock.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.
     </div>
   </body>
 </html>

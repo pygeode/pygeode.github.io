@@ -1,477 +1,469 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Element-wise math &mdash; PyGeode 1.0 alpha documentation</title>
-    
+    <title>Element-wise math &#8212; PyGeode 1.3 pre-release documentation</title>
     <link rel="stylesheet" href="_static/pygtheme.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '1.0 alpha',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
+    <link rel="stylesheet" type="text/css" href="_static/gallery.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="PyGeode 1.0 alpha documentation" href="index.html" />
-    <link rel="up" title="Var class overview" href="var.html" />
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Axis Reductions" href="reduce.html" />
     <link rel="prev" title="Arithmetic Operations on Variables" href="var.arith.html" />
 <link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
 
-  </head>
-  <body>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="reduce.html" title="Axis Reductions"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="var.arith.html" title="Arithmetic Operations on Variables"
-             accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li>
-          <li><a href="reference.html" >Reference</a> &raquo;</li>
-          <li><a href="var.html" accesskey="U">Var class overview</a> &raquo;</li> 
-      </ul>
-    </div>  
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="index.html">
+          <span>PyGeode 1.3 pre-release documentation</span></a></h1>
+        <h2 class="heading"><span>Element-wise math</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        «&#160;&#160;<a href="var.arith.html">Arithmetic Operations on Variables</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="gallery/index.html">Gallery</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="reduce.html">Axis Reductions</a>&#160;&#160;»
+        </p>
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
-            
+      </div>
+      <div class="content">
+        
+        
   <div class="section" id="element-wise-math">
 <h1>Element-wise math<a class="headerlink" href="#element-wise-math" title="Permalink to this headline">¶</a></h1>
 <p>See Also:</p>
 <blockquote>
-<div><p><a class="reference internal" href="var.arith.html"><em>Arithmetic Operations on Variables</em></a> (simple arithmetic on PyGeode variables)</p>
-<p><a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/ufuncs.html#ufuncs" title="(in NumPy v1.9)"><em>Universal functions (ufunc)</em></a>  (external Numpy documentation)</p>
+<div><p><a class="reference internal" href="var.arith.html"><span class="doc">Arithmetic Operations on Variables</span></a> (simple arithmetic on PyGeode variables)</p>
+<p><a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/ufuncs.html#ufuncs" title="(in NumPy v1.17)"><span>Universal functions (ufunc)</span></a>  (external Numpy documentation)</p>
 </div></blockquote>
 <p>The majority of these functions are wrappers to the corresponding Numpy
 functions. They are augmented to handle PyGeode variables, and, in the case of
 functions that take a single argument, are available in two forms, as functions
-in the top-level PyGeode namespace, or as members of the <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a> class.</p>
+in the top-level PyGeode namespace, or as members of the <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a> class.</p>
 <dl class="function">
 <dt id="pygeode.sign">
-<tt class="descclassname">pygeode.</tt><tt class="descname">sign</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#pygeode.sign" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sign (+1 = <em>positive</em>, -1 = <em>negative</em>).  Wraps <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.sign.html#numpy.sign" title="(in NumPy v1.9)"><tt class="xref py py-data docutils literal"><span class="pre">numpy.sign</span></tt></a></p>
+<code class="descclassname">pygeode.</code><code class="descname">sign</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.sign" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sign (+1 = <em>positive</em>, -1 = <em>negative</em>).  Wraps <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.sign.html#numpy.sign" title="(in NumPy v1.17)"><code class="xref py py-data docutils literal notranslate"><span class="pre">numpy.sign</span></code></a></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pygeode.Var.sign">
-<tt class="descclassname">Var.</tt><tt class="descname">sign</tt><big>(</big><big>)</big><a class="headerlink" href="#pygeode.Var.sign" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sign (+1 = <em>positive</em>, -1 = <em>negative</em>).  Wraps <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.sign.html#numpy.sign" title="(in NumPy v1.9)"><tt class="xref py py-data docutils literal"><span class="pre">numpy.sign</span></tt></a> Called on the Var object.</p>
+<code class="descclassname">Var.</code><code class="descname">sign</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.Var.sign" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sign (+1 = <em>positive</em>, -1 = <em>negative</em>).  Wraps <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.sign.html#numpy.sign" title="(in NumPy v1.17)"><code class="xref py py-data docutils literal notranslate"><span class="pre">numpy.sign</span></code></a> Called on the Var object.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="pygeode.exp">
-<tt class="descclassname">pygeode.</tt><tt class="descname">exp</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#pygeode.exp" title="Permalink to this definition">¶</a></dt>
-<dd><p>Natural exponent.  Wraps <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.exp.html#numpy.exp" title="(in NumPy v1.9)"><tt class="xref py py-data docutils literal"><span class="pre">numpy.exp</span></tt></a></p>
+<code class="descclassname">pygeode.</code><code class="descname">exp</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.exp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Natural exponent.  Wraps <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.exp.html#numpy.exp" title="(in NumPy v1.17)"><code class="xref py py-data docutils literal notranslate"><span class="pre">numpy.exp</span></code></a></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pygeode.Var.exp">
-<tt class="descclassname">Var.</tt><tt class="descname">exp</tt><big>(</big><big>)</big><a class="headerlink" href="#pygeode.Var.exp" title="Permalink to this definition">¶</a></dt>
-<dd><p>Natural exponent.  Wraps <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.exp.html#numpy.exp" title="(in NumPy v1.9)"><tt class="xref py py-data docutils literal"><span class="pre">numpy.exp</span></tt></a> Called on the Var object.</p>
+<code class="descclassname">Var.</code><code class="descname">exp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.Var.exp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Natural exponent.  Wraps <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.exp.html#numpy.exp" title="(in NumPy v1.17)"><code class="xref py py-data docutils literal notranslate"><span class="pre">numpy.exp</span></code></a> Called on the Var object.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="pygeode.log">
-<tt class="descclassname">pygeode.</tt><tt class="descname">log</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#pygeode.log" title="Permalink to this definition">¶</a></dt>
-<dd><p>Natural logarithm.  Wraps <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.log.html#numpy.log" title="(in NumPy v1.9)"><tt class="xref py py-data docutils literal"><span class="pre">numpy.log</span></tt></a></p>
+<code class="descclassname">pygeode.</code><code class="descname">log</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.log" title="Permalink to this definition">¶</a></dt>
+<dd><p>Natural logarithm.  Wraps <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.log.html#numpy.log" title="(in NumPy v1.17)"><code class="xref py py-data docutils literal notranslate"><span class="pre">numpy.log</span></code></a></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pygeode.Var.log">
-<tt class="descclassname">Var.</tt><tt class="descname">log</tt><big>(</big><big>)</big><a class="headerlink" href="#pygeode.Var.log" title="Permalink to this definition">¶</a></dt>
-<dd><p>Natural logarithm.  Wraps <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.log.html#numpy.log" title="(in NumPy v1.9)"><tt class="xref py py-data docutils literal"><span class="pre">numpy.log</span></tt></a> Called on the Var object.</p>
+<code class="descclassname">Var.</code><code class="descname">log</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.Var.log" title="Permalink to this definition">¶</a></dt>
+<dd><p>Natural logarithm.  Wraps <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.log.html#numpy.log" title="(in NumPy v1.17)"><code class="xref py py-data docutils literal notranslate"><span class="pre">numpy.log</span></code></a> Called on the Var object.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="pygeode.log10">
-<tt class="descclassname">pygeode.</tt><tt class="descname">log10</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#pygeode.log10" title="Permalink to this definition">¶</a></dt>
-<dd><p>Base-10 logarithm.  Wraps <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.log10.html#numpy.log10" title="(in NumPy v1.9)"><tt class="xref py py-data docutils literal"><span class="pre">numpy.log10</span></tt></a></p>
+<code class="descclassname">pygeode.</code><code class="descname">log10</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.log10" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base-10 logarithm.  Wraps <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.log10.html#numpy.log10" title="(in NumPy v1.17)"><code class="xref py py-data docutils literal notranslate"><span class="pre">numpy.log10</span></code></a></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pygeode.Var.log10">
-<tt class="descclassname">Var.</tt><tt class="descname">log10</tt><big>(</big><big>)</big><a class="headerlink" href="#pygeode.Var.log10" title="Permalink to this definition">¶</a></dt>
-<dd><p>Base-10 logarithm.  Wraps <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.log10.html#numpy.log10" title="(in NumPy v1.9)"><tt class="xref py py-data docutils literal"><span class="pre">numpy.log10</span></tt></a> Called on the Var object.</p>
+<code class="descclassname">Var.</code><code class="descname">log10</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.Var.log10" title="Permalink to this definition">¶</a></dt>
+<dd><p>Base-10 logarithm.  Wraps <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.log10.html#numpy.log10" title="(in NumPy v1.17)"><code class="xref py py-data docutils literal notranslate"><span class="pre">numpy.log10</span></code></a> Called on the Var object.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="pygeode.cos">
-<tt class="descclassname">pygeode.</tt><tt class="descname">cos</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#pygeode.cos" title="Permalink to this definition">¶</a></dt>
-<dd><p>Cosine of angle (in radians).  Wraps <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.cos.html#numpy.cos" title="(in NumPy v1.9)"><tt class="xref py py-data docutils literal"><span class="pre">numpy.cos</span></tt></a></p>
+<code class="descclassname">pygeode.</code><code class="descname">cos</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.cos" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cosine of angle (in radians).  Wraps <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.cos.html#numpy.cos" title="(in NumPy v1.17)"><code class="xref py py-data docutils literal notranslate"><span class="pre">numpy.cos</span></code></a></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pygeode.Var.cos">
-<tt class="descclassname">Var.</tt><tt class="descname">cos</tt><big>(</big><big>)</big><a class="headerlink" href="#pygeode.Var.cos" title="Permalink to this definition">¶</a></dt>
-<dd><p>Cosine of angle (in radians).  Wraps <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.cos.html#numpy.cos" title="(in NumPy v1.9)"><tt class="xref py py-data docutils literal"><span class="pre">numpy.cos</span></tt></a> Called on the Var object.</p>
+<code class="descclassname">Var.</code><code class="descname">cos</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.Var.cos" title="Permalink to this definition">¶</a></dt>
+<dd><p>Cosine of angle (in radians).  Wraps <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.cos.html#numpy.cos" title="(in NumPy v1.17)"><code class="xref py py-data docutils literal notranslate"><span class="pre">numpy.cos</span></code></a> Called on the Var object.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="pygeode.sin">
-<tt class="descclassname">pygeode.</tt><tt class="descname">sin</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#pygeode.sin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sine of angle (in radians).  Wraps <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.sin.html#numpy.sin" title="(in NumPy v1.9)"><tt class="xref py py-data docutils literal"><span class="pre">numpy.sin</span></tt></a></p>
+<code class="descclassname">pygeode.</code><code class="descname">sin</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.sin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sine of angle (in radians).  Wraps <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.sin.html#numpy.sin" title="(in NumPy v1.17)"><code class="xref py py-data docutils literal notranslate"><span class="pre">numpy.sin</span></code></a></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pygeode.Var.sin">
-<tt class="descclassname">Var.</tt><tt class="descname">sin</tt><big>(</big><big>)</big><a class="headerlink" href="#pygeode.Var.sin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sine of angle (in radians).  Wraps <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.sin.html#numpy.sin" title="(in NumPy v1.9)"><tt class="xref py py-data docutils literal"><span class="pre">numpy.sin</span></tt></a> Called on the Var object.</p>
+<code class="descclassname">Var.</code><code class="descname">sin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.Var.sin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sine of angle (in radians).  Wraps <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.sin.html#numpy.sin" title="(in NumPy v1.17)"><code class="xref py py-data docutils literal notranslate"><span class="pre">numpy.sin</span></code></a> Called on the Var object.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="pygeode.tan">
-<tt class="descclassname">pygeode.</tt><tt class="descname">tan</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#pygeode.tan" title="Permalink to this definition">¶</a></dt>
-<dd><p>Tangent of angle (in radians).  Wraps <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.tan.html#numpy.tan" title="(in NumPy v1.9)"><tt class="xref py py-data docutils literal"><span class="pre">numpy.tan</span></tt></a></p>
+<code class="descclassname">pygeode.</code><code class="descname">tan</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.tan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tangent of angle (in radians).  Wraps <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.tan.html#numpy.tan" title="(in NumPy v1.17)"><code class="xref py py-data docutils literal notranslate"><span class="pre">numpy.tan</span></code></a></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pygeode.Var.tan">
-<tt class="descclassname">Var.</tt><tt class="descname">tan</tt><big>(</big><big>)</big><a class="headerlink" href="#pygeode.Var.tan" title="Permalink to this definition">¶</a></dt>
-<dd><p>Tangent of angle (in radians).  Wraps <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.tan.html#numpy.tan" title="(in NumPy v1.9)"><tt class="xref py py-data docutils literal"><span class="pre">numpy.tan</span></tt></a> Called on the Var object.</p>
+<code class="descclassname">Var.</code><code class="descname">tan</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.Var.tan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tangent of angle (in radians).  Wraps <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.tan.html#numpy.tan" title="(in NumPy v1.17)"><code class="xref py py-data docutils literal notranslate"><span class="pre">numpy.tan</span></code></a> Called on the Var object.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="pygeode.cosd">
-<tt class="descclassname">pygeode.</tt><tt class="descname">cosd</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#pygeode.cosd" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pygeode.</code><code class="descname">cosd</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.cosd" title="Permalink to this definition">¶</a></dt>
 <dd><p>Cosine of angle (in degrees)</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pygeode.Var.cosd">
-<tt class="descclassname">Var.</tt><tt class="descname">cosd</tt><big>(</big><big>)</big><a class="headerlink" href="#pygeode.Var.cosd" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">Var.</code><code class="descname">cosd</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.Var.cosd" title="Permalink to this definition">¶</a></dt>
 <dd><p>Cosine of angle (in degrees) Called on the Var object.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="pygeode.sind">
-<tt class="descclassname">pygeode.</tt><tt class="descname">sind</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#pygeode.sind" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pygeode.</code><code class="descname">sind</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.sind" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sine of angle (in degrees)</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pygeode.Var.sind">
-<tt class="descclassname">Var.</tt><tt class="descname">sind</tt><big>(</big><big>)</big><a class="headerlink" href="#pygeode.Var.sind" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">Var.</code><code class="descname">sind</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.Var.sind" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sine of angle (in degrees) Called on the Var object.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="pygeode.tand">
-<tt class="descclassname">pygeode.</tt><tt class="descname">tand</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#pygeode.tand" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pygeode.</code><code class="descname">tand</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.tand" title="Permalink to this definition">¶</a></dt>
 <dd><p>Tangent of angle (in degrees)</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pygeode.Var.tand">
-<tt class="descclassname">Var.</tt><tt class="descname">tand</tt><big>(</big><big>)</big><a class="headerlink" href="#pygeode.Var.tand" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">Var.</code><code class="descname">tand</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.Var.tand" title="Permalink to this definition">¶</a></dt>
 <dd><p>Tangent of angle (in degrees) Called on the Var object.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="pygeode.sinh">
-<tt class="descclassname">pygeode.</tt><tt class="descname">sinh</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#pygeode.sinh" title="Permalink to this definition">¶</a></dt>
-<dd><p>Hyperbolic sine.  Wraps <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.sinh.html#numpy.sinh" title="(in NumPy v1.9)"><tt class="xref py py-data docutils literal"><span class="pre">numpy.sinh</span></tt></a></p>
+<code class="descclassname">pygeode.</code><code class="descname">sinh</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.sinh" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hyperbolic sine.  Wraps <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.sinh.html#numpy.sinh" title="(in NumPy v1.17)"><code class="xref py py-data docutils literal notranslate"><span class="pre">numpy.sinh</span></code></a></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pygeode.Var.sinh">
-<tt class="descclassname">Var.</tt><tt class="descname">sinh</tt><big>(</big><big>)</big><a class="headerlink" href="#pygeode.Var.sinh" title="Permalink to this definition">¶</a></dt>
-<dd><p>Hyperbolic sine.  Wraps <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.sinh.html#numpy.sinh" title="(in NumPy v1.9)"><tt class="xref py py-data docutils literal"><span class="pre">numpy.sinh</span></tt></a> Called on the Var object.</p>
+<code class="descclassname">Var.</code><code class="descname">sinh</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.Var.sinh" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hyperbolic sine.  Wraps <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.sinh.html#numpy.sinh" title="(in NumPy v1.17)"><code class="xref py py-data docutils literal notranslate"><span class="pre">numpy.sinh</span></code></a> Called on the Var object.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="pygeode.cosh">
-<tt class="descclassname">pygeode.</tt><tt class="descname">cosh</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#pygeode.cosh" title="Permalink to this definition">¶</a></dt>
-<dd><p>Hyperbolic cosine.  Wraps <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.cosh.html#numpy.cosh" title="(in NumPy v1.9)"><tt class="xref py py-data docutils literal"><span class="pre">numpy.cosh</span></tt></a></p>
+<code class="descclassname">pygeode.</code><code class="descname">cosh</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.cosh" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hyperbolic cosine.  Wraps <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.cosh.html#numpy.cosh" title="(in NumPy v1.17)"><code class="xref py py-data docutils literal notranslate"><span class="pre">numpy.cosh</span></code></a></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pygeode.Var.cosh">
-<tt class="descclassname">Var.</tt><tt class="descname">cosh</tt><big>(</big><big>)</big><a class="headerlink" href="#pygeode.Var.cosh" title="Permalink to this definition">¶</a></dt>
-<dd><p>Hyperbolic cosine.  Wraps <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.cosh.html#numpy.cosh" title="(in NumPy v1.9)"><tt class="xref py py-data docutils literal"><span class="pre">numpy.cosh</span></tt></a> Called on the Var object.</p>
+<code class="descclassname">Var.</code><code class="descname">cosh</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.Var.cosh" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hyperbolic cosine.  Wraps <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.cosh.html#numpy.cosh" title="(in NumPy v1.17)"><code class="xref py py-data docutils literal notranslate"><span class="pre">numpy.cosh</span></code></a> Called on the Var object.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="pygeode.tanh">
-<tt class="descclassname">pygeode.</tt><tt class="descname">tanh</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#pygeode.tanh" title="Permalink to this definition">¶</a></dt>
-<dd><p>Hyperbolic tangent.  Wraps <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.tanh.html#numpy.tanh" title="(in NumPy v1.9)"><tt class="xref py py-data docutils literal"><span class="pre">numpy.tanh</span></tt></a></p>
+<code class="descclassname">pygeode.</code><code class="descname">tanh</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.tanh" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hyperbolic tangent.  Wraps <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.tanh.html#numpy.tanh" title="(in NumPy v1.17)"><code class="xref py py-data docutils literal notranslate"><span class="pre">numpy.tanh</span></code></a></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pygeode.Var.tanh">
-<tt class="descclassname">Var.</tt><tt class="descname">tanh</tt><big>(</big><big>)</big><a class="headerlink" href="#pygeode.Var.tanh" title="Permalink to this definition">¶</a></dt>
-<dd><p>Hyperbolic tangent.  Wraps <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.tanh.html#numpy.tanh" title="(in NumPy v1.9)"><tt class="xref py py-data docutils literal"><span class="pre">numpy.tanh</span></tt></a> Called on the Var object.</p>
+<code class="descclassname">Var.</code><code class="descname">tanh</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.Var.tanh" title="Permalink to this definition">¶</a></dt>
+<dd><p>Hyperbolic tangent.  Wraps <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.tanh.html#numpy.tanh" title="(in NumPy v1.17)"><code class="xref py py-data docutils literal notranslate"><span class="pre">numpy.tanh</span></code></a> Called on the Var object.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="pygeode.arcsin">
-<tt class="descclassname">pygeode.</tt><tt class="descname">arcsin</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#pygeode.arcsin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Inverse sine (in radians).  Wraps <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.arcsin.html#numpy.arcsin" title="(in NumPy v1.9)"><tt class="xref py py-data docutils literal"><span class="pre">numpy.arcsin</span></tt></a></p>
+<code class="descclassname">pygeode.</code><code class="descname">arcsin</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.arcsin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inverse sine (in radians).  Wraps <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.arcsin.html#numpy.arcsin" title="(in NumPy v1.17)"><code class="xref py py-data docutils literal notranslate"><span class="pre">numpy.arcsin</span></code></a></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pygeode.Var.arcsin">
-<tt class="descclassname">Var.</tt><tt class="descname">arcsin</tt><big>(</big><big>)</big><a class="headerlink" href="#pygeode.Var.arcsin" title="Permalink to this definition">¶</a></dt>
-<dd><p>Inverse sine (in radians).  Wraps <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.arcsin.html#numpy.arcsin" title="(in NumPy v1.9)"><tt class="xref py py-data docutils literal"><span class="pre">numpy.arcsin</span></tt></a> Called on the Var object.</p>
+<code class="descclassname">Var.</code><code class="descname">arcsin</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.Var.arcsin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inverse sine (in radians).  Wraps <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.arcsin.html#numpy.arcsin" title="(in NumPy v1.17)"><code class="xref py py-data docutils literal notranslate"><span class="pre">numpy.arcsin</span></code></a> Called on the Var object.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="pygeode.arccos">
-<tt class="descclassname">pygeode.</tt><tt class="descname">arccos</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#pygeode.arccos" title="Permalink to this definition">¶</a></dt>
-<dd><p>Inverse cosine (in radians).  Wraps <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.arccos.html#numpy.arccos" title="(in NumPy v1.9)"><tt class="xref py py-data docutils literal"><span class="pre">numpy.arccos</span></tt></a></p>
+<code class="descclassname">pygeode.</code><code class="descname">arccos</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.arccos" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inverse cosine (in radians).  Wraps <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.arccos.html#numpy.arccos" title="(in NumPy v1.17)"><code class="xref py py-data docutils literal notranslate"><span class="pre">numpy.arccos</span></code></a></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pygeode.Var.arccos">
-<tt class="descclassname">Var.</tt><tt class="descname">arccos</tt><big>(</big><big>)</big><a class="headerlink" href="#pygeode.Var.arccos" title="Permalink to this definition">¶</a></dt>
-<dd><p>Inverse cosine (in radians).  Wraps <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.arccos.html#numpy.arccos" title="(in NumPy v1.9)"><tt class="xref py py-data docutils literal"><span class="pre">numpy.arccos</span></tt></a> Called on the Var object.</p>
+<code class="descclassname">Var.</code><code class="descname">arccos</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.Var.arccos" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inverse cosine (in radians).  Wraps <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.arccos.html#numpy.arccos" title="(in NumPy v1.17)"><code class="xref py py-data docutils literal notranslate"><span class="pre">numpy.arccos</span></code></a> Called on the Var object.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="pygeode.arctan">
-<tt class="descclassname">pygeode.</tt><tt class="descname">arctan</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#pygeode.arctan" title="Permalink to this definition">¶</a></dt>
-<dd><p>Inverse tangent (in radians).  Wraps <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.arctan.html#numpy.arctan" title="(in NumPy v1.9)"><tt class="xref py py-data docutils literal"><span class="pre">numpy.arctan</span></tt></a></p>
+<code class="descclassname">pygeode.</code><code class="descname">arctan</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.arctan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inverse tangent (in radians).  Wraps <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.arctan.html#numpy.arctan" title="(in NumPy v1.17)"><code class="xref py py-data docutils literal notranslate"><span class="pre">numpy.arctan</span></code></a></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pygeode.Var.arctan">
-<tt class="descclassname">Var.</tt><tt class="descname">arctan</tt><big>(</big><big>)</big><a class="headerlink" href="#pygeode.Var.arctan" title="Permalink to this definition">¶</a></dt>
-<dd><p>Inverse tangent (in radians).  Wraps <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.arctan.html#numpy.arctan" title="(in NumPy v1.9)"><tt class="xref py py-data docutils literal"><span class="pre">numpy.arctan</span></tt></a> Called on the Var object.</p>
+<code class="descclassname">Var.</code><code class="descname">arctan</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.Var.arctan" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inverse tangent (in radians).  Wraps <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.arctan.html#numpy.arctan" title="(in NumPy v1.17)"><code class="xref py py-data docutils literal notranslate"><span class="pre">numpy.arctan</span></code></a> Called on the Var object.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="pygeode.arctan2">
-<tt class="descclassname">pygeode.</tt><tt class="descname">arctan2</tt><big>(</big><em>x</em>, <em>y</em><big>)</big><a class="headerlink" href="#pygeode.arctan2" title="Permalink to this definition">¶</a></dt>
-<dd><p>Inverse tangent. Explicit x/y given. Returns radians.  Wraps <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.arctan2.html#numpy.arctan2" title="(in NumPy v1.9)"><tt class="xref py py-data docutils literal"><span class="pre">numpy.arctan2</span></tt></a></p>
+<code class="descclassname">pygeode.</code><code class="descname">arctan2</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.arctan2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inverse tangent. Explicit x/y given. Returns radians.  Wraps <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.arctan2.html#numpy.arctan2" title="(in NumPy v1.17)"><code class="xref py py-data docutils literal notranslate"><span class="pre">numpy.arctan2</span></code></a></p>
 </dd></dl>
 
 <dl class="function">
 <dt id="pygeode.arcsind">
-<tt class="descclassname">pygeode.</tt><tt class="descname">arcsind</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#pygeode.arcsind" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pygeode.</code><code class="descname">arcsind</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.arcsind" title="Permalink to this definition">¶</a></dt>
 <dd><p>Inverse sine (in degrees).</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pygeode.Var.arcsind">
-<tt class="descclassname">Var.</tt><tt class="descname">arcsind</tt><big>(</big><big>)</big><a class="headerlink" href="#pygeode.Var.arcsind" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">Var.</code><code class="descname">arcsind</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.Var.arcsind" title="Permalink to this definition">¶</a></dt>
 <dd><p>Inverse sine (in degrees). Called on the Var object.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="pygeode.arccosd">
-<tt class="descclassname">pygeode.</tt><tt class="descname">arccosd</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#pygeode.arccosd" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pygeode.</code><code class="descname">arccosd</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.arccosd" title="Permalink to this definition">¶</a></dt>
 <dd><p>Inverse cosine (in degrees).</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pygeode.Var.arccosd">
-<tt class="descclassname">Var.</tt><tt class="descname">arccosd</tt><big>(</big><big>)</big><a class="headerlink" href="#pygeode.Var.arccosd" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">Var.</code><code class="descname">arccosd</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.Var.arccosd" title="Permalink to this definition">¶</a></dt>
 <dd><p>Inverse cosine (in degrees). Called on the Var object.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="pygeode.arctand">
-<tt class="descclassname">pygeode.</tt><tt class="descname">arctand</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#pygeode.arctand" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pygeode.</code><code class="descname">arctand</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.arctand" title="Permalink to this definition">¶</a></dt>
 <dd><p>Inverse tangent (in degrees).</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pygeode.Var.arctand">
-<tt class="descclassname">Var.</tt><tt class="descname">arctand</tt><big>(</big><big>)</big><a class="headerlink" href="#pygeode.Var.arctand" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">Var.</code><code class="descname">arctand</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.Var.arctand" title="Permalink to this definition">¶</a></dt>
 <dd><p>Inverse tangent (in degrees). Called on the Var object.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="pygeode.arctand2">
-<tt class="descclassname">pygeode.</tt><tt class="descname">arctand2</tt><big>(</big><em>x</em>, <em>y</em><big>)</big><a class="headerlink" href="#pygeode.arctand2" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pygeode.</code><code class="descname">arctand2</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.arctand2" title="Permalink to this definition">¶</a></dt>
 <dd><p>Inverse tangent.  Explicit x/y given.  Returns degrees.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="pygeode.arcsinh">
-<tt class="descclassname">pygeode.</tt><tt class="descname">arcsinh</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#pygeode.arcsinh" title="Permalink to this definition">¶</a></dt>
-<dd><p>Inverse hyperbolic sine.  Wraps <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.arcsinh.html#numpy.arcsinh" title="(in NumPy v1.9)"><tt class="xref py py-data docutils literal"><span class="pre">numpy.arcsinh</span></tt></a></p>
+<code class="descclassname">pygeode.</code><code class="descname">arcsinh</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.arcsinh" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inverse hyperbolic sine.  Wraps <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.arcsinh.html#numpy.arcsinh" title="(in NumPy v1.17)"><code class="xref py py-data docutils literal notranslate"><span class="pre">numpy.arcsinh</span></code></a></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pygeode.Var.arcsinh">
-<tt class="descclassname">Var.</tt><tt class="descname">arcsinh</tt><big>(</big><big>)</big><a class="headerlink" href="#pygeode.Var.arcsinh" title="Permalink to this definition">¶</a></dt>
-<dd><p>Inverse hyperbolic sine.  Wraps <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.arcsinh.html#numpy.arcsinh" title="(in NumPy v1.9)"><tt class="xref py py-data docutils literal"><span class="pre">numpy.arcsinh</span></tt></a> Called on the Var object.</p>
+<code class="descclassname">Var.</code><code class="descname">arcsinh</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.Var.arcsinh" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inverse hyperbolic sine.  Wraps <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.arcsinh.html#numpy.arcsinh" title="(in NumPy v1.17)"><code class="xref py py-data docutils literal notranslate"><span class="pre">numpy.arcsinh</span></code></a> Called on the Var object.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="pygeode.arccosh">
-<tt class="descclassname">pygeode.</tt><tt class="descname">arccosh</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#pygeode.arccosh" title="Permalink to this definition">¶</a></dt>
-<dd><p>Inverse hyperbolic cosine.  Wraps <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.arccosh.html#numpy.arccosh" title="(in NumPy v1.9)"><tt class="xref py py-data docutils literal"><span class="pre">numpy.arccosh</span></tt></a></p>
+<code class="descclassname">pygeode.</code><code class="descname">arccosh</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.arccosh" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inverse hyperbolic cosine.  Wraps <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.arccosh.html#numpy.arccosh" title="(in NumPy v1.17)"><code class="xref py py-data docutils literal notranslate"><span class="pre">numpy.arccosh</span></code></a></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pygeode.Var.arccosh">
-<tt class="descclassname">Var.</tt><tt class="descname">arccosh</tt><big>(</big><big>)</big><a class="headerlink" href="#pygeode.Var.arccosh" title="Permalink to this definition">¶</a></dt>
-<dd><p>Inverse hyperbolic cosine.  Wraps <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.arccosh.html#numpy.arccosh" title="(in NumPy v1.9)"><tt class="xref py py-data docutils literal"><span class="pre">numpy.arccosh</span></tt></a> Called on the Var object.</p>
+<code class="descclassname">Var.</code><code class="descname">arccosh</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.Var.arccosh" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inverse hyperbolic cosine.  Wraps <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.arccosh.html#numpy.arccosh" title="(in NumPy v1.17)"><code class="xref py py-data docutils literal notranslate"><span class="pre">numpy.arccosh</span></code></a> Called on the Var object.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="pygeode.arctanh">
-<tt class="descclassname">pygeode.</tt><tt class="descname">arctanh</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#pygeode.arctanh" title="Permalink to this definition">¶</a></dt>
-<dd><p>Inverse hyperbolic tangent.  Wraps <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.arctanh.html#numpy.arctanh" title="(in NumPy v1.9)"><tt class="xref py py-data docutils literal"><span class="pre">numpy.arctanh</span></tt></a></p>
+<code class="descclassname">pygeode.</code><code class="descname">arctanh</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.arctanh" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inverse hyperbolic tangent.  Wraps <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.arctanh.html#numpy.arctanh" title="(in NumPy v1.17)"><code class="xref py py-data docutils literal notranslate"><span class="pre">numpy.arctanh</span></code></a></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pygeode.Var.arctanh">
-<tt class="descclassname">Var.</tt><tt class="descname">arctanh</tt><big>(</big><big>)</big><a class="headerlink" href="#pygeode.Var.arctanh" title="Permalink to this definition">¶</a></dt>
-<dd><p>Inverse hyperbolic tangent.  Wraps <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.arctanh.html#numpy.arctanh" title="(in NumPy v1.9)"><tt class="xref py py-data docutils literal"><span class="pre">numpy.arctanh</span></tt></a> Called on the Var object.</p>
+<code class="descclassname">Var.</code><code class="descname">arctanh</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.Var.arctanh" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inverse hyperbolic tangent.  Wraps <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.arctanh.html#numpy.arctanh" title="(in NumPy v1.17)"><code class="xref py py-data docutils literal notranslate"><span class="pre">numpy.arctanh</span></code></a> Called on the Var object.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="pygeode.sqrt">
-<tt class="descclassname">pygeode.</tt><tt class="descname">sqrt</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#pygeode.sqrt" title="Permalink to this definition">¶</a></dt>
-<dd><p>Square root.  Wraps <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.sqrt.html#numpy.sqrt" title="(in NumPy v1.9)"><tt class="xref py py-data docutils literal"><span class="pre">numpy.sqrt</span></tt></a></p>
+<code class="descclassname">pygeode.</code><code class="descname">sqrt</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.sqrt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Square root.  Wraps <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.sqrt.html#numpy.sqrt" title="(in NumPy v1.17)"><code class="xref py py-data docutils literal notranslate"><span class="pre">numpy.sqrt</span></code></a></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pygeode.Var.sqrt">
-<tt class="descclassname">Var.</tt><tt class="descname">sqrt</tt><big>(</big><big>)</big><a class="headerlink" href="#pygeode.Var.sqrt" title="Permalink to this definition">¶</a></dt>
-<dd><p>Square root.  Wraps <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.sqrt.html#numpy.sqrt" title="(in NumPy v1.9)"><tt class="xref py py-data docutils literal"><span class="pre">numpy.sqrt</span></tt></a> Called on the Var object.</p>
+<code class="descclassname">Var.</code><code class="descname">sqrt</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.Var.sqrt" title="Permalink to this definition">¶</a></dt>
+<dd><p>Square root.  Wraps <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.sqrt.html#numpy.sqrt" title="(in NumPy v1.17)"><code class="xref py py-data docutils literal notranslate"><span class="pre">numpy.sqrt</span></code></a> Called on the Var object.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="pygeode.absolute">
-<tt class="descclassname">pygeode.</tt><tt class="descname">absolute</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#pygeode.absolute" title="Permalink to this definition">¶</a></dt>
-<dd><p>Absolute value.  Wraps <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.absolute.html#numpy.absolute" title="(in NumPy v1.9)"><tt class="xref py py-data docutils literal"><span class="pre">numpy.absolute</span></tt></a></p>
+<code class="descclassname">pygeode.</code><code class="descname">absolute</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.absolute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Absolute value.  Wraps <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.absolute.html#numpy.absolute" title="(in NumPy v1.17)"><code class="xref py py-data docutils literal notranslate"><span class="pre">numpy.absolute</span></code></a></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pygeode.Var.absolute">
-<tt class="descclassname">Var.</tt><tt class="descname">absolute</tt><big>(</big><big>)</big><a class="headerlink" href="#pygeode.Var.absolute" title="Permalink to this definition">¶</a></dt>
-<dd><p>Absolute value.  Wraps <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.absolute.html#numpy.absolute" title="(in NumPy v1.9)"><tt class="xref py py-data docutils literal"><span class="pre">numpy.absolute</span></tt></a> Called on the Var object.</p>
+<code class="descclassname">Var.</code><code class="descname">absolute</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.Var.absolute" title="Permalink to this definition">¶</a></dt>
+<dd><p>Absolute value.  Wraps <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.absolute.html#numpy.absolute" title="(in NumPy v1.17)"><code class="xref py py-data docutils literal notranslate"><span class="pre">numpy.absolute</span></code></a> Called on the Var object.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="pygeode.nan_to_num">
-<tt class="descclassname">pygeode.</tt><tt class="descname">nan_to_num</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#pygeode.nan_to_num" title="Permalink to this definition">¶</a></dt>
-<dd><p>Replace nan with zero and inf with finite numbers.  Wraps <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.nan_to_num.html#numpy.nan_to_num" title="(in NumPy v1.9)"><tt class="xref py py-func docutils literal"><span class="pre">numpy.nan_to_num()</span></tt></a></p>
+<code class="descclassname">pygeode.</code><code class="descname">nan_to_num</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.nan_to_num" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replace nan with zero and inf with finite numbers.  Wraps <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.nan_to_num.html#numpy.nan_to_num" title="(in NumPy v1.17)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.nan_to_num()</span></code></a></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pygeode.Var.nan_to_num">
-<tt class="descclassname">Var.</tt><tt class="descname">nan_to_num</tt><big>(</big><big>)</big><a class="headerlink" href="#pygeode.Var.nan_to_num" title="Permalink to this definition">¶</a></dt>
-<dd><p>Replace nan with zero and inf with finite numbers.  Wraps <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.nan_to_num.html#numpy.nan_to_num" title="(in NumPy v1.9)"><tt class="xref py py-func docutils literal"><span class="pre">numpy.nan_to_num()</span></tt></a> Called on the Var object.</p>
+<code class="descclassname">Var.</code><code class="descname">nan_to_num</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.Var.nan_to_num" title="Permalink to this definition">¶</a></dt>
+<dd><p>Replace nan with zero and inf with finite numbers.  Wraps <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.nan_to_num.html#numpy.nan_to_num" title="(in NumPy v1.17)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.nan_to_num()</span></code></a> Called on the Var object.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pygeode.maximum">
+<code class="descclassname">pygeode.</code><code class="descname">maximum</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.maximum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Element-wise maximum of the two given arguments.  Wraps <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.maximum.html#numpy.maximum" title="(in NumPy v1.17)"><code class="xref py py-data docutils literal notranslate"><span class="pre">numpy.maximum</span></code></a></p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pygeode.minimum">
+<code class="descclassname">pygeode.</code><code class="descname">minimum</code><span class="sig-paren">(</span><em>x</em>, <em>y</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.minimum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Element-wise minimum of the two given arguments.  Wraps <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.minimum.html#numpy.minimum" title="(in NumPy v1.17)"><code class="xref py py-data docutils literal notranslate"><span class="pre">numpy.minimum</span></code></a></p>
 </dd></dl>
 
 <dl class="function">
 <dt id="pygeode.real">
-<tt class="descclassname">pygeode.</tt><tt class="descname">real</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#pygeode.real" title="Permalink to this definition">¶</a></dt>
-<dd><p>Real part of a complex array.  Wraps <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.real.html#numpy.real" title="(in NumPy v1.9)"><tt class="xref py py-func docutils literal"><span class="pre">numpy.real()</span></tt></a></p>
+<code class="descclassname">pygeode.</code><code class="descname">real</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.real" title="Permalink to this definition">¶</a></dt>
+<dd><p>Real part of a complex array.  Wraps <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.real.html#numpy.real" title="(in NumPy v1.17)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.real()</span></code></a></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pygeode.Var.real">
-<tt class="descclassname">Var.</tt><tt class="descname">real</tt><big>(</big><big>)</big><a class="headerlink" href="#pygeode.Var.real" title="Permalink to this definition">¶</a></dt>
-<dd><p>Real part of a complex array.  Wraps <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.real.html#numpy.real" title="(in NumPy v1.9)"><tt class="xref py py-func docutils literal"><span class="pre">numpy.real()</span></tt></a> Called on the Var object.</p>
+<code class="descclassname">Var.</code><code class="descname">real</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.Var.real" title="Permalink to this definition">¶</a></dt>
+<dd><p>Real part of a complex array.  Wraps <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.real.html#numpy.real" title="(in NumPy v1.17)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.real()</span></code></a> Called on the Var object.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="pygeode.imag">
-<tt class="descclassname">pygeode.</tt><tt class="descname">imag</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#pygeode.imag" title="Permalink to this definition">¶</a></dt>
-<dd><p>Imaginary part of a complex array.  Wraps <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.imag.html#numpy.imag" title="(in NumPy v1.9)"><tt class="xref py py-func docutils literal"><span class="pre">numpy.imag()</span></tt></a></p>
+<code class="descclassname">pygeode.</code><code class="descname">imag</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.imag" title="Permalink to this definition">¶</a></dt>
+<dd><p>Imaginary part of a complex array.  Wraps <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.imag.html#numpy.imag" title="(in NumPy v1.17)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.imag()</span></code></a></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pygeode.Var.imag">
-<tt class="descclassname">Var.</tt><tt class="descname">imag</tt><big>(</big><big>)</big><a class="headerlink" href="#pygeode.Var.imag" title="Permalink to this definition">¶</a></dt>
-<dd><p>Imaginary part of a complex array.  Wraps <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.imag.html#numpy.imag" title="(in NumPy v1.9)"><tt class="xref py py-func docutils literal"><span class="pre">numpy.imag()</span></tt></a> Called on the Var object.</p>
+<code class="descclassname">Var.</code><code class="descname">imag</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.Var.imag" title="Permalink to this definition">¶</a></dt>
+<dd><p>Imaginary part of a complex array.  Wraps <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.imag.html#numpy.imag" title="(in NumPy v1.17)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.imag()</span></code></a> Called on the Var object.</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="pygeode.angle">
-<tt class="descclassname">pygeode.</tt><tt class="descname">angle</tt><big>(</big><em>x</em><big>)</big><a class="headerlink" href="#pygeode.angle" title="Permalink to this definition">¶</a></dt>
-<dd><p>Angles (arguments) of a complex array.  Wraps <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.angle.html#numpy.angle" title="(in NumPy v1.9)"><tt class="xref py py-func docutils literal"><span class="pre">numpy.angle()</span></tt></a></p>
+<code class="descclassname">pygeode.</code><code class="descname">angle</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.angle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Angles (arguments) of a complex array.  Wraps <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.angle.html#numpy.angle" title="(in NumPy v1.17)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.angle()</span></code></a></p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pygeode.Var.angle">
-<tt class="descclassname">Var.</tt><tt class="descname">angle</tt><big>(</big><big>)</big><a class="headerlink" href="#pygeode.Var.angle" title="Permalink to this definition">¶</a></dt>
-<dd><p>Angles (arguments) of a complex array.  Wraps <a class="reference external" href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.angle.html#numpy.angle" title="(in NumPy v1.9)"><tt class="xref py py-func docutils literal"><span class="pre">numpy.angle()</span></tt></a> Called on the Var object.</p>
+<code class="descclassname">Var.</code><code class="descname">angle</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.Var.angle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Angles (arguments) of a complex array.  Wraps <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.angle.html#numpy.angle" title="(in NumPy v1.17)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.angle()</span></code></a> Called on the Var object.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pygeode.conj">
+<code class="descclassname">pygeode.</code><code class="descname">conj</code><span class="sig-paren">(</span><em>x</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.conj" title="Permalink to this definition">¶</a></dt>
+<dd><p>Complex conjugate of a complex array.  Wraps <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.conjugate.html#numpy.conjugate" title="(in NumPy v1.17)"><code class="xref py py-data docutils literal notranslate"><span class="pre">numpy.conjugate</span></code></a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygeode.Var.conj">
+<code class="descclassname">Var.</code><code class="descname">conj</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.Var.conj" title="Permalink to this definition">¶</a></dt>
+<dd><p>Complex conjugate of a complex array.  Wraps <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.conjugate.html#numpy.conjugate" title="(in NumPy v1.17)"><code class="xref py py-data docutils literal notranslate"><span class="pre">numpy.conjugate</span></code></a> Called on the Var object.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="pygeode.clip">
+<code class="descclassname">pygeode.</code><code class="descname">clip</code><span class="sig-paren">(</span><em>*args</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.clip" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clips values to given interval.  Wraps <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.clip.html#numpy.clip" title="(in NumPy v1.17)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.clip()</span></code></a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="pygeode.Var.clip">
+<code class="descclassname">Var.</code><code class="descname">clip</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.Var.clip" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clips values to given interval.  Wraps <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.clip.html#numpy.clip" title="(in NumPy v1.17)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.clip()</span></code></a> Called on the Var object.</p>
 </dd></dl>
 
 </div>
 
 
-          </div>
-        </div>
       </div>
-      <div class="sphinxsidebar">
-        <div class="sphinxsidebarwrapper">
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="var.arith.html"
-                        title="previous chapter">Arithmetic Operations on Variables</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="reduce.html"
-                        title="next chapter">Axis Reductions</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/ufunc.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        «&#160;&#160;<a href="var.arith.html">Arithmetic Operations on Variables</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="gallery/index.html">Gallery</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="reduce.html">Axis Reductions</a>&#160;&#160;»
+        </p>
+
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="reduce.html" title="Axis Reductions"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="var.arith.html" title="Arithmetic Operations on Variables"
-             >previous</a> |</li>
-        <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li>
-          <li><a href="reference.html" >Reference</a> &raquo;</li>
-          <li><a href="var.html" >Var class overview</a> &raquo;</li> 
-      </ul>
-    </div>
-    <div class="footer">
-        &copy; Copyright 2013, Mike Neish, Peter Hitchcock.
-      Last updated on Sep 13, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Mike Neish, Peter Hitchcock.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.
     </div>
   </body>
 </html>

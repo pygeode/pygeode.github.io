@@ -1,66 +1,56 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Axis class reference &mdash; PyGeode 1.0 alpha documentation</title>
-    
+    <title>Axis class reference &#8212; PyGeode 1.3 pre-release documentation</title>
     <link rel="stylesheet" href="_static/pygtheme.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '1.0 alpha',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
+    <link rel="stylesheet" type="text/css" href="_static/gallery.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="PyGeode 1.0 alpha documentation" href="index.html" />
-    <link rel="up" title="Axis class overview" href="axes.html" />
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="NamedAxis object reference" href="namedaxis.html" />
     <link rel="prev" title="Axis class overview" href="axes.html" />
 <link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
 
-  </head>
-  <body>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="namedaxis.html" title="NamedAxis object reference"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="axes.html" title="Axis class overview"
-             accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li>
-          <li><a href="reference.html" >Reference</a> &raquo;</li>
-          <li><a href="axes.html" accesskey="U">Axis class overview</a> &raquo;</li> 
-      </ul>
-    </div>  
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="index.html">
+          <span>PyGeode 1.3 pre-release documentation</span></a></h1>
+        <h2 class="heading"><span>Axis class reference</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        «&#160;&#160;<a href="axes.html">Axis class overview</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="gallery/index.html">Gallery</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="namedaxis.html">NamedAxis object reference</a>&#160;&#160;»
+        </p>
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
-            
+      </div>
+      <div class="content">
+        
+        
   <div class="section" id="axis-class-reference">
 <h1>Axis class reference<a class="headerlink" href="#axis-class-reference" title="Permalink to this headline">¶</a></h1>
 <dl class="attribute">
 <dt id="pygeode.Axis.rtol">
-<tt class="descclassname">Axis.</tt><tt class="descname">rtol</tt><a class="headerlink" href="#pygeode.Axis.rtol" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">Axis.</code><code class="descname">rtol</code><em class="property"> float</em><a class="headerlink" href="#pygeode.Axis.rtol" title="Permalink to this definition">¶</a></dt>
 <dd><p>Relative tolerance for identifying two values for this axis as the same point. Set automatically
 in Axis::__init__ but if this is too large for a given application this can be the source
 of unexpected errors. Setting this parameter to a new value on the Axis objects in question may
@@ -69,154 +59,135 @@ resolve these issues.</p>
 
 <dl class="attribute">
 <dt id="pygeode.Axis.formatstr">
-<tt class="descclassname">Axis.</tt><tt class="descname">formatstr</tt><a class="headerlink" href="#pygeode.Axis.formatstr" title="Permalink to this definition">¶</a></dt>
-<dd><p>The format to apply to the axis values when displaying on the screen.  See the Python documentation on <a class="reference external" href="http://docs.python.org/library/stdtypes.html#string-formatting">String Formatting</a> for the options available.</p>
-<p>If the axis needs a more complicated format (that changes depending on the value), it may also define a <tt class="xref py py-meth docutils literal"><span class="pre">formatvalue()</span></tt> method to explicitly convert each value to a string.  For example, the <tt class="docutils literal"><span class="pre">Lat</span></tt> axis uses a <em>formatvalue</em> method to append an &#8216;N&#8217; or &#8216;S&#8217; to the latitudes, depending on the sign of the value.</p>
+<code class="descclassname">Axis.</code><code class="descname">formatstr</code><em class="property"> string</em><a class="headerlink" href="#pygeode.Axis.formatstr" title="Permalink to this definition">¶</a></dt>
+<dd><p>The format to apply to the axis values when displaying on the screen.  See
+the Python documentation on <a class="reference external" href="http://docs.python.org/library/stdtypes.html#string-formatting">String Formatting</a> for the
+options available.</p>
+<p>If the axis needs a more complicated format (that changes depending on the
+value), it may also define a <code class="xref py py-meth docutils literal notranslate"><span class="pre">formatvalue()</span></code> method to explicitly
+convert each value to a string.  For example, the <code class="docutils literal notranslate"><span class="pre">Lat</span></code> axis uses a
+<em>formatvalue</em> method to append an ‘N’ or ‘S’ to the latitudes, depending on
+the sign of the value.</p>
 </dd></dl>
 
 <dl class="attribute">
 <dt id="pygeode.Axis.auxatts">
-<tt class="descclassname">Axis.</tt><tt class="descname">auxatts</tt><a class="headerlink" href="#pygeode.Axis.auxatts" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descclassname">Axis.</code><code class="descname">auxatts</code><em class="property"> dictionary</em><a class="headerlink" href="#pygeode.Axis.auxatts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Auxiliary attributes. These are preserved during merge/slice/etc operations.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="pygeode.Axis.auxarrays">
-<tt class="descclassname">Axis.</tt><tt class="descname">auxarrays</tt><a class="headerlink" href="#pygeode.Axis.auxarrays" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">Axis.</code><code class="descname">auxarrays</code><em class="property"> dictionary</em><a class="headerlink" href="#pygeode.Axis.auxarrays" title="Permalink to this definition">¶</a></dt>
 <dd><p>A dictionary of 1D numpy arrays with the same length as the axis that carry auxiliary
 data associated with each element of the axis. These data need not be unique; for instance,
-the values of time axes (e.g. <a class="reference internal" href="timeaxes.html#pygeode.StandardTime" title="pygeode.StandardTime"><tt class="xref py py-class docutils literal"><span class="pre">StandardTime</span></tt></a>) are given as offsets from a reference
+the values of time axes (e.g. <a class="reference internal" href="timeaxes.html#pygeode.StandardTime" title="pygeode.StandardTime"><code class="xref py py-class docutils literal notranslate"><span class="pre">StandardTime</span></code></a>) are given as offsets from a reference
 date, while they have auxarrays for the year, month, day, etc. Many elements of the time axis
-might have same value in the corresponding <cite>month</cite> auxiliary array. These can be used
+might have same value in the corresponding ‘month’ auxiliary array. These can be used
 to select by keyword.</p>
-<div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="#pygeode.Axis.auxasvar" title="pygeode.Axis.auxasvar"><tt class="xref py py-obj docutils literal"><span class="pre">auxasvar</span></tt></a>, <a class="reference internal" href="varops.html#pygeode.Var.__call__" title="pygeode.Var.__call__"><tt class="xref py py-obj docutils literal"><span class="pre">Var.__call__</span></tt></a></p>
-</div>
+<p>auxasvar
+Var.__call__</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="pygeode.Axis.plottitle">
-<tt class="descclassname">Axis.</tt><tt class="descname">plottitle</tt><a class="headerlink" href="#pygeode.Axis.plottitle" title="Permalink to this definition">¶</a></dt>
-<dd><p>A string to display on plot axes.  Usually more verbose than the axis&#8217;s <a class="reference internal" href="var.html#pygeode.Var.name" title="pygeode.Var.name"><tt class="xref py py-attr docutils literal"><span class="pre">name</span></tt></a> attribute.</p>
+<dt id="pygeode.Axis.plotatts">
+<code class="descclassname">Axis.</code><code class="descname">plotatts</code><em class="property"> dictionary</em><a class="headerlink" href="#pygeode.Axis.plotatts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dictionary of attributes for plotting; see plotting documentation.</p>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="pygeode.Axis.plotscale">
-<tt class="descclassname">Axis.</tt><tt class="descname">plotscale</tt><a class="headerlink" href="#pygeode.Axis.plotscale" title="Permalink to this definition">¶</a></dt>
-<dd><p><tt class="docutils literal"><span class="pre">'linear'</span></tt> for a linear plot scale, <tt class="docutils literal"><span class="pre">'log'</span></tt> for a logarithmic plot scale.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="pygeode.Axis.plotorder">
-<tt class="descclassname">Axis.</tt><tt class="descname">plotorder</tt><a class="headerlink" href="#pygeode.Axis.plotorder" title="Permalink to this definition">¶</a></dt>
-<dd><p>The order of the values when plotting.  <tt class="docutils literal"><span class="pre">1</span></tt> = increasing from left to right, <tt class="docutils literal"><span class="pre">-1</span></tt> = decreasing.</p>
-</dd></dl>
-
-<p><strong>Note:</strong> Due to current limitations in PyGeode, modifications to these attributes may be lost if you do further work on the axis (e.g. slicing, concatenation, etc.).  It will revert back to the default class values.  For example:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode</span> <span class="kn">import</span> <span class="n">Lat</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">Lat</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">30</span><span class="p">])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">x</span>
+<p><strong>Note:</strong> Due to current limitations in PyGeode, modifications to these
+attributes may be lost if you do further work on the axis (e.g. slicing,
+concatenation, etc.).  It will revert back to the default class values.  For
+example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pygeode</span> <span class="k">as</span> <span class="nn">pyg</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">Lat</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">30</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 <span class="go">lat &lt;Lat&gt;      :  10 N to 30 N (3 values)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">formatstr</span> <span class="o">=</span> <span class="s">&#39;</span><span class="si">%d</span><span class="s"> deg&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">x</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">formatstr</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%d</span><span class="s1"> deg N&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 <span class="go">lat &lt;Lat&gt;      :  10 deg N to 30 deg N (3 values)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c">#               ^^^ yay!</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">x</span><span class="p">(</span><span class="n">lat</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1">#               ^^^ yay!</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">(</span><span class="n">lat</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">)))</span>
 <span class="go">lat &lt;Lat&gt;      :  10 N to 20 N (2 values)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c">#               ^^^ wtf?!</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1">#               ^^^ wtf?!</span>
 </pre></div>
 </div>
-<p>To get around this, make your changes to the class itself.  As an added benefit, <em>all</em> axes of this class will have your changes applied consistently:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode</span> <span class="kn">import</span> <span class="n">Lat</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">Lat</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">30</span><span class="p">])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">x</span>
-<span class="go">lat &lt;Lat&gt;      :  10 N to 30 N (3 values)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c">#  change this ^^^  on all latitude axes:</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">Lat</span><span class="o">.</span><span class="n">formatstr</span> <span class="o">=</span> <span class="s">&#39;</span><span class="si">%d</span><span class="s"> deg&#39;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">x</span>
-<span class="go">lat &lt;Lat&gt;      :  10 deg N to 30 deg N (3 values)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">x</span><span class="p">(</span><span class="n">lat</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">))</span>    <span class="c"># check if the changes &#39;stick&#39;</span>
-<span class="go">lat &lt;Lat&gt;      :  10 deg N to 20 deg N (2 values)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">Lat</span><span class="p">([</span><span class="mi">40</span><span class="p">,</span><span class="mi">50</span><span class="p">,</span><span class="mi">60</span><span class="p">])</span>     <span class="c"># will work on all Lat axes now.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">y</span>
-<span class="go">lat &lt;Lat&gt;      :  40 deg N to 60 deg N (3 values)</span>
-</pre></div>
-</div>
+<p>At the moment there isn’t a great way to address this beyond
+changing the configuration file <code class="docutils literal notranslate"><span class="pre">pygrc</span></code>.</p>
 <dl class="method">
 <dt id="pygeode.Axis.__init__">
-<tt class="descclassname">Axis.</tt><tt class="descname">__init__</tt><big>(</big><em>values</em>, <em>name=None</em>, <em>atts=None</em>, <em>plotatts=None</em>, <em>rtol=None</em>, <em>**kwargs</em><big>)</big><a class="headerlink" href="#pygeode.Axis.__init__" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">Axis.</code><code class="descname">__init__</code><span class="sig-paren">(</span><em>values</em>, <em>name=None</em>, <em>atts=None</em>, <em>plotatts=None</em>, <em>rtol=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/axis.html#Axis.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.Axis.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a new Axis object with the given values.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>values</strong> : numpy.ndarray</p>
-<blockquote>
-<div><p>A one-dimensional coordinate defining the axis grid.</p>
-</div></blockquote>
-<p><strong>name</strong> : string (optional)</p>
-<blockquote>
-<div><p>What to call the axis (i.e. for plot titles &amp; when saving to file)</p>
-</div></blockquote>
-<p><strong>atts</strong> : dict (optional)</p>
-<blockquote>
-<div><p>Any additional metadata to associate with the axis. The dictionary
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>values</strong> <span class="classifier-delimiter">:</span> <span class="classifier">numpy.ndarray</span></dt>
+<dd><p class="first last">A one-dimensional coordinate defining the axis grid.</p>
+</dd>
+<dt><strong>name</strong> <span class="classifier-delimiter">:</span> <span class="classifier">string (optional)</span></dt>
+<dd><p class="first last">What to call the axis (i.e. for plot titles &amp; when saving to file)</p>
+</dd>
+<dt><strong>atts</strong> <span class="classifier-delimiter">:</span> <span class="classifier">dict (optional)</span></dt>
+<dd><p class="first last">Any additional metadata to associate with the axis. The dictionary
 keys should be strings.</p>
-</div></blockquote>
-<p><strong>plotatts</strong> : dict (optional)</p>
-<blockquote>
-<div><p>Parameters that control plotting behaviour; default values are available. 
+</dd>
+<dt><strong>plotatts</strong> <span class="classifier-delimiter">:</span> <span class="classifier">dict (optional)</span></dt>
+<dd><p class="first last">Parameters that control plotting behaviour; default values are available.
 The dictionary keys should be strings.</p>
-</div></blockquote>
-<p><strong>rtol</strong> : float</p>
-<blockquote class="last">
-<div><p>A relative tolerance used for identifying an element of this axis.</p>
-</div></blockquote>
+</dd>
+<dt><strong>rtol</strong> <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
+<dd><p class="first last">A relative tolerance used for identifying an element of this axis.</p>
+</dd>
+</dl>
 </td>
 </tr>
 </tbody>
 </table>
 <p class="rubric">Notes</p>
-<p>All subclasses of <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><tt class="xref py py-class docutils literal"><span class="pre">Axis</span></tt></a> need to call this __init__ method within
+<p>All subclasses of <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><code class="xref py py-class docutils literal notranslate"><span class="pre">Axis</span></code></a> need to call this __init__ method within
 their own __init__, to properly initialize all attributes.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pygeode.Axis.argsort">
-<tt class="descclassname">Axis.</tt><tt class="descname">argsort</tt><big>(</big><em>reverse=None</em><big>)</big><a class="headerlink" href="#pygeode.Axis.argsort" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">Axis.</code><code class="descname">argsort</code><span class="sig-paren">(</span><em>reverse=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/axis.html#Axis.argsort"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.Axis.argsort" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generates a list of indices that would sort the Axis.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>reverse</strong> : boolean (optional)</p>
-<blockquote>
-<div><p>If <tt class="docutils literal"><span class="pre">False</span></tt>, indices are in ascending order. If <tt class="docutils literal"><span class="pre">True</span></tt>, will produce 
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>reverse</strong> <span class="classifier-delimiter">:</span> <span class="classifier">boolean (optional)</span></dt>
+<dd><p class="first last">If <code class="docutils literal notranslate"><span class="pre">False</span></code>, indices are in ascending order. If <code class="docutils literal notranslate"><span class="pre">True</span></code>, will produce
 indices for a <em>reverse</em> sort instead. By default, sign of self.plotorder is used.</p>
-</div></blockquote>
+</dd>
+</dl>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>indices</strong> : list</p>
-<blockquote class="last">
-<div><p>The indices which will produces a sorted version of the Axis.</p>
-</div></blockquote>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>indices</strong> <span class="classifier-delimiter">:</span> <span class="classifier">list</span></dt>
+<dd><p class="first last">The indices which will produces a sorted version of the Axis.</p>
+</dd>
+</dl>
 </td>
 </tr>
 </tbody>
 </table>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="#pygeode.Axis.sorted" title="pygeode.Axis.sorted"><tt class="xref py py-obj docutils literal"><span class="pre">sorted</span></tt></a></p>
+<p class="last"><a class="reference internal" href="#pygeode.Axis.sorted" title="pygeode.Axis.sorted"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sorted</span></code></a></p>
 </div>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode</span> <span class="kn">import</span> <span class="n">Lat</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode</span> <span class="k">import</span> <span class="n">Lat</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">Lat</span><span class="p">([</span><span class="mi">20</span><span class="p">,</span><span class="mi">30</span><span class="p">,</span><span class="mi">10</span><span class="p">])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">x</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 <span class="go">lat &lt;Lat&gt;      :  20 N to 10 N (3 values)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">indices</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">argsort</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">indices</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span>
 <span class="go">[2 0 1]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">x</span><span class="o">.</span><span class="n">slice</span><span class="p">[</span><span class="n">indices</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">slice</span><span class="p">[</span><span class="n">indices</span><span class="p">])</span>
 <span class="go">lat &lt;Lat&gt;      :  10 N to 30 N (3 values)</span>
 </pre></div>
 </div>
@@ -224,89 +195,116 @@ indices for a <em>reverse</em> sort instead. By default, sign of self.plotorder 
 
 <dl class="method">
 <dt id="pygeode.Axis.auxasvar">
-<tt class="descclassname">Axis.</tt><tt class="descname">auxasvar</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#pygeode.Axis.auxasvar" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns auxiliary array as a new <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a> object.</p>
+<code class="descclassname">Axis.</code><code class="descname">auxasvar</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/axis.html#Axis.auxasvar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.Axis.auxasvar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns auxiliary array as a new <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a> object.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>name</strong> : string</p>
-<blockquote>
-<div><p>Name of auxiliary array to return</p>
-</div></blockquote>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>name</strong> <span class="classifier-delimiter">:</span> <span class="classifier">string</span></dt>
+<dd><p class="first last">Name of auxiliary array to return</p>
+</dd>
+</dl>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>var</strong> : <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a></p>
-<blockquote class="last">
-<div><p>Variable with values of requested auxilliary array</p>
-</div></blockquote>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>var</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a></span></dt>
+<dd><p class="first last">Variable with values of requested auxilliary array</p>
+</dd>
+</dl>
 </td>
 </tr>
 </tbody>
 </table>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="#pygeode.Axis.auxarrays" title="pygeode.Axis.auxarrays"><tt class="xref py py-obj docutils literal"><span class="pre">auxarrays</span></tt></a></p>
+<p class="last"><a class="reference internal" href="#pygeode.Axis.auxarrays" title="pygeode.Axis.auxarrays"><code class="xref py py-obj docutils literal notranslate"><span class="pre">auxarrays</span></code></a></p>
 </div>
 </dd></dl>
 
 <dl class="method">
 <dt id="pygeode.Axis.formatter">
-<tt class="descclassname">Axis.</tt><tt class="descname">formatter</tt><big>(</big><big>)</big><a class="headerlink" href="#pygeode.Axis.formatter" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">Axis.</code><code class="descname">formatter</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.Axis.formatter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a matplotlib formatter (pygeode.AxisFormatter) for use in plotting.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pygeode.Axis.locator">
-<tt class="descclassname">Axis.</tt><tt class="descname">locator</tt><big>(</big><big>)</big><a class="headerlink" href="#pygeode.Axis.locator" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">Axis.</code><code class="descname">locator</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.Axis.locator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a matplotlib locator object for use in plotting.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="pygeode.Axis.rename">
-<tt class="descclassname">Axis.</tt><tt class="descname">rename</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#pygeode.Axis.rename" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descclassname">Axis.</code><code class="descname">rename</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/axis.html#Axis.rename"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.Axis.rename" title="Permalink to this definition">¶</a></dt>
+<dd><p>Assigns a new name to this axis.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>name</strong> <span class="classifier-delimiter">:</span> <span class="classifier">string</span></dt>
+<dd><p class="first last">The new name of this axis.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>renamed_axis</strong> <span class="classifier-delimiter">:</span> <span class="classifier">Axis</span></dt>
+<dd><p class="first last">An instance of the same axis class with the new name.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="method">
 <dt id="pygeode.Axis.sorted">
-<tt class="descclassname">Axis.</tt><tt class="descname">sorted</tt><big>(</big><em>reverse=None</em><big>)</big><a class="headerlink" href="#pygeode.Axis.sorted" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">Axis.</code><code class="descname">sorted</code><span class="sig-paren">(</span><em>reverse=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/axis.html#Axis.sorted"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.Axis.sorted" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sorts the points of the Axis.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>reverse</strong> : boolean (optional)</p>
-<blockquote>
-<div><p>If <tt class="docutils literal"><span class="pre">True</span></tt>, sorts in descending order. If <tt class="docutils literal"><span class="pre">False</span></tt>, sorts in ascending order.
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>reverse</strong> <span class="classifier-delimiter">:</span> <span class="classifier">boolean (optional)</span></dt>
+<dd><p class="first last">If <code class="docutils literal notranslate"><span class="pre">True</span></code>, sorts in descending order. If <code class="docutils literal notranslate"><span class="pre">False</span></code>, sorts in ascending order.
 By default the sign of self.plotorder is used.</p>
-</div></blockquote>
+</dd>
+</dl>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>sorted_axis</strong> : Axis</p>
-<blockquote class="last">
-<div><p>A sorted version of the input axis.</p>
-</div></blockquote>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>sorted_axis</strong> <span class="classifier-delimiter">:</span> <span class="classifier">Axis</span></dt>
+<dd><p class="first last">A sorted version of the input axis.</p>
+</dd>
+</dl>
 </td>
 </tr>
 </tbody>
 </table>
 <div class="admonition seealso">
 <p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="#pygeode.Axis.argsort" title="pygeode.Axis.argsort"><tt class="xref py py-obj docutils literal"><span class="pre">argsort</span></tt></a></p>
+<p class="last"><a class="reference internal" href="#pygeode.Axis.argsort" title="pygeode.Axis.argsort"><code class="xref py py-obj docutils literal notranslate"><span class="pre">argsort</span></code></a></p>
 </div>
 <p class="rubric">Examples</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode</span> <span class="kn">import</span> <span class="n">Lat</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode</span> <span class="k">import</span> <span class="n">Lat</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">Lat</span><span class="p">([</span><span class="mi">30</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">10</span><span class="p">])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">x</span> 
-<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">sorted</span><span class="p">()</span> 
-<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">y</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="go">lat &lt;Lat&gt;      :  30 N to 10 N (3 values)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">sorted</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="go">lat &lt;Lat&gt;      :  10 N to 30 N (3 values)</span>
 </pre></div>
 </div>
 </dd></dl>
 
 <dl class="method">
 <dt id="pygeode.Axis.str_as_val">
-<tt class="descclassname">Axis.</tt><tt class="descname">str_as_val</tt><big>(</big><em>key</em>, <em>s</em><big>)</big><a class="headerlink" href="#pygeode.Axis.str_as_val" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">Axis.</code><code class="descname">str_as_val</code><span class="sig-paren">(</span><em>key</em>, <em>s</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/axis.html#Axis.str_as_val"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.Axis.str_as_val" title="Permalink to this definition">¶</a></dt>
 <dd><p>str_as_val(self, key, s) - converts string s to a value corresponding to this axis. Default
 implementation returns float(s); derived classes can return different conversions depending
 on whether key corresponds to the axis itself or an auxiliary array.</p>
@@ -314,35 +312,174 @@ on whether key corresponds to the axis itself or an auxiliary array.</p>
 
 <dl class="method">
 <dt id="pygeode.Axis.__call__">
-<tt class="descclassname">Axis.</tt><tt class="descname">__call__</tt><big>(</big><em>**kwargs</em><big>)</big><a class="headerlink" href="#pygeode.Axis.__call__" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descclassname">Axis.</code><code class="descname">__call__</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/axis.html#Axis.__call__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.Axis.__call__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Keyword-based data subsetting.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>ignore_mismatch</strong> <span class="classifier-delimiter">:</span> <span class="classifier">boolean (optional)</span></dt>
+<dd><p class="first last">If <code class="docutils literal notranslate"><span class="pre">True</span></code>, any keywords that don’t match an axis are ignored.
+Default is <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
+</dd>
+<dt><strong>**kwargs</strong> <span class="classifier-delimiter">:</span> <span class="classifier">one or more keyword parameters</span></dt>
+<dd><p class="first last">The keys are the Axis names (or Axis class names), and the values are
+either a <cite>tuple</cite> of the desired (lower,upper) range, or a single Axis
+value.  E.g., <code class="docutils literal notranslate"><span class="pre">lat</span> <span class="pre">=</span> <span class="pre">(-45,45)</span></code> or <code class="docutils literal notranslate"><span class="pre">lat</span> <span class="pre">=</span> <span class="pre">10.5</span></code></p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>subset_var</strong> <span class="classifier-delimiter">:</span> <span class="classifier">Var</span></dt>
+<dd><p class="first last">A new Var, restricted  to the specified domain.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>There are a couple of special prefixes which can be prepended to each
+keyword to alter the subsetting behaviour. They can be used together.</p>
+<blockquote>
+<div><ul class="simple">
+<li><strong>i_</strong> indicates that the values are <em>indices</em> into the axis, and not
+the axis values themselves.  Indices start at 0.
+E.g. <code class="docutils literal notranslate"><span class="pre">myvar(i_time</span> <span class="pre">=</span> <span class="pre">0)</span></code> selects the first time step of the variable,
+and <code class="docutils literal notranslate"><span class="pre">myvar(i_lon=(10,20))</span></code> selects the 11th through 21st longitudes.</li>
+<li><strong>l_</strong> indicates that you are providing an explicit list of
+coordinates, instead of a range.
+E.g. <code class="docutils literal notranslate"><span class="pre">myvar(l_lon</span> <span class="pre">=</span> <span class="pre">(105.,106.,107.,108))</span></code></li>
+<li><strong>n_</strong> returns the complement of the set you request; that is,
+everything except the specified selection.
+E.g. <code class="docutils literal notranslate"><span class="pre">myvar(n_lat</span> <span class="pre">=</span> <span class="pre">(60,</span> <span class="pre">90))</span></code> returns all latitudes except those between 60 and 90N.</li>
+<li><strong>m_</strong> triggers an arithmetic mean over the specified range.
+E.g., <code class="docutils literal notranslate"><span class="pre">myvar(m_lon</span> <span class="pre">=</span> <span class="pre">(10,</span> <span class="pre">80))</span></code> is a shortcut for doing
+<code class="docutils literal notranslate"><span class="pre">myvar(lon</span> <span class="pre">=</span> <span class="pre">(10,80)).mean('lon')</span></code>.</li>
+<li><strong>s_</strong> triggers a call to squeeze on the specified axis, so
+that if only one value is selected the degenerate axis is removed.
+E.g., <code class="docutils literal notranslate"><span class="pre">myvar(s_lon</span> <span class="pre">=</span> <span class="pre">5)</span></code> is a shortcut for doing
+<code class="docutils literal notranslate"><span class="pre">myvar(lon</span> <span class="pre">=</span> <span class="pre">5).squeeze()</span></code> or <code class="docutils literal notranslate"><span class="pre">myvar.squeeze(lon=5)</span></code>.</li>
+</ul>
+</div></blockquote>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="k">import</span> <span class="n">t1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">t1</span><span class="o">.</span><span class="n">vars</span><span class="p">)</span>
+<span class="go">[&lt;Var &#39;Temp&#39;&gt;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">T</span> <span class="o">=</span> <span class="n">t1</span><span class="o">.</span><span class="n">Temp</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+<span class="go">&lt;Var &#39;Temp&#39;&gt;:</span>
+<span class="go">  Units: K  Shape:  (lat,lon)  (31,60)</span>
+<span class="go">  Axes:</span>
+<span class="go">    lat &lt;Lat&gt;      :  90 S to 90 N (31 values)</span>
+<span class="go">    lon &lt;Lon&gt;      :  0 E to 354 E (60 values)</span>
+<span class="go">  Attributes:</span>
+<span class="go">    {}</span>
+<span class="go">  Type:  Add_Var (dtype=&quot;float64&quot;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">T</span><span class="p">(</span><span class="n">lat</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span><span class="n">lon</span><span class="o">=</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span><span class="mi">200</span><span class="p">)))</span>
+<span class="go">&lt;Var &#39;Temp&#39;&gt;:</span>
+<span class="go">  Units: K  Shape:  (lat,lon)  (1,17)</span>
+<span class="go">  Axes:</span>
+<span class="go">    lat &lt;Lat&gt;      :  30 N</span>
+<span class="go">    lon &lt;Lon&gt;      :  102 E to 198 E (17 values)</span>
+<span class="go">  Attributes:</span>
+<span class="go">    {}</span>
+<span class="go">  Type:  SlicedVar (dtype=&quot;float64&quot;)</span>
+</pre></div>
+</div>
+</dd></dl>
 
 <dl class="method">
 <dt id="pygeode.Axis._getitem_asvar">
-<tt class="descclassname">Axis.</tt><tt class="descname">_getitem_asvar</tt><big>(</big><em>slices</em><big>)</big><a class="headerlink" href="#pygeode.Axis._getitem_asvar" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descclassname">Axis.</code><code class="descname">_getitem_asvar</code><span class="sig-paren">(</span><em>slices</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/axis.html#Axis._getitem_asvar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.Axis._getitem_asvar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Slice-based data subsetting.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>slices</strong> <span class="classifier-delimiter">:</span> <span class="classifier">list of slices</span></dt>
+<dd></dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>subset_var</strong> <span class="classifier-delimiter">:</span> <span class="classifier">Var</span></dt>
+<dd><p class="first last">A new Var, restricted to the specified domain.</p>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><a class="reference internal" href="varops.html#pygeode.Var.slice" title="pygeode.Var.slice"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.slice</span></code></a>, <a class="reference internal" href="varops.html#pygeode.Var.__call__" title="pygeode.Var.__call__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.__call__</span></code></a>, <a class="reference internal" href="var.get.html#pygeode.Var.__getitem__" title="pygeode.Var.__getitem__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.__getitem__</span></code></a></p>
+</div>
+<p class="rubric">Notes</p>
+<p>A helper function so that standard python slicing notation
+can be used to subset a Var without loading the underlying
+data. A new Var object is returned.</p>
+<p class="rubric">Examples</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="k">import</span> <span class="n">t1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">t1</span><span class="o">.</span><span class="n">Temp</span><span class="p">)</span>
+<span class="go">&lt;Var &#39;Temp&#39;&gt;:</span>
+<span class="go">  Units: K  Shape:  (lat,lon)  (31,60)</span>
+<span class="go">  Axes:</span>
+<span class="go">    lat &lt;Lat&gt;      :  90 S to 90 N (31 values)</span>
+<span class="go">    lon &lt;Lon&gt;      :  0 E to 354 E (60 values)</span>
+<span class="go">  Attributes:</span>
+<span class="go">    {}</span>
+<span class="go">  Type:  Add_Var (dtype=&quot;float64&quot;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">t1</span><span class="o">.</span><span class="n">Temp</span><span class="o">.</span><span class="n">slice</span><span class="p">[</span><span class="mi">10</span><span class="p">:</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="p">::</span><span class="mi">10</span><span class="p">])</span>
+<span class="go">&lt;Var &#39;Temp&#39;&gt;:</span>
+<span class="go">  Units: K  Shape:  (lat,lon)  (11,6)</span>
+<span class="go">  Axes:</span>
+<span class="go">    lat &lt;Lat&gt;      :  30 S to 30 N (11 values)</span>
+<span class="go">    lon &lt;Lon&gt;      :  0 E to 300 E (6 values)</span>
+<span class="go">  Attributes:</span>
+<span class="go">    {}</span>
+<span class="go">  Type:  SlicedVar (dtype=&quot;float64&quot;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">t1</span><span class="o">.</span><span class="n">Temp</span><span class="o">.</span><span class="n">slice</span><span class="p">[</span><span class="mi">17</span><span class="p">,</span> <span class="p">:])</span>
+<span class="go">&lt;Var &#39;Temp&#39;&gt;:</span>
+<span class="go">  Units: K  Shape:  (lat,lon)  (1,60)</span>
+<span class="go">  Axes:</span>
+<span class="go">    lat &lt;Lat&gt;      :  12 N</span>
+<span class="go">    lon &lt;Lon&gt;      :  0 E to 354 E (60 values)</span>
+<span class="go">  Attributes:</span>
+<span class="go">    {}</span>
+<span class="go">  Type:  SlicedVar (dtype=&quot;float64&quot;)</span>
+</pre></div>
+</div>
+</dd></dl>
 
 <dl class="classmethod">
 <dt id="pygeode.Axis.class_has_alias">
-<em class="property">classmethod </em><tt class="descclassname">Axis.</tt><tt class="descname">class_has_alias</tt><big>(</big><em>name</em><big>)</big><a class="headerlink" href="#pygeode.Axis.class_has_alias" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descclassname">Axis.</code><code class="descname">class_has_alias</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/axis.html#Axis.class_has_alias"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.Axis.class_has_alias" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="classmethod">
 <dt id="pygeode.Axis.isparentof">
-<em class="property">classmethod </em><tt class="descclassname">Axis.</tt><tt class="descname">isparentof</tt><big>(</big><em>other</em><big>)</big><a class="headerlink" href="#pygeode.Axis.isparentof" title="Permalink to this definition">¶</a></dt>
+<em class="property">classmethod </em><code class="descclassname">Axis.</code><code class="descname">isparentof</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/axis.html#Axis.isparentof"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.Axis.isparentof" title="Permalink to this definition">¶</a></dt>
 <dd><p>Determines if an axis object is an instance of a base class (or the same
 class) of another axis.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>other</strong> : <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><tt class="xref py py-class docutils literal"><span class="pre">Axis</span></tt></a> object to compare against this one.</p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>other</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><code class="xref py py-class docutils literal notranslate"><span class="pre">Axis</span></code></a> object to compare against this one.</span></dt>
+<dd></dd>
+</dl>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>bool</strong> : boolean</p>
-<blockquote class="last">
-<div><p>True if <tt class="docutils literal"><span class="pre">other</span></tt> is an instance of this object&#8217;s class</p>
-</div></blockquote>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>bool</strong> <span class="classifier-delimiter">:</span> <span class="classifier">boolean</span></dt>
+<dd><p class="first last">True if <code class="docutils literal notranslate"><span class="pre">other</span></code> is an instance of this object’s class</p>
+</dd>
+</dl>
 </td>
 </tr>
 </tbody>
@@ -351,27 +488,31 @@ class) of another axis.</p>
 
 <dl class="method">
 <dt id="pygeode.Axis.map_to">
-<tt class="descclassname">Axis.</tt><tt class="descname">map_to</tt><big>(</big><em>other</em><big>)</big><a class="headerlink" href="#pygeode.Axis.map_to" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns indices of this axis which correspond to the axis <tt class="docutils literal"><span class="pre">other</span></tt>.</p>
+<code class="descclassname">Axis.</code><code class="descname">map_to</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/axis.html#Axis.map_to"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.Axis.map_to" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns indices of this axis which correspond to the axis <code class="docutils literal notranslate"><span class="pre">other</span></code>.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>other</strong> : <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><tt class="xref py py-class docutils literal"><span class="pre">Axis</span></tt></a></p>
-<blockquote>
-<div><p>Axis to find mapping to</p>
-</div></blockquote>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>other</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><code class="xref py py-class docutils literal notranslate"><span class="pre">Axis</span></code></a></span></dt>
+<dd><p class="first last">Axis to find mapping to</p>
+</dd>
+</dl>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><strong>mapping</strong> : integer array or None</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>mapping</strong> <span class="classifier-delimiter">:</span> <span class="classifier">integer array or None</span></dt>
+<dd></dd>
+</dl>
 </td>
 </tr>
 </tbody>
 </table>
 <p class="rubric">Notes</p>
 <p>Returns an ordered indices of the elements of this axis that correspond to those of
-the axis <tt class="docutils literal"><span class="pre">other</span></tt>, if one exists, otherwise None. This axis must be a
-parent class of <tt class="docutils literal"><span class="pre">other</span></tt> or vice versa in order for the mapping to
+the axis <code class="docutils literal notranslate"><span class="pre">other</span></code>, if one exists, otherwise None. This axis must be a
+parent class of <code class="docutils literal notranslate"><span class="pre">other</span></code> or vice versa in order for the mapping to
 exist. The mapping may include only a subset of this axis object, but
 must be as long as the other axis, if it is not None. The mapping
 identifies equivalent elements based on equality up to a tolerance
@@ -381,60 +522,26 @@ specified by self.rtol.</p>
 </div>
 
 
-          </div>
-        </div>
       </div>
-      <div class="sphinxsidebar">
-        <div class="sphinxsidebarwrapper">
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="axes.html"
-                        title="previous chapter">Axis class overview</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="namedaxis.html"
-                        title="next chapter">NamedAxis object reference</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/axis.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        «&#160;&#160;<a href="axes.html">Axis class overview</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="gallery/index.html">Gallery</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="namedaxis.html">NamedAxis object reference</a>&#160;&#160;»
+        </p>
+
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="namedaxis.html" title="NamedAxis object reference"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="axes.html" title="Axis class overview"
-             >previous</a> |</li>
-        <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li>
-          <li><a href="reference.html" >Reference</a> &raquo;</li>
-          <li><a href="axes.html" >Axis class overview</a> &raquo;</li> 
-      </ul>
-    </div>
-    <div class="footer">
-        &copy; Copyright 2013, Mike Neish, Peter Hitchcock.
-      Last updated on Sep 13, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Mike Neish, Peter Hitchcock.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.
     </div>
   </body>
 </html>

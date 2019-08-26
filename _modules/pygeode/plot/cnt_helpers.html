@@ -1,0 +1,500 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>pygeode.plot.cnt_helpers &#8212; PyGeode 1.3 pre-release documentation</title>
+    <link rel="stylesheet" href="../../../_static/pygtheme.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+<link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
+
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../../../index.html">
+          <span>PyGeode 1.3 pre-release documentation</span></a></h1>
+        <h2 class="heading"><span>pygeode.plot.cnt_helpers</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        <a class="uplink" href="../../../reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../../tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../../gallery/index.html">Gallery</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <h1>Source code for pygeode.plot.cnt_helpers</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Set of helper routines for contour plots</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">ma</span>
+<span class="kn">import</span> <span class="nn">matplotlib.cbook</span> <span class="k">as</span> <span class="nn">cbook</span>
+<span class="kn">from</span> <span class="nn">matplotlib.colors</span> <span class="k">import</span> <span class="n">Normalize</span>
+<span class="kn">from</span> <span class="nn">pylab</span> <span class="k">import</span> <span class="n">cm</span> <span class="k">as</span> <span class="n">pcm</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">cm</span>
+
+<span class="k">class</span> <span class="nc">LogNorm2Sided</span><span class="p">(</span><span class="n">Normalize</span><span class="p">):</span>
+ <span class="c1"># {{{</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Normalize a given value to the 0-1 range on a two-sided log scale;</span>
+<span class="sd">    values from vmin to -vin are mapped logarithmically from 0 to 0.5-cin;</span>
+<span class="sd">    values from -vin to +vin are mapped linearly from 0.5-cin to 0.5+cin,</span>
+<span class="sd">    and values from +vin to vmax are mapped logarithmically from 0.5+cin to 1.   </span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">clip</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">vin</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">cin</span><span class="o">=</span><span class="mf">0.01</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">vin</span> <span class="o">=</span> <span class="n">vin</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cin</span> <span class="o">=</span> <span class="n">cin</span>
+    <span class="n">Normalize</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="p">,</span> <span class="n">clip</span><span class="p">)</span>
+   
+  <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">clip</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">clip</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="n">clip</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">clip</span>
+
+    <span class="k">if</span> <span class="n">cbook</span><span class="o">.</span><span class="n">iterable</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+      <span class="n">vtype</span> <span class="o">=</span> <span class="s1">&#39;array&#39;</span>
+      <span class="n">val</span> <span class="o">=</span> <span class="n">ma</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">value</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">vtype</span> <span class="o">=</span> <span class="s1">&#39;scalar&#39;</span>
+      <span class="n">val</span> <span class="o">=</span> <span class="n">ma</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">value</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float</span><span class="p">)</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">autoscale_None</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+    <span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vmin</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vmax</span>
+    <span class="n">vin</span><span class="p">,</span> <span class="n">cin</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vin</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cin</span>
+    <span class="k">if</span> <span class="n">vmin</span> <span class="o">&gt;</span> <span class="n">vmax</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;minvalue must be less than or equal to maxvalue&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">vmin</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;minvalue must be less than 0&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">vmax</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;maxvalue must be greater than 0&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">vmin</span><span class="o">==</span><span class="n">vmax</span><span class="p">:</span>
+      <span class="n">result</span> <span class="o">=</span> <span class="mf">0.0</span> <span class="o">*</span> <span class="n">val</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">clip</span><span class="p">:</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">ma</span><span class="o">.</span><span class="n">getmask</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+        <span class="n">val</span> <span class="o">=</span> <span class="n">ma</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">val</span><span class="o">.</span><span class="n">filled</span><span class="p">(</span><span class="n">vmax</span><span class="p">),</span> <span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="p">),</span>
+                        <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">)</span>
+      <span class="n">ipos</span> <span class="o">=</span> <span class="p">(</span><span class="n">val</span> <span class="o">&gt;</span> <span class="n">vin</span><span class="p">)</span>
+      <span class="n">ineg</span> <span class="o">=</span> <span class="p">(</span><span class="n">val</span> <span class="o">&lt;</span> <span class="o">-</span><span class="n">vin</span><span class="p">)</span>
+      <span class="n">izero</span> <span class="o">=</span> <span class="o">~</span><span class="p">(</span><span class="n">ipos</span> <span class="o">|</span> <span class="n">ineg</span><span class="p">)</span>
+
+      <span class="n">result</span> <span class="o">=</span> <span class="n">ma</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+      <span class="n">result</span><span class="p">[</span><span class="n">izero</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">+</span> <span class="n">cin</span> <span class="o">*</span> <span class="n">val</span><span class="p">[</span><span class="n">izero</span><span class="p">]</span> <span class="o">/</span> <span class="n">vin</span>
+      <span class="n">result</span><span class="p">[</span><span class="n">ipos</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">+</span> <span class="n">cin</span> <span class="o">+</span> <span class="p">(</span><span class="mf">0.5</span> <span class="o">-</span> <span class="n">cin</span><span class="p">)</span> <span class="o">*</span> \
+                    <span class="p">(</span><span class="n">ma</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">val</span><span class="p">[</span><span class="n">ipos</span><span class="p">])</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">vin</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">vmax</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">vin</span><span class="p">))</span>
+      <span class="n">result</span><span class="p">[</span><span class="n">ineg</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">-</span> <span class="n">cin</span> <span class="o">-</span> <span class="p">(</span><span class="mf">0.5</span> <span class="o">-</span> <span class="n">cin</span><span class="p">)</span> <span class="o">*</span> \
+                    <span class="p">(</span><span class="n">ma</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="o">-</span><span class="n">val</span><span class="p">[</span><span class="n">ineg</span><span class="p">])</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">vin</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="o">-</span><span class="n">vmin</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">vin</span><span class="p">))</span>
+      <span class="n">result</span><span class="o">.</span><span class="n">mask</span> <span class="o">=</span> <span class="n">ma</span><span class="o">.</span><span class="n">getmask</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">vtype</span> <span class="o">==</span> <span class="s1">&#39;scalar&#39;</span><span class="p">:</span>
+      <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">result</span>
+
+  <span class="k">def</span> <span class="nf">inverse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">scaled</span><span class="p">():</span>
+      <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Not invertible until scaled&quot;</span><span class="p">)</span>
+    <span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vmin</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vmax</span>
+    <span class="n">vin</span><span class="p">,</span> <span class="n">cin</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vin</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">cin</span>
+
+    <span class="k">if</span> <span class="n">cbook</span><span class="o">.</span><span class="n">iterable</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+      <span class="n">val</span> <span class="o">=</span> <span class="n">ma</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+      <span class="n">ipos</span> <span class="o">=</span> <span class="p">(</span><span class="n">val</span> <span class="o">&gt;</span> <span class="p">(</span><span class="mf">0.5</span> <span class="o">+</span> <span class="n">cin</span><span class="p">))</span>
+      <span class="n">ineg</span> <span class="o">=</span> <span class="p">(</span><span class="n">val</span> <span class="o">&lt;</span> <span class="p">(</span><span class="mf">0.5</span> <span class="o">-</span> <span class="n">cin</span><span class="p">))</span>
+      <span class="n">izero</span> <span class="o">=</span> <span class="o">~</span><span class="p">(</span><span class="n">ipos</span> <span class="o">|</span> <span class="n">ineg</span><span class="p">)</span>
+
+      <span class="n">result</span> <span class="o">=</span> <span class="n">ma</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+      <span class="n">result</span><span class="p">[</span><span class="n">izero</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">val</span><span class="p">[</span><span class="n">izero</span><span class="p">]</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">*</span> <span class="n">vin</span><span class="o">/</span><span class="n">cin</span>
+      <span class="n">result</span><span class="p">[</span><span class="n">ipos</span><span class="p">]</span> <span class="o">=</span> <span class="n">vin</span> <span class="o">*</span> <span class="nb">pow</span><span class="p">((</span><span class="n">vmax</span><span class="o">/</span><span class="n">vin</span><span class="p">),</span> <span class="p">(</span><span class="n">val</span><span class="p">[</span><span class="n">ipos</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="mf">0.5</span> <span class="o">+</span> <span class="n">cin</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="mf">0.5</span> <span class="o">-</span> <span class="n">cin</span><span class="p">))</span> 
+      <span class="n">result</span><span class="p">[</span><span class="n">ineg</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">vin</span> <span class="o">*</span> <span class="nb">pow</span><span class="p">((</span><span class="o">-</span><span class="n">vmin</span><span class="o">/</span><span class="n">vin</span><span class="p">),</span> <span class="p">((</span><span class="mf">0.5</span> <span class="o">-</span> <span class="n">cin</span><span class="p">)</span> <span class="o">-</span> <span class="n">val</span><span class="p">[</span><span class="nb">min</span><span class="p">])</span><span class="o">/</span><span class="p">(</span><span class="mf">0.5</span> <span class="o">-</span> <span class="n">cin</span><span class="p">))</span>
+                    
+      <span class="n">r</span> <span class="o">=</span> <span class="n">vmin</span> <span class="o">*</span> <span class="n">ma</span><span class="o">.</span><span class="n">power</span><span class="p">((</span><span class="n">vmax</span><span class="o">/</span><span class="n">vmin</span><span class="p">),</span> <span class="n">val</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">value</span> <span class="o">&gt;</span> <span class="mf">0.5</span> <span class="o">+</span> <span class="n">cin</span><span class="p">:</span> <span class="n">r</span> <span class="o">=</span> <span class="n">vin</span> <span class="o">*</span> <span class="nb">pow</span><span class="p">((</span><span class="n">vmax</span><span class="o">/</span><span class="n">vin</span><span class="p">),</span> <span class="p">(</span><span class="n">value</span> <span class="o">-</span> <span class="p">(</span><span class="mf">0.5</span> <span class="o">+</span> <span class="n">cin</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="mf">0.5</span> <span class="o">-</span> <span class="n">cin</span><span class="p">))</span>
+      <span class="k">elif</span> <span class="n">value</span> <span class="o">&lt;</span> <span class="mf">0.5</span> <span class="o">-</span> <span class="n">cin</span><span class="p">:</span> <span class="n">r</span> <span class="o">=</span> <span class="o">-</span><span class="n">vin</span> <span class="o">*</span> <span class="nb">pow</span><span class="p">((</span><span class="o">-</span><span class="n">vmin</span><span class="o">/</span><span class="n">vin</span><span class="p">),</span> <span class="p">((</span><span class="mf">0.5</span> <span class="o">-</span> <span class="n">cin</span><span class="p">)</span> <span class="o">-</span> <span class="n">value</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mf">0.5</span> <span class="o">-</span> <span class="n">cin</span><span class="p">))</span>
+      <span class="k">else</span><span class="p">:</span> <span class="n">r</span> <span class="o">=</span> <span class="p">(</span><span class="n">value</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">*</span> <span class="n">vin</span> <span class="o">/</span> <span class="n">cin</span>
+    <span class="k">return</span> <span class="n">r</span>
+
+  <span class="k">def</span> <span class="nf">autoscale</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">A</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Set *vmin*, *vmax* to min, max of *A*.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">ma</span><span class="o">.</span><span class="n">masked_less_equal</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">A</span><span class="p">),</span> <span class="mf">1e-16</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">vmin</span> <span class="o">=</span> <span class="o">-</span><span class="n">ma</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">vmax</span> <span class="o">=</span> <span class="n">ma</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">vin</span> <span class="o">=</span> <span class="n">ma</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">autoscale_None</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">A</span><span class="p">):</span>
+    <span class="s1">&#39; autoscale only None-valued vmin or vmax&#39;</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">vmin</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">vmax</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">vin</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="k">return</span>
+    <span class="n">A</span> <span class="o">=</span> <span class="n">ma</span><span class="o">.</span><span class="n">masked_less_equal</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">A</span><span class="p">),</span> <span class="mf">1e-16</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">vmin</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">vmin</span> <span class="o">=</span> <span class="o">-</span><span class="n">ma</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">vmax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">vmax</span> <span class="o">=</span> <span class="n">ma</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">vin</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">vin</span> <span class="o">=</span> <span class="n">ma</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+ <span class="c1"># }}}</span>
+
+<span class="k">def</span> <span class="nf">guessclimits</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ndiv</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">clf</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+  <span class="sd">&#39;&#39;&#39; Guesses a round contour interval and style to display</span>
+<span class="sd">  the array z. &#39;&#39;&#39;</span>
+
+  <span class="k">if</span> <span class="n">style</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;div&#39;</span><span class="p">,</span> <span class="s1">&#39;seq&#39;</span><span class="p">]:</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;style &#39;</span><span class="si">%s</span><span class="s2">&#39; not recognized. Must be one of None, &#39;div&#39;, or &#39;seq&#39;.&quot;</span> <span class="o">%</span> <span class="n">style</span><span class="p">)</span>
+
+  <span class="k">if</span> <span class="n">ndiv</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">ndiv</span> <span class="o">&lt;=</span> <span class="mf">0.</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;ndiv must be None or an integer greater than 0.&quot;</span><span class="p">)</span>
+
+  <span class="n">zn</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+  <span class="n">zn</span> <span class="o">=</span> <span class="n">zn</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">zn</span><span class="p">)]</span>
+
+  <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">zn</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span> 
+    <span class="k">if</span> <span class="n">style</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">style</span> <span class="o">=</span> <span class="s1">&#39;div&#39;</span>
+    <span class="k">if</span> <span class="n">style</span> <span class="o">==</span> <span class="s1">&#39;div&#39;</span><span class="p">:</span> 
+      <span class="k">if</span> <span class="n">ndiv</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">ndiv</span> <span class="o">=</span> <span class="mi">3</span>
+      <span class="n">kws</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">ndiv</span><span class="o">=</span><span class="n">ndiv</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">style</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">style</span> <span class="o">==</span> <span class="s1">&#39;seq&#39;</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">ndiv</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">ndiv</span> <span class="o">=</span> <span class="mi">5</span>
+      <span class="n">kws</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">ndiv</span><span class="o">=</span><span class="n">ndiv</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">style</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="mf">1.</span><span class="p">,</span> <span class="n">kws</span>
+
+  <span class="n">pcs</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">2.</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">98</span><span class="p">,</span> <span class="mi">100</span><span class="p">]</span>
+  <span class="n">mn</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">md</span><span class="p">,</span> <span class="n">p98</span><span class="p">,</span> <span class="n">mx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">zn</span><span class="p">,</span> <span class="n">pcs</span><span class="p">)</span>
+
+  <span class="n">dmn</span> <span class="o">=</span> <span class="n">md</span> <span class="o">-</span> <span class="n">mn</span>
+  <span class="n">dp2</span> <span class="o">=</span> <span class="n">md</span> <span class="o">-</span> <span class="n">p2</span>
+  <span class="n">dp98</span> <span class="o">=</span> <span class="n">p98</span> <span class="o">-</span> <span class="n">md</span>
+  <span class="n">dmx</span> <span class="o">=</span> <span class="n">mx</span> <span class="o">-</span> <span class="n">md</span>
+
+  <span class="c1"># If ratio of the spacing between the minimum/maximum and the median</span>
+  <span class="c1"># and the 2nd/98th percentile and the median are too large, </span>
+  <span class="c1"># consider the minimum/maximum values outliers, do not include them</span>
+  <span class="c1"># in the range</span>
+  <span class="k">if</span> <span class="n">mx</span> <span class="o">-</span> <span class="n">mn</span> <span class="o">&gt;</span> <span class="mf">0.</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">dp2</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">dmn</span> <span class="o">/</span> <span class="n">dp2</span>  <span class="o">&gt;</span> <span class="mi">50</span><span class="p">:</span>
+      <span class="n">dl</span> <span class="o">=</span> <span class="n">dp2</span>
+      <span class="n">lo</span> <span class="o">=</span> <span class="n">p2</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">dl</span> <span class="o">=</span> <span class="n">dmn</span>
+      <span class="n">lo</span> <span class="o">=</span> <span class="n">mn</span>
+    <span class="k">if</span> <span class="n">dp98</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">dmx</span> <span class="o">/</span> <span class="n">dp98</span> <span class="o">&gt;</span> <span class="mi">50</span><span class="p">:</span>
+      <span class="n">dm</span> <span class="o">=</span> <span class="n">dp98</span>
+      <span class="n">hi</span> <span class="o">=</span> <span class="n">p98</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">dm</span> <span class="o">=</span> <span class="n">dmx</span>
+      <span class="n">hi</span> <span class="o">=</span> <span class="n">mx</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="n">lo</span> <span class="o">=</span> <span class="n">mn</span> <span class="o">-</span> <span class="mf">1.</span>
+    <span class="n">dl</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="n">dm</span> <span class="o">=</span> <span class="mf">1.0</span>
+    <span class="n">hi</span> <span class="o">=</span> <span class="n">mn</span> <span class="o">+</span> <span class="mf">1.</span>
+    <span class="k">if</span> <span class="n">style</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">style</span> <span class="o">=</span> <span class="s1">&#39;div&#39;</span>
+
+  <span class="k">if</span> <span class="n">style</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="c1"># Guess style of cmap to use</span>
+    <span class="k">if</span> <span class="n">p2</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">p98</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span> <span class="n">style</span> <span class="o">=</span> <span class="s1">&#39;div&#39;</span>
+    <span class="k">else</span><span class="p">:</span> <span class="n">style</span> <span class="o">=</span> <span class="s1">&#39;seq&#39;</span>
+
+  <span class="k">if</span> <span class="n">style</span> <span class="ow">is</span> <span class="s1">&#39;div&#39;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">ndiv</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> 
+      <span class="k">if</span> <span class="n">clf</span><span class="p">:</span> <span class="n">ndiv</span> <span class="o">=</span> <span class="mi">3</span>
+      <span class="k">else</span><span class="p">:</span> <span class="n">ndiv</span> <span class="o">=</span> <span class="mi">10</span>
+
+    <span class="n">div</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="o">-</span><span class="n">lo</span><span class="p">,</span> <span class="n">hi</span><span class="p">)</span> <span class="o">/</span> <span class="n">ndiv</span>
+
+    <span class="c1"># Handle degenerate case</span>
+    <span class="k">if</span> <span class="n">div</span> <span class="o">==</span> <span class="mf">0.</span><span class="p">:</span> <span class="k">return</span> <span class="mf">1.</span><span class="p">,</span> <span class="n">ndiv</span><span class="p">,</span> <span class="n">style</span>
+
+    <span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">div</span><span class="p">)))</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">div</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="n">p</span>
+    
+    <span class="k">if</span> <span class="n">m</span> <span class="o">&gt;</span> <span class="mf">6.</span><span class="p">:</span> <span class="n">spc</span> <span class="o">=</span> <span class="mf">10.</span>
+    <span class="k">elif</span> <span class="n">m</span> <span class="o">&gt;</span> <span class="mf">5.</span><span class="p">:</span> <span class="n">spc</span> <span class="o">=</span> <span class="mf">6.</span>
+    <span class="k">elif</span> <span class="n">m</span> <span class="o">&gt;</span> <span class="mf">4.</span><span class="p">:</span> <span class="n">spc</span> <span class="o">=</span> <span class="mf">5.</span>
+    <span class="k">elif</span> <span class="n">m</span> <span class="o">&gt;</span> <span class="mf">3.</span><span class="p">:</span> <span class="n">spc</span> <span class="o">=</span> <span class="mf">4.</span>
+    <span class="k">elif</span> <span class="n">m</span> <span class="o">&gt;</span> <span class="mf">2.</span><span class="p">:</span> <span class="n">spc</span> <span class="o">=</span> <span class="mf">3.</span>
+    <span class="k">elif</span> <span class="n">m</span> <span class="o">&gt;</span> <span class="mf">1.5</span><span class="p">:</span> <span class="n">spc</span> <span class="o">=</span> <span class="mf">2.</span>
+    <span class="k">elif</span> <span class="n">m</span> <span class="o">&gt;</span> <span class="mf">1.</span><span class="p">:</span> <span class="n">spc</span> <span class="o">=</span> <span class="mf">1.5</span>
+    <span class="k">else</span><span class="p">:</span> <span class="n">spc</span> <span class="o">=</span> <span class="mf">1.</span>
+
+    <span class="c1">#print style, div, p, m, spc</span>
+
+    <span class="n">spc</span> <span class="o">*=</span> <span class="mi">10</span><span class="o">**</span><span class="n">p</span>
+    <span class="k">if</span> <span class="n">clf</span><span class="p">:</span> <span class="n">kws</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">ndiv</span><span class="o">=</span><span class="n">ndiv</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">style</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span> <span class="n">kws</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">range</span><span class="o">=</span><span class="n">ndiv</span><span class="o">*</span><span class="n">spc</span><span class="p">)</span>
+
+  <span class="k">elif</span> <span class="n">style</span> <span class="ow">is</span> <span class="s1">&#39;seq&#39;</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">ndiv</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> 
+      <span class="k">if</span> <span class="n">clf</span><span class="p">:</span> <span class="n">ndiv</span> <span class="o">=</span> <span class="mi">5</span>
+      <span class="k">else</span><span class="p">:</span> <span class="n">ndiv</span> <span class="o">=</span> <span class="mi">10</span>
+
+    <span class="n">div</span> <span class="o">=</span> <span class="p">(</span><span class="n">dm</span> <span class="o">+</span> <span class="n">dl</span><span class="p">)</span> <span class="o">/</span> <span class="n">ndiv</span>
+
+    <span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">div</span><span class="p">)))</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">div</span> <span class="o">/</span> <span class="mi">10</span><span class="o">**</span><span class="n">p</span>
+    
+    <span class="k">if</span> <span class="n">m</span> <span class="o">&gt;</span> <span class="mf">6.</span><span class="p">:</span> <span class="n">spc</span> <span class="o">=</span> <span class="mf">10.</span>
+    <span class="k">elif</span> <span class="n">m</span> <span class="o">&gt;</span> <span class="mf">5.</span><span class="p">:</span> <span class="n">spc</span> <span class="o">=</span> <span class="mf">6.</span>
+    <span class="k">elif</span> <span class="n">m</span> <span class="o">&gt;</span> <span class="mf">4.</span><span class="p">:</span> <span class="n">spc</span> <span class="o">=</span> <span class="mf">5.</span>
+    <span class="k">elif</span> <span class="n">m</span> <span class="o">&gt;</span> <span class="mf">3.</span><span class="p">:</span> <span class="n">spc</span> <span class="o">=</span> <span class="mf">4.</span>
+    <span class="k">elif</span> <span class="n">m</span> <span class="o">&gt;</span> <span class="mf">2.</span><span class="p">:</span> <span class="n">spc</span> <span class="o">=</span> <span class="mf">3.</span>
+    <span class="k">elif</span> <span class="n">m</span> <span class="o">&gt;</span> <span class="mf">1.5</span><span class="p">:</span> <span class="n">spc</span> <span class="o">=</span> <span class="mf">2.</span>
+    <span class="k">else</span><span class="p">:</span> <span class="n">spc</span> <span class="o">=</span> <span class="mf">1.5</span>
+
+    <span class="c1">#print style, p, m, spc</span>
+
+    <span class="n">spc</span> <span class="o">*=</span> <span class="mi">10</span><span class="o">**</span><span class="n">p</span>
+    <span class="nb">min</span> <span class="o">=</span> <span class="n">lo</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">remainder</span><span class="p">(</span><span class="n">lo</span><span class="p">,</span> <span class="n">spc</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">clf</span><span class="p">:</span> <span class="n">kws</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">ndiv</span><span class="o">=</span><span class="n">ndiv</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="nb">min</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">style</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span> <span class="n">kws</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">range</span><span class="o">=</span><span class="n">ndiv</span><span class="o">*</span><span class="n">spc</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="nb">min</span><span class="p">)</span>
+    
+  <span class="k">return</span> <span class="n">spc</span><span class="p">,</span> <span class="n">kws</span>
+<span class="c1"># }}}</span>
+
+<div class="viewcode-block" id="cldict"><a class="viewcode-back" href="../../../plot.html#pygeode.cldict">[docs]</a><span class="k">def</span> <span class="nf">cldict</span><span class="p">(</span><span class="n">cdelt</span><span class="p">,</span> <span class="nb">range</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mid</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cidelt</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">nozero</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+  <span class="sd">&#39;&#39;&#39; Returns kwargs to :meth:`showvar` for a line contour plot.</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+  <span class="k">if</span> <span class="n">nozero</span><span class="p">:</span> <span class="n">cidelt</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">cdelt</span>
+  <span class="k">if</span> <span class="nb">range</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="nb">range</span> <span class="o">=</span> <span class="mi">10</span><span class="o">*</span><span class="n">cdelt</span>
+
+  <span class="k">if</span> <span class="n">cidelt</span> <span class="o">&gt;</span> <span class="mf">0.</span><span class="p">:</span>
+    <span class="n">cl</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="nb">range</span><span class="p">,</span> <span class="o">-</span><span class="n">cdelt</span><span class="p">,</span> <span class="n">cdelt</span><span class="p">),</span>
+                         <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="n">cdelt</span><span class="p">,</span> <span class="n">cdelt</span><span class="p">,</span> <span class="n">cidelt</span><span class="p">),</span>
+                         <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">cdelt</span><span class="p">,</span> <span class="nb">range</span> <span class="o">+</span> <span class="n">cdelt</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span> <span class="n">cdelt</span><span class="p">)])</span>
+  <span class="k">elif</span> <span class="nb">min</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">cl</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">mid</span> <span class="o">-</span> <span class="nb">range</span><span class="p">,</span> <span class="n">mid</span> <span class="o">+</span> <span class="nb">range</span> <span class="o">+</span> <span class="n">cdelt</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">cdelt</span><span class="p">)</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="n">cl</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">min</span><span class="p">,</span> <span class="nb">min</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="nb">range</span> <span class="o">+</span> <span class="n">cdelt</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">cdelt</span><span class="p">)</span>
+
+  <span class="n">kwa</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">clevs</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+              <span class="n">clines</span> <span class="o">=</span> <span class="n">cl</span><span class="p">,</span>
+              <span class="n">linewidths</span> <span class="o">=</span> <span class="mf">1.</span><span class="p">,</span>
+              <span class="n">colors</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+  <span class="n">kwa</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">kwa</span></div>
+<span class="c1"># }}}</span>
+
+<div class="viewcode-block" id="clfdict"><a class="viewcode-back" href="../../../plot.html#pygeode.clfdict">[docs]</a><span class="k">def</span> <span class="nf">clfdict</span><span class="p">(</span><span class="n">cdelt</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mid</span><span class="o">=</span><span class="mf">0.</span><span class="p">,</span> <span class="n">nf</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">nl</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ndiv</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">nozero</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;div&#39;</span><span class="p">,</span> <span class="n">clr</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+  <span class="sd">&#39;&#39;&#39; </span>
+<span class="sd">  Returns kwargs to :meth:`showvar` for a filled contour plot.</span>
+
+<span class="sd">  Parameters</span>
+<span class="sd">  ----------</span>
+<span class="sd">  cdelt : float</span>
+<span class="sd">    Spacing of a single division. Each division is spanned by a certain number of filled</span>
+<span class="sd">    contours and contour lines, and the colorbar will span a set number of divisions. See notes.</span>
+
+<span class="sd">  min : float or None (optional)</span>
+<span class="sd">    If specified, contours span ndiv equal divisions starting with the value</span>
+<span class="sd">    min. If None, the colorbar is centred on the value of mid. Default is None.</span>
+
+<span class="sd">  mid : float (optional)</span>
+<span class="sd">    If min is None, contours span ndiv equal divisions both above and below the value of mid.</span>
+
+<span class="sd">  nf : integer (optional)</span>
+<span class="sd">    Number of filled contours per division. Default is 6.</span>
+
+<span class="sd">  nl : integer (optional)</span>
+<span class="sd">    Number of contour lines per division. Default is 2.</span>
+
+<span class="sd">  nozero : boolean (optional)</span>
+<span class="sd">    If True, the contour line at mid is omitted. Defalt is False.</span>
+
+<span class="sd">  style : string (optional)</span>
+<span class="sd">    Either &#39;seq&#39; or &#39;div&#39;. Deterimines which style of colourmap to use; a</span>
+<span class="sd">    sequential or divergent. Default is &#39;div&#39;.</span>
+<span class="sd">  &#39;&#39;&#39;</span>
+
+  <span class="k">if</span> <span class="ow">not</span> <span class="n">style</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;div&#39;</span><span class="p">,</span> <span class="s1">&#39;seq&#39;</span><span class="p">]:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;style must be one of &#39;div&#39; or &#39;seq&#39;&quot;</span><span class="p">)</span>
+
+  <span class="k">if</span> <span class="n">style</span> <span class="o">==</span> <span class="s1">&#39;div&#39;</span><span class="p">:</span> <span class="n">crange</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">cdelt</span> <span class="o">*</span> <span class="n">ndiv</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+  <span class="k">else</span><span class="p">:</span> <span class="n">crange</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">cdelt</span> <span class="o">*</span> <span class="n">ndiv</span><span class="p">)</span>
+
+  <span class="k">if</span> <span class="nb">min</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="nb">min</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="nb">min</span><span class="p">)</span>
+    <span class="n">cmin</span> <span class="o">=</span> <span class="nb">min</span>
+    <span class="n">cmax</span> <span class="o">=</span> <span class="nb">min</span> <span class="o">+</span> <span class="n">crange</span>
+    <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">cmin</span> <span class="o">+</span> <span class="n">cmax</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="n">cmin</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">-</span> <span class="n">crange</span> <span class="o">/</span> <span class="mf">2.</span>
+    <span class="n">cmax</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="n">crange</span> <span class="o">/</span> <span class="mf">2.</span>
+
+  <span class="nb">cmp</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">get_cm</span><span class="p">(</span><span class="n">style</span><span class="p">,</span> <span class="n">ndiv</span><span class="p">)</span>
+
+  <span class="k">if</span> <span class="n">style</span> <span class="o">==</span> <span class="s1">&#39;div&#39;</span><span class="p">:</span>
+    <span class="n">tks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">cmin</span><span class="p">,</span> <span class="n">cmax</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">ndiv</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">cf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">cmin</span><span class="p">,</span> <span class="n">mid</span><span class="p">,</span> <span class="n">nf</span> <span class="o">*</span> <span class="n">ndiv</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+                         <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">mid</span><span class="p">,</span> <span class="n">cmax</span><span class="p">,</span> <span class="n">nf</span> <span class="o">*</span> <span class="n">ndiv</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]])</span>
+    <span class="k">if</span> <span class="n">nozero</span><span class="p">:</span>
+      <span class="n">cl</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">cmin</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">nl</span> <span class="o">*</span> <span class="n">ndiv</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+                           <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">cmax</span><span class="p">,</span> <span class="n">nl</span> <span class="o">*</span> <span class="n">ndiv</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]])</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">cl</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">cmin</span><span class="p">,</span> <span class="n">cmax</span><span class="p">,</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">nl</span> <span class="o">*</span> <span class="n">ndiv</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="n">tks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">cmin</span><span class="p">,</span> <span class="n">cmax</span><span class="p">,</span> <span class="n">ndiv</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">cf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">cmin</span><span class="p">,</span> <span class="n">cmax</span><span class="p">,</span> <span class="n">nf</span> <span class="o">*</span> <span class="n">ndiv</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">cl</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">cmin</span><span class="p">,</span> <span class="n">cmax</span><span class="p">,</span> <span class="n">nl</span> <span class="o">*</span> <span class="n">ndiv</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+  <span class="k">if</span> <span class="n">nl</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="n">cl</span> <span class="o">=</span> <span class="kc">None</span>
+
+  <span class="n">kwcb</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;colorbar&#39;</span><span class="p">,</span> <span class="p">{})</span>
+  <span class="n">cb</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">ticks</span> <span class="o">=</span> <span class="n">tks</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">kwcb</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+    <span class="n">cb</span> <span class="o">=</span> <span class="kc">False</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="n">cb</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwcb</span><span class="p">)</span>
+
+  <span class="k">if</span> <span class="ow">not</span> <span class="n">clr</span><span class="p">:</span> 
+    <span class="nb">cmp</span> <span class="o">=</span> <span class="n">pcm</span><span class="o">.</span><span class="n">gray</span>
+    <span class="n">cb</span> <span class="o">=</span> <span class="kc">False</span>
+
+  <span class="n">kwa</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">clevs</span> <span class="o">=</span> <span class="n">cf</span><span class="p">,</span>
+              <span class="n">clines</span> <span class="o">=</span> <span class="n">cl</span><span class="p">,</span>
+              <span class="n">colorbar</span> <span class="o">=</span> <span class="n">cb</span><span class="p">,</span>
+              <span class="n">linewidths</span> <span class="o">=</span> <span class="mf">1.</span><span class="p">,</span>
+              <span class="n">cmap</span><span class="o">=</span><span class="nb">cmp</span><span class="p">)</span>
+  <span class="n">kwa</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">kwa</span></div>
+<span class="c1"># }}}</span>
+
+<span class="k">def</span> <span class="nf">lfmt</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+  <span class="n">x</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mf">0.</span><span class="p">:</span> <span class="k">return</span> <span class="s1">&#39;0&#39;</span>
+
+  <span class="n">e</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">x</span><span class="p">))))</span>
+  <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+    <span class="k">return</span> <span class="s1">&#39;</span><span class="si">%.1f</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">x</span>
+  <span class="k">else</span><span class="p">:</span> 
+    <span class="k">return</span> <span class="sa">r</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1">$\!\times$10$^{</span><span class="si">%d</span><span class="s1">}$&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="mi">10</span><span class="o">**</span><span class="n">e</span><span class="p">),</span> <span class="n">e</span><span class="p">)</span>
+<span class="c1"># }}}</span>
+
+<div class="viewcode-block" id="log1sdict"><a class="viewcode-back" href="../../../plot.html#pygeode.log1sdict">[docs]</a><span class="k">def</span> <span class="nf">log1sdict</span><span class="p">(</span><span class="n">cmin</span><span class="p">,</span> <span class="n">cdelt</span> <span class="o">=</span> <span class="mf">10.</span><span class="p">,</span> <span class="n">nf</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">nl</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ndiv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+  <span class="sd">&#39;&#39;&#39; Returns kwargs to :meth:`showvar` for a one-sided</span>
+<span class="sd">  logarithmically-spaced contour plot. &#39;&#39;&#39;</span>
+  <span class="kn">from</span> <span class="nn">matplotlib.colors</span> <span class="k">import</span> <span class="n">LogNorm</span>
+  <span class="n">cmax</span> <span class="o">=</span> <span class="n">cmin</span> <span class="o">*</span> <span class="n">cdelt</span> <span class="o">**</span> <span class="n">ndiv</span>
+
+  <span class="n">tks</span> <span class="o">=</span> <span class="n">cmin</span> <span class="o">*</span> <span class="n">cdelt</span> <span class="o">**</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="n">ndiv</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">nf</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">cf</span> <span class="o">=</span> <span class="n">cmin</span> <span class="o">*</span> <span class="n">cdelt</span> <span class="o">**</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="n">ndiv</span><span class="p">,</span> <span class="n">nf</span><span class="o">*</span><span class="n">ndiv</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="n">cf</span> <span class="o">=</span> <span class="kc">None</span>
+
+  <span class="k">if</span> <span class="n">nl</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span> 
+    <span class="n">cl</span> <span class="o">=</span> <span class="n">cmin</span> <span class="o">*</span> <span class="n">cdelt</span> <span class="o">**</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="n">ndiv</span><span class="p">,</span> <span class="n">nl</span><span class="o">*</span><span class="n">ndiv</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="n">cl</span> <span class="o">=</span> <span class="kc">None</span>
+
+  <span class="n">nrm</span> <span class="o">=</span> <span class="n">LogNorm</span><span class="p">(</span><span class="n">vmin</span><span class="o">=</span><span class="n">cmin</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">cmax</span><span class="p">)</span>
+
+  <span class="nb">cmp</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">get_cm</span><span class="p">(</span><span class="s1">&#39;seq&#39;</span><span class="p">,</span> <span class="n">ndiv</span><span class="p">)</span>
+
+  <span class="n">kwcb</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;colorbar&#39;</span><span class="p">,</span> <span class="p">{})</span>
+  <span class="n">cb</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">ticks</span><span class="o">=</span><span class="n">tks</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">1.4</span><span class="p">,</span> <span class="n">rl</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">rr</span><span class="o">=</span><span class="mf">0.16</span><span class="p">,</span> <span class="n">ticklabels</span> <span class="o">=</span> <span class="p">[</span><span class="n">lfmt</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">tks</span><span class="p">])</span>
+  <span class="k">if</span> <span class="n">kwcb</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+    <span class="n">cb</span> <span class="o">=</span> <span class="kc">False</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="n">cb</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwcb</span><span class="p">)</span>
+
+  <span class="n">kwa</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">clevs</span> <span class="o">=</span> <span class="n">cf</span><span class="p">,</span>
+              <span class="n">clines</span> <span class="o">=</span> <span class="n">cl</span><span class="p">,</span>
+              <span class="n">norm</span> <span class="o">=</span> <span class="n">nrm</span><span class="p">,</span>
+              <span class="n">colorbar</span> <span class="o">=</span> <span class="n">cb</span><span class="p">,</span>
+              <span class="n">cmap</span><span class="o">=</span><span class="nb">cmp</span><span class="p">)</span>
+  <span class="n">kwa</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">kwa</span></div>
+<span class="c1"># }}}</span>
+
+<div class="viewcode-block" id="log2sdict"><a class="viewcode-back" href="../../../plot.html#pygeode.log2sdict">[docs]</a><span class="k">def</span> <span class="nf">log2sdict</span><span class="p">(</span><span class="n">cmin</span><span class="p">,</span> <span class="n">cdelt</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">nf</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">nl</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ndiv</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">nozero</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+  <span class="sd">&#39;&#39;&#39; Returns kwargs to :meth:`showvar` for a two-sided logarithmically-spaced contour plot. &#39;&#39;&#39;</span>
+
+  <span class="n">ce</span> <span class="o">=</span> <span class="n">cmin</span> <span class="o">*</span> <span class="n">cdelt</span> <span class="o">**</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ndiv</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">nf</span><span class="o">*</span><span class="p">(</span><span class="n">ndiv</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+  <span class="n">cel</span> <span class="o">=</span> <span class="n">cmin</span> <span class="o">*</span> <span class="n">cdelt</span> <span class="o">**</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">ndiv</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">nl</span><span class="o">*</span><span class="p">(</span><span class="n">ndiv</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+  <span class="n">tks</span> <span class="o">=</span> <span class="n">cmin</span> <span class="o">*</span> <span class="n">cdelt</span> <span class="o">**</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">ndiv</span><span class="p">)</span>
+  <span class="n">cmax</span> <span class="o">=</span> <span class="n">tks</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+  <span class="n">tks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="o">-</span><span class="n">tks</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">],</span> <span class="n">tks</span><span class="p">])</span>
+
+  <span class="k">if</span> <span class="n">nf</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="c1">#ci = np.linspace(-cmin, cmin, 2*nf+1)[1:-1]</span>
+    <span class="n">ci</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">cmin</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">nf</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+                         <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span>  <span class="n">cmin</span><span class="p">,</span> <span class="n">nf</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
+    <span class="n">cf</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="o">-</span><span class="n">ce</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">ci</span><span class="p">,</span> <span class="n">ce</span><span class="p">])</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="n">cf</span> <span class="o">=</span> <span class="kc">None</span>
+
+  <span class="k">if</span> <span class="n">nl</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span> 
+    <span class="k">if</span> <span class="n">nozero</span><span class="p">:</span>
+      <span class="n">cil</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">cmin</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">nl</span><span class="o">+</span><span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">cmin</span><span class="p">,</span> <span class="n">nl</span><span class="o">+</span><span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">cil</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">cmin</span><span class="p">,</span> <span class="n">cmin</span><span class="p">,</span> <span class="mi">2</span><span class="o">*</span><span class="n">nl</span><span class="o">+</span><span class="mi">1</span><span class="p">)[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">cl</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="o">-</span><span class="n">cel</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">cil</span><span class="p">,</span> <span class="n">cel</span><span class="p">])</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="n">cl</span> <span class="o">=</span> <span class="kc">None</span>
+
+  <span class="n">cin</span> <span class="o">=</span> <span class="mf">1.</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">ndiv</span><span class="p">)</span>
+  <span class="n">nrm</span> <span class="o">=</span> <span class="n">LogNorm2Sided</span><span class="p">(</span><span class="n">vmin</span><span class="o">=-</span><span class="n">cmax</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="n">cmax</span><span class="p">,</span> <span class="n">vin</span><span class="o">=</span><span class="n">cmin</span><span class="p">,</span> <span class="n">cin</span><span class="o">=</span><span class="n">cin</span><span class="p">)</span>
+
+  <span class="nb">cmp</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">get_cm</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">,</span> <span class="n">ndiv</span><span class="p">)</span>
+
+  <span class="n">kwcb</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;colorbar&#39;</span><span class="p">,</span> <span class="p">{})</span>
+  <span class="n">cb</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">ticks</span><span class="o">=</span><span class="n">tks</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">1.4</span><span class="p">,</span> <span class="n">rl</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">rr</span><span class="o">=</span><span class="mf">0.16</span><span class="p">,</span> <span class="n">ticklabels</span> <span class="o">=</span> <span class="p">[</span><span class="n">lfmt</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">tks</span><span class="p">])</span>
+  <span class="n">cb</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwcb</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">kwcb</span> <span class="ow">is</span> <span class="kc">False</span><span class="p">:</span>
+    <span class="n">cb</span> <span class="o">=</span> <span class="kc">False</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="n">cb</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwcb</span><span class="p">)</span>
+
+  <span class="n">kwa</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">clevs</span> <span class="o">=</span> <span class="n">cf</span><span class="p">,</span>
+              <span class="n">clines</span> <span class="o">=</span> <span class="n">cl</span><span class="p">,</span>
+              <span class="n">norm</span> <span class="o">=</span> <span class="n">nrm</span><span class="p">,</span>
+              <span class="n">colorbar</span> <span class="o">=</span> <span class="n">cb</span><span class="p">,</span>
+              <span class="n">cmap</span><span class="o">=</span><span class="nb">cmp</span><span class="p">)</span>
+  <span class="n">kwa</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">kwa</span></div>
+<span class="c1"># }}}</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;clfdict&#39;</span><span class="p">,</span> <span class="s1">&#39;cldict&#39;</span><span class="p">,</span> <span class="s1">&#39;log1sdict&#39;</span><span class="p">,</span> <span class="s1">&#39;log2sdict&#39;</span><span class="p">,</span> <span class="s1">&#39;cm&#39;</span><span class="p">]</span>
+</pre></div>
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        <a class="uplink" href="../../../reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../../tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../../gallery/index.html">Gallery</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Mike Neish, Peter Hitchcock.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.
+    </div>
+  </body>
+</html>

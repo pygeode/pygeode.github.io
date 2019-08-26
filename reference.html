@@ -1,84 +1,79 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Reference &mdash; PyGeode 1.0 alpha documentation</title>
-    
+    <title>Reference &#8212; PyGeode 1.3 pre-release documentation</title>
     <link rel="stylesheet" href="_static/pygtheme.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '1.0 alpha',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
+    <link rel="stylesheet" type="text/css" href="_static/gallery.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="PyGeode 1.0 alpha documentation" href="index.html" />
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Var class overview" href="var.html" />
     <link rel="prev" title="Advanced Variable Operations" href="tut_adv.html" />
 <link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
 
-  </head>
-  <body>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="var.html" title="Var class overview"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="tut_adv.html" title="Advanced Variable Operations"
-             accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li> 
-      </ul>
-    </div>  
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="index.html">
+          <span>PyGeode 1.3 pre-release documentation</span></a></h1>
+        <h2 class="heading"><span>Reference</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        «&#160;&#160;<a href="tut_adv.html">Advanced Variable Operations</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="#">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="gallery/index.html">Gallery</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="var.html">Var class overview</a>&#160;&#160;»
+        </p>
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
-            
+      </div>
+      <div class="content">
+        
+        
   <div class="section" id="reference">
 <h1>Reference<a class="headerlink" href="#reference" title="Permalink to this headline">¶</a></h1>
 <p>The vast majority of the functionality provided by PyGeode is available within
-the top level namespace of the module <a class="reference internal" href="#module-pygeode" title="pygeode"><tt class="xref py py-mod docutils literal"><span class="pre">pygeode</span></tt></a>. The contents of this
-top level namespace is summarized here. Note that there are also several
-submodules with further functionality referenced in the summary as well.</p>
-<div class="module container">
+the top level namespace of the module <a class="reference internal" href="#module-pygeode" title="pygeode"><code class="xref py py-mod docutils literal notranslate"><span class="pre">pygeode</span></code></a>, along with the
+fundamental classes <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a>, <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><code class="xref py py-class docutils literal notranslate"><span class="pre">Axis</span></code></a>, and <a class="reference internal" href="dataset.html#pygeode.Dataset" title="pygeode.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a>.  The
+contents of this top level namespace is summarized here. Several submodules
+with further functionality are also included.</p>
+<div class="module docutils container">
+<p class="rubric">pygeode</p>
 <span class="target" id="module-pygeode"></span><p>The top level pygeode namespace</p>
-<p><a class="reference internal" href="fileio.html"><em>File Input and Output</em></a></p>
+<p><a class="reference internal" href="fileio.html"><span class="doc">File Input and Output</span></a></p>
 <table border="1" class="longtable docutils">
 <colgroup>
 <col width="10%" />
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="fileio.html#pygeode.open" title="pygeode.open"><tt class="xref py py-obj docutils literal"><span class="pre">open</span></tt></a>(filename[,&nbsp;format,&nbsp;value_override,&nbsp;...])</td>
-<td>Returns a <a class="reference internal" href="dataset.html#pygeode.Dataset" title="pygeode.Dataset"><tt class="xref py py-class docutils literal"><span class="pre">Dataset</span></tt></a> containing variables defined in a single file.</td>
+<tr class="row-odd"><td><a class="reference internal" href="fileio.html#pygeode.open" title="pygeode.open"><code class="xref py py-obj docutils literal notranslate"><span class="pre">open</span></code></a>(filename[,&nbsp;format,&nbsp;value_override,&nbsp;…])</td>
+<td>Returns a <a class="reference internal" href="dataset.html#pygeode.Dataset" title="pygeode.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a> containing variables defined in a single file or a dict of <a class="reference internal" href="dataset.html#pygeode.Dataset" title="pygeode.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a> for a netcdf4 file containing groups.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="fileio.html#pygeode.openall" title="pygeode.openall"><tt class="xref py py-obj docutils literal"><span class="pre">openall</span></tt></a>(files[,&nbsp;format,&nbsp;opener])</td>
-<td>Returns a <a class="reference internal" href="dataset.html#pygeode.Dataset" title="pygeode.Dataset"><tt class="xref py py-class docutils literal"><span class="pre">Dataset</span></tt></a> containing variables merged across multiple files.</td>
+<tr class="row-even"><td><a class="reference internal" href="fileio.html#pygeode.openall" title="pygeode.openall"><code class="xref py py-obj docutils literal notranslate"><span class="pre">openall</span></code></a>(files[,&nbsp;format,&nbsp;opener])</td>
+<td>Returns a <a class="reference internal" href="dataset.html#pygeode.Dataset" title="pygeode.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a> containing variables merged across multiple files.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="fileio.html#pygeode.open_multi" title="pygeode.open_multi"><tt class="xref py py-obj docutils literal"><span class="pre">open_multi</span></tt></a>(files[,&nbsp;format,&nbsp;opener,&nbsp;pattern,&nbsp;...])</td>
-<td>Returns a <a class="reference internal" href="dataset.html#pygeode.Dataset" title="pygeode.Dataset"><tt class="xref py py-class docutils literal"><span class="pre">Dataset</span></tt></a> containing variables merged across many files.</td>
+<tr class="row-odd"><td><a class="reference internal" href="fileio.html#pygeode.open_multi" title="pygeode.open_multi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">open_multi</span></code></a>(files[,&nbsp;format,&nbsp;opener,&nbsp;pattern,&nbsp;…])</td>
+<td>Returns a <a class="reference internal" href="dataset.html#pygeode.Dataset" title="pygeode.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a> containing variables merged across many files.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="fileio.html#pygeode.save" title="pygeode.save"><tt class="xref py py-obj docutils literal"><span class="pre">save</span></tt></a>(filename,&nbsp;dataset[,&nbsp;format,&nbsp;cfmeta])</td>
-<td>Saves a <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a> or <a class="reference internal" href="dataset.html#pygeode.Dataset" title="pygeode.Dataset"><tt class="xref py py-class docutils literal"><span class="pre">Dataset</span></tt></a> to file.</td>
+<tr class="row-even"><td><a class="reference internal" href="fileio.html#pygeode.save" title="pygeode.save"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save</span></code></a>(filename,&nbsp;dataset[,&nbsp;format,&nbsp;cfmeta])</td>
+<td>Saves a <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a> or <a class="reference internal" href="dataset.html#pygeode.Dataset" title="pygeode.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a> to file.</td>
 </tr>
 </tbody>
 </table>
@@ -89,14 +84,14 @@ submodules with further functionality referenced in the summary as well.</p>
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-obj docutils literal"><span class="pre">Var</span></tt></a>(axes[,&nbsp;dtype,&nbsp;name,&nbsp;values,&nbsp;atts,&nbsp;plotatts])</td>
+<tr class="row-odd"><td><a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var</span></code></a>(axes[,&nbsp;dtype,&nbsp;name,&nbsp;values,&nbsp;atts,&nbsp;plotatts])</td>
 <td>The base class of all data objects in PyGeode.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><tt class="xref py py-obj docutils literal"><span class="pre">Axis</span></tt></a>(values[,&nbsp;name,&nbsp;atts,&nbsp;plotatts,&nbsp;rtol])</td>
-<td>An object that describes a single dimension of a <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a> object.</td>
+<tr class="row-even"><td><a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Axis</span></code></a>(values[,&nbsp;name,&nbsp;atts,&nbsp;plotatts,&nbsp;rtol])</td>
+<td>An object that describes a single dimension of a <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a> object.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="dataset.html#pygeode.Dataset" title="pygeode.Dataset"><tt class="xref py py-obj docutils literal"><span class="pre">Dataset</span></tt></a>(vars[,&nbsp;atts,&nbsp;print_warnings])</td>
-<td>Container class for <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a> objects.</td>
+<tr class="row-odd"><td><a class="reference internal" href="dataset.html#pygeode.Dataset" title="pygeode.Dataset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Dataset</span></code></a>(vars[,&nbsp;atts,&nbsp;print_warnings])</td>
+<td>Container class for <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a> objects.</td>
 </tr>
 </tbody>
 </table>
@@ -107,351 +102,399 @@ submodules with further functionality referenced in the summary as well.</p>
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="namedaxis.html#pygeode.NamedAxis" title="pygeode.NamedAxis"><tt class="xref py py-obj docutils literal"><span class="pre">NamedAxis</span></tt></a>(values,&nbsp;name,&nbsp;**kwargs)</td>
+<tr class="row-odd"><td><a class="reference internal" href="namedaxis.html#pygeode.NamedAxis" title="pygeode.NamedAxis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NamedAxis</span></code></a>(values,&nbsp;name,&nbsp;**kwargs)</td>
 <td>Generic axis object identified by its name.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="horizontalaxes.html#pygeode.Lon" title="pygeode.Lon"><tt class="xref py py-obj docutils literal"><span class="pre">Lon</span></tt></a>(values[,&nbsp;name,&nbsp;atts,&nbsp;plotatts,&nbsp;rtol])</td>
+<tr class="row-even"><td><a class="reference internal" href="horizontalaxes.html#pygeode.Lon" title="pygeode.Lon"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Lon</span></code></a>(values[,&nbsp;name,&nbsp;atts,&nbsp;plotatts,&nbsp;rtol])</td>
 <td>Longitude axis.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="horizontalaxes.html#pygeode.Lat" title="pygeode.Lat"><tt class="xref py py-obj docutils literal"><span class="pre">Lat</span></tt></a>(values[,&nbsp;weights])</td>
+<tr class="row-odd"><td><a class="reference internal" href="horizontalaxes.html#pygeode.Lat" title="pygeode.Lat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Lat</span></code></a>(values[,&nbsp;weights])</td>
 <td>Latitude axis.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="verticalaxes.html#pygeode.Height" title="pygeode.Height"><tt class="xref py py-obj docutils literal"><span class="pre">Height</span></tt></a>(values[,&nbsp;name,&nbsp;atts,&nbsp;plotatts,&nbsp;rtol])</td>
+<tr class="row-even"><td><a class="reference internal" href="verticalaxes.html#pygeode.Height" title="pygeode.Height"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Height</span></code></a>(values[,&nbsp;name,&nbsp;atts,&nbsp;plotatts,&nbsp;rtol])</td>
 <td>Geometric height axis.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="verticalaxes.html#pygeode.Pres" title="pygeode.Pres"><tt class="xref py py-obj docutils literal"><span class="pre">Pres</span></tt></a>(values[,&nbsp;name,&nbsp;atts,&nbsp;plotatts,&nbsp;rtol])</td>
+<tr class="row-odd"><td><a class="reference internal" href="verticalaxes.html#pygeode.Pres" title="pygeode.Pres"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pres</span></code></a>(values[,&nbsp;name,&nbsp;atts,&nbsp;plotatts,&nbsp;rtol])</td>
 <td>Pressure height axis.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="verticalaxes.html#pygeode.Hybrid" title="pygeode.Hybrid"><tt class="xref py py-obj docutils literal"><span class="pre">Hybrid</span></tt></a>(values,&nbsp;A,&nbsp;B,&nbsp;**kwargs)</td>
+<tr class="row-even"><td><a class="reference internal" href="verticalaxes.html#pygeode.Hybrid" title="pygeode.Hybrid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Hybrid</span></code></a>(values,&nbsp;A,&nbsp;B,&nbsp;**kwargs)</td>
 <td>Hybridized vertical coordinate axis.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="timeaxes.html#pygeode.StandardTime" title="pygeode.StandardTime"><tt class="xref py py-obj docutils literal"><span class="pre">StandardTime</span></tt></a>([values,&nbsp;datefmt,&nbsp;units,&nbsp;startdate])</td>
+<tr class="row-odd"><td><a class="reference internal" href="timeaxes.html#pygeode.StandardTime" title="pygeode.StandardTime"><code class="xref py py-obj docutils literal notranslate"><span class="pre">StandardTime</span></code></a>([values,&nbsp;datefmt,&nbsp;units,&nbsp;startdate])</td>
 <td>Time axis describing the standard Gregorian calendar.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="timeaxes.html#pygeode.ModelTime365" title="pygeode.ModelTime365"><tt class="xref py py-obj docutils literal"><span class="pre">ModelTime365</span></tt></a>([values,&nbsp;datefmt,&nbsp;units,&nbsp;startdate])</td>
+<tr class="row-even"><td><a class="reference internal" href="timeaxes.html#pygeode.ModelTime365" title="pygeode.ModelTime365"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ModelTime365</span></code></a>([values,&nbsp;datefmt,&nbsp;units,&nbsp;startdate])</td>
 <td>Time axis describing a model 365-day calendar.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="timeaxes.html#pygeode.ModelTime360" title="pygeode.ModelTime360"><tt class="xref py py-obj docutils literal"><span class="pre">ModelTime360</span></tt></a>([values,&nbsp;datefmt,&nbsp;units,&nbsp;startdate])</td>
+<tr class="row-odd"><td><a class="reference internal" href="timeaxes.html#pygeode.ModelTime360" title="pygeode.ModelTime360"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ModelTime360</span></code></a>([values,&nbsp;datefmt,&nbsp;units,&nbsp;startdate])</td>
 <td>Time axis describing a model 360-day calendar.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="timeaxes.html#pygeode.Yearless" title="pygeode.Yearless"><tt class="xref py py-obj docutils literal"><span class="pre">Yearless</span></tt></a>(*args,&nbsp;**kwargs)</td>
+<tr class="row-even"><td><a class="reference internal" href="timeaxes.html#pygeode.Yearless" title="pygeode.Yearless"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Yearless</span></code></a>(*args,&nbsp;**kwargs)</td>
 <td>Time axis describing a calendar with no months or years.</td>
 </tr>
+<tr class="row-odd"><td><a class="reference internal" href="namedaxis.html#pygeode.NonCoordinateAxis" title="pygeode.NonCoordinateAxis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NonCoordinateAxis</span></code></a>(*args,&nbsp;**kwargs)</td>
+<td>Non-coordinate axis (disables nearest-neighbour value matching, etc.)</td>
+</tr>
 </tbody>
 </table>
-<p class="rubric">Axis creation helper functions</p>
+<p class="rubric">Axis helper functions</p>
 <table border="1" class="longtable docutils">
 <colgroup>
 <col width="10%" />
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="horizontalaxes.html#pygeode.regularlon" title="pygeode.regularlon"><tt class="xref py py-obj docutils literal"><span class="pre">regularlon</span></tt></a>(n[,&nbsp;origin,&nbsp;order,&nbsp;repeat_origin])</td>
-<td>Constructs a regularly spaced <a class="reference internal" href="horizontalaxes.html#pygeode.Lon" title="pygeode.Lon"><tt class="xref py py-class docutils literal"><span class="pre">Lon</span></tt></a> axis with n longitudes, from origin to origin + 360.</td>
+<tr class="row-odd"><td><a class="reference internal" href="horizontalaxes.html#pygeode.regularlon" title="pygeode.regularlon"><code class="xref py py-obj docutils literal notranslate"><span class="pre">regularlon</span></code></a>(n[,&nbsp;origin,&nbsp;order,&nbsp;repeat_origin])</td>
+<td>Constructs a regularly spaced <a class="reference internal" href="horizontalaxes.html#pygeode.Lon" title="pygeode.Lon"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lon</span></code></a> axis with n longitudes.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="horizontalaxes.html#pygeode.regularlat" title="pygeode.regularlat"><tt class="xref py py-obj docutils literal"><span class="pre">regularlat</span></tt></a>(n[,&nbsp;order,&nbsp;inc_poles])</td>
-<td>Constructs a regularly spaced <a class="reference internal" href="horizontalaxes.html#pygeode.Lat" title="pygeode.Lat"><tt class="xref py py-class docutils literal"><span class="pre">Lat</span></tt></a> axis with n latitudes.</td>
+<tr class="row-even"><td><a class="reference internal" href="horizontalaxes.html#pygeode.rotatelon" title="pygeode.rotatelon"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rotatelon</span></code></a>(v,&nbsp;origin[,&nbsp;duplicate])</td>
+<td>Rotates longitude axis to start at a new origin.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="horizontalaxes.html#pygeode.gausslat" title="pygeode.gausslat"><tt class="xref py py-obj docutils literal"><span class="pre">gausslat</span></tt></a>(n[,&nbsp;order,&nbsp;axis_dict])</td>
-<td>Constructs a Gaussian <a class="reference internal" href="horizontalaxes.html#pygeode.Lat" title="pygeode.Lat"><tt class="xref py py-class docutils literal"><span class="pre">Lat</span></tt></a> axis with n latitudes.</td>
+<tr class="row-odd"><td><a class="reference internal" href="horizontalaxes.html#pygeode.regularlat" title="pygeode.regularlat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">regularlat</span></code></a>(n[,&nbsp;order,&nbsp;inc_poles])</td>
+<td>Constructs a regularly spaced <a class="reference internal" href="horizontalaxes.html#pygeode.Lat" title="pygeode.Lat"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lat</span></code></a> axis with n latitudes.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="horizontalaxes.html#pygeode.gausslat" title="pygeode.gausslat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gausslat</span></code></a>(n[,&nbsp;order,&nbsp;axis_dict])</td>
+<td>Constructs a Gaussian <a class="reference internal" href="horizontalaxes.html#pygeode.Lat" title="pygeode.Lat"><code class="xref py py-class docutils literal notranslate"><span class="pre">Lat</span></code></a> axis with n latitudes.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="timeaxes.html#pygeode.standardtimerange" title="pygeode.standardtimerange"><code class="xref py py-obj docutils literal notranslate"><span class="pre">standardtimerange</span></code></a>(start,&nbsp;end[,&nbsp;step,&nbsp;units,&nbsp;…])</td>
+<td>Creates a <a class="reference internal" href="timeaxes.html#pygeode.StandardTime" title="pygeode.StandardTime"><code class="xref py py-class docutils literal notranslate"><span class="pre">StandardTime</span></code></a> axis for the period from start to end.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="timeaxes.html#pygeode.standardtimen" title="pygeode.standardtimen"><code class="xref py py-obj docutils literal notranslate"><span class="pre">standardtimen</span></code></a>(start,&nbsp;n[,&nbsp;step,&nbsp;units,&nbsp;ref])</td>
+<td>Creates a <a class="reference internal" href="timeaxes.html#pygeode.StandardTime" title="pygeode.StandardTime"><code class="xref py py-class docutils literal notranslate"><span class="pre">StandardTime</span></code></a> axis of length n.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="timeaxes.html#pygeode.modeltime365range" title="pygeode.modeltime365range"><code class="xref py py-obj docutils literal notranslate"><span class="pre">modeltime365range</span></code></a>(start,&nbsp;end[,&nbsp;step,&nbsp;units,&nbsp;…])</td>
+<td>Creates a <a class="reference internal" href="timeaxes.html#pygeode.ModelTime365" title="pygeode.ModelTime365"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelTime365</span></code></a> axis for the period from start to end.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="timeaxes.html#pygeode.modeltime365n" title="pygeode.modeltime365n"><code class="xref py py-obj docutils literal notranslate"><span class="pre">modeltime365n</span></code></a>(start,&nbsp;n[,&nbsp;step,&nbsp;units,&nbsp;ref])</td>
+<td>Creates a <a class="reference internal" href="timeaxes.html#pygeode.ModelTime365" title="pygeode.ModelTime365"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelTime365</span></code></a> axis of length n.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="timeaxes.html#pygeode.modeltime360range" title="pygeode.modeltime360range"><code class="xref py py-obj docutils literal notranslate"><span class="pre">modeltime360range</span></code></a>(start,&nbsp;end[,&nbsp;step,&nbsp;units,&nbsp;…])</td>
+<td>Creates a <a class="reference internal" href="timeaxes.html#pygeode.ModelTime360" title="pygeode.ModelTime360"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelTime360</span></code></a> axis for the period from start to end.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="timeaxes.html#pygeode.modeltime360n" title="pygeode.modeltime360n"><code class="xref py py-obj docutils literal notranslate"><span class="pre">modeltime360n</span></code></a>(start,&nbsp;n[,&nbsp;step,&nbsp;units,&nbsp;ref])</td>
+<td>Creates a <a class="reference internal" href="timeaxes.html#pygeode.ModelTime360" title="pygeode.ModelTime360"><code class="xref py py-class docutils literal notranslate"><span class="pre">ModelTime360</span></code></a> axis of length n.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="timeaxes.html#pygeode.yearlessn" title="pygeode.yearlessn"><code class="xref py py-obj docutils literal notranslate"><span class="pre">yearlessn</span></code></a>(n[,&nbsp;start,&nbsp;step,&nbsp;units])</td>
+<td>Creates a <a class="reference internal" href="timeaxes.html#pygeode.Yearless" title="pygeode.Yearless"><code class="xref py py-class docutils literal notranslate"><span class="pre">Yearless</span></code></a> axis of length n.</td>
 </tr>
 </tbody>
 </table>
-<p class="rubric">General operations</p>
+<p><a class="reference internal" href="genops.html"><span class="doc">General Operations</span></a></p>
 <table border="1" class="longtable docutils">
 <colgroup>
 <col width="10%" />
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">concat</span></tt></td>
-<td></td>
+<tr class="row-odd"><td><a class="reference internal" href="genops.html#pygeode.asdataset" title="pygeode.asdataset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">asdataset</span></code></a>(vars[,&nbsp;copy,&nbsp;print_warnings])</td>
+<td>Tries to convert a collection of objects into a single dataset.</td>
 </tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">ensemble</span></tt>(*varlists)</td>
+<tr class="row-even"><td><a class="reference internal" href="genops.html#pygeode.concatenate" title="pygeode.concatenate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">concatenate</span></code></a>(*items,&nbsp;**kwargs)</td>
+<td>Concatenates multiple Var or Dataset objects together.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="genops.html#pygeode.ensemble" title="pygeode.ensemble"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ensemble</span></code></a>(*varlists)</td>
 <td>Creates an ensemble out of a set of similar variables.</td>
 </tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">composite</span></tt></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">lag</span></tt></td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">vprod</span></tt>(*args)</td>
+<tr class="row-even"><td><a class="reference internal" href="genops.html#pygeode.vprod" title="pygeode.vprod"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vprod</span></code></a>(*args)</td>
 <td>Multiplies an arbitrary number of variables together</td>
 </tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">vsum</span></tt>(*args)</td>
+<tr class="row-odd"><td><a class="reference internal" href="genops.html#pygeode.vsum" title="pygeode.vsum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vsum</span></code></a>(*args)</td>
 <td>Adds an arbitrary number of variables together</td>
 </tr>
 </tbody>
 </table>
-<p><a class="reference internal" href="ufunc.html"><em>Element-wise math</em></a></p>
+<p><a class="reference internal" href="ufunc.html"><span class="doc">Element-wise math</span></a></p>
 <table border="1" class="longtable docutils">
 <colgroup>
 <col width="10%" />
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.sign" title="pygeode.sign"><tt class="xref py py-obj docutils literal"><span class="pre">sign</span></tt></a>(x)</td>
+<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.sign" title="pygeode.sign"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sign</span></code></a>(x)</td>
 <td>Sign (+1 = <em>positive</em>, -1 = <em>negative</em>).</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.exp" title="pygeode.exp"><tt class="xref py py-obj docutils literal"><span class="pre">exp</span></tt></a>(x)</td>
+<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.exp" title="pygeode.exp"><code class="xref py py-obj docutils literal notranslate"><span class="pre">exp</span></code></a>(x)</td>
 <td>Natural exponent.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.log" title="pygeode.log"><tt class="xref py py-obj docutils literal"><span class="pre">log</span></tt></a>(x)</td>
+<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.log" title="pygeode.log"><code class="xref py py-obj docutils literal notranslate"><span class="pre">log</span></code></a>(x)</td>
 <td>Natural logarithm.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.log10" title="pygeode.log10"><tt class="xref py py-obj docutils literal"><span class="pre">log10</span></tt></a>(x)</td>
+<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.log10" title="pygeode.log10"><code class="xref py py-obj docutils literal notranslate"><span class="pre">log10</span></code></a>(x)</td>
 <td>Base-10 logarithm.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.cos" title="pygeode.cos"><tt class="xref py py-obj docutils literal"><span class="pre">cos</span></tt></a>(x)</td>
+<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.cos" title="pygeode.cos"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cos</span></code></a>(x)</td>
 <td>Cosine of angle (in radians).</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.sin" title="pygeode.sin"><tt class="xref py py-obj docutils literal"><span class="pre">sin</span></tt></a>(x)</td>
+<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.sin" title="pygeode.sin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sin</span></code></a>(x)</td>
 <td>Sine of angle (in radians).</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.tan" title="pygeode.tan"><tt class="xref py py-obj docutils literal"><span class="pre">tan</span></tt></a>(x)</td>
+<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.tan" title="pygeode.tan"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tan</span></code></a>(x)</td>
 <td>Tangent of angle (in radians).</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.cosd" title="pygeode.cosd"><tt class="xref py py-obj docutils literal"><span class="pre">cosd</span></tt></a>(x)</td>
+<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.cosd" title="pygeode.cosd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cosd</span></code></a>(x)</td>
 <td>Cosine of angle (in degrees)</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.sind" title="pygeode.sind"><tt class="xref py py-obj docutils literal"><span class="pre">sind</span></tt></a>(x)</td>
+<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.sind" title="pygeode.sind"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sind</span></code></a>(x)</td>
 <td>Sine of angle (in degrees)</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.tand" title="pygeode.tand"><tt class="xref py py-obj docutils literal"><span class="pre">tand</span></tt></a>(x)</td>
+<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.tand" title="pygeode.tand"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tand</span></code></a>(x)</td>
 <td>Tangent of angle (in degrees)</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.sinh" title="pygeode.sinh"><tt class="xref py py-obj docutils literal"><span class="pre">sinh</span></tt></a>(x)</td>
+<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.sinh" title="pygeode.sinh"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sinh</span></code></a>(x)</td>
 <td>Hyperbolic sine.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.cosh" title="pygeode.cosh"><tt class="xref py py-obj docutils literal"><span class="pre">cosh</span></tt></a>(x)</td>
+<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.cosh" title="pygeode.cosh"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cosh</span></code></a>(x)</td>
 <td>Hyperbolic cosine.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.tanh" title="pygeode.tanh"><tt class="xref py py-obj docutils literal"><span class="pre">tanh</span></tt></a>(x)</td>
+<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.tanh" title="pygeode.tanh"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tanh</span></code></a>(x)</td>
 <td>Hyperbolic tangent.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.arcsin" title="pygeode.arcsin"><tt class="xref py py-obj docutils literal"><span class="pre">arcsin</span></tt></a>(x)</td>
+<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.arcsin" title="pygeode.arcsin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">arcsin</span></code></a>(x)</td>
 <td>Inverse sine (in radians).</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.arccos" title="pygeode.arccos"><tt class="xref py py-obj docutils literal"><span class="pre">arccos</span></tt></a>(x)</td>
+<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.arccos" title="pygeode.arccos"><code class="xref py py-obj docutils literal notranslate"><span class="pre">arccos</span></code></a>(x)</td>
 <td>Inverse cosine (in radians).</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.arctan" title="pygeode.arctan"><tt class="xref py py-obj docutils literal"><span class="pre">arctan</span></tt></a>(x)</td>
+<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.arctan" title="pygeode.arctan"><code class="xref py py-obj docutils literal notranslate"><span class="pre">arctan</span></code></a>(x)</td>
 <td>Inverse tangent (in radians).</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.arctan2" title="pygeode.arctan2"><tt class="xref py py-obj docutils literal"><span class="pre">arctan2</span></tt></a>(x,&nbsp;y)</td>
+<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.arctan2" title="pygeode.arctan2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">arctan2</span></code></a>(x,&nbsp;y)</td>
 <td>Inverse tangent.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.arcsind" title="pygeode.arcsind"><tt class="xref py py-obj docutils literal"><span class="pre">arcsind</span></tt></a>(x)</td>
+<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.arcsind" title="pygeode.arcsind"><code class="xref py py-obj docutils literal notranslate"><span class="pre">arcsind</span></code></a>(x)</td>
 <td>Inverse sine (in degrees).</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.arccosd" title="pygeode.arccosd"><tt class="xref py py-obj docutils literal"><span class="pre">arccosd</span></tt></a>(x)</td>
+<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.arccosd" title="pygeode.arccosd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">arccosd</span></code></a>(x)</td>
 <td>Inverse cosine (in degrees).</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.arctand" title="pygeode.arctand"><tt class="xref py py-obj docutils literal"><span class="pre">arctand</span></tt></a>(x)</td>
+<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.arctand" title="pygeode.arctand"><code class="xref py py-obj docutils literal notranslate"><span class="pre">arctand</span></code></a>(x)</td>
 <td>Inverse tangent (in degrees).</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.arctand2" title="pygeode.arctand2"><tt class="xref py py-obj docutils literal"><span class="pre">arctand2</span></tt></a>(x,&nbsp;y)</td>
+<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.arctand2" title="pygeode.arctand2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">arctand2</span></code></a>(x,&nbsp;y)</td>
 <td>Inverse tangent.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.arcsinh" title="pygeode.arcsinh"><tt class="xref py py-obj docutils literal"><span class="pre">arcsinh</span></tt></a>(x)</td>
+<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.arcsinh" title="pygeode.arcsinh"><code class="xref py py-obj docutils literal notranslate"><span class="pre">arcsinh</span></code></a>(x)</td>
 <td>Inverse hyperbolic sine.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.arccosh" title="pygeode.arccosh"><tt class="xref py py-obj docutils literal"><span class="pre">arccosh</span></tt></a>(x)</td>
+<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.arccosh" title="pygeode.arccosh"><code class="xref py py-obj docutils literal notranslate"><span class="pre">arccosh</span></code></a>(x)</td>
 <td>Inverse hyperbolic cosine.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.arctanh" title="pygeode.arctanh"><tt class="xref py py-obj docutils literal"><span class="pre">arctanh</span></tt></a>(x)</td>
+<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.arctanh" title="pygeode.arctanh"><code class="xref py py-obj docutils literal notranslate"><span class="pre">arctanh</span></code></a>(x)</td>
 <td>Inverse hyperbolic tangent.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.sqrt" title="pygeode.sqrt"><tt class="xref py py-obj docutils literal"><span class="pre">sqrt</span></tt></a>(x)</td>
+<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.sqrt" title="pygeode.sqrt"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sqrt</span></code></a>(x)</td>
 <td>Square root.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.absolute" title="pygeode.absolute"><tt class="xref py py-obj docutils literal"><span class="pre">absolute</span></tt></a>(x)</td>
+<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.absolute" title="pygeode.absolute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">absolute</span></code></a>(x)</td>
 <td>Absolute value.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.nan_to_num" title="pygeode.nan_to_num"><tt class="xref py py-obj docutils literal"><span class="pre">nan_to_num</span></tt></a>(x)</td>
+<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.nan_to_num" title="pygeode.nan_to_num"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nan_to_num</span></code></a>(x)</td>
 <td>Replace nan with zero and inf with finite numbers.</td>
 </tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">minimum</span></tt>(x,&nbsp;y)</td>
+<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.minimum" title="pygeode.minimum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">minimum</span></code></a>(x,&nbsp;y)</td>
 <td>Element-wise minimum of the two given arguments.</td>
 </tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">maximum</span></tt>(x,&nbsp;y)</td>
+<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.maximum" title="pygeode.maximum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">maximum</span></code></a>(x,&nbsp;y)</td>
 <td>Element-wise maximum of the two given arguments.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.real" title="pygeode.real"><tt class="xref py py-obj docutils literal"><span class="pre">real</span></tt></a>(x)</td>
+<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.real" title="pygeode.real"><code class="xref py py-obj docutils literal notranslate"><span class="pre">real</span></code></a>(x)</td>
 <td>Real part of a complex array.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.imag" title="pygeode.imag"><tt class="xref py py-obj docutils literal"><span class="pre">imag</span></tt></a>(x)</td>
+<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.imag" title="pygeode.imag"><code class="xref py py-obj docutils literal notranslate"><span class="pre">imag</span></code></a>(x)</td>
 <td>Imaginary part of a complex array.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.angle" title="pygeode.angle"><tt class="xref py py-obj docutils literal"><span class="pre">angle</span></tt></a>(x)</td>
+<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.angle" title="pygeode.angle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">angle</span></code></a>(x)</td>
 <td>Angles (arguments) of a complex array.</td>
 </tr>
+<tr class="row-odd"><td><a class="reference internal" href="ufunc.html#pygeode.conj" title="pygeode.conj"><code class="xref py py-obj docutils literal notranslate"><span class="pre">conj</span></code></a>(x)</td>
+<td>Complex conjugate of a complex array.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="ufunc.html#pygeode.clip" title="pygeode.clip"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clip</span></code></a>(*args)</td>
+<td>Clips values to given interval.</td>
+</tr>
 </tbody>
 </table>
-<p><a class="reference internal" href="climat.html"><em>Climat module</em></a></p>
+<p><a class="reference internal" href="climat.html"><span class="doc">Climat module</span></a></p>
 <table border="1" class="longtable docutils">
 <colgroup>
 <col width="10%" />
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="climat.html#pygeode.dailymean" title="pygeode.dailymean"><tt class="xref py py-obj docutils literal"><span class="pre">dailymean</span></tt></a>(var)</td>
+<tr class="row-odd"><td><a class="reference internal" href="climat.html#pygeode.dailymean" title="pygeode.dailymean"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dailymean</span></code></a>(var)</td>
 <td>Computes an average value for each day.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="climat.html#pygeode.monthlymean" title="pygeode.monthlymean"><tt class="xref py py-obj docutils literal"><span class="pre">monthlymean</span></tt></a>(var)</td>
+<tr class="row-even"><td><a class="reference internal" href="climat.html#pygeode.monthlymean" title="pygeode.monthlymean"><code class="xref py py-obj docutils literal notranslate"><span class="pre">monthlymean</span></code></a>(var)</td>
 <td>Averages over each month.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="climat.html#pygeode.seasonalmean" title="pygeode.seasonalmean"><tt class="xref py py-obj docutils literal"><span class="pre">seasonalmean</span></tt></a>(var)</td>
+<tr class="row-odd"><td><a class="reference internal" href="climat.html#pygeode.seasonalmean" title="pygeode.seasonalmean"><code class="xref py py-obj docutils literal notranslate"><span class="pre">seasonalmean</span></code></a>(var)</td>
 <td>Averages over each season.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="climat.html#pygeode.yearlymean" title="pygeode.yearlymean"><tt class="xref py py-obj docutils literal"><span class="pre">yearlymean</span></tt></a>(var)</td>
+<tr class="row-even"><td><a class="reference internal" href="climat.html#pygeode.yearlymean" title="pygeode.yearlymean"><code class="xref py py-obj docutils literal notranslate"><span class="pre">yearlymean</span></code></a>(var)</td>
 <td>Averages over each year.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="climat.html#pygeode.diurnalmean" title="pygeode.diurnalmean"><tt class="xref py py-obj docutils literal"><span class="pre">diurnalmean</span></tt></a>(var)</td>
+<tr class="row-odd"><td><a class="reference internal" href="climat.html#pygeode.diurnalmean" title="pygeode.diurnalmean"><code class="xref py py-obj docutils literal notranslate"><span class="pre">diurnalmean</span></code></a>(var)</td>
 <td>Computes an average value for each time of day (averages over all years, months, days).</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="climat.html#pygeode.climatology" title="pygeode.climatology"><tt class="xref py py-obj docutils literal"><span class="pre">climatology</span></tt></a>(var)</td>
+<tr class="row-even"><td><a class="reference internal" href="climat.html#pygeode.climatology" title="pygeode.climatology"><code class="xref py py-obj docutils literal notranslate"><span class="pre">climatology</span></code></a>(var)</td>
 <td>Computes a climatological mean.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="climat.html#pygeode.climtrend" title="pygeode.climtrend"><tt class="xref py py-obj docutils literal"><span class="pre">climtrend</span></tt></a>(var)</td>
+<tr class="row-odd"><td><a class="reference internal" href="climat.html#pygeode.climtrend" title="pygeode.climtrend"><code class="xref py py-obj docutils literal notranslate"><span class="pre">climtrend</span></code></a>(var)</td>
 <td>For each month, day, hour, etc., compute a least-squares fit to a linear trend over all years.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="climat.html#pygeode.from_trend" title="pygeode.from_trend"><tt class="xref py py-obj docutils literal"><span class="pre">from_trend</span></tt></a>(taxis[,&nbsp;coef,&nbsp;A,&nbsp;B])</td>
-<td></td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="climat.html#module-pygeode.climat" title="pygeode.climat"><tt class="xref py py-obj docutils literal"><span class="pre">climat</span></tt></a></td>
-<td></td>
+<tr class="row-even"><td><a class="reference internal" href="climat.html#pygeode.from_trend" title="pygeode.from_trend"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_trend</span></code></a>(taxis[,&nbsp;coef,&nbsp;A,&nbsp;B])</td>
+<td>Reconstructs linear timeseries from a given trend.</td>
 </tr>
 </tbody>
 </table>
-<p><a class="reference internal" href="timeutils.html"><em>Timeutils module</em></a></p>
+<p><a class="reference internal" href="timeutils.html"><span class="doc">Timeutils module</span></a></p>
 <table border="1" class="longtable docutils">
 <colgroup>
 <col width="10%" />
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">timeutils</span></tt></td>
-<td>A set of tools for manipulating time axes.</td>
+<tr class="row-odd"><td><a class="reference internal" href="timeutils.html#pygeode.timeutils.conform_values" title="pygeode.timeutils.conform_values"><code class="xref py py-obj docutils literal notranslate"><span class="pre">timeutils.conform_values</span></code></a>(taxis1,&nbsp;taxis2)</td>
+<td>Given two time axes, return new axes such that their values are comparable.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="timeutils.html#pygeode.timeutils.conform_values" title="pygeode.timeutils.conform_values"><tt class="xref py py-obj docutils literal"><span class="pre">timeutils.conform_values</span></tt></a>(taxis1,&nbsp;taxis2)</td>
-<td></td>
+<tr class="row-even"><td><a class="reference internal" href="timeutils.html#pygeode.timeutils.date_diff" title="pygeode.timeutils.date_diff"><code class="xref py py-obj docutils literal notranslate"><span class="pre">timeutils.date_diff</span></code></a>(taxis,&nbsp;dt1,&nbsp;dt2[,&nbsp;units])</td>
+<td>Returns time interval between two dates.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="timeutils.html#pygeode.timeutils.date_diff" title="pygeode.timeutils.date_diff"><tt class="xref py py-obj docutils literal"><span class="pre">timeutils.date_diff</span></tt></a>(taxis,&nbsp;dt1,&nbsp;dt2[,&nbsp;units])</td>
-<td></td>
+<tr class="row-odd"><td><a class="reference internal" href="timeutils.html#pygeode.timeutils.delta" title="pygeode.timeutils.delta"><code class="xref py py-obj docutils literal notranslate"><span class="pre">timeutils.delta</span></code></a>(taxis[,&nbsp;units])</td>
+<td>Returns the interval between values of a given time axis.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="timeutils.html#pygeode.timeutils.delta" title="pygeode.timeutils.delta"><tt class="xref py py-obj docutils literal"><span class="pre">timeutils.delta</span></tt></a>(taxis[,&nbsp;units])</td>
-<td></td>
+<tr class="row-even"><td><a class="reference internal" href="timeutils.html#pygeode.timeutils.jointimeaxes" title="pygeode.timeutils.jointimeaxes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">timeutils.jointimeaxes</span></code></a>(var[,&nbsp;yaxis,&nbsp;daxis])</td>
+<td>Convert a variable with a 2D time axis into one with a 1D time axis.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="timeutils.html#pygeode.timeutils.jointimeaxes" title="pygeode.timeutils.jointimeaxes"><tt class="xref py py-obj docutils literal"><span class="pre">timeutils.jointimeaxes</span></tt></a>(var[,&nbsp;yaxis,&nbsp;daxis])</td>
-<td></td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="timeutils.html#pygeode.timeutils.modify" title="pygeode.timeutils.modify"><tt class="xref py py-obj docutils literal"><span class="pre">timeutils.modify</span></tt></a>(taxis[,&nbsp;resolution,&nbsp;...])</td>
+<tr class="row-odd"><td><a class="reference internal" href="timeutils.html#pygeode.timeutils.modify" title="pygeode.timeutils.modify"><code class="xref py py-obj docutils literal notranslate"><span class="pre">timeutils.modify</span></code></a>(taxis[,&nbsp;resolution,&nbsp;…])</td>
 <td>Modifies the auxiliary arrays associated with a time axis.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="timeutils.html#pygeode.timeutils.reltime" title="pygeode.timeutils.reltime"><tt class="xref py py-obj docutils literal"><span class="pre">timeutils.reltime</span></tt></a>(taxis[,&nbsp;startdate,&nbsp;units])</td>
-<td></td>
+<tr class="row-even"><td><a class="reference internal" href="timeutils.html#pygeode.timeutils.reltime" title="pygeode.timeutils.reltime"><code class="xref py py-obj docutils literal notranslate"><span class="pre">timeutils.reltime</span></code></a>(taxis[,&nbsp;startdate,&nbsp;units])</td>
+<td>Returns time axis values relative to a given reference date.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="timeutils.html#pygeode.timeutils.removeleapyears" title="pygeode.timeutils.removeleapyears"><tt class="xref py py-obj docutils literal"><span class="pre">timeutils.removeleapyears</span></tt></a>(data[,&nbsp;...])</td>
-<td></td>
+<tr class="row-odd"><td><a class="reference internal" href="timeutils.html#pygeode.timeutils.removeleapyears" title="pygeode.timeutils.removeleapyears"><code class="xref py py-obj docutils literal notranslate"><span class="pre">timeutils.removeleapyears</span></code></a>(data[,&nbsp;…])</td>
+<td>Removes leap day(s) from data on a standard calendar.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="timeutils.html#pygeode.timeutils.splittimeaxis" title="pygeode.timeutils.splittimeaxis"><tt class="xref py py-obj docutils literal"><span class="pre">timeutils.splittimeaxis</span></tt></a>(var[,&nbsp;iaxis])</td>
-<td></td>
+<tr class="row-even"><td><a class="reference internal" href="timeutils.html#pygeode.timeutils.splittimeaxis" title="pygeode.timeutils.splittimeaxis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">timeutils.splittimeaxis</span></code></a>(var[,&nbsp;iaxis])</td>
+<td>Convert a variable with a 1D time axis into one with a 2D time axis.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="timeutils.html#pygeode.timeutils.wrapdate" title="pygeode.timeutils.wrapdate"><tt class="xref py py-obj docutils literal"><span class="pre">timeutils.wrapdate</span></tt></a>(taxis,&nbsp;dt[,&nbsp;allfields])</td>
-<td></td>
+<tr class="row-odd"><td><a class="reference internal" href="timeutils.html#pygeode.timeutils.wrapdate" title="pygeode.timeutils.wrapdate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">timeutils.wrapdate</span></code></a>(taxis,&nbsp;dt[,&nbsp;allfields])</td>
+<td>Returns a modified date dictionary such that all fields lie within standard values.</td>
 </tr>
 </tbody>
 </table>
-<p><a class="reference internal" href="stats.html"><em>Stats module</em></a></p>
+<p><a class="reference internal" href="stats.html"><span class="doc">Stats module</span></a></p>
 <table border="1" class="longtable docutils">
 <colgroup>
 <col width="10%" />
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="stats.html#pygeode.correlate" title="pygeode.correlate"><tt class="xref py py-obj docutils literal"><span class="pre">correlate</span></tt></a>(X,&nbsp;Y[,&nbsp;axes,&nbsp;pbar])</td>
+<tr class="row-odd"><td><a class="reference internal" href="stats.html#pygeode.correlate" title="pygeode.correlate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">correlate</span></code></a>(X,&nbsp;Y[,&nbsp;axes,&nbsp;output,&nbsp;pbar])</td>
 <td>Computes correlation between variables X and Y.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="stats.html#pygeode.regress" title="pygeode.regress"><tt class="xref py py-obj docutils literal"><span class="pre">regress</span></tt></a>(X,&nbsp;Y[,&nbsp;axes,&nbsp;pbar,&nbsp;N_fac,&nbsp;output])</td>
+<tr class="row-even"><td><a class="reference internal" href="stats.html#pygeode.regress" title="pygeode.regress"><code class="xref py py-obj docutils literal notranslate"><span class="pre">regress</span></code></a>(X,&nbsp;Y[,&nbsp;axes,&nbsp;N_fac,&nbsp;output,&nbsp;pbar])</td>
 <td>Computes least-squares linear regression of Y against X.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="stats.html#pygeode.multiple_regress" title="pygeode.multiple_regress"><tt class="xref py py-obj docutils literal"><span class="pre">multiple_regress</span></tt></a>(Xs,&nbsp;Y[,&nbsp;axes,&nbsp;pbar,&nbsp;N_fac,&nbsp;...])</td>
+<tr class="row-odd"><td><a class="reference internal" href="stats.html#pygeode.multiple_regress" title="pygeode.multiple_regress"><code class="xref py py-obj docutils literal notranslate"><span class="pre">multiple_regress</span></code></a>(Xs,&nbsp;Y[,&nbsp;axes,&nbsp;N_fac,&nbsp;…])</td>
 <td>Computes least-squares multiple regression of Y against variables Xs.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="stats.html#pygeode.difference" title="pygeode.difference"><tt class="xref py py-obj docutils literal"><span class="pre">difference</span></tt></a>(X,&nbsp;Y,&nbsp;axes[,&nbsp;alpha,&nbsp;Nx_fac,&nbsp;...])</td>
+<tr class="row-even"><td><a class="reference internal" href="stats.html#pygeode.difference" title="pygeode.difference"><code class="xref py py-obj docutils literal notranslate"><span class="pre">difference</span></code></a>(X,&nbsp;Y[,&nbsp;axes,&nbsp;alpha,&nbsp;Nx_fac,&nbsp;…])</td>
 <td>Computes the mean value and statistics of X - Y.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="stats.html#pygeode.isnonzero" title="pygeode.isnonzero"><tt class="xref py py-obj docutils literal"><span class="pre">isnonzero</span></tt></a>(X,&nbsp;axes[,&nbsp;alpha,&nbsp;N_fac,&nbsp;pbar])</td>
-<td>Computes the mean value and statistics of X, against the hypothesis that it is 0.</td>
+<tr class="row-odd"><td><a class="reference internal" href="stats.html#pygeode.paired_difference" title="pygeode.paired_difference"><code class="xref py py-obj docutils literal notranslate"><span class="pre">paired_difference</span></code></a>(X,&nbsp;Y[,&nbsp;axes,&nbsp;alpha,&nbsp;…])</td>
+<td>Computes the mean value and statistics of X - Y, assuming that individual elements of X and Y can be directly paired.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="stats.html#pygeode.isnonzero" title="pygeode.isnonzero"><code class="xref py py-obj docutils literal notranslate"><span class="pre">isnonzero</span></code></a>(X[,&nbsp;axes,&nbsp;alpha,&nbsp;N_fac,&nbsp;output,&nbsp;pbar])</td>
+<td>Computes the mean value of X and statistics relevant for a test against the hypothesis that it is 0.</td>
 </tr>
 </tbody>
 </table>
-<p><a class="reference internal" href="eof.html"><em>EOF Analysis</em></a></p>
+<p><a class="reference internal" href="eof.html"><span class="doc">EOF Analysis</span></a></p>
 <table border="1" class="longtable docutils">
 <colgroup>
 <col width="10%" />
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">EOF</span></tt>(x[,&nbsp;num,&nbsp;iaxis,&nbsp;weight,&nbsp;out])</td>
+<tr class="row-odd"><td><a class="reference internal" href="eof.html#pygeode.EOF" title="pygeode.EOF"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EOF</span></code></a>(x[,&nbsp;num,&nbsp;iaxis,&nbsp;weight,&nbsp;out])</td>
 <td>Computes the leading Empirical Orthogonal Function(s) for the given variable.</td>
 </tr>
-<tr class="row-even"><td><tt class="xref py py-obj docutils literal"><span class="pre">SVD</span></tt>(var1,&nbsp;var2[,&nbsp;num,&nbsp;weight1,&nbsp;weight2])</td>
+<tr class="row-even"><td><a class="reference internal" href="eof.html#pygeode.SVD" title="pygeode.SVD"><code class="xref py py-obj docutils literal notranslate"><span class="pre">SVD</span></code></a>(var1,&nbsp;var2[,&nbsp;num,&nbsp;subspace,&nbsp;iaxis,&nbsp;…])</td>
 <td>Finds coupled EOFs of two fields.</td>
-</tr>
-<tr class="row-odd"><td><tt class="xref py py-obj docutils literal"><span class="pre">eof</span></tt></td>
-<td></td>
 </tr>
 </tbody>
 </table>
-<p><a class="reference internal" href="plot.html"><em>Plot module</em></a></p>
+<p><a class="reference internal" href="plot.html"><span class="doc">Plot module</span></a></p>
 <table border="1" class="longtable docutils">
 <colgroup>
 <col width="10%" />
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="plot.html#pygeode.showvar" title="pygeode.showvar"><tt class="xref py py-obj docutils literal"><span class="pre">showvar</span></tt></a>(var,&nbsp;*args,&nbsp;**kwargs)</td>
+<tr class="row-odd"><td><a class="reference internal" href="plot.html#pygeode.showvar" title="pygeode.showvar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">showvar</span></code></a>(var,&nbsp;*args,&nbsp;**kwargs)</td>
 <td>Plot variable, showing a contour plot for 2d variables or a line plot for 1d variables.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="plot.html#pygeode.showcol" title="pygeode.showcol"><tt class="xref py py-obj docutils literal"><span class="pre">showcol</span></tt></a>(vs[,&nbsp;size])</td>
-<td>Plot variable, showing a contour plot for 2d variables or a line plot for 1d variables.</td>
+<tr class="row-even"><td><a class="reference internal" href="plot.html#pygeode.showgrid" title="pygeode.showgrid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">showgrid</span></code></a>(vf[,&nbsp;vl,&nbsp;ncol,&nbsp;size,&nbsp;lbl])</td>
+<td>Create grid of contour plots of multiple variables.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="plot.html#pygeode.showgrid" title="pygeode.showgrid"><tt class="xref py py-obj docutils literal"><span class="pre">showgrid</span></tt></a>(vf[,&nbsp;vl,&nbsp;ncol,&nbsp;size,&nbsp;lbl])</td>
-<td>Plot contours</td>
+<tr class="row-odd"><td><a class="reference internal" href="plot.html#pygeode.showlines" title="pygeode.showlines"><code class="xref py py-obj docutils literal notranslate"><span class="pre">showlines</span></code></a>(vs[,&nbsp;fmts,&nbsp;labels,&nbsp;size,&nbsp;lblx,&nbsp;lbly])</td>
+<td>Produce line plots of a list of 1D variables on a single figure.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="plot.html#pygeode.showlines" title="pygeode.showlines"><tt class="xref py py-obj docutils literal"><span class="pre">showlines</span></tt></a>(vs[,&nbsp;fmts,&nbsp;labels,&nbsp;size])</td>
-<td>Plot line plots of a list of 1D variables on the same plot.</td>
-</tr>
-<tr class="row-odd"><td><a class="reference internal" href="plot.html#pygeode.vcontour" title="pygeode.vcontour"><tt class="xref py py-obj docutils literal"><span class="pre">vcontour</span></tt></a>(var[,&nbsp;clevs,&nbsp;clines,&nbsp;axes,&nbsp;lblx,&nbsp;...])</td>
+<tr class="row-even"><td><a class="reference internal" href="plot.html#pygeode.vcontour" title="pygeode.vcontour"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vcontour</span></code></a>(var[,&nbsp;clevs,&nbsp;clines,&nbsp;axes,&nbsp;lblx,&nbsp;…])</td>
 <td>Create a contour plot (lines, filled, or both) from a variable.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="plot.html#pygeode.vplot" title="pygeode.vplot"><tt class="xref py py-obj docutils literal"><span class="pre">vplot</span></tt></a>(var[,&nbsp;fmt,&nbsp;axes,&nbsp;transpose,&nbsp;lblx,&nbsp;lbly])</td>
-<td>Plot variable, showing a contour plot for 2d variables or a line plot for 1d variables.</td>
+<tr class="row-odd"><td><a class="reference internal" href="plot.html#pygeode.vplot" title="pygeode.vplot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vplot</span></code></a>(var[,&nbsp;fmt,&nbsp;axes,&nbsp;transpose,&nbsp;lblx,&nbsp;lbly])</td>
+<td>Create a line plot of a variable.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="plot.html#pygeode.vscatter" title="pygeode.vscatter"><tt class="xref py py-obj docutils literal"><span class="pre">vscatter</span></tt></a>(varx,&nbsp;vary[,&nbsp;axes,&nbsp;lblx,&nbsp;lbly])</td>
-<td>Do a scatter plot of a variable.</td>
+<tr class="row-even"><td><a class="reference internal" href="plot.html#pygeode.vscatter" title="pygeode.vscatter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vscatter</span></code></a>(varx,&nbsp;vary[,&nbsp;axes,&nbsp;lblx,&nbsp;lbly])</td>
+<td>Create a scatter plot from two variables with the same shape.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="plot.html#pygeode.vquiver" title="pygeode.vquiver"><tt class="xref py py-obj docutils literal"><span class="pre">vquiver</span></tt></a>(varu,&nbsp;varv[,&nbsp;varc,&nbsp;axes,&nbsp;lblx,&nbsp;...])</td>
-<td></td>
+<tr class="row-odd"><td><a class="reference internal" href="plot.html#pygeode.vquiver" title="pygeode.vquiver"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vquiver</span></code></a>(varu,&nbsp;varv[,&nbsp;varc,&nbsp;axes,&nbsp;lblx,&nbsp;…])</td>
+<td>Create a quiver plot from two variables.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="plot.html#pygeode.vstreamplot" title="pygeode.vstreamplot"><tt class="xref py py-obj docutils literal"><span class="pre">vstreamplot</span></tt></a>(varu,&nbsp;varv[,&nbsp;axes,&nbsp;lblx,&nbsp;lbly,&nbsp;...])</td>
-<td></td>
+<tr class="row-even"><td><a class="reference internal" href="plot.html#pygeode.vstreamplot" title="pygeode.vstreamplot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vstreamplot</span></code></a>(varu,&nbsp;varv[,&nbsp;axes,&nbsp;lblx,&nbsp;lbly,&nbsp;…])</td>
+<td>Create a streamplot from two variables.</td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="plot.html#pygeode.vsigmask" title="pygeode.vsigmask"><tt class="xref py py-obj docutils literal"><span class="pre">vsigmask</span></tt></a>(var,&nbsp;axes[,&nbsp;mjsig,&nbsp;mjc,&nbsp;mjalpha,&nbsp;...])</td>
-<td></td>
+<tr class="row-odd"><td><a class="reference internal" href="plot.html#pygeode.vsigmask" title="pygeode.vsigmask"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vsigmask</span></code></a>(pval,&nbsp;axes[,&nbsp;mjsig,&nbsp;mnsig,&nbsp;mjsigp,&nbsp;…])</td>
+<td>Add significance shading to a contour plot from a variable.</td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="plot.html#module-pygeode.plot" title="pygeode.plot"><tt class="xref py py-obj docutils literal"><span class="pre">plot</span></tt></a></td>
-<td></td>
+<tr class="row-even"><td><a class="reference internal" href="plot.html#pygeode.vhist" title="pygeode.vhist"><code class="xref py py-obj docutils literal notranslate"><span class="pre">vhist</span></code></a>(var[,&nbsp;axes,&nbsp;lblx,&nbsp;lbly])</td>
+<td>Create a histogram of values taken by a variable.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="plot.html#pygeode.clfdict" title="pygeode.clfdict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clfdict</span></code></a>(cdelt[,&nbsp;min,&nbsp;mid,&nbsp;nf,&nbsp;nl,&nbsp;ndiv,&nbsp;…])</td>
+<td>Returns kwargs to <a class="reference internal" href="plot.html#pygeode.showvar" title="pygeode.showvar"><code class="xref py py-meth docutils literal notranslate"><span class="pre">showvar()</span></code></a> for a filled contour plot.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="plot.html#pygeode.cldict" title="pygeode.cldict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cldict</span></code></a>(cdelt[,&nbsp;range,&nbsp;min,&nbsp;mid,&nbsp;cidelt,&nbsp;nozero])</td>
+<td>Returns kwargs to <a class="reference internal" href="plot.html#pygeode.showvar" title="pygeode.showvar"><code class="xref py py-meth docutils literal notranslate"><span class="pre">showvar()</span></code></a> for a line contour plot.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="plot.html#pygeode.log1sdict" title="pygeode.log1sdict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">log1sdict</span></code></a>(cmin[,&nbsp;cdelt,&nbsp;nf,&nbsp;nl,&nbsp;ndiv])</td>
+<td>Returns kwargs to <a class="reference internal" href="plot.html#pygeode.showvar" title="pygeode.showvar"><code class="xref py py-meth docutils literal notranslate"><span class="pre">showvar()</span></code></a> for a one-sided logarithmically-spaced contour plot.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="plot.html#pygeode.log2sdict" title="pygeode.log2sdict"><code class="xref py py-obj docutils literal notranslate"><span class="pre">log2sdict</span></code></a>(cmin[,&nbsp;cdelt,&nbsp;nf,&nbsp;nl,&nbsp;ndiv,&nbsp;nozero])</td>
+<td>Returns kwargs to <a class="reference internal" href="plot.html#pygeode.showvar" title="pygeode.showvar"><code class="xref py py-meth docutils literal notranslate"><span class="pre">showvar()</span></code></a> for a two-sided logarithmically-spaced contour plot.</td>
+</tr>
+</tbody>
+</table>
+<p><a class="reference internal" href="external.html"><span class="doc">External Interfaces</span></a></p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="external.html#pygeode.ext_xarray.to_xarray" title="pygeode.ext_xarray.to_xarray"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ext_xarray.to_xarray</span></code></a>(dataset)</td>
+<td>Converts a PyGeode Dataset into an xarray Dataset.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="external.html#pygeode.ext_xarray.from_xarray" title="pygeode.ext_xarray.from_xarray"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ext_xarray.from_xarray</span></code></a>(dataset)</td>
+<td>Converts an xarray Dataset into a PyGeode Dataset.</td>
 </tr>
 </tbody>
 </table>
 </div>
 <div class="section" id="under-the-hood">
 <h2>Under the hood<a class="headerlink" href="#under-the-hood" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference internal" href="view.html"><em>View module</em></a></p>
+<p><a class="reference internal" href="view.html"><span class="doc">View module</span></a></p>
 <blockquote>
 <div>A helper class for mapping subsets of variables</div></blockquote>
 <div class="toctree-wrapper compound">
@@ -460,66 +503,26 @@ submodules with further functionality referenced in the summary as well.</p>
 </div>
 
 
-          </div>
-        </div>
       </div>
-      <div class="sphinxsidebar">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Reference</a><ul>
-<li><a class="reference internal" href="#under-the-hood">Under the hood</a></li>
-</ul>
-</li>
-</ul>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        «&#160;&#160;<a href="tut_adv.html">Advanced Variable Operations</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="#">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="gallery/index.html">Gallery</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="var.html">Var class overview</a>&#160;&#160;»
+        </p>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="tut_adv.html"
-                        title="previous chapter">Advanced Variable Operations</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="var.html"
-                        title="next chapter">Var class overview</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/reference.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="var.html" title="Var class overview"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="tut_adv.html" title="Advanced Variable Operations"
-             >previous</a> |</li>
-        <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li> 
-      </ul>
-    </div>
-    <div class="footer">
-        &copy; Copyright 2013, Mike Neish, Peter Hitchcock.
-      Last updated on Sep 13, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Mike Neish, Peter Hitchcock.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.
     </div>
   </body>
 </html>

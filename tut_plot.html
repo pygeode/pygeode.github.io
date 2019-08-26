@@ -1,60 +1,51 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Plotting &mdash; PyGeode 1.0 alpha documentation</title>
-    
+    <title>Plotting &#8212; PyGeode 1.3 pre-release documentation</title>
     <link rel="stylesheet" href="_static/pygtheme.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '1.0 alpha',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
+    <link rel="stylesheet" type="text/css" href="_static/gallery.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="PyGeode 1.0 alpha documentation" href="index.html" />
-    <link rel="up" title="Tutorial" href="tutorial.html" />
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Working with Axes" href="tut_axes.html" />
     <link rel="prev" title="Variable input and output" href="tut_io.html" />
 <link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
 
-  </head>
-  <body>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="tut_axes.html" title="Working with Axes"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="tut_io.html" title="Variable input and output"
-             accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li>
-          <li><a href="tutorial.html" accesskey="U">Tutorial</a> &raquo;</li> 
-      </ul>
-    </div>  
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="index.html">
+          <span>PyGeode 1.3 pre-release documentation</span></a></h1>
+        <h2 class="heading"><span>Plotting</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        «&#160;&#160;<a href="tut_io.html">Variable input and output</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="gallery/index.html">Gallery</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="tut_axes.html">Working with Axes</a>&#160;&#160;»
+        </p>
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
-            
+      </div>
+      <div class="content">
+        
+        
   <div class="section" id="plotting">
 <h1>Plotting<a class="headerlink" href="#plotting" title="Permalink to this headline">¶</a></h1>
 <p>The plotting system in PyGeode is intended to provide sensible defaults so that
@@ -66,126 +57,201 @@ possible. This tutorial is intended to introduce some of the basic concepts; a
 gallery is also available with sample plots. Though you could use either
 document as a starting point for plotting even without any matplotlib
 experience, both will make more sense if you have had some.</p>
-<p>There are three levels of plotting commands. The highest levels, mostly prefixed
-by <tt class="docutils literal"><span class="pre">show</span></tt>, make the most assumptions about the structur of the plot they
-produce. The next level, prefixed with <tt class="docutils literal"><span class="pre">v</span></tt>, are lower level wrappers around
-matplotlib commands that are aware of PyGeode variables and try to make
-formatting decisions accordingly. The lowest level are very thin wrappers around
-individual matplotlib commands that know nothing about PyGeode variables, but
-allow for the most direct control.</p>
-<p>The basic high-level plotting command is <a class="reference internal" href="plot.html#pygeode.showvar" title="pygeode.showvar"><tt class="xref py py-func docutils literal"><span class="pre">showvar()</span></tt></a>, which in its
+<p>There are three levels of plotting commands. The highest levels, mostly
+prefixed by <code class="docutils literal notranslate"><span class="pre">show</span></code>, make the most assumptions about the structure of the plot
+they produce. The next level, prefixed with <code class="docutils literal notranslate"><span class="pre">v</span></code>, are more direct wrappers
+around matplotlib commands that are aware of PyGeode variables and try to make
+formatting decisions accordingly. The lowest level are very thin wrappers
+around individual matplotlib commands that know nothing about PyGeode
+variables, but allow for the most direct control. In the end the plots that are
+produced are matplotlib plots, so any level of customization that matplotlib is
+capable of can be achieved.</p>
+<p>The basic high-level plotting command is <a class="reference internal" href="plot.html#pygeode.showvar" title="pygeode.showvar"><code class="xref py py-func docutils literal notranslate"><span class="pre">showvar()</span></code></a>, which in its
 simplest form will plot a one or two dimensional variable:</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">pygeode</span> <span class="kn">as</span> <span class="nn">pyg</span><span class="p">;</span> <span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t1</span><span class="p">,</span> <span class="n">t2</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">pygeode</span> <span class="kn">as</span> <span class="nn">pyg</span><span class="p">;</span> <span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t1</span><span class="p">,</span> <span class="n">t2</span>
 
-<span class="c"># A line plot</span>
-<span class="gp">In [1]: </span><span class="n">pyg</span><span class="o">.</span><span class="n">showvar</span><span class="p">(</span><span class="n">t1</span><span class="o">.</span><span class="n">Temp</span><span class="p">(</span><span class="n">lat</span><span class="o">=</span><span class="mi">45</span><span class="p">))</span>
+<span class="go"># A line plot</span>
+<span class="gp">In [2]: </span><span class="n">pyg</span><span class="o">.</span><span class="n">showvar</span><span class="p">(</span><span class="n">t1</span><span class="o">.</span><span class="n">Temp</span><span class="p">(</span><span class="n">lat</span><span class="o">=</span><span class="mi">45</span><span class="p">))</span>
+<span class="gh">Out[2]: </span><span class="go">&lt;pygeode.plot.wrappers.AxesWrapper at 0x7fa6ebd495f8&gt;</span>
 
-<span class="c"># A contour plot</span>
-<span class="gp">In [1]: </span><span class="n">pyg</span><span class="o">.</span><span class="n">showvar</span><span class="p">(</span><span class="n">t1</span><span class="o">.</span><span class="n">Temp</span><span class="p">)</span>
+<span class="go"># A contour plot</span>
+<span class="gp">In [3]: </span><span class="n">pyg</span><span class="o">.</span><span class="n">showvar</span><span class="p">(</span><span class="n">t1</span><span class="o">.</span><span class="n">Temp</span><span class="p">)</span>
+<span class="gh">Out[3]: </span><span class="go">&lt;pygeode.plot.wrappers.AxesWrapper at 0x7fa6ebc78ba8&gt;</span>
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="_images/showvar1d.png"><img alt="_images/showvar1d.png" src="_images/showvar1d.png" style="width: 4in;" /></a>
 <a class="reference internal image-reference" href="_images/showvar2d.png"><img alt="_images/showvar2d.png" src="_images/showvar2d.png" style="width: 4in;" /></a>
 <p>The axes are labelled and formatted according to behaviour set by the axis
-objects (explained in more detail below), and the title is set from the variable
-name, and the coordinates of any degenerate axes. In the case of the contour
-plot, a colorbar is added automatically.</p>
+objects (explained in more detail below), and the title is set from the
+variable name as well as the coordinates of any degenerate axes. In the case of
+the contour plots, a colorbar is added automatically.</p>
+<div class="section" id="showvar">
+<h2>Showvar<a class="headerlink" href="#showvar" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="line-plots">
-<h2>Line Plots<a class="headerlink" href="#line-plots" title="Permalink to this headline">¶</a></h2>
-<p>If <a class="reference internal" href="plot.html#pygeode.showvar" title="pygeode.showvar"><tt class="xref py py-func docutils literal"><span class="pre">showvar()</span></tt></a> is passed a one dimensional variable, it will produce a
-line plot (ultimately using <tt class="xref py py-func docutils literal"><span class="pre">matplotlib.plot()</span></tt>), automatically extracting
+<h3>Line Plots<a class="headerlink" href="#line-plots" title="Permalink to this headline">¶</a></h3>
+<p>If <a class="reference internal" href="plot.html#pygeode.showvar" title="pygeode.showvar"><code class="xref py py-func docutils literal notranslate"><span class="pre">showvar()</span></code></a> is passed a one dimensional variable, it will produce a
+line plot (ultimately using <code class="xref py py-func docutils literal notranslate"><span class="pre">matplotlib.plot()</span></code>), automatically extracting
 the coordinates and values from the variable. If the axis is recognized by
 PyGeode as being a vertical axis, the plot will be transposed. This can be
-reversed if desired by setting the keyword argument <tt class="docutils literal"><span class="pre">transpose</span> <span class="pre">=</span> <span class="pre">True</span></tt>.</p>
+reversed if desired by setting the keyword argument <code class="docutils literal notranslate"><span class="pre">transpose</span> <span class="pre">=</span> <span class="pre">True</span></code>.</p>
 <p>Like the plot command, the format of the line can be set by passing a string
 immediately following the command; moreover, any other keyword argument
-recognized by <tt class="xref py py-func docutils literal"><span class="pre">matplotlib.plot()</span></tt> will be passed through.</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="c"># A vertical plot</span>
-<span class="gp">In [1]: </span><span class="n">pyg</span><span class="o">.</span><span class="n">showvar</span><span class="p">(</span><span class="n">t2</span><span class="o">.</span><span class="n">Temp</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s">&#39;time&#39;</span><span class="p">,</span> <span class="s">&#39;lat&#39;</span><span class="p">,</span> <span class="s">&#39;lon&#39;</span><span class="p">),</span> <span class="s">&#39;k--&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">3.</span><span class="p">)</span>
+recognized by <code class="xref py py-func docutils literal notranslate"><span class="pre">matplotlib.plot()</span></code> will be passed through.</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="go"># A vertical plot</span>
+<span class="gp">In [4]: </span><span class="n">pyg</span><span class="o">.</span><span class="n">showvar</span><span class="p">(</span><span class="n">t2</span><span class="o">.</span><span class="n">Temp</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">),</span> <span class="s1">&#39;k--&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">3.</span><span class="p">)</span>
+<span class="gh">Out[4]: </span><span class="go">&lt;pygeode.plot.wrappers.AxesWrapper at 0x7fa6eba9b668&gt;</span>
 
-<span class="c"># A transposed plot</span>
-<span class="gp">In [1]: </span><span class="n">pyg</span><span class="o">.</span><span class="n">showvar</span><span class="p">(</span><span class="n">t2</span><span class="o">.</span><span class="n">Temp</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s">&#39;time&#39;</span><span class="p">,</span> <span class="s">&#39;lat&#39;</span><span class="p">,</span> <span class="s">&#39;lon&#39;</span><span class="p">),</span> <span class="n">transpose</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+<span class="go"># A transposed plot</span>
+<span class="gp">In [5]: </span><span class="n">pyg</span><span class="o">.</span><span class="n">showvar</span><span class="p">(</span><span class="n">t2</span><span class="o">.</span><span class="n">Temp</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">),</span> <span class="n">transpose</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+<span class="gh">Out[5]: </span><span class="go">&lt;pygeode.plot.wrappers.AxesWrapper at 0x7fa6eb9d5ba8&gt;</span>
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="_images/lp_vertical.png"><img alt="_images/lp_vertical.png" src="_images/lp_vertical.png" style="width: 4in;" /></a>
 <a class="reference internal image-reference" href="_images/lp_transpose.png"><img alt="_images/lp_transpose.png" src="_images/lp_transpose.png" style="width: 4in;" /></a>
-<p>Notice that these commands all return a <tt class="xref py py-class docutils literal"><span class="pre">AxesWrapper</span></tt> object - this
-holds all the data and settings used to contruct your plot, and it can be used
-to make further modifications.</p>
 </div>
 <div class="section" id="contour-plots">
-<h2>Contour Plots<a class="headerlink" href="#contour-plots" title="Permalink to this headline">¶</a></h2>
-<p>Customizing contour levels</p>
-<p>basic plotting command; plotvar</p>
-<p>1d plots: - simple? axis annotation, titles, plotting to a particular axis, overplotting</p>
-<p>2d plots: specifying contour levels, filled vs lines; colorbar, projection, contour labels, pcolor,
-overplotting</p>
+<h3>Contour Plots<a class="headerlink" href="#contour-plots" title="Permalink to this headline">¶</a></h3>
+<p>The showvar command, if passed a two-dimensional variable, will also produce
+contour plots. If no arguments (beyond the variable to be plotted), a set of
+(filled) contour intervals and an appropriate colourmap is chosen based on
+whether it thinks the data is better presented as a ‘divergent’ quantity
+centred on zero, or a ‘sequential’ quantity; different algorithms for choosing
+the contour interval are used in each case.</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="go"># Sequential data</span>
+<span class="gp">In [6]: </span><span class="n">pyg</span><span class="o">.</span><span class="n">showvar</span><span class="p">(</span><span class="n">t2</span><span class="o">.</span><span class="n">Temp</span><span class="p">(</span><span class="n">pres</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">))</span>
+<span class="gh">Out[6]: </span><span class="go">&lt;pygeode.plot.wrappers.AxesWrapper at 0x7fa6eb920a90&gt;</span>
+
+<span class="go"># Divergent data</span>
+<span class="gp">In [7]: </span><span class="n">pyg</span><span class="o">.</span><span class="n">showvar</span><span class="p">(</span><span class="n">t2</span><span class="o">.</span><span class="n">U</span><span class="p">(</span><span class="n">pres</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">))</span>
+<span class="gh">Out[7]: </span><span class="go">&lt;pygeode.plot.wrappers.AxesWrapper at 0x7fa6ebe484a8&gt;</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/cp_sequential.png"><img alt="_images/cp_sequential.png" src="_images/cp_sequential.png" style="width: 4in;" /></a>
+<a class="reference internal image-reference" href="_images/cp_divergent.png"><img alt="_images/cp_divergent.png" src="_images/cp_divergent.png" style="width: 4in;" /></a>
+<p>PyGeode tries to choose a reasonably simple contour interval and sets the
+colourmap and tick labeling accordingly. Since the temperature data is centred
+away from zero, PyGeode assumes this is better plotted with a ‘sequential’
+colourmap, with gradients tending in a single direction. However, the wind data
+is centred around zero, so the contour intervals chosen are also centred around
+zero with a colourmap that emphasizes oppositely signed values.</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="go"># Create a sequential style colormap with three divisions, three</span>
+<span class="go"># contour lines and six filled intervals per division</span>
+<span class="gp">In [8]: </span><span class="n">pyg</span><span class="o">.</span><span class="n">showvar</span><span class="p">(</span><span class="n">t2</span><span class="o">.</span><span class="n">U</span><span class="p">(</span><span class="n">pres</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;seq&#39;</span><span class="p">,</span> <span class="n">ndiv</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">nl</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">nf</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+<span class="gh">Out[8]: </span><span class="go">&lt;pygeode.plot.wrappers.AxesWrapper at 0x7fa6eb1d5240&gt;</span>
+
+<span class="go"># Create a divergent style colormap with 4 divisions (two per side), each</span>
+<span class="go"># spanning 5. with five filled intervals (so that the filled interval is 1) and</span>
+<span class="go"># one contour line per division, omitting the zero contour line</span>
+<span class="gp">In [9]: </span><span class="n">pyg</span><span class="o">.</span><span class="n">showvar</span><span class="p">(</span><span class="n">t2</span><span class="o">.</span><span class="n">U</span><span class="p">(</span><span class="n">pres</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;div&#39;</span><span class="p">,</span> <span class="n">cdelt</span><span class="o">=</span><span class="mf">5.</span><span class="p">,</span> <span class="n">ndiv</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">nf</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">nozero</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="gh">Out[9]: </span><span class="go">&lt;pygeode.plot.wrappers.AxesWrapper at 0x7fa6eafc56a0&gt;</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/cp_autoclfex1.png"><img alt="_images/cp_autoclfex1.png" src="_images/cp_autoclfex1.png" style="width: 4in;" /></a>
+<a class="reference internal image-reference" href="_images/cp_autoclfex2.png"><img alt="_images/cp_autoclfex2.png" src="_images/cp_autoclfex2.png" style="width: 4in;" /></a>
+<p>The interval algorithm is based on a larger “division”, which sets the tick
+labels in the colorbar (and, along with the ‘style’, the colormap chosen by
+default). Each division is split up into an equal number of filled intervals
+(‘nf’) and lined intervals (‘nl’). The latter can be omitted entirely by
+setting ‘nl’ to zero.  The width of each interval can be specified explicitly
+with ‘cdelt’; if this is not given an appropriate value will be guessed.</p>
+<p>Other types of contouring can be produced by specifying the ‘type’
+keyword argument; possible values include:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="52%" />
+<col width="30%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Value of ‘type’</th>
+<th class="head">Style of plot</th>
+<th class="head">Underlying helper function</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>‘clf’</td>
+<td>Filled contour plot (default)</td>
+<td><code class="xref py py-func docutils literal notranslate"><span class="pre">plot.clfdict()</span></code></td>
+</tr>
+<tr class="row-odd"><td>‘cl’</td>
+<td>Line contour plot</td>
+<td><code class="xref py py-func docutils literal notranslate"><span class="pre">plot.cldict()</span></code></td>
+</tr>
+<tr class="row-even"><td>‘log’ or ‘log1s’</td>
+<td>Logarithmically-spaced contour plot</td>
+<td><code class="xref py py-func docutils literal notranslate"><span class="pre">plot.log1sdict()</span></code></td>
+</tr>
+<tr class="row-odd"><td>‘log2s’</td>
+<td>Two-sided, logarithmically-spaced contour plot</td>
+<td><code class="xref py py-func docutils literal notranslate"><span class="pre">plot.log2sdict()</span></code></td>
+</tr>
+</tbody>
+</table>
+<p>How the rest of the arguments passed to <a class="reference internal" href="plot.html#pygeode.showvar" title="pygeode.showvar"><code class="xref py py-func docutils literal notranslate"><span class="pre">showvar()</span></code></a> are parsed depends on
+this argument.  In each case these make use of a particular helper function
+which determines the appropriate contour intervals and colourmap; keyword
+arguments are passed through to the underlying function. While these details
+are transparent at this level, this is carried out by returning a dictionary of
+keyword arguments which is then passed on to the underlying <a class="reference internal" href="plot.html#pygeode.vcontour" title="pygeode.vcontour"><code class="xref py py-func docutils literal notranslate"><span class="pre">vcontour()</span></code></a>
+command which provides lower level control over the contouring performed.</p>
+</div>
+</div>
+<div class="section" id="showlines-showgrid">
+<h2>Showlines, Showgrid<a class="headerlink" href="#showlines-showgrid" title="Permalink to this headline">¶</a></h2>
+<p>One often wants to plot multiple variables at once. Two useful commands for
+this purpose are <a class="reference internal" href="plot.html#pygeode.showlines" title="pygeode.showlines"><code class="xref py py-func docutils literal notranslate"><span class="pre">showlines()</span></code></a> and <a class="reference internal" href="plot.html#pygeode.showgrid" title="pygeode.showgrid"><code class="xref py py-func docutils literal notranslate"><span class="pre">showgrid()</span></code></a>. Multiple
+1-dimensional variables can be plotted on the same axes with
+<a class="reference internal" href="plot.html#pygeode.showlines" title="pygeode.showlines"><code class="xref py py-func docutils literal notranslate"><span class="pre">showlines()</span></code></a>.</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [10]: </span><span class="n">tm</span> <span class="o">=</span> <span class="n">t2</span><span class="o">.</span><span class="n">Temp</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">)</span>
+
+<span class="go"># Multiple profiles</span>
+<span class="go">#@savefig showlines_ex.png width=4in</span>
+<span class="go">#In [2]: pyg.showlines([tm(lat=l) for l in [-60, -30, 0, 30, 60]])</span>
+</pre></div>
+</div>
+<p>In a similar vein, multiple contour plots can be plotted in a grid with the
+same contour intervals and a common colorbar.</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [11]: </span><span class="n">tm</span> <span class="o">=</span> <span class="n">t2</span><span class="o">.</span><span class="n">Temp</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">)</span>
+
+<span class="go"># Multiple contour plots</span>
+<span class="gp">In [12]: </span><span class="n">pyg</span><span class="o">.</span><span class="n">showgrid</span><span class="p">([</span><span class="n">tm</span><span class="p">(</span><span class="n">pres</span><span class="o">=</span><span class="n">p</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">100</span><span class="p">]],</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s1">&#39;seq&#39;</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">180</span><span class="p">,</span> <span class="n">cdelt</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">ndiv</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="gh">Out[12]: </span><span class="go">&lt;pygeode.plot.wrappers.AxesWrapper at 0x7fa6eadc4ac8&gt;</span>
+</pre></div>
+</div>
+<a class="reference internal image-reference" href="_images/showgrid_ex.png"><img alt="_images/showgrid_ex.png" src="_images/showgrid_ex.png" style="width: 8in;" /></a>
+</div>
+<div class="section" id="finer-control">
+<h2>Finer control<a class="headerlink" href="#finer-control" title="Permalink to this headline">¶</a></h2>
+<p>showlines</p>
+<p>showgrid</p>
+<p>Notice that these commands all return a <code class="xref py py-class docutils literal notranslate"><span class="pre">AxesWrapper</span></code> object - this
+holds all the data and settings used to contruct your plot, and it can be used
+to make further modifications.</p>
+<p>Some additional change.</p>
 </div>
 </div>
 
 
-          </div>
-        </div>
       </div>
-      <div class="sphinxsidebar">
-        <div class="sphinxsidebarwrapper">
-  <h3><a href="index.html">Table Of Contents</a></h3>
-  <ul>
-<li><a class="reference internal" href="#">Plotting</a><ul>
-<li><a class="reference internal" href="#line-plots">Line Plots</a></li>
-<li><a class="reference internal" href="#contour-plots">Contour Plots</a></li>
-</ul>
-</li>
-</ul>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        «&#160;&#160;<a href="tut_io.html">Variable input and output</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="gallery/index.html">Gallery</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="tut_axes.html">Working with Axes</a>&#160;&#160;»
+        </p>
 
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="tut_io.html"
-                        title="previous chapter">Variable input and output</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="tut_axes.html"
-                        title="next chapter">Working with Axes</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/tut_plot.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="tut_axes.html" title="Working with Axes"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="tut_io.html" title="Variable input and output"
-             >previous</a> |</li>
-        <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li>
-          <li><a href="tutorial.html" >Tutorial</a> &raquo;</li> 
-      </ul>
-    </div>
-    <div class="footer">
-        &copy; Copyright 2013, Mike Neish, Peter Hitchcock.
-      Last updated on Sep 13, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Mike Neish, Peter Hitchcock.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.
     </div>
   </body>
 </html>

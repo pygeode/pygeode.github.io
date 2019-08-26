@@ -1,69 +1,60 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Getting Started &mdash; PyGeode 1.0 alpha documentation</title>
-    
+    <title>Getting Started &#8212; PyGeode 1.3 pre-release documentation</title>
     <link rel="stylesheet" href="_static/pygtheme.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '1.0 alpha',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
+    <link rel="stylesheet" type="text/css" href="_static/gallery.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="PyGeode 1.0 alpha documentation" href="index.html" />
-    <link rel="up" title="Tutorial" href="tutorial.html" />
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Basic Operations" href="tut_basics.html" />
     <link rel="prev" title="Tutorial" href="tutorial.html" />
 <link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
 
-  </head>
-  <body>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="tut_basics.html" title="Basic Operations"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="tutorial.html" title="Tutorial"
-             accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li>
-          <li><a href="tutorial.html" accesskey="U">Tutorial</a> &raquo;</li> 
-      </ul>
-    </div>  
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="index.html">
+          <span>PyGeode 1.3 pre-release documentation</span></a></h1>
+        <h2 class="heading"><span>Getting Started</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        «&#160;&#160;<a href="tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="gallery/index.html">Gallery</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="tut_basics.html">Basic Operations</a>&#160;&#160;»
+        </p>
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
-            
+      </div>
+      <div class="content">
+        
+        
   <div class="section" id="getting-started">
 <h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
-<p>We&#8217;ll start by taking a look at a couple of synthetic datasets defined in the
+<p>We’ll start by taking a look at a couple of synthetic datasets defined in the
 tutorial module of PyGeode. The first such dataset can be imported as follows:</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">pygeode</span> <span class="kn">as</span> <span class="nn">pyg</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [1]: </span><span class="kn">import</span> <span class="nn">pygeode</span> <span class="kn">as</span> <span class="nn">pyg</span>
 
 <span class="gp">In [2]: </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t1</span>
 
-<span class="gp">In [3]: </span><span class="k">print</span> <span class="n">t1</span>
+<span class="gp">In [3]: </span><span class="k">print</span><span class="p">(</span><span class="n">t1</span><span class="p">)</span>
 <span class="go">&lt;Dataset&gt;:</span>
 <span class="go">Vars:</span>
 <span class="go">  Temp (lat,lon)  (31,60)</span>
@@ -74,12 +65,12 @@ tutorial module of PyGeode. The first such dataset can be imported as follows:</
 <span class="go">  {&#39;history&#39;: &#39;Synthetic Temperature data generated by pygeode&#39;}</span>
 </pre></div>
 </div>
-<p>We can see the dataset <tt class="docutils literal"><span class="pre">t1</span></tt> contains one pygeode variable object, <tt class="docutils literal"><span class="pre">Temp</span></tt>,
-which is defined on a two dimensional grid of 32 latitudes and 64 longitudes.
-The grid is defined by the two pygeode axes objects, <tt class="docutils literal"><span class="pre">lat</span></tt> and <tt class="docutils literal"><span class="pre">lon</span></tt>,
-which span from 85 S to 85 N, and from 0 E to 354 E. respectively.</p>
-<p>We can take a closer look at our variable <tt class="docutils literal"><span class="pre">Temp</span></tt>:</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [4]: </span><span class="k">print</span> <span class="n">t1</span><span class="o">.</span><span class="n">Temp</span>
+<p>The dataset <code class="docutils literal notranslate"><span class="pre">t1</span></code> contains one pygeode variable object, <code class="docutils literal notranslate"><span class="pre">Temp</span></code>, which is
+defined on a two dimensional grid of 31 latitudes and 60 longitudes.  The grid
+is defined by the two pygeode axes objects, <code class="docutils literal notranslate"><span class="pre">lat</span></code> and <code class="docutils literal notranslate"><span class="pre">lon</span></code>, which span
+from 85 S to 85 N, and from 0 E to 354 E. respectively.</p>
+<p>We can take a closer look at our variable <code class="docutils literal notranslate"><span class="pre">Temp</span></code>:</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [4]: </span><span class="k">print</span><span class="p">(</span><span class="n">t1</span><span class="o">.</span><span class="n">Temp</span><span class="p">)</span>
 <span class="go">&lt;Var &#39;Temp&#39;&gt;:</span>
 <span class="go">  Units: K  Shape:  (lat,lon)  (31,60)</span>
 <span class="go">  Axes:</span>
@@ -94,22 +85,26 @@ which span from 85 S to 85 N, and from 0 E to 354 E. respectively.</p>
 variable is defined, as well that the temperatures are defined in degrees
 Kelvin.</p>
 <p>Finally, we can look as well at one of our axes:</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [5]: </span><span class="k">print</span> <span class="n">t1</span><span class="o">.</span><span class="n">lat</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [5]: </span><span class="k">print</span><span class="p">(</span><span class="n">t1</span><span class="o">.</span><span class="n">lat</span><span class="p">)</span>
 <span class="go">lat &lt;Lat&gt;      :  90 S to 90 N (31 values)</span>
 </pre></div>
 </div>
-<p>which we could also access as a member of the variable <tt class="docutils literal"><span class="pre">Temp</span></tt>: <tt class="docutils literal"><span class="pre">t1.Temp.lat</span></tt>.</p>
+<p>which we could also access as a member of the variable <code class="docutils literal notranslate"><span class="pre">Temp</span></code>: <code class="docutils literal notranslate"><span class="pre">t1.Temp.lat</span></code>.</p>
 <p>These three types of objects, variables, axes, and datasets, are the core of
-PyGeode. Variables (<a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a>) encapsulate a scalar field such as temperature
-or one component of the wind field. Axes (<a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><tt class="xref py py-class docutils literal"><span class="pre">Axis</span></tt></a>), which are in fact
+PyGeode. Variables (<a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a>) encapsulate a scalar field such as temperature
+or one component of the wind field. Axes (<a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><code class="xref py py-class docutils literal notranslate"><span class="pre">Axis</span></code></a>), which are in fact
 special cases of variables, define the geophysical grid on which the scalar
-field exists. Finally, datasets (<a class="reference internal" href="dataset.html#pygeode.Dataset" title="pygeode.Dataset"><tt class="xref py py-class docutils literal"><span class="pre">Dataset</span></tt></a>) are containers for variables.
+field exists. Finally, datasets (<a class="reference internal" href="dataset.html#pygeode.Dataset" title="pygeode.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a>) are containers for variables.
 These concepts match reasonably closely to their counterparts in NetCDF files
-(and indeed PyGeode works very naturally with NetCDF files). We&#8217;ll learn more
-about all three soon, but to get a quick feel of what PyGeode can do, let&#8217;s try
+(and indeed PyGeode works very naturally with NetCDF files). We’ll learn more
+about all three soon, but to get a quick feel of what PyGeode can do, let’s try
 plotting the contents of our first variable:</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [8]: </span><span class="n">pyg</span><span class="o">.</span><span class="n">showvar</span><span class="p">(</span><span class="n">t1</span><span class="o">.</span><span class="n">Temp</span><span class="p">)</span>
-<span class="gr">Out[8]: </span><span class="o">&lt;</span><span class="n">pygeode</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">wrappers</span><span class="o">.</span><span class="n">AxesWrapper</span> <span class="n">instance</span> <span class="n">at</span> <span class="mh">0x2b6cec2095a8</span><span class="o">&gt;</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="go"># Depending on what python interpreter you are using, you may need to run</span>
+<span class="go"># these commands to access the plotting functionality of matplotlib</span>
+<span class="gp">In [6]: </span><span class="kn">import</span> <span class="nn">pylab</span> <span class="kn">as</span> <span class="nn">pyl</span><span class="p">;</span> <span class="n">pyl</span><span class="o">.</span><span class="n">ion</span><span class="p">();</span>
+
+<span class="gp">In [7]: </span><span class="n">pyg</span><span class="o">.</span><span class="n">showvar</span><span class="p">(</span><span class="n">t1</span><span class="o">.</span><span class="n">Temp</span><span class="p">)</span>
+<span class="gh">Out[7]: </span><span class="go">&lt;pygeode.plot.wrappers.AxesWrapper at 0x7fa6ec2a04a8&gt;</span>
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="_images/t1Temp.png"><img alt="_images/t1Temp.png" src="_images/t1Temp.png" style="width: 6in;" /></a>
@@ -118,14 +113,14 @@ installed, data on a lat-lon grid is plotted over the outline of the continents
 using a cylindrical projection. All plots generated by PyGeode are in fact
 generated using the matplotlib library; the plotvar command simply makes many
 educated guesses about the type of plot you might want to generate based on the
-variable you&#8217;ve passed in. Many aspects of the plot can be customized through
-the plotvar interface (which we&#8217;ll get into later on in this tutorial), but if
-you find you can&#8217;t tweak things just so, the plot can always be manipulated
+variable you’ve passed in. Many aspects of the plot can be customized through
+the plotvar interface (which we’ll get into later on in this tutorial), but if
+you find you can’t tweak things just so, the plot can always be manipulated
 using the matplotlib library itself which gives you full control.</p>
-<p>Now let&#8217;s take a look at a second dataset:</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [9]: </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t2</span>
+<p>Now let’s take a look at a second dataset:</p>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [8]: </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t2</span>
 
-<span class="gp">In [10]: </span><span class="k">print</span> <span class="n">t2</span>
+<span class="gp">In [9]: </span><span class="k">print</span><span class="p">(</span><span class="n">t2</span><span class="p">)</span>
 <span class="go">&lt;Dataset&gt;:</span>
 <span class="go">Vars:</span>
 <span class="go">  Temp (time,pres,lat,lon)  (3650,20,31,60)</span>
@@ -141,16 +136,16 @@ using the matplotlib library itself which gives you full control.</p>
 </div>
 <p>This is a somewhat more complicated temperature field, now defined on four
 dimensions: time, pressure, latitude and longitude. Note this grid has over 350
-million data points&#8211;enough that the 2010-era laptop this tutorial was first
+million data points–enough that the 2010-era laptop this tutorial was first
 written on would complain if we attempted to load all of it into memory at once.
 This brings us to one of the major guiding assumptions of pygeode - that since
-we haven&#8217;t done anything that needs the data itself, none of it has yet been
+we haven’t done anything that needs the data itself, none of it has yet been
 loaded or computed.  We can, nonetheless, manipulate this variable as if it has:</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [11]: </span><span class="n">Tc</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">climatology</span><span class="p">(</span><span class="n">t2</span><span class="o">.</span><span class="n">Temp</span><span class="p">)</span>    <span class="c"># Compute the climatology</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [10]: </span><span class="n">Tc</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">climatology</span><span class="p">(</span><span class="n">t2</span><span class="o">.</span><span class="n">Temp</span><span class="p">)</span>    <span class="c1"># Compute the climatology</span>
 
-<span class="gp">In [12]: </span><span class="n">Tcz</span> <span class="o">=</span> <span class="n">Tc</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s">&#39;lon&#39;</span><span class="p">)</span>        <span class="c"># Compute the zonal mean</span>
+<span class="gp">In [11]: </span><span class="n">Tcz</span> <span class="o">=</span> <span class="n">Tc</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="s1">&#39;lon&#39;</span><span class="p">)</span>        <span class="c1"># Compute the zonal mean</span>
 
-<span class="gp">In [13]: </span><span class="k">print</span> <span class="n">Tcz</span>
+<span class="gp">In [12]: </span><span class="k">print</span><span class="p">(</span><span class="n">Tcz</span><span class="p">)</span>
 <span class="go">&lt;Var &#39;Temp_clim_mean&#39;&gt;:</span>
 <span class="go">  Shape:  (time,pres,lat)  (365,20,31)</span>
 <span class="go">  Axes:</span>
@@ -161,10 +156,12 @@ loaded or computed.  We can, nonetheless, manipulate this variable as if it has:
 <span class="go">    {}</span>
 <span class="go">  Type:  MeanVar (dtype=&quot;float64&quot;)</span>
 
-<span class="gp">In [14]: </span><span class="n">Tcp</span> <span class="o">=</span> <span class="n">Tc</span> <span class="o">-</span> <span class="n">Tcz</span>              <span class="c"># Compute anomaly from the zonal mean</span>
+<span class="gp">In [13]: </span><span class="n">Tcp</span> <span class="o">=</span> <span class="n">Tc</span> <span class="o">-</span> <span class="n">Tcz</span>              <span class="c1"># Compute anomaly from the zonal mean</span>
 
-<span class="gp">In [15]: </span><span class="k">print</span> <span class="n">Tcp</span>
-<span class="go">&lt;Var &#39;(Temp_clim_mean-Temp_clim_mean)&#39;&gt;:</span>
+<span class="gp">In [14]: </span><span class="n">Tcp</span> <span class="o">=</span> <span class="n">Tcp</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s2">&quot;T&#39;&quot;</span><span class="p">)</span>      <span class="c1"># Rename variable</span>
+
+<span class="gp">In [15]: </span><span class="k">print</span><span class="p">(</span><span class="n">Tcp</span><span class="p">)</span>
+<span class="go">&lt;Var &#39;T&#39;&#39;&gt;:</span>
 <span class="go">  Shape:  (time,pres,lat,lon)  (365,20,31,60)</span>
 <span class="go">  Axes:</span>
 <span class="go">    time &lt;ModelTime365&gt;:  Jan 1,  00:00:00 to Dec 31,  00:00:00 (365 values)</span>
@@ -173,19 +170,19 @@ loaded or computed.  We can, nonetheless, manipulate this variable as if it has:
 <span class="go">    lon &lt;Lon&gt;      :  0 E to 354 E (60 values)</span>
 <span class="go">  Attributes:</span>
 <span class="go">    {}</span>
-<span class="go">  Type:  Sub_Var (dtype=&quot;float64&quot;)</span>
+<span class="go">  Type:  RenamedVar (dtype=&quot;float64&quot;)</span>
 </pre></div>
 </div>
-<p>We&#8217;ve now computed (at least an abstract sense) the climatolgical anomaly from
-the zonal mean. Note that <tt class="docutils literal"><span class="pre">Tcz</span></tt> is defined on a reduced grid (we&#8217;ve lost the
-<tt class="docutils literal"><span class="pre">Lon</span></tt> axis), and it looks and behaves just like any other PyGeode variable;
-PyGeode has some automatic logic for properly aligning <tt class="docutils literal"><span class="pre">Tc</span></tt> and <tt class="docutils literal"><span class="pre">Tcz</span></tt> when
+<p>We’ve now computed (at least an abstract sense) the climatolgical anomaly from
+the zonal mean. Note that <code class="docutils literal notranslate"><span class="pre">Tcz</span></code> is defined on a reduced grid (we’ve lost the
+<code class="docutils literal notranslate"><span class="pre">Lon</span></code> axis), and it looks and behaves just like any other PyGeode variable;
+PyGeode has some automatic logic for properly aligning <code class="docutils literal notranslate"><span class="pre">Tc</span></code> and <code class="docutils literal notranslate"><span class="pre">Tcz</span></code> when
 taking their difference. However, no data has yet been loaded, no actual
-averages have been taken, and no differences computed, since we haven&#8217;t done
+averages have been taken, and no differences computed, since we haven’t done
 anything that needs the data. If we now go and plot the near-surface,
 high-latitude anomaly of our synthetic dataset:</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [16]: </span><span class="n">pyg</span><span class="o">.</span><span class="n">showvar</span><span class="p">(</span><span class="n">Tcp</span><span class="p">(</span><span class="n">pres</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="s">&#39;15 Jun 00&#39;</span><span class="p">))</span>
-<span class="gr">Out[16]: </span><span class="o">&lt;</span><span class="n">pygeode</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">wrappers</span><span class="o">.</span><span class="n">AxesWrapper</span> <span class="n">instance</span> <span class="n">at</span> <span class="mh">0x2b6cec5c4e60</span><span class="o">&gt;</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [16]: </span><span class="n">pyg</span><span class="o">.</span><span class="n">showvar</span><span class="p">(</span><span class="n">Tcp</span><span class="p">(</span><span class="n">pres</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="s1">&#39;15 Jun 00&#39;</span><span class="p">))</span>
+<span class="gh">Out[16]: </span><span class="go">&lt;pygeode.plot.wrappers.AxesWrapper at 0x7fa6edb99cc0&gt;</span>
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="_images/Tcp.png"><img alt="_images/Tcp.png" src="_images/Tcp.png" style="width: 6in;" /></a>
@@ -197,25 +194,25 @@ matplotlib to produce a nice contour plot.</p>
 nowhere did we need to remember which dimension of an array corresponded to
 time and which corresponded to longitude; nor did we need to know what index
 described the 1000 hPa pressure level, or which corresponded to the 15th of
-June. Moreover, we could take the difference between two fields (<tt class="docutils literal"><span class="pre">Tc</span></tt> and
-<tt class="docutils literal"><span class="pre">Tcz</span></tt>) which weren&#8217;t defined on the same grid&#8211;PyGeode takes care of the
+June. Moreover, we could take the difference between two fields (<code class="docutils literal notranslate"><span class="pre">Tc</span></code> and
+<code class="docutils literal notranslate"><span class="pre">Tcz</span></code>) which weren’t defined on the same grid–PyGeode takes care of the
 broadcasting and alignment of the underlying numpy arrays for us, leaving us to
-think about the problem we&#8217;re trying to solve in the physical coordinate space
-of our data. The underlying mapping is of course still there, and if it&#8217;s ever
+think about the problem we’re trying to solve in the physical coordinate space
+of our data. The underlying mapping is of course still there, and if it’s ever
 more convenient to think in the space of the data arrays, you are still free to
 do so; the relevant syntax and commands are described later in this tutorial.</p>
-<p>&#8216;This is all fine and good,&#8217; you may be thinking, &#8216;but how do I work with my
-own data?&#8217; PyGeode supports a number of data formats, though it works most
+<p>‘This is all fine and good,’ you may be thinking, ‘but how do I work with my
+own data?’ PyGeode supports a number of data formats, though it works most
 naturally with NetCDF (or HDF5) files. As an example, the synthetic dataset
 used above can be written out to a NetCDF file (this assumes that a
-subdirectory called &#8216;sample_data&#8217; already exists in your working directory):</p>
-<div class="highlight-ipython" id="tutsavefile"><div class="highlight"><pre><span class="gp">In [17]: </span><span class="n">pyg</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s">&#39;sample_data/file.nc&#39;</span><span class="p">,</span> <span class="n">t1</span><span class="p">)</span>
+subdirectory called ‘sample_data’ already exists in your working directory):</p>
+<div class="highlight-ipython notranslate" id="tutsavefile"><div class="highlight"><pre><span></span><span class="gp">In [17]: </span><span class="n">pyg</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;sample_data/file.nc&#39;</span><span class="p">,</span> <span class="n">t1</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>and then read back in using:</p>
-<div class="highlight-ipython"><div class="highlight"><pre><span class="gp">In [18]: </span><span class="n">ds</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s">&#39;sample_data/file.nc&#39;</span><span class="p">)</span>
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [18]: </span><span class="n">ds</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;sample_data/file.nc&#39;</span><span class="p">)</span>
 
-<span class="gp">In [19]: </span><span class="k">print</span> <span class="n">ds</span>
+<span class="gp">In [19]: </span><span class="k">print</span><span class="p">(</span><span class="n">ds</span><span class="p">)</span>
 <span class="go">&lt;Dataset&gt;:</span>
 <span class="go">Vars:</span>
 <span class="go">  Temp (lat,lon)  (31,60)</span>
@@ -232,71 +229,38 @@ accordingly, following the CF metadata standard used for climate data. Datasets
 that span multiple files can be handled as well, and one can tailor these calls
 so that PyGeode properly recognizes your data regardless of the metadata in the
 file.</p>
-<p>This concludes the introductory tutorial. We&#8217;ve seen the three basic objects in
-PyGeode: variables (<a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><tt class="xref py py-class docutils literal"><span class="pre">Var</span></tt></a>), axes (<a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><tt class="xref py py-class docutils literal"><span class="pre">Axis</span></tt></a>) and datasets
-(<a class="reference internal" href="dataset.html#pygeode.Dataset" title="pygeode.Dataset"><tt class="xref py py-class docutils literal"><span class="pre">Dataset</span></tt></a>). We&#8217;ve seen examples of how PyGeode carries out all
-operations in a &#8216;lazy&#8217; fashion, delaying all loading and processing of data
-until the output is explicitly required. We&#8217;ve seen a few examples of the
+<p>This concludes the introductory tutorial. We’ve seen the three basic objects in
+PyGeode: variables (<a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a>), axes (<a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><code class="xref py py-class docutils literal notranslate"><span class="pre">Axis</span></code></a>) and datasets
+(<a class="reference internal" href="dataset.html#pygeode.Dataset" title="pygeode.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a>). We’ve seen examples of how PyGeode carries out all
+operations in a ‘lazy’ fashion, delaying all loading and processing of data
+until the output is explicitly required. We’ve seen a few examples of the
 automatic annotation of plots that PyGeode takes care of for you, and finally
-we&#8217;ve seen how to save and load data to a file. The next part of these
-tutorials gives a deeper introduction to the <a class="reference internal" href="tut_basics.html"><em>Basic Operations</em></a> that one can
+we’ve seen how to save and load data to a file. The next part of these
+tutorials gives a deeper introduction to the <a class="reference internal" href="tut_basics.html"><span class="doc">Basic Operations</span></a> that one can
 perform on PyGeode variables.</p>
 </div>
 
 
-          </div>
-        </div>
       </div>
-      <div class="sphinxsidebar">
-        <div class="sphinxsidebarwrapper">
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="tutorial.html"
-                        title="previous chapter">Tutorial</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="tut_basics.html"
-                        title="next chapter">Basic Operations</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/tut_gettingstarted.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        «&#160;&#160;<a href="tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="gallery/index.html">Gallery</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="tut_basics.html">Basic Operations</a>&#160;&#160;»
+        </p>
+
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="tut_basics.html" title="Basic Operations"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="tutorial.html" title="Tutorial"
-             >previous</a> |</li>
-        <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li>
-          <li><a href="tutorial.html" >Tutorial</a> &raquo;</li> 
-      </ul>
-    </div>
-    <div class="footer">
-        &copy; Copyright 2013, Mike Neish, Peter Hitchcock.
-      Last updated on Sep 13, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Mike Neish, Peter Hitchcock.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.
     </div>
   </body>
 </html>

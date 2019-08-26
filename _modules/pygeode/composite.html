@@ -1,0 +1,458 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>pygeode.composite &#8212; PyGeode 1.3 pre-release documentation</title>
+    <link rel="stylesheet" href="../../_static/pygtheme.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
+
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../../index.html">
+          <span>PyGeode 1.3 pre-release documentation</span></a></h1>
+        <h2 class="heading"><span>pygeode.composite</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        <a class="uplink" href="../../reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../gallery/index.html">Gallery</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <h1>Source code for pygeode.composite</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/python</span>
+
+<span class="c1"># Composite axis</span>
+
+<span class="c1"># Note: since negative offsets can&#39;t be used directly in a slice (they mean something else),</span>
+<span class="c1"># you need to use the &#39;select&#39; command.</span>
+<span class="c1"># i.e., for a dataset with 10 timesteps, the offsets available are</span>
+<span class="c1">#  -9 to 9  ( [-9,-8,-7,-6,-5,-4,-3,-2,-1,0,1,2,3,4,5,6,7,8,9]</span>
+<span class="c1"># so, to use offset -8, do var.select(offset=-8)</span>
+
+<span class="kn">from</span> <span class="nn">pygeode.var</span> <span class="k">import</span> <span class="n">Var</span>
+<span class="kn">from</span> <span class="nn">pygeode.axis</span> <span class="k">import</span> <span class="n">Axis</span><span class="p">,</span> <span class="n">NamedAxis</span>
+<span class="kn">from</span> <span class="nn">pygeode.timeaxis</span> <span class="k">import</span> <span class="n">ModelTime365</span>
+
+<span class="k">class</span> <span class="nc">Event</span><span class="p">(</span><span class="n">Axis</span><span class="p">):</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;event&#39;</span>
+<span class="k">class</span> <span class="nc">Offset</span><span class="p">(</span><span class="n">Axis</span><span class="p">):</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;offset&#39;</span>
+
+<span class="k">class</span> <span class="nc">CompositeVar</span><span class="p">(</span><span class="n">Var</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;CompositeVar(var, caxis, cinds)</span>
+<span class="sd">    Creates a new view of pygeode variable var&#39;&#39;&#39;</span>
+
+  <span class="k">def</span> <span class="nf">__init__</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">iaxis</span><span class="p">,</span> <span class="n">ievents</span><span class="p">,</span> <span class="n">evlen</span><span class="p">,</span> <span class="n">evoff</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">saxes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sindices</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+  <span class="c1">#{{{</span>
+    <span class="c1"># Replace the time axis with a reference time (of an event?), and the offset</span>
+    <span class="c1"># from that event.</span>
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+    <span class="n">ievents</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">ievents</span><span class="p">)</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">ievents</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">caxis</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">iaxis</span><span class="p">]</span>
+
+    <span class="c1"># Event offsets can either be specified per event or as a single offset</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">evoff</span><span class="p">,</span> <span class="s1">&#39;__len__&#39;</span><span class="p">):</span>
+      <span class="n">evoff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">evoff</span><span class="p">)</span>
+      <span class="n">mevoff</span> <span class="o">=</span> <span class="n">evoff</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+      <span class="k">assert</span> <span class="n">evoff</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">ievents</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="s2">&quot;The number of event offsets provided does not match the number of events.&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">mevoff</span> <span class="o">=</span> <span class="n">evoff</span>
+      <span class="n">evoff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="s1">&#39;i&#39;</span><span class="p">)</span> <span class="o">*</span> <span class="n">mevoff</span>
+
+    <span class="c1"># Event lengths can either be specified per event or as a single length</span>
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">evlen</span><span class="p">,</span> <span class="s1">&#39;__len__&#39;</span><span class="p">):</span>
+      <span class="n">evlen</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">evlen</span><span class="p">)</span>
+      <span class="n">mevlen</span> <span class="o">=</span> <span class="p">(</span><span class="n">evlen</span> <span class="o">-</span> <span class="n">evoff</span> <span class="o">+</span> <span class="n">mevoff</span><span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+      <span class="k">assert</span> <span class="n">evlen</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">ievents</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="s2">&quot;The number of event lengths provided does not match the number of events.&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">mevlen</span> <span class="o">=</span> <span class="n">evlen</span>
+      <span class="n">evlen</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="s1">&#39;i&#39;</span><span class="p">)</span> <span class="o">*</span> <span class="n">mevlen</span>
+
+    <span class="c1"># Construct event and offset axes</span>
+    <span class="kn">from</span> <span class="nn">pygeode.timeaxis</span> <span class="k">import</span> <span class="n">Time</span><span class="p">,</span> <span class="n">Yearless</span>
+    <span class="kn">from</span> <span class="nn">pygeode</span> <span class="k">import</span> <span class="n">timeutils</span>
+    <span class="n">ev</span> <span class="o">=</span> <span class="n">Event</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">indices</span><span class="o">=</span><span class="n">ievents</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">caxis</span><span class="p">,</span> <span class="n">Time</span><span class="p">):</span>
+      <span class="n">units</span> <span class="o">=</span> <span class="n">caxis</span><span class="o">.</span><span class="n">units</span>
+      <span class="n">delta</span> <span class="o">=</span> <span class="n">timeutils</span><span class="o">.</span><span class="n">delta</span><span class="p">(</span><span class="n">caxis</span><span class="p">,</span> <span class="n">units</span> <span class="o">=</span> <span class="n">units</span><span class="p">)</span>
+      <span class="n">off</span> <span class="o">=</span> <span class="n">Yearless</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="n">delta</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="n">mevoff</span><span class="p">,</span> <span class="n">mevlen</span><span class="o">-</span><span class="n">mevoff</span><span class="p">),</span> <span class="n">units</span><span class="o">=</span><span class="n">units</span><span class="p">,</span> <span class="n">startdate</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;day&#39;</span><span class="p">:</span><span class="mi">0</span><span class="p">})</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">off</span> <span class="o">=</span> <span class="n">Offset</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="n">mevoff</span><span class="p">,</span> <span class="n">mevlen</span><span class="o">-</span><span class="n">mevoff</span><span class="p">))</span>
+    <span class="n">axes</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">axes</span><span class="p">[:</span><span class="n">iaxis</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">ev</span><span class="p">,</span> <span class="n">off</span><span class="p">)</span> <span class="o">+</span> <span class="n">var</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">iaxis</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span>
+
+    <span class="c1"># Build var object</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">var</span> <span class="o">=</span> <span class="n">var</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">iaxis</span> <span class="o">=</span> <span class="n">iaxis</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">evlens</span> <span class="o">=</span> <span class="n">evlen</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">mevlen</span> <span class="o">=</span> <span class="n">mevlen</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">evoffs</span> <span class="o">=</span> <span class="n">evoff</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">mevoff</span> <span class="o">=</span> <span class="n">mevoff</span>
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">iev</span><span class="p">,</span> <span class="n">el</span><span class="p">,</span> <span class="n">eo</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">ievents</span><span class="p">,</span> <span class="n">evlen</span><span class="p">,</span> <span class="n">evoff</span><span class="p">)):</span>
+      <span class="k">if</span> <span class="n">iev</span> <span class="o">-</span> <span class="n">eo</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">evoffs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">iev</span> <span class="o">-</span> <span class="n">eo</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">evlens</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-=</span> <span class="n">iev</span> <span class="o">-</span> <span class="n">eo</span>
+      <span class="k">if</span> <span class="n">iev</span> <span class="o">-</span> <span class="n">eo</span> <span class="o">+</span> <span class="n">el</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">caxis</span><span class="p">):</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">evlens</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">caxis</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">iev</span> <span class="o">-</span> <span class="n">eo</span><span class="p">)</span>
+
+      <span class="c1">#assert iev - eo &gt;= 0 and iev - eo + el &lt; len(caxis), \</span>
+         <span class="c1">#&#39;Event %d (i: %d) is not fully defined&#39; % (np.where(ievents==iev)[0][0], iev)</span>
+    <span class="n">Var</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">var</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">var</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">atts</span><span class="o">=</span><span class="n">var</span><span class="o">.</span><span class="n">atts</span><span class="p">,</span> <span class="n">plotatts</span><span class="o">=</span><span class="n">var</span><span class="o">.</span><span class="n">plotatts</span><span class="p">)</span>
+  <span class="c1">#}}}</span>
+
+  <span class="k">def</span> <span class="nf">getview</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">pbar</span><span class="p">):</span>
+  <span class="c1">#{{{</span>
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+    <span class="n">src</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">var</span>
+    <span class="n">iev</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iaxis</span>     <span class="c1"># Index of event axis</span>
+    <span class="n">iof</span> <span class="o">=</span> <span class="n">iev</span> <span class="o">+</span> <span class="mi">1</span>        <span class="c1"># Index of offset axis</span>
+    <span class="n">icm</span> <span class="o">=</span> <span class="n">iev</span>            <span class="c1"># Index of composited (source) axis</span>
+
+    <span class="c1"># We will need to slice into the output array</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="n">out</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+    <span class="n">outsl</span> <span class="o">=</span> <span class="p">[</span><span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">naxes</span><span class="p">)]</span>
+    <span class="n">iofsl</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="n">clip</span><span class="p">()</span><span class="o">.</span><span class="n">integer_indices</span><span class="p">[</span><span class="n">iof</span><span class="p">]</span>
+
+    <span class="c1"># Prepare view on composited variable</span>
+    <span class="n">icmsl</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="n">integer_indices</span><span class="p">[</span><span class="n">iof</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">mevoff</span>
+    <span class="n">inviewt</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">iev</span><span class="p">,</span> <span class="n">iof</span><span class="p">)</span><span class="o">.</span><span class="n">add_axis</span><span class="p">(</span><span class="n">icm</span><span class="p">,</span> <span class="n">src</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">icm</span><span class="p">],</span> <span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">))</span>
+
+    <span class="c1"># Loop over events, get requested subset of composited axis</span>
+    <span class="n">ievsl</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="n">integer_indices</span><span class="p">[</span><span class="n">iev</span><span class="p">]</span>
+    <span class="n">events</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">iev</span><span class="p">]</span><span class="o">.</span><span class="n">indices</span><span class="p">[</span><span class="n">ievsl</span><span class="p">]</span>
+    <span class="n">evlens</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">evlens</span><span class="p">[</span><span class="n">ievsl</span><span class="p">]</span>
+    <span class="n">evoffs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">evoffs</span><span class="p">[</span><span class="n">ievsl</span><span class="p">]</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ievsl</span><span class="p">)</span>
+
+    <span class="n">progs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ev</span><span class="p">,</span> <span class="n">el</span><span class="p">,</span> <span class="n">eo</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="n">events</span><span class="p">,</span> <span class="n">evlens</span><span class="p">,</span> <span class="n">evoffs</span><span class="p">):</span>
+      <span class="c1"># Construct slice on composite variable for this event</span>
+      <span class="n">mask</span> <span class="o">=</span> <span class="p">(</span><span class="n">icmsl</span> <span class="o">&gt;=</span> <span class="o">-</span><span class="n">eo</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">icmsl</span> <span class="o">&lt;</span> <span class="n">el</span><span class="o">-</span><span class="n">eo</span><span class="p">)</span>
+      <span class="n">icsl</span> <span class="o">=</span> <span class="n">icmsl</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span> <span class="o">+</span> <span class="n">ev</span>
+      <span class="n">inview</span> <span class="o">=</span> <span class="n">inviewt</span><span class="o">.</span><span class="n">modify_slice</span><span class="p">(</span><span class="n">icm</span><span class="p">,</span> <span class="n">icsl</span><span class="p">)</span>
+
+      <span class="c1"># Construct slice into output array; clip to this events&#39; duration</span>
+      <span class="n">outsl</span><span class="p">[</span><span class="n">iev</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span>
+      <span class="n">outsl</span><span class="p">[</span><span class="n">iof</span><span class="p">]</span> <span class="o">=</span> <span class="n">iofsl</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span>
+      <span class="n">out</span><span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">outsl</span><span class="p">)]</span> <span class="o">=</span> <span class="n">inview</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">pbar</span><span class="o">=</span><span class="n">pbar</span><span class="o">.</span><span class="n">subset</span><span class="p">(</span><span class="n">progs</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">progs</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]))</span>
+
+    <span class="k">return</span> <span class="n">out</span>
+  <span class="c1">#}}}</span>
+
+<span class="k">def</span> <span class="nf">composite</span> <span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+  <span class="sd">&#39;&#39;&#39;Creates a composite based on this variable.</span>
+
+<span class="sd">  Parameters</span>
+<span class="sd">  ----------</span>
+<span class="sd">  &lt;axis selection&gt; : string</span>
+<span class="sd">    A single axis selection string (similar to :func:`Var.__call__`) that</span>
+<span class="sd">    specifies the central &#39;date&#39; of each event to composite (although</span>
+<span class="sd">    composites need not be constructed along time axes). See Notes.</span>
+<span class="sd">  evlen : int</span>
+<span class="sd">    Length of segement around each central &#39;date&#39; to extract.</span>
+<span class="sd">  evoff : int</span>
+<span class="sd">    Offset from the central &#39;dates&#39; to include. A positive value</span>
+<span class="sd">    will lead to dates prior to the central &#39;date&#39; being included.</span>
+
+<span class="sd">  Returns</span>
+<span class="sd">  -------</span>
+<span class="sd">  cvar : :class:`Var`</span>
+<span class="sd">    Composite variable. The axis along which composites are to be constructed</span>
+<span class="sd">    is replaced by an Event axis and an Offset axis.</span>
+
+<span class="sd">  Notes</span>
+<span class="sd">  -----</span>
+<span class="sd">  The axis matched is used as the composite axis and the returned indices</span>
+<span class="sd">  are the key dates. evlen is required; it can either be an integer or a</span>
+<span class="sd">  list of integers specifying the length of each event. evoff is a single integer.</span>
+<span class="sd">  If the requested composite extends past the ends of the underlying axis, the</span>
+<span class="sd">  variable will contain NaNs.</span>
+
+<span class="sd">  Examples</span>
+<span class="sd">  ========</span>
+<span class="sd">  &gt;&gt;&gt; import pygeode as pyg</span>
+<span class="sd">  &gt;&gt;&gt; from pygeode.tutorial import t2</span>
+<span class="sd">  &gt;&gt;&gt; dts = [&#39;12 May 2012&#39;, &#39;15 Aug 2015&#39;, &#39;1 Feb 2018&#39;, &#39;28 Dec 2020&#39;]</span>
+<span class="sd">  &gt;&gt;&gt; cT = t2.Temp.composite(l_time = dts, evlen = 15, evoff = 10)</span>
+<span class="sd">  &gt;&gt;&gt; print(cT)</span>
+<span class="sd">  &lt;Var &#39;Temp&#39;&gt;:</span>
+<span class="sd">    Shape:  (event,time,pres,lat,lon)  (4,15,20,31,60)</span>
+<span class="sd">    Axes:</span>
+<span class="sd">      event &lt;Event&gt;  :  1  to 4  (4 values)</span>
+<span class="sd">      time &lt;Yearless&gt;:  day -10, 00:00:00 to day 4, 00:00:00 (15 values)</span>
+<span class="sd">      pres &lt;Pres&gt;    :  1000 hPa to 50 hPa (20 values)</span>
+<span class="sd">      lat &lt;Lat&gt;      :  90 S to 90 N (31 values)</span>
+<span class="sd">      lon &lt;Lon&gt;      :  0 E to 354 E (60 values)</span>
+<span class="sd">    Attributes:</span>
+<span class="sd">      {}</span>
+<span class="sd">    Type:  CompositeVar (dtype=&quot;float64&quot;)</span>
+<span class="sd">  &gt;&gt;&gt; cT(s_event=1, s_pres=50, s_lat=0, s_lon = 180)[:]</span>
+<span class="sd">  array([199.66766628, 199.69594407, 199.72479591, 199.75418884,</span>
+<span class="sd">         199.78408917, 199.81446257, 199.84527408, 199.87648814,</span>
+<span class="sd">         199.90806866, 199.939979  , 199.97218208, 200.00464036,</span>
+<span class="sd">         200.03731592, 200.07017048, 200.10316548])</span>
+<span class="sd">  &gt;&gt;&gt; cT(s_event=4, s_pres=50, s_lat=0, s_lon = 180)[:]</span>
+<span class="sd">  array([201.02847025, 201.04367089, 201.05782423, 201.07091237,</span>
+<span class="sd">         201.08291874, 201.09382812, 201.10362669, 201.112302  ,</span>
+<span class="sd">         201.11984303, 201.12624021, 201.1314854 , 201.13557193,</span>
+<span class="sd">         201.1384946 , 201.14024969,          nan])</span>
+
+<span class="sd">  &#39;&#39;&#39;</span>
+
+  <span class="kn">from</span> <span class="nn">pygeode.view</span> <span class="k">import</span> <span class="n">expand</span>
+  <span class="n">evlen</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;evlen&#39;</span><span class="p">)</span>
+  <span class="n">evoff</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;evoff&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+  <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;Must specify event centres.&#39;</span>
+
+  <span class="n">iaxis</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+  <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ax</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">axes</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+      <span class="n">sl</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_slice</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+      <span class="k">continue</span>
+    <span class="n">iaxis</span> <span class="o">=</span> <span class="n">i</span>
+    <span class="n">ievents</span> <span class="o">=</span> <span class="n">expand</span><span class="p">(</span><span class="n">sl</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ax</span><span class="p">))</span>
+
+  <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">iaxis</span> <span class="o">&lt;</span> <span class="n">var</span><span class="o">.</span><span class="n">naxes</span><span class="p">,</span> <span class="s1">&#39;Unrecognized axis&#39;</span>
+  <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">evlen</span><span class="p">,</span> <span class="s1">&#39;__len__&#39;</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">evlen</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">ievents</span><span class="p">),</span> <span class="s1">&#39;Must specify event length for each event&#39;</span>
+  <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">evoff</span><span class="p">,</span> <span class="s1">&#39;__len__&#39;</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">evoff</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">ievents</span><span class="p">),</span> <span class="s1">&#39;Must specify event offset for each event&#39;</span>
+
+  <span class="k">return</span> <span class="n">CompositeVar</span> <span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">iaxis</span><span class="p">,</span> <span class="n">ievents</span><span class="p">,</span> <span class="n">evlen</span><span class="p">,</span> <span class="n">evoff</span><span class="p">)</span>
+<span class="c1"># }}}</span>
+
+<span class="k">class</span> <span class="nc">FlattenVar</span><span class="p">(</span><span class="n">Var</span><span class="p">):</span>
+  <span class="sd">&#39;&#39;&#39;FlattenVar(var, outer, inner)</span>
+<span class="sd">    Creates a new view of pygeode variable var&#39;&#39;&#39;</span>
+
+  <span class="k">def</span> <span class="nf">__init__</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">inner</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">naxis</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+  <span class="c1">#{{{</span>
+    <span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">concatenate</span>
+    <span class="k">if</span> <span class="n">inner</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+      <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">CompositeVar</span><span class="p">):</span>
+         <span class="n">out</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">whichaxis</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">event</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span>
+         <span class="n">inner</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">whichaxis</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">offset</span><span class="o">.</span><span class="vm">__class__</span><span class="p">)</span>
+         <span class="n">stride</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">inner</span><span class="p">])</span>
+         <span class="n">vals</span> <span class="o">=</span> <span class="n">concatenate</span><span class="p">([</span><span class="n">e</span> <span class="o">+</span> <span class="n">var</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">inner</span><span class="p">]</span><span class="o">.</span><span class="n">values</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">var</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">out</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">])</span>
+      <span class="k">else</span><span class="p">:</span>
+         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;You must specify which axis to flatten&quot;</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">inner</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;inner axis must not be the outermost&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">out</span> <span class="o">=</span> <span class="n">inner</span> <span class="o">-</span> <span class="mi">1</span>
+      <span class="n">stride</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">inner</span><span class="p">])</span>
+      <span class="n">vals</span> <span class="o">=</span> <span class="n">concatenate</span><span class="p">([</span><span class="n">i</span><span class="o">*</span><span class="n">stride</span> <span class="o">+</span> <span class="n">var</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">inner</span><span class="p">]</span><span class="o">.</span><span class="n">values</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">out</span><span class="p">]))])</span>
+
+    <span class="k">if</span> <span class="n">naxis</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">out</span><span class="p">],</span> <span class="n">NamedAxis</span><span class="p">):</span>
+        <span class="n">naxis</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">out</span><span class="p">]</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">vals</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">out</span><span class="p">]</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">naxis</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">out</span><span class="p">]</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span><span class="n">vals</span><span class="p">)</span>
+    <span class="n">axes</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">axes</span><span class="p">[:</span><span class="n">out</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">naxis</span><span class="p">,)</span> <span class="o">+</span> <span class="n">var</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">inner</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">iout</span> <span class="o">=</span> <span class="n">out</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">iin</span> <span class="o">=</span> <span class="n">inner</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">stride</span> <span class="o">=</span> <span class="n">stride</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">source_var</span> <span class="o">=</span> <span class="n">var</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">name</span>
+
+    <span class="n">Var</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+  <span class="c1">#}}}</span>
+
+  <span class="k">def</span> <span class="nf">getview</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">pbar</span><span class="p">):</span>
+  <span class="c1"># {{{</span>
+    <span class="c1"># TODO: handle strides, random access...</span>
+    <span class="n">io</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iout</span>  <span class="c1"># Index of outer axis in source var</span>
+    <span class="n">ii</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iin</span>   <span class="c1"># Index of inner axis in source var</span>
+    <span class="n">ifl</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">iout</span> <span class="c1"># Index of flattened axis</span>
+    <span class="n">stride</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stride</span>
+    <span class="n">src</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">source_var</span>
+
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="n">slf</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="n">slices</span><span class="p">[</span><span class="n">ifl</span><span class="p">]</span>  <span class="c1"># Again, need these indices in the space of the variable (?)</span>
+    <span class="n">slo</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">slf</span><span class="o">.</span><span class="n">start</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">stride</span><span class="p">))),</span>
+                          <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">slf</span><span class="o">.</span><span class="n">stop</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">stride</span><span class="p">))))</span>
+
+    <span class="n">inviewt</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="n">replace_axis</span><span class="p">(</span><span class="n">ifl</span><span class="p">,</span> <span class="n">src</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">io</span><span class="p">],</span> <span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">))</span>
+    <span class="n">inviewt</span> <span class="o">=</span> <span class="n">inviewt</span><span class="o">.</span><span class="n">add_axis</span><span class="p">(</span><span class="n">ii</span><span class="p">,</span> <span class="n">src</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">ii</span><span class="p">],</span> <span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">))</span>
+
+    <span class="n">sllen</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">sl</span><span class="p">:</span> <span class="n">sl</span><span class="o">.</span><span class="n">stop</span><span class="o">-</span><span class="n">sl</span><span class="o">.</span><span class="n">start</span>
+    <span class="k">if</span> <span class="n">sllen</span><span class="p">(</span><span class="n">slo</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span> <span class="c1"># Request lies within a single stride</span>
+      <span class="c1"># Build inner slice</span>
+      <span class="n">sli</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="n">slf</span><span class="o">.</span><span class="n">start</span> <span class="o">-</span> <span class="n">slo</span><span class="o">.</span><span class="n">start</span> <span class="o">*</span> <span class="n">stride</span><span class="p">,</span> <span class="n">slf</span><span class="o">.</span><span class="n">stop</span> <span class="o">-</span> <span class="n">slo</span><span class="o">.</span><span class="n">start</span> <span class="o">*</span> <span class="n">stride</span><span class="p">)</span>
+
+      <span class="c1"># Set bounds on inner view</span>
+      <span class="n">inview</span> <span class="o">=</span> <span class="n">inviewt</span><span class="o">.</span><span class="n">modify_slice</span><span class="p">(</span><span class="n">io</span><span class="p">,</span> <span class="n">slo</span><span class="p">)</span><span class="o">.</span><span class="n">modify_slice</span><span class="p">(</span><span class="n">ii</span><span class="p">,</span> <span class="n">sli</span><span class="p">)</span>
+
+      <span class="k">return</span> <span class="n">inview</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">pbar</span><span class="o">=</span><span class="n">pbar</span><span class="o">.</span><span class="n">subset</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="c1"># Get data, reshape</span>
+    <span class="k">else</span><span class="p">:</span>     <span class="c1"># Request spans multiple strides;</span>
+      <span class="c1"># Need to get interior slice, initial and final partial strides</span>
+      <span class="c1"># Build slices</span>
+      <span class="n">slos</span> <span class="o">=</span> <span class="p">[</span><span class="nb">slice</span><span class="p">(</span><span class="n">slo</span><span class="o">.</span><span class="n">start</span><span class="p">,</span> <span class="n">slo</span><span class="o">.</span><span class="n">start</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span>  <span class="c1"># Initial</span>
+              <span class="nb">slice</span><span class="p">(</span><span class="n">slo</span><span class="o">.</span><span class="n">start</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">slo</span><span class="o">.</span><span class="n">stop</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span>  <span class="c1"># Interior (should be degenerate if slo.cnt=2)</span>
+              <span class="nb">slice</span><span class="p">(</span><span class="n">slo</span><span class="o">.</span><span class="n">stop</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">slo</span><span class="o">.</span><span class="n">stop</span><span class="p">)]</span>  <span class="c1"># Final</span>
+
+      <span class="n">slis</span> <span class="o">=</span> <span class="p">[</span><span class="nb">slice</span><span class="p">(</span><span class="n">slf</span><span class="o">.</span><span class="n">start</span> <span class="o">-</span> <span class="n">slo</span><span class="o">.</span><span class="n">start</span> <span class="o">*</span> <span class="n">stride</span><span class="p">,</span> <span class="n">stride</span><span class="p">),</span>
+              <span class="nb">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">stride</span><span class="p">),</span>
+              <span class="nb">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">slf</span><span class="o">.</span><span class="n">stop</span> <span class="o">-</span> <span class="p">(</span><span class="n">slo</span><span class="o">.</span><span class="n">stop</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">stride</span><span class="p">)]</span>
+
+      <span class="c1"># Compute appropriate shape of each request</span>
+      <span class="n">shp</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+      <span class="n">shapes</span> <span class="o">=</span> <span class="p">[</span><span class="nb">list</span><span class="p">(</span><span class="n">shp</span><span class="p">)</span> <span class="k">for</span> <span class="n">shp</span><span class="p">[</span><span class="n">ifl</span><span class="p">]</span> <span class="ow">in</span> <span class="p">[</span><span class="n">sllen</span><span class="p">(</span><span class="n">slis</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">sllen</span><span class="p">(</span><span class="n">slos</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="n">stride</span><span class="p">,</span> <span class="n">sllen</span><span class="p">(</span><span class="n">slis</span><span class="p">[</span><span class="mi">2</span><span class="p">])]]</span>
+      <span class="n">progs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cumsum</span><span class="p">([</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="n">io</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">shapes</span><span class="p">])</span>
+      <span class="n">progs</span> <span class="o">=</span> <span class="p">[(</span><span class="mf">100.</span><span class="o">*</span><span class="n">progs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">/</span><span class="n">progs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="mf">100.</span><span class="o">*</span><span class="n">progs</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">progs</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">progs</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)]</span>
+
+      <span class="c1"># Construct views</span>
+      <span class="n">inviews</span> <span class="o">=</span> <span class="p">[</span><span class="n">inviewt</span><span class="o">.</span><span class="n">modify_slice</span><span class="p">(</span><span class="n">io</span><span class="p">,</span> <span class="n">slo</span><span class="p">)</span><span class="o">.</span><span class="n">modify_slice</span><span class="p">(</span><span class="n">ii</span><span class="p">,</span> <span class="n">sli</span><span class="p">)</span> <span class="k">for</span> <span class="n">slo</span><span class="p">,</span> <span class="n">sli</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">slos</span><span class="p">,</span> <span class="n">slis</span><span class="p">)]</span>
+
+      <span class="c1"># Get data, reshape, concatenate along flattened axis</span>
+      <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">inv</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">pbar</span><span class="o">=</span><span class="n">pbar</span><span class="o">.</span><span class="n">subset</span><span class="p">(</span><span class="o">*</span><span class="n">p</span><span class="p">))</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">shp</span><span class="p">)</span> <span class="k">for</span> <span class="n">inv</span><span class="p">,</span> <span class="n">shp</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">inviews</span><span class="p">,</span> <span class="n">shapes</span><span class="p">,</span> <span class="n">progs</span><span class="p">)],</span> <span class="n">ifl</span><span class="p">)</span>
+  <span class="c1"># }}}</span>
+
+<span class="k">def</span> <span class="nf">flatten</span> <span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">inner</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">naxis</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+  <span class="k">return</span> <span class="n">FlattenVar</span> <span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">inner</span><span class="p">,</span> <span class="n">naxis</span><span class="p">)</span>
+
+<span class="c1">#====</span>
+
+<span class="k">def</span> <span class="nf">clim_detrend</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">yrlen</span><span class="p">,</span> <span class="n">itime</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">sig</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+  <span class="sd">&#39;&#39;&#39; clim_detrend() - returns detrended time series with a daily trend.&#39;&#39;&#39;</span>
+  <span class="kn">from</span> <span class="nn">pygeode.timeaxis</span> <span class="k">import</span> <span class="n">Time</span>
+  <span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">stats</span>
+  <span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">arange</span>
+  <span class="k">if</span> <span class="n">itime</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span> <span class="n">itime</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">whichaxis</span><span class="p">(</span><span class="n">Time</span><span class="p">)</span>
+  <span class="n">tlen</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">itime</span><span class="p">]</span>
+
+  <span class="n">vary</span> <span class="o">=</span> <span class="n">composite</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">itime</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">tlen</span><span class="p">,</span> <span class="n">yrlen</span><span class="p">)),</span> <span class="n">yrlen</span><span class="p">)</span>
+  <span class="n">yrs</span> <span class="o">=</span> <span class="n">vary</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">itime</span><span class="p">]</span>
+  <span class="n">yrs</span><span class="o">.</span><span class="n">values</span><span class="o">=</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">yrs</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">yrs</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+
+  <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Computing regression&#39;</span><span class="p">)</span>
+  <span class="kn">from</span> <span class="nn">pygeode.progress</span> <span class="k">import</span> <span class="n">PBar</span>
+  <span class="n">m</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="n">stats</span><span class="o">.</span><span class="n">regress</span><span class="p">(</span><span class="n">yrs</span><span class="p">,</span> <span class="n">vary</span><span class="p">,</span> <span class="n">pbar</span><span class="o">=</span><span class="n">PBar</span><span class="p">())</span>
+  <span class="n">varz</span> <span class="o">=</span> <span class="n">flatten</span><span class="p">(</span><span class="n">vary</span> <span class="o">-</span> <span class="p">(</span><span class="n">m</span><span class="o">*</span><span class="n">yrs</span> <span class="o">+</span> <span class="n">b</span><span class="p">),</span> <span class="n">itime</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+  <span class="n">varz</span><span class="o">.</span><span class="n">axes</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">axes</span>
+
+  <span class="c1"># Since the axes have been modified after initialization, redo the init to get</span>
+  <span class="c1"># shortcuts to the axes names</span>
+  <span class="n">Var</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">varz</span><span class="p">,</span> <span class="n">varz</span><span class="o">.</span><span class="n">axes</span><span class="p">,</span> <span class="n">varz</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+
+  <span class="k">if</span> <span class="n">var</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+    <span class="n">varz</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">name</span><span class="o">+</span><span class="s2">&quot;&#39;&quot;</span>
+
+  <span class="k">if</span> <span class="n">sig</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">m</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">varz</span><span class="p">,</span> <span class="n">p</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">m</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">varz</span>
+<span class="c1"># }}}</span>
+
+<span class="k">def</span> <span class="nf">clim_anoms</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">yrlen</span><span class="p">,</span> <span class="n">itime</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+  <span class="sd">&#39;&#39;&#39; clim_anoms() - quick and dirty implementation;</span>
+<span class="sd">        returns climatology and anomalies of given variable.&#39;&#39;&#39;</span>
+  <span class="kn">from</span> <span class="nn">pygeode.timeaxis</span> <span class="k">import</span> <span class="n">Time</span>
+  <span class="k">if</span> <span class="n">itime</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span> <span class="n">itime</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">whichaxis</span><span class="p">(</span><span class="n">Time</span><span class="p">)</span>
+  <span class="n">tlen</span> <span class="o">=</span> <span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">itime</span><span class="p">]</span> <span class="o">//</span> <span class="n">yrlen</span><span class="p">)</span> <span class="o">*</span> <span class="n">yrlen</span>
+  <span class="n">vary</span> <span class="o">=</span> <span class="n">composite</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">itime</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">tlen</span><span class="p">,</span> <span class="n">yrlen</span><span class="p">)),</span> <span class="n">yrlen</span><span class="p">)</span>
+  <span class="n">varc</span> <span class="o">=</span> <span class="n">vary</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">itime</span><span class="p">)</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+  <span class="n">varz</span> <span class="o">=</span> <span class="n">flatten</span><span class="p">(</span><span class="n">vary</span> <span class="o">-</span> <span class="n">varc</span><span class="p">,</span> <span class="n">itime</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+  <span class="n">varz</span><span class="o">.</span><span class="n">axes</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">axes</span>
+  <span class="c1"># Since the axes have been modified after initialization, redo the init to get</span>
+  <span class="c1"># shortcuts to the axes names</span>
+  <span class="n">Var</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">varz</span><span class="p">,</span> <span class="n">varz</span><span class="o">.</span><span class="n">axes</span><span class="p">,</span> <span class="n">varz</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">var</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+    <span class="n">varz</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">name</span><span class="o">+</span><span class="s1">&#39;_anom&#39;</span>
+  <span class="k">return</span> <span class="n">varc</span><span class="p">,</span> <span class="n">varz</span>
+<span class="c1"># }}}</span>
+
+<span class="k">def</span> <span class="nf">time_ave</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">itime</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+  <span class="sd">&#39;&#39;&#39; time_ave() - quick and dirty implementation of time averaging;</span>
+<span class="sd">            for now assumes 6h data (!). type can be one of the following:</span>
+<span class="sd">            &#39;d&#39; - daily averages</span>
+<span class="sd">            &#39;5d&#39; - 5-day averages</span>
+<span class="sd">            &#39;m&#39; - monthly averages</span>
+<span class="sd">            &#39;y&#39; - annual averages &#39;&#39;&#39;</span>
+  <span class="kn">from</span> <span class="nn">pygeode.timeaxis</span> <span class="k">import</span> <span class="n">Time</span>
+  <span class="k">if</span> <span class="n">itime</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span> <span class="n">itime</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">whichaxis</span><span class="p">(</span><span class="n">Time</span><span class="p">)</span>
+  <span class="n">tlen</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">itime</span><span class="p">]</span>
+
+  <span class="k">if</span> <span class="nb">type</span> <span class="o">==</span> <span class="s1">&#39;d&#39;</span><span class="p">:</span>
+    <span class="n">ilen</span> <span class="o">=</span> <span class="mi">4</span>
+  <span class="k">elif</span> <span class="nb">type</span> <span class="o">==</span> <span class="s1">&#39;5d&#39;</span><span class="p">:</span>
+    <span class="n">ilen</span> <span class="o">=</span> <span class="mi">20</span>
+  <span class="k">elif</span> <span class="nb">type</span> <span class="o">==</span> <span class="s1">&#39;m&#39;</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="bp">NotImplemented</span><span class="p">(</span><span class="s1">&#39;Monthly averaging not yet implemented&#39;</span><span class="p">)</span>
+  <span class="k">elif</span> <span class="nb">type</span> <span class="o">==</span> <span class="s1">&#39;y&#39;</span><span class="p">:</span>
+    <span class="n">ilen</span> <span class="o">=</span> <span class="mi">1460</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="bp">NotImplemented</span><span class="p">(</span><span class="s1">&#39;Unrecognized type&#39;</span><span class="p">)</span>
+
+  <span class="n">vary</span> <span class="o">=</span> <span class="n">composite</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">itime</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">tlen</span><span class="p">,</span> <span class="n">ilen</span><span class="p">)),</span> <span class="n">ilen</span><span class="p">)</span>
+  <span class="n">varave</span> <span class="o">=</span> <span class="n">vary</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">itime</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">varave</span>
+<span class="c1"># }}}</span>
+
+<span class="k">def</span> <span class="nf">test</span><span class="p">():</span>
+
+  <span class="kn">from</span> <span class="nn">pygeode.formats.cccma</span> <span class="k">import</span> <span class="n">ccc_open</span>
+
+  <span class="n">dataset</span> <span class="o">=</span> <span class="n">ccc_open</span> <span class="p">(</span><span class="s2">&quot;../data/mm_s40a_001_m01_gs&quot;</span><span class="p">)</span>
+
+  <span class="n">gt</span> <span class="o">=</span> <span class="n">dataset</span><span class="o">.</span><span class="n">GT</span>
+  <span class="n">gt</span> <span class="o">=</span> <span class="n">composite</span><span class="p">(</span><span class="n">gt</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mi">30</span><span class="p">])</span>
+
+  <span class="nb">print</span><span class="p">(</span><span class="n">gt</span><span class="p">)</span>
+
+  <span class="kn">from</span> <span class="nn">.plot</span> <span class="k">import</span> <span class="n">plot</span>
+
+  <span class="n">x1</span> <span class="o">=</span> <span class="n">gt</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">4</span><span class="p">,</span><span class="mi">25</span><span class="p">:</span><span class="mi">30</span><span class="p">,:,:]</span>
+
+<span class="c1">#test()</span>
+</pre></div>
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        <a class="uplink" href="../../reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../gallery/index.html">Gallery</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Mike Neish, Peter Hitchcock.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.
+    </div>
+  </body>
+</html>

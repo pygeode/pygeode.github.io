@@ -1,96 +1,83 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>EOF Analysis &mdash; PyGeode 1.0 alpha documentation</title>
-    
+    <title>EOF Analysis &#8212; PyGeode 1.3 pre-release documentation</title>
     <link rel="stylesheet" href="_static/pygtheme.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '1.0 alpha',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
+    <link rel="stylesheet" type="text/css" href="_static/gallery.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="PyGeode 1.0 alpha documentation" href="index.html" />
-    <link rel="up" title="Reference" href="reference.html" />
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="View module" href="view.html" />
     <link rel="prev" title="Stats module" href="stats.html" />
 <link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
 
-  </head>
-  <body>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="view.html" title="View module"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="stats.html" title="Stats module"
-             accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li>
-          <li><a href="reference.html" accesskey="U">Reference</a> &raquo;</li> 
-      </ul>
-    </div>  
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="index.html">
+          <span>PyGeode 1.3 pre-release documentation</span></a></h1>
+        <h2 class="heading"><span>EOF Analysis</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        «&#160;&#160;<a href="stats.html">Stats module</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="gallery/index.html">Gallery</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="view.html">View module</a>&#160;&#160;»
+        </p>
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
-            
+      </div>
+      <div class="content">
+        
+        
   <div class="section" id="eof-analysis">
 <h1>EOF Analysis<a class="headerlink" href="#eof-analysis" title="Permalink to this headline">¶</a></h1>
-<dl class="staticmethod">
-<dt id="pygeode.eof.EOF">
-<em class="property">static </em><tt class="descclassname">eof.</tt><tt class="descname">EOF</tt><big>(</big><em>x</em>, <em>num=1</em>, <em>iaxis=None</em>, <em>weight=True</em>, <em>out=None</em><big>)</big><a class="headerlink" href="#pygeode.eof.EOF" title="Permalink to this definition">¶</a></dt>
+<dl class="function">
+<dt id="pygeode.EOF">
+<code class="descclassname">pygeode.</code><code class="descname">EOF</code><span class="sig-paren">(</span><em>x</em>, <em>num=1</em>, <em>iaxis=None</em>, <em>weight=True</em>, <em>out=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/eof.html#EOF"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.EOF" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes the leading Empirical Orthogonal Function(s) for the given
 variable.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>x</strong> : Var object</p>
-<blockquote>
-<div><p>The data of interest</p>
-</div></blockquote>
-<p><strong>num</strong> : integer, optional</p>
-<blockquote>
-<div><p>The number of leading EOFs to calculate.  Default is <tt class="docutils literal"><span class="pre">1</span></tt>.</p>
-</div></blockquote>
-<p><strong>iaxis</strong> : Axis object, Axis class, string, or integer, optional</p>
-<blockquote>
-<div><p>Which axis/axes to treat as the record axis.  Multiple axes can be
-passed as a tuple.  Default is the <tt class="docutils literal"><span class="pre">Time</span></tt> axis of the data
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>x</strong> <span class="classifier-delimiter">:</span> <span class="classifier">Var object</span></dt>
+<dd><p class="first last">The data of interest</p>
+</dd>
+<dt><strong>num</strong> <span class="classifier-delimiter">:</span> <span class="classifier">integer, optional</span></dt>
+<dd><p class="first last">The number of leading EOFs to calculate. Default is <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p>
+</dd>
+<dt><strong>iaxis</strong> <span class="classifier-delimiter">:</span> <span class="classifier">Axis object, Axis class, string, or integer, optional</span></dt>
+<dd><p class="first last">Which axis/axes to treat as the record axis.  Multiple axes can be
+passed as a tuple.  Default is the <code class="docutils literal notranslate"><span class="pre">Time</span></code> axis of the data
 (if found), otherwise the leftmost axis.</p>
-</div></blockquote>
-<p><strong>weight</strong> : Var object or boolean, optional</p>
-<blockquote>
-<div><p>Weights to use use for the orthogonality condition.
-If <tt class="docutils literal"><span class="pre">True</span></tt>, it uses whatever internal weights the variable posesses.
-If <tt class="docutils literal"><span class="pre">False</span></tt> or <tt class="docutils literal"><span class="pre">None</span></tt>, it doesn&#8217;t use any weights.
+</dd>
+<dt><strong>weight</strong> <span class="classifier-delimiter">:</span> <span class="classifier">Var object or boolean, optional</span></dt>
+<dd><p class="first last">Weights to use use for the orthogonality condition.
+If <code class="docutils literal notranslate"><span class="pre">True</span></code>, it uses whatever internal weights the variable posesses.
+If <code class="docutils literal notranslate"><span class="pre">False</span></code> or <code class="docutils literal notranslate"><span class="pre">None</span></code>, it doesn’t use any weights.
 You can also pass in a Var object with explicit weights.
-Default is <tt class="docutils literal"><span class="pre">True</span></tt>.</p>
-</div></blockquote>
-<p><strong>out</strong> : string, optional</p>
-<blockquote>
-<div><p>Which outputs to return.  This is a comma-separated string,
+Default is <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
+</dd>
+<dt><strong>out</strong> <span class="classifier-delimiter">:</span> <span class="classifier">string, optional</span></dt>
+<dd><p class="first">Which outputs to return.  This is a comma-separated string,
 built from the following keywords:</p>
 <blockquote>
 <div><table border="1" class="docutils">
@@ -128,22 +115,24 @@ to unit variance.</td>
 </tbody>
 </table>
 </div></blockquote>
-<p>Default is <tt class="docutils literal"><span class="pre">'EOF,EIG,PC'</span></tt></p>
-</div></blockquote>
+<p class="last">Default is <code class="docutils literal notranslate"><span class="pre">'EOF,EIG,PC'</span></code></p>
+</dd>
+</dl>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>eof_decomposition</strong> : tuple</p>
-<blockquote class="last">
-<div><p>A combination of EOFs, eignenvalues or other computed quantities specified
-by <cite>out</cite>.</p>
-</div></blockquote>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>eof_decomposition</strong> <span class="classifier-delimiter">:</span> <span class="classifier">tuple</span></dt>
+<dd><p class="first last">A combination of EOFs, eignenvalues or other computed quantities specified
+by <code class="docutils literal notranslate"><span class="pre">out</span></code>.</p>
+</dd>
+</dl>
 </td>
 </tr>
 </tbody>
 </table>
 <p class="rubric">Notes</p>
-<p>This routine doesn&#8217;t do any pre-processing of the data, such as removing
-the mean or detrending.  If you want to work with anomalies, then you&#8217;ll
+<p>This routine doesn’t do any pre-processing of the data, such as removing
+the mean or detrending.  If you want to work with anomalies, then you’ll
 have to first compute the anomalies!</p>
 <p>This routine tries to automatically determine the best way to solve the
 EOFs.  If you want to use a particular method, you can call the following
@@ -181,111 +170,90 @@ of the EOF spatial patterns.</td>
 </div></blockquote>
 </dd></dl>
 
-<span class="target" id="module-pygeode.svd"></span><dl class="function">
-<dt id="pygeode.svd.SVD">
-<tt class="descclassname">pygeode.svd.</tt><tt class="descname">SVD</tt><big>(</big><em>var1</em>, <em>var2</em>, <em>num=1</em>, <em>weight1=None</em>, <em>weight2=None</em><big>)</big><a class="headerlink" href="#pygeode.svd.SVD" title="Permalink to this definition">¶</a></dt>
-<dd><p>Finds coupled EOFs of two fields.</p>
-<p>Note that the mean/trend/etc. is NOT removed in this routine.</p>
-<dl class="docutils">
-<dt>Input parameters:</dt>
-<dd>var1, var2   - the input fields</dd>
-<dt>Optional parameters:</dt>
-<dd><p class="first">num   - the number of EOFs to compute (default is 1)
-weight1,   - weights to use for defining &#8216;orthogonality&#8217;
-weight2        Patterns X and Y in the var1 domain are &#8216;orthogonal&#8217; if:</p>
-<blockquote class="last">
-<div><blockquote>
-<div><blockquote>
-<div>sum (X*Y*weights1) == 0</div></blockquote>
-<dl class="docutils">
-<dt>and patterns Z and W in the var2 domain are &#8216;orthogonal&#8217; if:</dt>
-<dd>sum (Z*W*weights2) == 0</dd>
-</dl>
-</div></blockquote>
-<p>If not specified, the default is to use whatever internal
-weights are available from the var, using var.getweights()
-If set to False, no weights will be applied.</p>
-</div></blockquote>
+<dl class="function">
+<dt id="pygeode.SVD">
+<code class="descclassname">pygeode.</code><code class="descname">SVD</code><span class="sig-paren">(</span><em>var1</em>, <em>var2</em>, <em>num=1</em>, <em>subspace=-1</em>, <em>iaxis=&lt;class 'pygeode.timeaxis.Time'&gt;</em>, <em>weight1=True</em>, <em>weight2=True</em>, <em>matrix='cov'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/svd.html#SVD"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.SVD" title="Permalink to this definition">¶</a></dt>
+<dd><p>Finds coupled EOFs of two fields.  Note that the mean/trend/etc. is NOT
+removed in this routine.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>var1, var2</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a></span></dt>
+<dd><p class="first last">The variables to analyse.</p>
 </dd>
-<dt>More optionaller parameters:</dt>
+<dt><strong>num</strong> <span class="classifier-delimiter">:</span> <span class="classifier">integer</span></dt>
+<dd><p class="first last">The number of EOFs to compute (default is <code class="docutils literal notranslate"><span class="pre">1</span></code>).</p>
+</dd>
+<dt><strong>weight1, weight2</strong> <span class="classifier-delimiter">:</span> <span class="classifier">optional</span></dt>
+<dd><p class="first last">Weights to use for defining orthogonality in the var1, var2 domains,
+respectively.  Patterns X and Y in the var1 domain are orthogonal if the
+sum over X*Y*weights1 is 0. Patterns Z and W in the var2 domain are
+orthogonal if the sum over Z*W*weights2 is 0. Default is to use internal
+weights defined for var1 accessed by <a class="reference internal" href="varquery.html#pygeode.Var.getweights" title="pygeode.Var.getweights"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Var.getweights()</span></code></a>. If set to
+<code class="docutils literal notranslate"><span class="pre">False</span></code> no weighting is used.</p>
+</dd>
+<dt><strong>matrix</strong> <span class="classifier-delimiter">:</span> <span class="classifier">string, optional [‘cov’]</span></dt>
 <dd><dl class="first last docutils">
-<dt>matrix   - which matrix we are diagonalizing (default is &#8216;cov&#8217;)</dt>
-<dd>&#8216;cov&#8217; = covariance matrix of var1 &amp; var2
-&#8216;cor&#8217; = correlation matrix of var1 &amp; var2</dd>
-<dt>iaxis   - the principal component / expansion coefficient axis</dt>
-<dd>i.e., the &#8216;time&#8217; axis.
-Can be an integer (the axis number, leftmost = 0),
-the axis name (string), or a Pygeode axis class.
-If not specified, will try to use pygeode.timeaxis.Time,
-and if that fails, the leftmost axis.</dd>
-</dl>
-</dd>
-<dt>Returns:</dt>
-<dd><p class="first">eof1   - the coupled eof patterns for var1
-pc1   - the principal component / expansion coefficients for var1
-eof2   - the coupled eof patterns for var2
-pc2   - the principal component / expansion coefficients for var2</p>
-<p class="last">Multiple orders of EOFs are concatenated along an &#8216;order&#8217; axis.</p>
+<dt>Which matrix we are diagonalizing (default is ‘cov’). </dt>
+<dd><ul class="first last simple">
+<li>‘cov’: covariance matrix of var1 &amp; var2</li>
+<li>‘cov’: correlation matrix of var1 &amp; var2</li>
+</ul>
 </dd>
 </dl>
+</dd>
+<dt><strong>iaxis</strong> <span class="classifier-delimiter">:</span> <span class="classifier">Axis identifier</span></dt>
+<dd><p class="first last">The principal component / expansion coefficient axis, i.e., the ‘time’
+axis. Can be an integer (the axis number, leftmost = 0), the axis name
+(string), or a Pygeode axis class.  If not specified, will try to use
+pygeode.timeaxis.Time, and if that fails, the leftmost axis.</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>(eof1, pc1, eof2, pc2): tuple</strong></dt>
+<dd><ul class="first last simple">
+<li>eof1: The coupled eof patterns for var1.</li>
+<li>pc1: The principal component / expansion coefficients for var1.</li>
+<li>eof2: The coupled eof patterns for var2.</li>
+<li>pc2: The principal component / expansion coefficients for var2.</li>
+</ul>
+</dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Notes</p>
+<p>Multiple orders of EOFs are concatenated along an ‘order’ axis.</p>
 </dd></dl>
 
 </div>
 
 
-          </div>
-        </div>
       </div>
-      <div class="sphinxsidebar">
-        <div class="sphinxsidebarwrapper">
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="stats.html"
-                        title="previous chapter">Stats module</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="view.html"
-                        title="next chapter">View module</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/eof.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        «&#160;&#160;<a href="stats.html">Stats module</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="gallery/index.html">Gallery</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="view.html">View module</a>&#160;&#160;»
+        </p>
+
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="view.html" title="View module"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="stats.html" title="Stats module"
-             >previous</a> |</li>
-        <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li>
-          <li><a href="reference.html" >Reference</a> &raquo;</li> 
-      </ul>
-    </div>
-    <div class="footer">
-        &copy; Copyright 2013, Mike Neish, Peter Hitchcock.
-      Last updated on Sep 13, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Mike Neish, Peter Hitchcock.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.
     </div>
   </body>
 </html>

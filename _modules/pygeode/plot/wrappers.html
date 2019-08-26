@@ -1,0 +1,626 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>pygeode.plot.wrappers &#8212; PyGeode 1.3 pre-release documentation</title>
+    <link rel="stylesheet" href="../../../_static/pygtheme.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+<link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
+
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../../../index.html">
+          <span>PyGeode 1.3 pre-release documentation</span></a></h1>
+        <h2 class="heading"><span>pygeode.plot.wrappers</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        <a class="uplink" href="../../../reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../../tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../../gallery/index.html">Gallery</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <h1>Source code for pygeode.plot.wrappers</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Wrapper for matplotlib.pyplot</span>
+
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="k">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">pyl</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
+
+<span class="c1"># Allows plots to be constructed in a slightly more object-oriented way.</span>
+<span class="c1"># Also allows plot objects to be saved to / loaded from files, something which</span>
+<span class="c1"># normal matplotlib plots can&#39;t do.</span>
+
+<span class="c1"># Interface for wrapping a matplotlib axes object</span>
+<div class="viewcode-block" id="AxesWrapper"><a class="viewcode-back" href="../../../plot.html#pygeode.plot.AxesWrapper">[docs]</a><span class="k">class</span> <span class="nc">AxesWrapper</span><span class="p">:</span>
+<span class="c1"># {{{</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">rect</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">make_axis</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="n">parent</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">nplots</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">plots</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">make_axis</span> <span class="o">=</span> <span class="n">make_axis</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">naxes</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">axes</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ax_boxes</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">if</span> <span class="n">rect</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="n">rect</span> <span class="o">=</span> <span class="p">[</span><span class="n">pyl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.subplot.&#39;</span> <span class="o">+</span> <span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="s1">&#39;bottom&#39;</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="s1">&#39;top&#39;</span><span class="p">]]</span>
+      <span class="n">rect</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-=</span> <span class="n">rect</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+      <span class="n">rect</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-=</span> <span class="n">rect</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">rect</span> <span class="o">=</span> <span class="n">rect</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">pad</span> <span class="o">=</span> <span class="n">pad</span>
+
+    <span class="k">if</span> <span class="n">size</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">size</span> <span class="o">=</span> <span class="n">pyl</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">float</span><span class="p">(</span><span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">args</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">axes_args</span> <span class="o">=</span> <span class="n">kwargs</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">xaxis_args</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">yaxis_args</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+<span class="c1"># }}}  </span>
+
+  <span class="k">def</span> <span class="nf">add_axis</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">rect</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+    <span class="n">bb</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">transforms</span><span class="o">.</span><span class="n">Bbox</span><span class="o">.</span><span class="n">from_extents</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nb">all</span><span class="p">([</span><span class="n">s</span> <span class="o">&gt;</span> <span class="mf">0.</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">bb</span><span class="o">.</span><span class="n">size</span><span class="p">]),</span> <span class="s1">&#39;Bounding box must not vanish&#39;</span>
+    <span class="n">axis</span><span class="o">.</span><span class="n">parent</span> <span class="o">=</span> <span class="bp">self</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">axis</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ax_boxes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">naxes</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">)</span>
+<span class="c1"># }}}</span>
+
+  <span class="k">def</span> <span class="nf">add_plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">plot</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">make_axes</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+    <span class="n">plot</span><span class="o">.</span><span class="n">axes</span> <span class="o">=</span> <span class="bp">self</span>
+    <span class="k">if</span> <span class="n">order</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">plots</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">plot</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">plots</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">plot</span><span class="p">,</span> <span class="n">order</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">make_axes</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_axis</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">nplots</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">plots</span><span class="p">)</span>
+<span class="c1"># }}}</span>
+
+  <span class="k">def</span> <span class="nf">pop_plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">order</span><span class="o">=-</span><span class="mi">1</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">plots</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">order</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">nplots</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">plots</span><span class="p">)</span>
+<span class="c1"># }}}</span>
+
+  <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fig</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">show</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+    <span class="n">wason</span> <span class="o">=</span> <span class="n">pyl</span><span class="o">.</span><span class="n">isinteractive</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">wason</span><span class="p">:</span> <span class="n">pyl</span><span class="o">.</span><span class="n">ioff</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">mpl</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">Figure</span><span class="p">):</span>
+      <span class="n">figparm</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+      <span class="n">figparm</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+      <span class="k">if</span> <span class="ow">not</span> <span class="n">fig</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">figparm</span><span class="p">[</span><span class="s1">&#39;num&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fig</span>
+      <span class="n">fig</span> <span class="o">=</span> <span class="n">pyl</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="o">**</span><span class="n">figparm</span><span class="p">)</span>
+
+    <span class="n">fig</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">_build_axes</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">_do_plots</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">wason</span><span class="p">:</span>
+      <span class="n">pyl</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>
+
+      <span class="k">if</span> <span class="n">show</span><span class="p">:</span>
+        <span class="n">pyl</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="n">pyl</span><span class="o">.</span><span class="n">draw</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">fig</span>
+<span class="c1"># }}}</span>
+
+  <span class="k">def</span> <span class="nf">get_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+ <span class="c1"># {{{</span>
+    <span class="k">if</span> <span class="bp">self</span> <span class="ow">is</span> <span class="n">root</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="k">return</span> <span class="n">mpl</span><span class="o">.</span><span class="n">transforms</span><span class="o">.</span><span class="n">IdentityTransform</span><span class="p">()</span>
+
+    <span class="n">ia</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="n">rect</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">ax_boxes</span><span class="p">[</span><span class="n">ia</span><span class="p">]</span>
+    <span class="n">box</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">transforms</span><span class="o">.</span><span class="n">Bbox</span><span class="o">.</span><span class="n">from_extents</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span>
+    <span class="n">t_self</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">transforms</span><span class="o">.</span><span class="n">BboxTransformTo</span><span class="p">(</span><span class="n">box</span><span class="p">)</span>
+    <span class="n">t_parent</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">get_transform</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">mpl</span><span class="o">.</span><span class="n">transforms</span><span class="o">.</span><span class="n">CompositeAffine2D</span><span class="p">(</span><span class="n">t_self</span><span class="p">,</span> <span class="n">t_parent</span><span class="p">)</span>
+<span class="c1"># }}}</span>
+
+  <span class="k">def</span> <span class="nf">_build_axes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fig</span><span class="p">,</span> <span class="n">root</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">make_axis</span><span class="p">:</span>
+      <span class="n">tfm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_transform</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+      <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pad</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+         <span class="n">l</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">tfm</span><span class="o">.</span><span class="n">transform_point</span><span class="p">((</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">))</span>
+         <span class="n">r</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">tfm</span><span class="o">.</span><span class="n">transform_point</span><span class="p">((</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">))</span>
+         <span class="c1">#print l, b, r, t</span>
+         <span class="n">fsize</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">get_size_inches</span><span class="p">()</span>
+         <span class="n">l</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pad</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">fsize</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+         <span class="n">b</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pad</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">fsize</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+         <span class="n">w</span> <span class="o">=</span> <span class="n">r</span> <span class="o">-</span> <span class="n">l</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">pad</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">/</span> <span class="n">fsize</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+         <span class="n">h</span> <span class="o">=</span> <span class="n">t</span> <span class="o">-</span> <span class="n">b</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">pad</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">/</span> <span class="n">fsize</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+      <span class="k">else</span><span class="p">:</span>
+         <span class="n">l</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+         <span class="n">r</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">rect</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+         <span class="n">l</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">tfm</span><span class="o">.</span><span class="n">transform_point</span><span class="p">((</span><span class="n">l</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+         <span class="n">r</span><span class="p">,</span> <span class="n">t</span> <span class="o">=</span> <span class="n">tfm</span><span class="o">.</span><span class="n">transform_point</span><span class="p">((</span><span class="n">r</span><span class="p">,</span> <span class="n">t</span><span class="p">))</span>
+         <span class="n">w</span> <span class="o">=</span> <span class="n">r</span> <span class="o">-</span> <span class="n">l</span>
+         <span class="n">h</span> <span class="o">=</span> <span class="n">t</span> <span class="o">-</span> <span class="n">b</span>
+
+      <span class="bp">self</span><span class="o">.</span><span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">([</span><span class="n">l</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span><span class="p">])</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">ax</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># Build children</span>
+    <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">:</span> <span class="n">a</span><span class="o">.</span><span class="n">_build_axes</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">root</span><span class="p">)</span>
+
+    <span class="c1">#Draw bounding boxes of children for debugging purposes</span>
+    <span class="c1">#if root is self:</span>
+      <span class="c1">#ax = pyl.gca()</span>
+      <span class="c1">#for b in self.ax_boxes:</span>
+        <span class="c1">#xy = b[0], b[1]</span>
+        <span class="c1">#w = b[2] - b[0]</span>
+        <span class="c1">#h = b[3] - b[1]</span>
+        <span class="c1">#ax.add_patch(pyl.Rectangle(xy, w, h, lw=2., fill=False, transform=fig.transFigure, clip_on=False))</span>
+<span class="c1"># }}}</span>
+
+  <span class="k">def</span> <span class="nf">_do_plots</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fig</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+    <span class="c1"># Plot children</span>
+    <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">:</span> <span class="n">a</span><span class="o">.</span><span class="n">_do_plots</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="k">return</span>
+
+    <span class="n">preops</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">plots</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">pre</span><span class="p">]</span>
+    <span class="n">postops</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">plots</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">p</span><span class="o">.</span><span class="n">pre</span><span class="p">]</span>
+
+    <span class="c1"># Perform plotting operations</span>
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">preops</span><span class="p">:</span>
+      <span class="n">p</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="p">)</span>
+
+    <span class="c1"># Handle scaling first, because setting this screws up other custom attributes like ticks</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="k">if</span> <span class="s1">&#39;xscale&#39;</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_xscale</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;xscale&#39;</span><span class="p">))</span>
+    <span class="k">if</span> <span class="s1">&#39;yscale&#39;</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;yscale&#39;</span><span class="p">))</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span> <span class="n">pyl</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="p">,</span> <span class="o">**</span><span class="n">args</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">xaxis_args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span> <span class="n">pyl</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">xaxis_args</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">yaxis_args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span> <span class="n">pyl</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">yaxis_args</span><span class="p">)</span>
+
+    <span class="c1"># Perform plotting operations</span>
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">postops</span><span class="p">:</span>
+      <span class="n">p</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ax</span><span class="p">)</span>
+<span class="c1"># }}}</span>
+
+  <span class="k">def</span> <span class="nf">setp</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">children</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">children</span><span class="p">:</span>
+      <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">:</span> <span class="n">a</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">children</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="c1"># }}}</span>
+
+  <span class="k">def</span> <span class="nf">setp_xaxis</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">children</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">xaxis_args</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">children</span><span class="p">:</span>
+      <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">:</span> <span class="n">a</span><span class="o">.</span><span class="n">setp_xaxis</span><span class="p">(</span><span class="n">children</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="c1"># }}}</span>
+
+  <span class="k">def</span> <span class="nf">setp_yaxis</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">children</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">yaxis_args</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">children</span><span class="p">:</span>
+      <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">:</span> <span class="n">a</span><span class="o">.</span><span class="n">setp_yaxis</span><span class="p">(</span><span class="n">children</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="c1"># }}}</span>
+
+  <span class="k">def</span> <span class="nf">find_plot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cl</span><span class="p">):</span>
+  <span class="c1"># {{{</span>
+    <span class="sd">&#39;&#39;&#39; Returns last instance of plot class cl in this axes plots. &#39;&#39;&#39;</span>
+    <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">plots</span><span class="p">):</span>
+      <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">cl</span><span class="p">):</span> <span class="k">return</span> <span class="n">p</span>
+    <span class="k">return</span> <span class="kc">None</span></div>
+  <span class="c1"># }}}</span>
+<span class="c1"># }}} </span>
+
+<span class="c1"># Generic object for holding plot information</span>
+<span class="k">class</span> <span class="nc">PlotOp</span><span class="p">:</span>
+<span class="c1"># {{{</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">plot_args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">plot_args</span> <span class="o">=</span> <span class="n">plot_args</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">plot_kwargs</span> <span class="o">=</span> <span class="n">kwargs</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">axes</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">pre</span> <span class="o">=</span> <span class="kc">True</span>
+
+  <span class="c1"># Draw the thing</span>
+  <span class="c1"># This is pretty much the only public-facing method.</span>
+  <span class="k">def</span> <span class="nf">render</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">pass</span>
+<span class="c1"># }}} </span>
+
+<span class="c1"># 1D plots</span>
+<span class="k">class</span> <span class="nc">Plot</span><span class="p">(</span><span class="n">PlotOp</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+  <span class="k">def</span> <span class="nf">render</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">):</span>
+    <span class="n">axes</span><span class="o">.</span><span class="n">plot</span> <span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_args</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_kwargs</span><span class="p">)</span>
+    <span class="c1">#print &#39;Autoscaling.&#39;</span>
+    <span class="c1">#axes.autoscale_view()</span>
+<span class="c1"># }}}</span>
+
+<span class="k">class</span> <span class="nc">FillBetween</span><span class="p">(</span><span class="n">PlotOp</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+  <span class="k">def</span> <span class="nf">render</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">):</span>
+    <span class="n">axes</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_args</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_kwargs</span><span class="p">)</span>
+    <span class="n">axes</span><span class="o">.</span><span class="n">autoscale</span><span class="p">()</span>
+<span class="c1"># }}}</span>
+
+<span class="k">class</span> <span class="nc">Scatter</span><span class="p">(</span><span class="n">PlotOp</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+  <span class="k">def</span> <span class="nf">render</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">):</span>
+    <span class="n">axes</span><span class="o">.</span><span class="n">scatter</span> <span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_args</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_kwargs</span><span class="p">)</span>
+<span class="c1"># }}}</span>
+
+<span class="k">class</span> <span class="nc">Errorbar</span><span class="p">(</span><span class="n">PlotOp</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+  <span class="k">def</span> <span class="nf">render</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">):</span>
+    <span class="n">axes</span><span class="o">.</span><span class="n">errorbar</span> <span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_args</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_kwargs</span><span class="p">)</span>
+<span class="c1"># }}}</span>
+
+<span class="k">class</span> <span class="nc">Bar</span><span class="p">(</span><span class="n">PlotOp</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+  <span class="k">def</span> <span class="nf">render</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">):</span>
+    <span class="n">axes</span><span class="o">.</span><span class="n">bar</span> <span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_args</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_kwargs</span><span class="p">)</span>
+<span class="c1"># }}}</span>
+
+<span class="k">class</span> <span class="nc">Histogram</span><span class="p">(</span><span class="n">PlotOp</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+  <span class="k">def</span> <span class="nf">render</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">):</span>
+    <span class="n">axes</span><span class="o">.</span><span class="n">hist</span> <span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_args</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_kwargs</span><span class="p">)</span>
+<span class="c1"># }}}</span>
+
+<span class="k">class</span> <span class="nc">AxHLine</span><span class="p">(</span><span class="n">PlotOp</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+  <span class="k">def</span> <span class="nf">render</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">):</span>
+    <span class="n">axes</span><span class="o">.</span><span class="n">axhline</span> <span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_args</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_kwargs</span><span class="p">)</span>
+<span class="c1"># }}}</span>
+
+<span class="k">class</span> <span class="nc">AxVLine</span><span class="p">(</span><span class="n">PlotOp</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+  <span class="k">def</span> <span class="nf">render</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">):</span>
+    <span class="n">axes</span><span class="o">.</span><span class="n">axvline</span> <span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_args</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_kwargs</span><span class="p">)</span>
+<span class="c1"># }}}</span>
+
+<span class="k">class</span> <span class="nc">Legend</span><span class="p">(</span><span class="n">PlotOp</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+  <span class="k">def</span> <span class="nf">render</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">):</span>
+    <span class="n">axes</span><span class="o">.</span><span class="n">legend</span> <span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_args</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_kwargs</span><span class="p">)</span>
+<span class="c1"># }}}</span>
+
+<span class="k">class</span> <span class="nc">Text</span><span class="p">(</span><span class="n">PlotOp</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+  <span class="k">def</span> <span class="nf">render</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">):</span>
+    <span class="n">kwargs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">plot_kwargs</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">tr</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;transform&#39;</span><span class="p">,</span> <span class="s1">&#39;Data&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">tr</span> <span class="o">==</span> <span class="s1">&#39;Axes&#39;</span><span class="p">:</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;transform&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">axes</span><span class="o">.</span><span class="n">transAxes</span>
+    <span class="k">if</span> <span class="n">tr</span> <span class="o">==</span> <span class="s1">&#39;Data&#39;</span><span class="p">:</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;transform&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">axes</span><span class="o">.</span><span class="n">transData</span>
+       
+    <span class="n">axes</span><span class="o">.</span><span class="n">text</span> <span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="c1"># }}}</span>
+
+<span class="c1"># Contour</span>
+<span class="k">class</span> <span class="nc">Contour</span><span class="p">(</span><span class="n">PlotOp</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+  <span class="k">def</span> <span class="nf">render</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_cnt</span> <span class="o">=</span> <span class="n">axes</span><span class="o">.</span><span class="n">contour</span> <span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_args</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_kwargs</span><span class="p">)</span>
+<span class="c1"># }}}</span>
+
+<span class="c1"># Filled Contour</span>
+<span class="k">class</span> <span class="nc">Contourf</span><span class="p">(</span><span class="n">PlotOp</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+  <span class="k">def</span> <span class="nf">render</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_cnt</span> <span class="o">=</span> <span class="n">axes</span><span class="o">.</span><span class="n">contourf</span> <span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_args</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_kwargs</span><span class="p">)</span>
+<span class="c1"># }}}</span>
+
+<span class="c1"># Op to modify contours</span>
+<span class="k">class</span> <span class="nc">ModifyContours</span><span class="p">(</span><span class="n">PlotOp</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cnt</span><span class="p">,</span> <span class="n">ind</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span> <span class="o">=</span> <span class="n">cnt</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">ind</span> <span class="o">=</span> <span class="n">ind</span>
+    <span class="n">PlotOp</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">render</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">):</span>
+    <span class="n">coll</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span><span class="o">.</span><span class="n">_cnt</span><span class="o">.</span><span class="n">collections</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ind</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">pyl</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">coll</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_kwargs</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span> <span class="n">pyl</span><span class="o">.</span><span class="n">setp</span><span class="p">([</span><span class="n">coll</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ind</span><span class="p">],</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_kwargs</span><span class="p">)</span>
+<span class="c1"># }}}</span>
+
+<span class="c1"># Op to add contour labels</span>
+<span class="k">class</span> <span class="nc">CLabel</span><span class="p">(</span><span class="n">PlotOp</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cnt</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span> <span class="o">=</span> <span class="n">cnt</span>
+    <span class="n">PlotOp</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">pre</span> <span class="o">=</span> <span class="kc">False</span>
+
+  <span class="k">def</span> <span class="nf">render</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">):</span>
+    <span class="n">pyl</span><span class="o">.</span><span class="n">clabel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cnt</span><span class="o">.</span><span class="n">_cnt</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_kwargs</span><span class="p">)</span>
+<span class="c1"># }}}</span>
+
+<span class="c1"># PColor</span>
+<span class="k">class</span> <span class="nc">PColor</span><span class="p">(</span><span class="n">PlotOp</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+  <span class="k">def</span> <span class="nf">render</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_cnt</span> <span class="o">=</span> <span class="n">axes</span><span class="o">.</span><span class="n">pcolor</span> <span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_args</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_kwargs</span><span class="p">)</span>
+<span class="c1"># }}}</span>
+
+<span class="c1"># Streamplot</span>
+<span class="k">class</span> <span class="nc">Streamplot</span><span class="p">(</span><span class="n">PlotOp</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+  <span class="k">def</span> <span class="nf">render</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_sp</span> <span class="o">=</span> <span class="n">axes</span><span class="o">.</span><span class="n">streamplot</span> <span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_args</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_kwargs</span><span class="p">)</span>
+<span class="c1"># }}}</span>
+
+<span class="c1"># Quiver</span>
+<span class="k">class</span> <span class="nc">Quiver</span><span class="p">(</span><span class="n">PlotOp</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+  <span class="k">def</span> <span class="nf">render</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_cnt</span> <span class="o">=</span> <span class="n">axes</span><span class="o">.</span><span class="n">quiver</span> <span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_args</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_kwargs</span><span class="p">)</span>
+<span class="c1"># }}}</span>
+
+<span class="c1"># Op to add a quiver key</span>
+<span class="k">class</span> <span class="nc">QuiverKey</span><span class="p">(</span><span class="n">PlotOp</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cnt</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span> <span class="o">=</span> <span class="n">cnt</span>
+    <span class="n">PlotOp</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">render</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">):</span>
+    <span class="n">pyl</span><span class="o">.</span><span class="n">quiverkey</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cnt</span><span class="o">.</span><span class="n">_cnt</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_args</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_kwargs</span><span class="p">)</span>
+<span class="c1"># }}}</span>
+
+<span class="c1"># Colorbar</span>
+<span class="k">class</span> <span class="nc">Colorbar</span><span class="p">(</span><span class="n">PlotOp</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cnt</span><span class="p">,</span> <span class="n">cax</span><span class="p">,</span> <span class="o">*</span><span class="n">plot_args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cnt</span> <span class="o">=</span> <span class="n">cnt</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">cax</span> <span class="o">=</span> <span class="n">cax</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">lcnt</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;lcnt&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">PlotOp</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">plot_args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">render</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_cbar</span> <span class="o">=</span> <span class="n">pyl</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cnt</span><span class="o">.</span><span class="n">_cnt</span><span class="p">,</span> <span class="n">cax</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">cax</span><span class="o">.</span><span class="n">ax</span><span class="p">,</span> <span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_args</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">plot_kwargs</span><span class="p">)</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">lcnt</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cbar</span><span class="o">.</span><span class="n">add_lines</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lcnt</span><span class="o">.</span><span class="n">_cnt</span><span class="p">)</span>
+    <span class="n">pyl</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">axes</span><span class="p">)</span>
+<span class="c1"># }}}</span>
+
+<span class="k">def</span> <span class="nf">colorbar</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">cnt</span><span class="p">,</span> <span class="n">cax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">rect</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+  <span class="k">if</span> <span class="n">cax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">pos</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;pos&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">pos</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;l&#39;</span><span class="p">]:</span> <span class="n">orient</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;orientation&#39;</span><span class="p">,</span> <span class="s1">&#39;vertical&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">pos</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;t&#39;</span><span class="p">]:</span> <span class="n">orient</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;orientation&#39;</span><span class="p">,</span> <span class="s1">&#39;horizontal&#39;</span><span class="p">)</span>
+    <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;orientation&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">orient</span>
+
+    <span class="k">if</span> <span class="n">orient</span> <span class="o">==</span> <span class="s1">&#39;horizontal&#39;</span><span class="p">:</span> 
+      <span class="n">height</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;height&#39;</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">)</span>
+      <span class="n">size</span> <span class="o">=</span> <span class="n">axes</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">height</span>
+
+      <span class="k">if</span> <span class="n">rect</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">l</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;rl&#39;</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">)</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;rb&#39;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">)</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;rr&#39;</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">)</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;rt&#39;</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">)</span>
+        <span class="n">rect</span> <span class="o">=</span> <span class="p">[</span><span class="n">l</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span> 
+      <span class="n">width</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;width&#39;</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">)</span>
+      <span class="n">size</span> <span class="o">=</span> <span class="n">width</span><span class="p">,</span> <span class="n">axes</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+      <span class="k">if</span> <span class="n">rect</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">l</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;rl&#39;</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;rb&#39;</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">)</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;rr&#39;</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)</span>
+        <span class="n">t</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;rt&#39;</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">)</span>
+        <span class="n">rect</span> <span class="o">=</span> <span class="p">[</span><span class="n">l</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">r</span><span class="p">,</span> <span class="n">t</span><span class="p">]</span>
+
+    <span class="n">cax</span> <span class="o">=</span> <span class="n">AxesWrapper</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">,</span> <span class="n">rect</span><span class="o">=</span><span class="n">rect</span><span class="p">,</span> <span class="n">make_axis</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">pos</span> <span class="o">==</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">grid</span><span class="p">([[</span><span class="n">axes</span><span class="p">],</span> <span class="p">[</span><span class="n">cax</span><span class="p">]])</span>
+    <span class="k">elif</span> <span class="n">pos</span> <span class="o">==</span> <span class="s1">&#39;l&#39;</span><span class="p">:</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">grid</span><span class="p">([[</span><span class="n">cax</span><span class="p">,</span> <span class="n">axes</span><span class="p">]])</span>
+    <span class="k">elif</span> <span class="n">pos</span> <span class="o">==</span> <span class="s1">&#39;t&#39;</span><span class="p">:</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">grid</span><span class="p">([[</span><span class="n">cax</span><span class="p">],</span> <span class="p">[</span><span class="n">axes</span><span class="p">]])</span>
+    <span class="k">else</span><span class="p">:</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">grid</span><span class="p">([[</span><span class="n">axes</span><span class="p">,</span> <span class="n">cax</span><span class="p">]])</span>
+
+  <span class="k">else</span><span class="p">:</span> <span class="n">ret</span> <span class="o">=</span> <span class="kc">None</span>
+
+  <span class="n">ticklabels</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;ticklabels&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+  <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;spacing&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;spacing&#39;</span><span class="p">,</span> <span class="s1">&#39;proportional&#39;</span><span class="p">)</span>
+
+  <span class="n">cnt</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">add_plot</span><span class="p">(</span><span class="n">Colorbar</span><span class="p">(</span><span class="n">cnt</span><span class="p">,</span> <span class="n">cax</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">))</span>
+
+  <span class="k">if</span> <span class="n">ticklabels</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">orient</span> <span class="o">==</span> <span class="s1">&#39;horizontal&#39;</span><span class="p">:</span>
+      <span class="n">cax</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">xticklabels</span> <span class="o">=</span> <span class="n">ticklabels</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">cax</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">yticklabels</span> <span class="o">=</span> <span class="n">ticklabels</span><span class="p">)</span>
+
+  <span class="k">return</span> <span class="n">ret</span>
+<span class="c1"># }}}</span>
+
+<span class="k">def</span> <span class="nf">make_plot_func</span><span class="p">(</span><span class="n">fclass</span><span class="p">,</span> <span class="n">make_axes</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">f</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="n">axes</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;axes&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">axes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">AxesWrapper</span><span class="p">()</span>
+    <span class="n">axes</span><span class="o">.</span><span class="n">add_plot</span><span class="p">(</span><span class="n">fclass</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">),</span> <span class="n">make_axes</span><span class="o">=</span><span class="n">make_axes</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">axes</span>
+  <span class="k">return</span> <span class="n">f</span>
+
+<span class="k">def</span> <span class="nf">make_plot_member</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">g</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span> <span class="n">f</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+  <span class="k">return</span> <span class="n">g</span>
+
+<span class="n">plot</span> <span class="o">=</span> <span class="n">make_plot_func</span><span class="p">(</span><span class="n">Plot</span><span class="p">)</span>
+<span class="n">fill_between</span> <span class="o">=</span> <span class="n">make_plot_func</span><span class="p">(</span><span class="n">FillBetween</span><span class="p">)</span>
+<span class="n">scatter</span> <span class="o">=</span> <span class="n">make_plot_func</span><span class="p">(</span><span class="n">Scatter</span><span class="p">)</span>
+<span class="n">errorbar</span> <span class="o">=</span> <span class="n">make_plot_func</span><span class="p">(</span><span class="n">Errorbar</span><span class="p">)</span>
+<span class="n">bar</span> <span class="o">=</span> <span class="n">make_plot_func</span><span class="p">(</span><span class="n">Bar</span><span class="p">)</span>
+<span class="n">hist</span> <span class="o">=</span> <span class="n">make_plot_func</span><span class="p">(</span><span class="n">Histogram</span><span class="p">)</span>
+<span class="n">axhline</span> <span class="o">=</span> <span class="n">make_plot_func</span><span class="p">(</span><span class="n">AxHLine</span><span class="p">)</span>
+<span class="n">axvline</span> <span class="o">=</span> <span class="n">make_plot_func</span><span class="p">(</span><span class="n">AxVLine</span><span class="p">)</span>
+<span class="n">legend</span> <span class="o">=</span> <span class="n">make_plot_func</span><span class="p">(</span><span class="n">Legend</span><span class="p">)</span>
+<span class="n">text</span> <span class="o">=</span> <span class="n">make_plot_func</span><span class="p">(</span><span class="n">Text</span><span class="p">,</span> <span class="n">make_axes</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">contour</span> <span class="o">=</span> <span class="n">make_plot_func</span><span class="p">(</span><span class="n">Contour</span><span class="p">)</span>
+<span class="n">contourf</span> <span class="o">=</span> <span class="n">make_plot_func</span><span class="p">(</span><span class="n">Contourf</span><span class="p">)</span>
+<span class="n">modifycontours</span> <span class="o">=</span> <span class="n">make_plot_func</span><span class="p">(</span><span class="n">ModifyContours</span><span class="p">)</span>
+<span class="n">clabel</span> <span class="o">=</span> <span class="n">make_plot_func</span><span class="p">(</span><span class="n">CLabel</span><span class="p">)</span>
+<span class="n">pcolor</span> <span class="o">=</span> <span class="n">make_plot_func</span><span class="p">(</span><span class="n">PColor</span><span class="p">)</span>
+<span class="n">streamplot</span> <span class="o">=</span> <span class="n">make_plot_func</span><span class="p">(</span><span class="n">Streamplot</span><span class="p">)</span>
+<span class="n">quiver</span> <span class="o">=</span> <span class="n">make_plot_func</span><span class="p">(</span><span class="n">Quiver</span><span class="p">)</span>
+<span class="n">quiverkey</span> <span class="o">=</span> <span class="n">make_plot_func</span><span class="p">(</span><span class="n">QuiverKey</span><span class="p">)</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;AxesWrapper&#39;</span><span class="p">,</span> <span class="s1">&#39;plot&#39;</span><span class="p">,</span> <span class="s1">&#39;fill_between&#39;</span><span class="p">,</span> <span class="s1">&#39;scatter&#39;</span><span class="p">,</span> <span class="s1">&#39;errorbar&#39;</span><span class="p">,</span> <span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="s1">&#39;hist&#39;</span><span class="p">,</span> <span class="s1">&#39;axhline&#39;</span><span class="p">,</span> <span class="s1">&#39;axvline&#39;</span><span class="p">,</span> <span class="s1">&#39;legend&#39;</span><span class="p">,</span> <span class="s1">&#39;text&#39;</span><span class="p">,</span> <span class="s1">&#39;contour&#39;</span><span class="p">,</span> <span class="s1">&#39;contourf&#39;</span><span class="p">,</span> <span class="s1">&#39;pcolor&#39;</span><span class="p">,</span> <span class="s1">&#39;quiver&#39;</span><span class="p">,</span> <span class="s1">&#39;quiverkey&#39;</span><span class="p">,</span> <span class="s1">&#39;colorbar&#39;</span><span class="p">]</span>
+
+<span class="n">AxesWrapper</span><span class="o">.</span><span class="n">plot</span> <span class="o">=</span> <span class="n">make_plot_member</span><span class="p">(</span><span class="n">plot</span><span class="p">)</span>
+<span class="n">AxesWrapper</span><span class="o">.</span><span class="n">fill_between</span> <span class="o">=</span> <span class="n">make_plot_member</span><span class="p">(</span><span class="n">fill_between</span><span class="p">)</span>
+<span class="n">AxesWrapper</span><span class="o">.</span><span class="n">scatter</span> <span class="o">=</span> <span class="n">make_plot_member</span><span class="p">(</span><span class="n">scatter</span><span class="p">)</span>
+<span class="n">AxesWrapper</span><span class="o">.</span><span class="n">errorbar</span> <span class="o">=</span> <span class="n">make_plot_member</span><span class="p">(</span><span class="n">errorbar</span><span class="p">)</span>
+<span class="n">AxesWrapper</span><span class="o">.</span><span class="n">bar</span> <span class="o">=</span> <span class="n">make_plot_member</span><span class="p">(</span><span class="n">bar</span><span class="p">)</span>
+<span class="n">AxesWrapper</span><span class="o">.</span><span class="n">hist</span> <span class="o">=</span> <span class="n">make_plot_member</span><span class="p">(</span><span class="n">hist</span><span class="p">)</span>
+<span class="n">AxesWrapper</span><span class="o">.</span><span class="n">axhline</span> <span class="o">=</span> <span class="n">make_plot_member</span><span class="p">(</span><span class="n">axhline</span><span class="p">)</span>
+<span class="n">AxesWrapper</span><span class="o">.</span><span class="n">axvline</span> <span class="o">=</span> <span class="n">make_plot_member</span><span class="p">(</span><span class="n">axvline</span><span class="p">)</span>
+<span class="n">AxesWrapper</span><span class="o">.</span><span class="n">legend</span> <span class="o">=</span> <span class="n">make_plot_member</span><span class="p">(</span><span class="n">legend</span><span class="p">)</span>
+<span class="n">AxesWrapper</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">make_plot_member</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+<span class="n">AxesWrapper</span><span class="o">.</span><span class="n">contour</span> <span class="o">=</span> <span class="n">make_plot_member</span><span class="p">(</span><span class="n">contour</span><span class="p">)</span>
+<span class="n">AxesWrapper</span><span class="o">.</span><span class="n">contourf</span> <span class="o">=</span> <span class="n">make_plot_member</span><span class="p">(</span><span class="n">contourf</span><span class="p">)</span>
+<span class="n">AxesWrapper</span><span class="o">.</span><span class="n">modifycontours</span> <span class="o">=</span> <span class="n">make_plot_member</span><span class="p">(</span><span class="n">modifycontours</span><span class="p">)</span>
+<span class="n">AxesWrapper</span><span class="o">.</span><span class="n">clabel</span> <span class="o">=</span> <span class="n">make_plot_member</span><span class="p">(</span><span class="n">clabel</span><span class="p">)</span>
+<span class="n">AxesWrapper</span><span class="o">.</span><span class="n">pcolor</span> <span class="o">=</span> <span class="n">make_plot_member</span><span class="p">(</span><span class="n">pcolor</span><span class="p">)</span>
+<span class="n">AxesWrapper</span><span class="o">.</span><span class="n">streamplot</span> <span class="o">=</span> <span class="n">make_plot_member</span><span class="p">(</span><span class="n">streamplot</span><span class="p">)</span>
+<span class="n">AxesWrapper</span><span class="o">.</span><span class="n">quiver</span> <span class="o">=</span> <span class="n">make_plot_member</span><span class="p">(</span><span class="n">quiver</span><span class="p">)</span>
+<span class="n">AxesWrapper</span><span class="o">.</span><span class="n">quiverkey</span> <span class="o">=</span> <span class="n">make_plot_member</span><span class="p">(</span><span class="n">quiverkey</span><span class="p">)</span>
+
+<span class="c1"># Routine for saving this plot to a file</span>
+<span class="k">def</span> <span class="nf">save</span> <span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+  <span class="kn">import</span> <span class="nn">pickle</span>
+  <span class="n">outfile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">)</span>
+  <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">outfile</span><span class="p">)</span>
+  <span class="n">outfile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="c1"># }}}</span>
+
+<span class="c1"># Module-level routine for loading a plot from file</span>
+<span class="k">def</span> <span class="nf">load</span> <span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+  <span class="kn">import</span> <span class="nn">pickle</span>
+  <span class="n">infile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span><span class="s1">&#39;ro&#39;</span><span class="p">)</span>
+  <span class="n">theplot</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">infile</span><span class="p">)</span>
+  <span class="n">infile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+  <span class="k">return</span> <span class="n">theplot</span>
+<span class="c1"># }}}</span>
+
+<div class="viewcode-block" id="grid"><a class="viewcode-back" href="../../../plot.html#pygeode.plot.grid">[docs]</a><span class="k">def</span> <span class="nf">grid</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+  <span class="c1"># Expect a 2d grid; first index is the row, second the column</span>
+  <span class="n">ny</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">axes</span><span class="p">)</span>
+  <span class="n">nx</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+  <span class="k">assert</span> <span class="nb">all</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">==</span> <span class="n">nx</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">:]]),</span> <span class="s1">&#39;Each row must have the same number of axes&#39;</span>
+
+  <span class="n">rowh</span> <span class="o">=</span> <span class="p">[</span><span class="nb">max</span><span class="p">([</span><span class="n">a</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">row</span> <span class="k">if</span> <span class="n">a</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">])</span> <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">axes</span><span class="p">]</span>
+  <span class="n">colw</span> <span class="o">=</span> <span class="p">[</span><span class="nb">max</span><span class="p">([</span><span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ny</span><span class="p">)</span> <span class="k">if</span> <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">])</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nx</span><span class="p">)]</span>
+
+  <span class="n">tsize</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">colw</span><span class="p">)),</span> <span class="nb">float</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">rowh</span><span class="p">))]</span>
+  <span class="k">if</span> <span class="n">size</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span> <span class="n">size</span> <span class="o">=</span> <span class="n">tsize</span>
+
+  <span class="n">Ax</span> <span class="o">=</span> <span class="n">AxesWrapper</span><span class="p">(</span><span class="n">size</span> <span class="o">=</span> <span class="n">size</span><span class="p">)</span>
+
+  <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span>
+  <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">ny</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">nx</span><span class="p">):</span>
+      <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span>
+      <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">tsize</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">px</span> <span class="o">=</span> <span class="p">(</span><span class="n">colw</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="n">ax</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">/</span> <span class="n">tsize</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="mf">2.</span>
+
+        <span class="n">h</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">tsize</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">py</span> <span class="o">=</span> <span class="p">(</span><span class="n">rowh</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="n">ax</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">tsize</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mf">2.</span>
+          
+        <span class="n">r</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span> <span class="o">+</span> <span class="n">px</span><span class="p">,</span> <span class="n">y</span> <span class="o">-</span> <span class="n">h</span> <span class="o">-</span> <span class="n">py</span><span class="p">,</span> <span class="n">x</span> <span class="o">+</span> <span class="n">w</span> <span class="o">+</span> <span class="n">px</span><span class="p">,</span> <span class="n">y</span> <span class="o">-</span> <span class="n">py</span><span class="p">]</span>
+        <span class="n">Ax</span><span class="o">.</span><span class="n">add_axis</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+      <span class="n">x</span> <span class="o">+=</span> <span class="n">colw</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">/</span> <span class="n">tsize</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="mf">0.</span>
+    <span class="n">y</span> <span class="o">-=</span> <span class="n">rowh</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">/</span> <span class="n">tsize</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+  <span class="k">return</span> <span class="n">Ax</span></div>
+<span class="c1"># }}}</span>
+
+<span class="k">def</span> <span class="nf">annotate</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+   <span class="n">size</span> <span class="o">=</span> <span class="n">axes</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">axes</span><span class="o">.</span><span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.5</span>
+   <span class="n">Ax</span> <span class="o">=</span> <span class="n">AxesWrapper</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">size</span><span class="p">)</span>
+   <span class="n">r</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.5</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">size</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="mf">1.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">)</span>
+   <span class="n">Ax</span><span class="o">.</span><span class="n">add_axis</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+   <span class="n">Ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">)</span><span class="c1">#, transform=&#39;Ax&#39;)</span>
+   <span class="k">return</span> <span class="n">Ax</span>
+<span class="c1"># }}}</span>
+<span class="n">__all__</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="s1">&#39;save&#39;</span><span class="p">,</span> <span class="s1">&#39;load&#39;</span><span class="p">,</span> <span class="s1">&#39;grid&#39;</span><span class="p">])</span>
+
+<span class="k">try</span><span class="p">:</span>
+  <span class="kn">from</span> <span class="nn">.basemap</span> <span class="k">import</span> <span class="o">*</span>
+  <span class="kn">from</span> <span class="nn">.basemap</span> <span class="k">import</span> <span class="n">__all__</span> <span class="k">as</span> <span class="n">bm_all</span>
+  <span class="n">__all__</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">bm_all</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">isbasemapaxis</span><span class="p">(</span><span class="n">axes</span><span class="p">):</span>
+  <span class="c1"># {{{</span>
+    <span class="k">return</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">BasemapAxes</span><span class="p">)</span>
+  <span class="c1"># }}}</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+  <span class="kn">import</span> <span class="nn">warnings</span>
+  <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="s1">&#39;Basemap functionality is unavailable.&#39;</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">isbasemapaxis</span><span class="p">(</span><span class="n">axes</span><span class="p">):</span>
+  <span class="c1"># {{{</span>
+    <span class="k">return</span> <span class="kc">False</span>
+  <span class="c1"># }}}</span>
+</pre></div>
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        <a class="uplink" href="../../../reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../../tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../../gallery/index.html">Gallery</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Mike Neish, Peter Hitchcock.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.
+    </div>
+  </body>
+</html>

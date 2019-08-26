@@ -1,0 +1,748 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>pygeode.varoperations &#8212; PyGeode 1.3 pre-release documentation</title>
+    <link rel="stylesheet" href="../../_static/pygtheme.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+<link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
+
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../../index.html">
+          <span>PyGeode 1.3 pre-release documentation</span></a></h1>
+        <h2 class="heading"><span>pygeode.varoperations</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        <a class="uplink" href="../../reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../gallery/index.html">Gallery</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <h1>Source code for pygeode.varoperations</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Simple Var operations</span>
+<span class="c1"># (things that manipulate the properties/shape of the data, without changing the values)</span>
+
+<span class="kn">from</span> <span class="nn">pygeode.var</span> <span class="k">import</span> <span class="n">Var</span>
+
+<span class="c1"># Squeeze out degenerate axes (where length=1)</span>
+<span class="k">class</span> <span class="nc">SqueezedVar</span><span class="p">(</span><span class="n">Var</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">__init__</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="o">*</span><span class="n">iaxes</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">pygeode.var</span> <span class="k">import</span> <span class="n">Var</span><span class="p">,</span> <span class="n">copy_meta</span>
+    <span class="c1"># Get the axes to be squeezed</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">iaxes</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">iaxes</span><span class="p">[</span><span class="mi">0</span><span class="p">],(</span><span class="nb">list</span><span class="p">,</span><span class="nb">tuple</span><span class="p">)):</span> <span class="n">iaxes</span> <span class="o">=</span> <span class="n">iaxes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">iaxes</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="n">iaxes</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">a</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">axes</span><span class="p">)</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1"># Only remove degenerate axes</span>
+    <span class="n">iaxes</span> <span class="o">=</span> <span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">whichaxis</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">iaxes</span><span class="p">]</span>
+    <span class="n">iaxes</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">iaxes</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1"># Slice the var along some axes (passed by keyword argument)?</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+      <span class="k">for</span> <span class="n">k</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">assert</span> <span class="n">var</span><span class="o">.</span><span class="n">hasaxis</span><span class="p">(</span><span class="n">k</span><span class="p">),</span> <span class="s2">&quot;unknown axis &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span><span class="o">%</span><span class="n">k</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">whichaxis</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">a</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">iaxes</span><span class="p">:</span> <span class="n">iaxes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,(</span><span class="nb">int</span><span class="p">,</span><span class="nb">float</span><span class="p">)),</span> <span class="s2">&quot;expected a numerical value for keyword &#39;</span><span class="si">%s</span><span class="s2">&#39; - received </span><span class="si">%s</span><span class="s2"> instead&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="nb">type</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
+      <span class="n">var</span> <span class="o">=</span> <span class="n">var</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># Do the slicing first, before doing this wrapper</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">var</span> <span class="o">=</span> <span class="n">var</span>
+
+    <span class="n">Var</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,[</span><span class="n">a</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">a</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">axes</span><span class="p">)</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">iaxes</span><span class="p">],</span> <span class="n">var</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="n">copy_meta</span> <span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">getview</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">pbar</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">view</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">conform</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">pbar</span><span class="o">=</span><span class="n">pbar</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">squeeze</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">iaxes</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Removes degenerate axes from a variable, reducing its dimensionality.</span>
+
+<span class="sd">  Parameters</span>
+<span class="sd">  ----------</span>
+<span class="sd">  *iaxes : one or more axes (optional)</span>
+<span class="sd">    The axes to remove (they must already be degenerate).  If no explicit axes</span>
+<span class="sd">    are provided, then *all* degenerate axes are removed.</span>
+<span class="sd">  **kwargs : keyword arguments</span>
+<span class="sd">    Keyword-based axis slicing.  Selects a particular value along the axis and</span>
+<span class="sd">    then removes the axis from the output.  See :meth:`Var.__call__` for a</span>
+<span class="sd">    similar method which uses this keyword syntax.</span>
+
+<span class="sd">  Returns</span>
+<span class="sd">  -------</span>
+<span class="sd">  squeezed : Var</span>
+<span class="sd">    The squeezed variable</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="n">var</span> <span class="o">=</span> <span class="bp">self</span>
+  <span class="k">return</span> <span class="n">SqueezedVar</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="o">*</span><span class="n">iaxes</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="c1"># Extend the var with more axes</span>
+<span class="k">class</span> <span class="nc">ExtendedVar</span><span class="p">(</span><span class="n">Var</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="o">*</span><span class="n">newaxes</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">pygeode.var</span> <span class="k">import</span> <span class="n">Var</span><span class="p">,</span> <span class="n">copy_meta</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">var</span> <span class="o">=</span> <span class="n">var</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">pos</span> <span class="o">=</span> <span class="n">pos</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">newaxes</span> <span class="o">=</span> <span class="n">newaxes</span>
+    <span class="n">axes</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">axes</span><span class="p">[:</span><span class="n">pos</span><span class="p">]</span> <span class="o">+</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">newaxes</span><span class="p">)</span> <span class="o">+</span> <span class="n">var</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">pos</span><span class="p">:]</span>
+    <span class="n">Var</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">var</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="n">copy_meta</span> <span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+  <span class="k">def</span> <span class="nf">getview</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">pbar</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">,</span> <span class="n">pbar</span><span class="o">=</span><span class="n">pbar</span><span class="p">)</span>  <span class="c1"># view.get should give us degenerate extended axes here</span>
+    <span class="c1"># Broadcast the values to the extended shape</span>
+    <span class="n">out</span><span class="p">[()]</span> <span class="o">=</span> <span class="n">values</span>
+    <span class="k">return</span> <span class="n">out</span>
+
+<span class="k">def</span> <span class="nf">extend</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="o">*</span><span class="n">newaxes</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Adds more axes to a variable.  Data will be duplicated along these new axes.</span>
+
+<span class="sd">  Parameters</span>
+<span class="sd">  ----------</span>
+<span class="sd">  pos : int</span>
+<span class="sd">    The position (within the variable&#39;s current axes) to start inserting the</span>
+<span class="sd">    new axes.</span>
+<span class="sd">  *newaxes : one or more axes</span>
+<span class="sd">    The new axes to insert</span>
+
+<span class="sd">  Returns</span>
+<span class="sd">  -------</span>
+<span class="sd">  extended_var : Var</span>
+<span class="sd">    The variable, extended to include the new axes.</span>
+
+<span class="sd">  Examples</span>
+<span class="sd">  --------</span>
+<span class="sd">  &gt;&gt;&gt; from pygeode.tutorial import t1</span>
+<span class="sd">  &gt;&gt;&gt; print(t1.Temp)</span>
+<span class="sd">  &lt;Var &#39;Temp&#39;&gt;:</span>
+<span class="sd">    Units: K  Shape:  (lat,lon)  (31,60)</span>
+<span class="sd">    Axes:</span>
+<span class="sd">      lat &lt;Lat&gt;      :  90 S to 90 N (31 values)</span>
+<span class="sd">      lon &lt;Lon&gt;      :  0 E to 354 E (60 values)</span>
+<span class="sd">    Attributes:</span>
+<span class="sd">      {}</span>
+<span class="sd">    Type:  Add_Var (dtype=&quot;float64&quot;)</span>
+<span class="sd">  &gt;&gt;&gt; from pygeode import Pres</span>
+<span class="sd">  &gt;&gt;&gt; paxis = Pres([1000,850,700])  # Create a pressure axis</span>
+<span class="sd">  &gt;&gt;&gt; print(paxis)</span>
+<span class="sd">  pres &lt;Pres&gt;    :  1000 hPa to 700 hPa (3 values)</span>
+<span class="sd">  &gt;&gt;&gt; extended_var = t1.Temp.extend(0, paxis)  # Extend the data with this axis</span>
+<span class="sd">  &gt;&gt;&gt; print(extended_var)</span>
+<span class="sd">  &lt;Var &#39;Temp&#39;&gt;:</span>
+<span class="sd">    Units: K  Shape:  (pres,lat,lon)  (3,31,60)</span>
+<span class="sd">    Axes:</span>
+<span class="sd">      pres &lt;Pres&gt;    :  1000 hPa to 700 hPa (3 values)</span>
+<span class="sd">      lat &lt;Lat&gt;      :  90 S to 90 N (31 values)</span>
+<span class="sd">      lon &lt;Lon&gt;      :  0 E to 354 E (60 values)</span>
+<span class="sd">    Attributes:</span>
+<span class="sd">      {}</span>
+<span class="sd">    Type:  ExtendedVar (dtype=&quot;float64&quot;)</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="n">var</span> <span class="o">=</span> <span class="bp">self</span>
+  <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">newaxes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">,</span><span class="nb">list</span><span class="p">)):</span> <span class="n">newaxes</span> <span class="o">=</span> <span class="n">newaxes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+  <span class="k">return</span> <span class="n">ExtendedVar</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="o">*</span><span class="n">newaxes</span><span class="p">)</span>
+
+<span class="c1"># Transpose a variable</span>
+<span class="k">class</span> <span class="nc">TransposedVar</span><span class="p">(</span><span class="n">Var</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">alist</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">pygeode.var</span> <span class="k">import</span> <span class="n">Var</span><span class="p">,</span> <span class="n">copy_meta</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">var</span> <span class="o">=</span> <span class="n">var</span>
+    <span class="n">Var</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">alist</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">var</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="n">copy_meta</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+  <span class="k">def</span> <span class="nf">getview</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">pbar</span><span class="p">):</span> <span class="k">return</span> <span class="n">view</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">,</span> <span class="n">pbar</span><span class="o">=</span><span class="n">pbar</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">transpose</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">axes</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Transposes the axes of a variable.</span>
+
+<span class="sd">  Parameters</span>
+<span class="sd">  ----------</span>
+<span class="sd">  *axes : one or more axis identifiers (strings, :class:`Axis` classes, integer indices)</span>
+<span class="sd">    The new order of the axes.  Any unspecified axes will be appended after these.</span>
+
+<span class="sd">  Returns</span>
+<span class="sd">  -------</span>
+<span class="sd">  transposed_var : Var</span>
+<span class="sd">    The transposed variable.</span>
+
+<span class="sd">  Examples</span>
+<span class="sd">  --------</span>
+<span class="sd">  &gt;&gt;&gt; from pygeode.tutorial import t1</span>
+<span class="sd">  &gt;&gt;&gt; print(t1.Temp)</span>
+<span class="sd">  &lt;Var &#39;Temp&#39;&gt;:</span>
+<span class="sd">    Units: K  Shape:  (lat,lon)  (31,60)</span>
+<span class="sd">    Axes:</span>
+<span class="sd">      lat &lt;Lat&gt;      :  90 S to 90 N (31 values)</span>
+<span class="sd">      lon &lt;Lon&gt;      :  0 E to 354 E (60 values)</span>
+<span class="sd">    Attributes:</span>
+<span class="sd">      {}</span>
+<span class="sd">    Type:  Add_Var (dtype=&quot;float64&quot;)</span>
+<span class="sd">  &gt;&gt;&gt; transposed_var = t1.Temp.transpose(&#39;lon&#39;,&#39;lat&#39;)</span>
+<span class="sd">  &gt;&gt;&gt; print(transposed_var)</span>
+<span class="sd">  &lt;Var &#39;Temp&#39;&gt;:</span>
+<span class="sd">    Units: K  Shape:  (lon,lat)  (60,31)</span>
+<span class="sd">    Axes:</span>
+<span class="sd">      lon &lt;Lon&gt;      :  0 E to 354 E (60 values)</span>
+<span class="sd">      lat &lt;Lat&gt;      :  90 S to 90 N (31 values)</span>
+<span class="sd">    Attributes:</span>
+<span class="sd">      {}</span>
+<span class="sd">    Type:  TransposedVar (dtype=&quot;float64&quot;)</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="n">var</span> <span class="o">=</span> <span class="bp">self</span>
+  <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">axes</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;no axes specified&quot;</span>
+  <span class="n">alist</span> <span class="o">=</span> <span class="p">[</span><span class="n">var</span><span class="o">.</span><span class="n">whichaxis</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">axes</span><span class="p">]</span>
+  <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">alist</span><span class="p">:</span> <span class="k">assert</span> <span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="n">var</span><span class="o">.</span><span class="n">naxes</span><span class="p">,</span> <span class="s2">&quot;axis not found&quot;</span>
+  <span class="c1"># Append any other axes not mentioned</span>
+  <span class="n">alist</span> <span class="o">=</span> <span class="n">alist</span> <span class="o">+</span> <span class="p">[</span><span class="n">a</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">naxes</span><span class="p">)</span> <span class="k">if</span> <span class="n">a</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">alist</span><span class="p">]</span>
+  <span class="c1">#TODO: allow an argument of -1/None to indicate where to put the &quot;other&quot; axes?</span>
+  <span class="c1"># No transpose necessary?</span>
+  <span class="k">if</span> <span class="n">alist</span> <span class="o">==</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">naxes</span><span class="p">)):</span> <span class="k">return</span> <span class="n">var</span>
+  <span class="k">return</span> <span class="n">TransposedVar</span> <span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">alist</span><span class="p">)</span>
+
+<span class="c1"># Sort the axis values of a variable</span>
+<span class="k">class</span> <span class="nc">SortedVar</span><span class="p">(</span><span class="n">Var</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">order</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">pygeode.var</span> <span class="k">import</span> <span class="n">Var</span><span class="p">,</span> <span class="n">copy_meta</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">var</span> <span class="o">=</span> <span class="n">var</span>
+    <span class="n">outaxes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">axes</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">iaxis</span><span class="p">,</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">order</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+      <span class="n">reverse</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span><span class="kc">False</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="kc">None</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span><span class="kc">True</span><span class="p">}[</span><span class="n">o</span><span class="p">]</span>
+      <span class="n">outaxes</span><span class="p">[</span><span class="n">iaxis</span><span class="p">]</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">iaxis</span><span class="p">]</span><span class="o">.</span><span class="n">sorted</span><span class="p">(</span><span class="n">reverse</span><span class="o">=</span><span class="n">reverse</span><span class="p">)</span>
+
+    <span class="n">Var</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outaxes</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">var</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="n">copy_meta</span> <span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+  <span class="k">def</span> <span class="nf">getview</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">pbar</span><span class="p">):</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">,</span> <span class="n">pbar</span><span class="o">=</span><span class="n">pbar</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">r</span>
+<span class="c1">#TODO: rename to sort_by_axis</span>
+<span class="k">def</span> <span class="nf">sorted</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">iaxes</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Sorts the data so that the axes have monotonically increasing values.</span>
+
+<span class="sd">  Parameters</span>
+<span class="sd">  ----------</span>
+<span class="sd">  *iaxes : (optional)</span>
+<span class="sd">    Which axes to sort.  If not specified, then *all* axes are sorted.</span>
+<span class="sd">    Axes can also be passed as keyword arguments, with a value of 1/0/-1 to</span>
+<span class="sd">    specifiy a sort order of increasing/default/decreasing.</span>
+<span class="sd">    If positional arguments are passed, or if an order of &#39;0&#39; is specified,</span>
+<span class="sd">    then the natural (default) order will be used for that type of axis.</span>
+
+<span class="sd">  Returns</span>
+<span class="sd">  -------</span>
+<span class="sd">  sorted_var : Var</span>
+<span class="sd">    The sorted version of the data.</span>
+
+<span class="sd">  Examples</span>
+<span class="sd">  --------</span>
+<span class="sd">  &gt;&gt;&gt; from pygeode.tutorial import t2</span>
+<span class="sd">  &gt;&gt;&gt; print(t2.Temp)</span>
+<span class="sd">  &lt;Var &#39;Temp&#39;&gt;:</span>
+<span class="sd">    Shape:  (time,pres,lat,lon)  (3650,20,31,60)</span>
+<span class="sd">    Axes:</span>
+<span class="sd">      time &lt;ModelTime365&gt;:  Jan 1, 2011 00:00:00 to Dec 31, 2020 00:00:00 (3650 values)</span>
+<span class="sd">      pres &lt;Pres&gt;    :  1000 hPa to 50 hPa (20 values)</span>
+<span class="sd">      lat &lt;Lat&gt;      :  90 S to 90 N (31 values)</span>
+<span class="sd">      lon &lt;Lon&gt;      :  0 E to 354 E (60 values)</span>
+<span class="sd">    Attributes:</span>
+<span class="sd">      {}</span>
+<span class="sd">    Type:  TransposedVar (dtype=&quot;float64&quot;)</span>
+<span class="sd">  &gt;&gt;&gt; print(t2.Temp.sorted(&#39;pres&#39;))  # Sort by default/natural order</span>
+<span class="sd">  &lt;Var &#39;Temp&#39;&gt;:</span>
+<span class="sd">    Shape:  (time,pres,lat,lon)  (3650,20,31,60)</span>
+<span class="sd">    Axes:</span>
+<span class="sd">      time &lt;ModelTime365&gt;:  Jan 1, 2011 00:00:00 to Dec 31, 2020 00:00:00 (3650 values)</span>
+<span class="sd">      pres &lt;Pres&gt;    :  1000 hPa to 50 hPa (20 values)</span>
+<span class="sd">      lat &lt;Lat&gt;      :  90 S to 90 N (31 values)</span>
+<span class="sd">      lon &lt;Lon&gt;      :  0 E to 354 E (60 values)</span>
+<span class="sd">    Attributes:</span>
+<span class="sd">      {}</span>
+<span class="sd">    Type:  SortedVar (dtype=&quot;float64&quot;)</span>
+<span class="sd">  &gt;&gt;&gt; # ^^ no change, since pressure was already in its natrual order (decreasing)</span>
+<span class="sd">  &gt;&gt;&gt; print(t2.Temp.sorted(pres=1))  # Sort pressure explicitly as increasing order</span>
+<span class="sd">  &lt;Var &#39;Temp&#39;&gt;:</span>
+<span class="sd">    Shape:  (time,pres,lat,lon)  (3650,20,31,60)</span>
+<span class="sd">    Axes:</span>
+<span class="sd">      time &lt;ModelTime365&gt;:  Jan 1, 2011 00:00:00 to Dec 31, 2020 00:00:00 (3650 values)</span>
+<span class="sd">      pres &lt;Pres&gt;    :  50 hPa to 1000 hPa (20 values)</span>
+<span class="sd">      lat &lt;Lat&gt;      :  90 S to 90 N (31 values)</span>
+<span class="sd">      lon &lt;Lon&gt;      :  0 E to 354 E (60 values)</span>
+<span class="sd">    Attributes:</span>
+<span class="sd">      {}</span>
+<span class="sd">    Type:  SortedVar (dtype=&quot;float64&quot;)</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+
+  <span class="c1"># Build a dictionary of axes involved in this sort</span>
+  <span class="c1"># (key = axis index, value = order (1/0/-1)</span>
+  <span class="n">order</span> <span class="o">=</span> <span class="p">{}</span>
+  <span class="k">for</span> <span class="n">iaxis</span> <span class="ow">in</span> <span class="n">iaxes</span><span class="p">:</span>
+    <span class="n">iaxis</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">whichaxis</span><span class="p">(</span><span class="n">iaxis</span><span class="p">)</span>  <span class="c1"># Get axis index</span>
+    <span class="n">order</span><span class="p">[</span><span class="n">iaxis</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># Default order assumed for positional arguments</span>
+  <span class="c1"># Do the same thing for keyword arguments, but use the order given</span>
+  <span class="k">for</span> <span class="n">iaxis</span><span class="p">,</span><span class="n">o</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">iaxis</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">whichaxis</span><span class="p">(</span><span class="n">iaxis</span><span class="p">)</span>  <span class="c1"># Get axis index</span>
+    <span class="k">assert</span> <span class="n">o</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="s2">&quot;invalid order: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span><span class="n">o</span>
+    <span class="n">order</span><span class="p">[</span><span class="n">iaxis</span><span class="p">]</span> <span class="o">=</span> <span class="n">o</span>
+  <span class="c1"># If no axes provided, then sort everything!</span>
+  <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">order</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">iaxis</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">naxes</span><span class="p">):</span>
+      <span class="n">order</span><span class="p">[</span><span class="n">iaxis</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+  <span class="k">return</span> <span class="n">SortedVar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">order</span><span class="p">)</span>
+
+<span class="c1"># Wrapper for replacing a variable&#39;s axes with new ones</span>
+<span class="c1"># (the axes must be in 1:1 correspondence with the old ones)</span>
+<span class="k">class</span> <span class="nc">Replace_axes</span> <span class="p">(</span><span class="n">Var</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">axisdict</span><span class="o">=</span><span class="p">{},</span> <span class="n">ignore_mismatch</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">newaxes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">keep_old_name</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">pygeode.var</span> <span class="k">import</span> <span class="n">Var</span><span class="p">,</span> <span class="n">copy_meta</span>
+    <span class="kn">from</span> <span class="nn">inspect</span> <span class="k">import</span> <span class="n">isclass</span>
+    <span class="n">axisdict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">axisdict</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">newaxes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="n">newaxes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">axes</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">newaxes</span><span class="p">)</span> <span class="o">==</span> <span class="n">var</span><span class="o">.</span><span class="n">naxes</span><span class="p">,</span> <span class="s2">&quot;wrong number of axes provided&quot;</span>
+
+    <span class="k">for</span> <span class="n">a</span><span class="p">,</span><span class="n">newa</span> <span class="ow">in</span> <span class="n">axisdict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+      <span class="k">if</span> <span class="ow">not</span> <span class="n">var</span><span class="o">.</span><span class="n">hasaxis</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="ow">and</span> <span class="n">ignore_mismatch</span><span class="p">:</span> <span class="k">continue</span>
+      <span class="n">i</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">whichaxis</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+      <span class="n">olda</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+      <span class="c1"># Keep the old axis name?</span>
+      <span class="n">name</span> <span class="o">=</span> <span class="n">olda</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="n">keep_old_name</span> <span class="k">else</span> <span class="n">newa</span><span class="o">.</span><span class="n">name</span>
+      <span class="c1"># Convert axis class to axis object, using the existing values?</span>
+      <span class="k">if</span> <span class="n">isclass</span><span class="p">(</span><span class="n">newa</span><span class="p">):</span>
+        <span class="c1"># Cram in any &#39;auxiliary&#39; attributes, in case they&#39;re needed by the new class.</span>
+        <span class="c1"># (Needed if, say, converting from StandardTime to ModelTime365)</span>
+        <span class="c1"># Note: even if these attributes aren&#39;t pick up by the new init,</span>
+        <span class="c1"># they&#39;ll get stored in the &#39;auxatts&#39; field and stay there as benign,</span>
+        <span class="c1"># unused values.  Ideally, if we knew ahead of time what attributes are</span>
+        <span class="c1"># needed, we could pass only *those* attributes to the new class...</span>
+        <span class="n">newa</span> <span class="o">=</span> <span class="n">newa</span><span class="p">(</span><span class="n">olda</span><span class="o">.</span><span class="n">values</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">olda</span><span class="o">.</span><span class="n">auxatts</span><span class="p">)</span>
+      <span class="c1"># Use this new axis</span>
+      <span class="n">newaxes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">newa</span>
+    <span class="k">for</span> <span class="n">a1</span><span class="p">,</span> <span class="n">a2</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">newaxes</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">axes</span><span class="p">):</span> <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">a1</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">a2</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">var</span> <span class="o">=</span> <span class="n">var</span>
+    <span class="n">Var</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newaxes</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">var</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="n">copy_meta</span> <span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+  <span class="k">def</span> <span class="nf">getview</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">pbar</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">pygeode.view</span> <span class="k">import</span> <span class="n">View</span>
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+    <span class="c1"># Do a brute-force mapping of the indices to the internal axes</span>
+    <span class="c1"># (should work if the axes are in 1:1 correspondence)</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">View</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="o">.</span><span class="n">axes</span><span class="p">,</span> <span class="n">force_slices</span><span class="o">=</span><span class="n">view</span><span class="o">.</span><span class="n">slices</span><span class="p">,</span>
+                <span class="n">force_integer_indices</span><span class="o">=</span><span class="n">view</span><span class="o">.</span><span class="n">integer_indices</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">,</span> <span class="n">pbar</span><span class="o">=</span><span class="n">pbar</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">data</span>
+
+<span class="c1"># Function wrapper</span>
+<span class="c1"># (use explicit arguments (instead of *x,**y) so we expose our &#39;ignore_mismatch&#39;</span>
+<span class="c1"># flag for callers to see.</span>
+<span class="k">def</span> <span class="nf">replace_axes</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axisdict</span><span class="o">=</span><span class="p">{},</span> <span class="n">ignore_mismatch</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">newaxes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">keep_old_name</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Replaces one or more axes of a variable with new axes.  The axis length</span>
+<span class="sd">  must remain the same.</span>
+
+<span class="sd">  Parameters</span>
+<span class="sd">  ----------</span>
+<span class="sd">  axisdict : dict (optional)</span>
+<span class="sd">    The keys are identifiers for the current axes, and the values are the</span>
+<span class="sd">    replacement axes.</span>
+<span class="sd">  ignore_mismatch : boolean (optional)</span>
+<span class="sd">    If ``True``, will ignore axis identifiers that don&#39;t match any axes of</span>
+<span class="sd">    this variable.  If ``False``, will raise an exception on a mismatch.</span>
+<span class="sd">    Default is ``False``.</span>
+<span class="sd">  newaxes : list of axes (optional)</span>
+<span class="sd">    An explicit list of axes to use as replacements.  Useful if you want to</span>
+<span class="sd">    replace *all* the axes at the same time.</span>
+<span class="sd">  keep_old_name : boolean (optional)</span>
+<span class="sd">    If ``True``, will keep the old axis name (with the new values).  If</span>
+<span class="sd">    ``False``, the name ofthe new axis will be used.  Default is ``True``.</span>
+<span class="sd">  **kwargs : keyword arguments</span>
+<span class="sd">    Similar to &#39;axisdict&#39;, but using keyword parameters instead of a</span>
+<span class="sd">    dictionary.</span>
+
+<span class="sd">  Returns</span>
+<span class="sd">  -------</span>
+<span class="sd">  new_var : Var</span>
+<span class="sd">    The same variable, but with different axes.  The variable data will remain</span>
+<span class="sd">    unchanged.</span>
+
+<span class="sd">  Examples</span>
+<span class="sd">  --------</span>
+<span class="sd">  &gt;&gt;&gt; from pygeode.tutorial import t1</span>
+<span class="sd">  &gt;&gt;&gt; print(t1.Temp)</span>
+<span class="sd">  &lt;Var &#39;Temp&#39;&gt;:</span>
+<span class="sd">    Units: K  Shape:  (lat,lon)  (31,60)</span>
+<span class="sd">    Axes:</span>
+<span class="sd">      lat &lt;Lat&gt;      :  90 S to 90 N (31 values)</span>
+<span class="sd">      lon &lt;Lon&gt;      :  0 E to 354 E (60 values)</span>
+<span class="sd">    Attributes:</span>
+<span class="sd">      {}</span>
+<span class="sd">    Type:  Add_Var (dtype=&quot;float64&quot;)</span>
+<span class="sd">  &gt;&gt;&gt; from pygeode import XAxis, YAxis</span>
+<span class="sd">  &gt;&gt;&gt; new_var = t1.Temp.replace_axes(lon=XAxis, lat=YAxis)</span>
+<span class="sd">  &gt;&gt;&gt; print(new_var)</span>
+<span class="sd">  &lt;Var &#39;Temp&#39;&gt;:</span>
+<span class="sd">    Units: K  Shape:  (lat,lon)  (31,60)</span>
+<span class="sd">    Axes:</span>
+<span class="sd">      lat &lt;YAxis&gt;    :  -90  to 90  (31 values)</span>
+<span class="sd">      lon &lt;XAxis&gt;    :  0  to 354  (60 values)</span>
+<span class="sd">    Attributes:</span>
+<span class="sd">      {}</span>
+<span class="sd">    Type:  Replace_axes (dtype=&quot;float64&quot;)</span>
+<span class="sd">  &gt;&gt;&gt; new_var = t1.Temp.replace_axes(lon=XAxis, lat=YAxis, keep_old_name=False)</span>
+<span class="sd">  &gt;&gt;&gt; print(new_var)</span>
+<span class="sd">  &lt;Var &#39;Temp&#39;&gt;:</span>
+<span class="sd">    Units: K  Shape:  (yaxis,xaxis)  (31,60)</span>
+<span class="sd">    Axes:</span>
+<span class="sd">      yaxis &lt;YAxis&gt;  :  -90  to 90  (31 values)</span>
+<span class="sd">      xaxis &lt;XAxis&gt;  :  0  to 354  (60 values)</span>
+<span class="sd">    Attributes:</span>
+<span class="sd">      {}</span>
+<span class="sd">    Type:  Replace_axes (dtype=&quot;float64&quot;)</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="n">var</span> <span class="o">=</span> <span class="bp">self</span>
+  <span class="k">return</span> <span class="n">Replace_axes</span> <span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">axisdict</span><span class="p">,</span> <span class="n">ignore_mismatch</span><span class="p">,</span> <span class="n">newaxes</span><span class="p">,</span> <span class="n">keep_old_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+
+<span class="c1"># Rename a variable</span>
+<span class="c1"># (wrapped in a new class, because the original var might *need* the original name, so we can&#39;t just make a shallow copy of the object and change the name.  Well, we can, but it might cause some very tricky bugs down the road...)</span>
+<span class="k">class</span> <span class="nc">RenamedVar</span><span class="p">(</span><span class="n">Var</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">__init__</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">newname</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">pygeode.var</span> <span class="k">import</span> <span class="n">Var</span><span class="p">,</span> <span class="n">copy_meta</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">var</span> <span class="o">=</span> <span class="n">var</span>
+    <span class="n">Var</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">axes</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">var</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="n">copy_meta</span> <span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">newname</span>
+  <span class="k">def</span> <span class="nf">getview</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">pbar</span><span class="p">):</span>  <span class="k">return</span> <span class="n">view</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">,</span> <span class="n">pbar</span><span class="o">=</span><span class="n">pbar</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">rename</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">newname</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Assigns a new name to a variable</span>
+
+<span class="sd">  Parameters</span>
+<span class="sd">  ----------</span>
+<span class="sd">  newname : string</span>
+<span class="sd">    The new name of the variable.</span>
+
+<span class="sd">  Returns</span>
+<span class="sd">  -------</span>
+<span class="sd">  renamed_var : Var</span>
+<span class="sd">    The same variable, but with a different name.</span>
+
+<span class="sd">  Notes</span>
+<span class="sd">  -----</span>
+<span class="sd">  In most cases, you could probably change the ``name`` attribute of the</span>
+<span class="sd">  variable directly instead of calling this method.  However, if the variable</span>
+<span class="sd">  is being used in other places, this method guarantees that the name change</span>
+<span class="sd">  will only affect a local version of the variable, and won&#39;t have any</span>
+<span class="sd">  side-effects on other existing references.</span>
+
+<span class="sd">  Examples</span>
+<span class="sd">  --------</span>
+<span class="sd">  &gt;&gt;&gt; from pygeode.tutorial import t1</span>
+<span class="sd">  &gt;&gt;&gt; print(t1.Temp.rename(&#39;i_prefer_really_long_variable_names&#39;))</span>
+<span class="sd">  &lt;Var &#39;i_prefer_really_long_variable_names&#39;&gt;:</span>
+<span class="sd">    Units: K  Shape:  (lat,lon)  (31,60)</span>
+<span class="sd">    Axes:</span>
+<span class="sd">      lat &lt;Lat&gt;      :  90 S to 90 N (31 values)</span>
+<span class="sd">      lon &lt;Lon&gt;      :  0 E to 354 E (60 values)</span>
+<span class="sd">    Attributes:</span>
+<span class="sd">      {}</span>
+<span class="sd">    Type:  RenamedVar (dtype=&quot;float64&quot;)</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="n">var</span> <span class="o">=</span> <span class="bp">self</span>
+  <span class="k">return</span> <span class="n">RenamedVar</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">newname</span><span class="p">)</span>
+
+<span class="c1"># Rename the axes of a variable</span>
+<span class="k">def</span> <span class="nf">rename_axes</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ignore_mismatch</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">axisdict</span><span class="o">=</span><span class="p">{},</span> <span class="o">**</span><span class="n">namemap</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Renames the axes of a variable.</span>
+
+<span class="sd">  Parameters</span>
+<span class="sd">  ----------</span>
+<span class="sd">  ignore_mismatch : boolean (optional)</span>
+<span class="sd">    If ``True``, will ignore axis identifiers that don&#39;t match any axes of</span>
+<span class="sd">    this variable.  If ``False``, will raise an exception on a mismatch.</span>
+<span class="sd">    Default is ``False``.</span>
+<span class="sd">  axisdict : dictionary</span>
+<span class="sd">    An explicit dictionary mapping old names to new names.</span>
+<span class="sd">  **namemap : keyword arguments</span>
+<span class="sd">    One or more keyword-based arguments.  The parameters are the existing axis</span>
+<span class="sd">    names, and the values are the new names to substitute.</span>
+
+<span class="sd">  Returns</span>
+<span class="sd">  -------</span>
+<span class="sd">  new_var : Var</span>
+<span class="sd">    The same variable, but with new names for the axes.</span>
+
+<span class="sd">  Examples</span>
+<span class="sd">  --------</span>
+<span class="sd">  &gt;&gt;&gt; from pygeode.tutorial import t1</span>
+<span class="sd">  &gt;&gt;&gt; print(t1.Temp)</span>
+<span class="sd">  &lt;Var &#39;Temp&#39;&gt;:</span>
+<span class="sd">    Units: K  Shape:  (lat,lon)  (31,60)</span>
+<span class="sd">    Axes:</span>
+<span class="sd">      lat &lt;Lat&gt;      :  90 S to 90 N (31 values)</span>
+<span class="sd">      lon &lt;Lon&gt;      :  0 E to 354 E (60 values)</span>
+<span class="sd">    Attributes:</span>
+<span class="sd">      {}</span>
+<span class="sd">    Type:  Add_Var (dtype=&quot;float64&quot;)</span>
+<span class="sd">  &gt;&gt;&gt; new_var = t1.Temp.rename_axes(lat=&quot;latitude&quot;,lon=&quot;longitude&quot;)</span>
+<span class="sd">  &gt;&gt;&gt; print(new_var)</span>
+<span class="sd">  &lt;Var &#39;Temp&#39;&gt;:</span>
+<span class="sd">    Units: K  Shape:  (latitude,longitude)  (31,60)</span>
+<span class="sd">    Axes:</span>
+<span class="sd">      latitude &lt;Lat&gt; :  90 S to 90 N (31 values)</span>
+<span class="sd">      longitude &lt;Lon&gt;:  0 E to 354 E (60 values)</span>
+<span class="sd">    Attributes:</span>
+<span class="sd">      {}</span>
+<span class="sd">    Type:  Replace_axes (dtype=&quot;float64&quot;)</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="n">var</span> <span class="o">=</span> <span class="bp">self</span>
+  <span class="n">namemap</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">axisdict</span><span class="p">,</span> <span class="o">**</span><span class="n">namemap</span><span class="p">)</span>
+  <span class="k">for</span> <span class="n">n1</span> <span class="ow">in</span> <span class="n">namemap</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">ignore_mismatch</span><span class="p">:</span> <span class="k">continue</span>
+    <span class="k">assert</span> <span class="n">var</span><span class="o">.</span><span class="n">hasaxis</span><span class="p">(</span><span class="n">n1</span><span class="p">),</span> <span class="s2">&quot;&#39;</span><span class="si">%s</span><span class="s2">&#39; not an axis of </span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">n1</span><span class="p">,</span><span class="n">var</span><span class="p">)</span>
+  <span class="n">axisdict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([</span><span class="n">n1</span><span class="p">,</span><span class="n">var</span><span class="o">.</span><span class="n">getaxis</span><span class="p">(</span><span class="n">n1</span><span class="p">)</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">n2</span><span class="p">)]</span> <span class="k">for</span> <span class="n">n1</span><span class="p">,</span><span class="n">n2</span> <span class="ow">in</span> <span class="n">namemap</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">var</span><span class="o">.</span><span class="n">hasaxis</span><span class="p">(</span><span class="n">n1</span><span class="p">))</span>
+  <span class="k">return</span> <span class="n">var</span><span class="o">.</span><span class="n">replace_axes</span><span class="p">(</span><span class="n">keep_old_name</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">axisdict</span><span class="p">)</span>
+
+
+
+
+<span class="c1"># A sliced var</span>
+<span class="c1"># i.e., var[i:j,m:n]</span>
+<span class="c1">#TODO: remove degenerate axes from output?</span>
+<span class="k">class</span> <span class="nc">SlicedVar</span><span class="p">(</span><span class="n">Var</span><span class="p">):</span>
+<span class="c1"># {{{</span>
+
+  <span class="k">def</span> <span class="nf">__init__</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">slices</span><span class="p">):</span>
+  <span class="c1"># {{{</span>
+    <span class="kn">from</span> <span class="nn">pygeode.var</span> <span class="k">import</span> <span class="n">Var</span><span class="p">,</span> <span class="n">copy_meta</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">var</span> <span class="o">=</span> <span class="n">var</span>
+    <span class="n">copy_meta</span> <span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+
+    <span class="c1">#TODO: remove degenerate dimensions when slicing by integer values</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">slices</span><span class="p">,</span><span class="s1">&#39;__len__&#39;</span><span class="p">):</span> <span class="n">slices</span> <span class="o">=</span> <span class="p">[</span><span class="n">slices</span><span class="p">]</span>
+<span class="c1">#    assert len(slices) == len(var.axes), &quot;expected %i parameters, received %i.&quot;%(len(var.axes),len(slices))</span>
+    <span class="n">slices</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">slices</span><span class="p">)</span>  <span class="c1"># make a copy of the list</span>
+
+    <span class="c1"># Append an implicit Ellipsis at the end (makes the logic a big simpler below)</span>
+<span class="c1">#    if Ellipsis not in slices: slices.append(Ellipsis)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span> <span class="p">(</span><span class="n">sl</span> <span class="ow">is</span> <span class="bp">Ellipsis</span> <span class="k">for</span> <span class="n">sl</span> <span class="ow">in</span> <span class="n">slices</span><span class="p">):</span>
+      <span class="n">slices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">Ellipsis</span><span class="p">)</span>
+
+    <span class="c1"># Handle Ellipsis argument</span>
+<span class="c1">#    assert slices.count(Ellipsis) == 1, &quot;can&#39;t handle more than one Ellipsis argument&quot;</span>
+    <span class="n">ellipsis_index</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">sl</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">slices</span><span class="p">)</span> <span class="k">if</span> <span class="n">sl</span> <span class="ow">is</span> <span class="bp">Ellipsis</span><span class="p">]</span>
+    <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">ellipsis_index</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;can&#39;t handle more than one Ellipsis argument&quot;</span>
+
+    <span class="n">num_missing</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">naxes</span> <span class="o">-</span> <span class="nb">len</span><span class="p">(</span><span class="n">slices</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="k">assert</span> <span class="n">num_missing</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;too many slices provided&quot;</span>
+<span class="c1">#    i = slices.index(Ellipsis)</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">ellipsis_index</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+    <span class="n">slices</span> <span class="o">=</span> <span class="n">slices</span><span class="p">[:</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">)]</span><span class="o">*</span><span class="n">num_missing</span> <span class="o">+</span> <span class="n">slices</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span>
+
+    <span class="c1"># Slice the output axes</span>
+    <span class="n">axes</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span><span class="o">.</span><span class="n">slice</span><span class="p">[</span><span class="n">s</span><span class="p">]</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span><span class="n">s</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">axes</span><span class="p">,</span><span class="n">slices</span><span class="p">)]</span>
+
+    <span class="n">Var</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">axes</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">var</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">atts</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">atts</span><span class="p">,</span> <span class="n">plotatts</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">plotatts</span><span class="p">)</span>
+  <span class="c1"># }}}</span>
+
+  <span class="k">def</span> <span class="nf">getview</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">pbar</span><span class="p">):</span>
+  <span class="c1"># {{{</span>
+    <span class="k">return</span> <span class="n">view</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">,</span> <span class="n">pbar</span><span class="o">=</span><span class="n">pbar</span><span class="p">)</span>
+  <span class="c1"># }}}</span>
+<span class="c1"># }}}</span>
+
+
+
+
+<span class="c1"># -----------</span>
+<span class="c1"># Operations that superficially modify the data (casting, fill/unfil missing values, etc.)</span>
+
+<span class="c1"># Replace &#39;NaN&#39; with the specified fill value</span>
+<span class="k">class</span> <span class="nc">FillVar</span><span class="p">(</span><span class="n">Var</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">fill</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">pygeode.var</span> <span class="k">import</span> <span class="n">Var</span><span class="p">,</span> <span class="n">copy_meta</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">var</span> <span class="o">=</span> <span class="n">var</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_fill</span> <span class="o">=</span> <span class="n">fill</span>
+    <span class="n">Var</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">axes</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="n">copy_meta</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+  <span class="k">def</span> <span class="nf">getview</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">pbar</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">,</span> <span class="n">pbar</span><span class="o">=</span><span class="n">pbar</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="c1">#    data[where(data == float(&#39;NaN&#39;))] = self.fill</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+    <span class="n">data</span><span class="p">[</span><span class="n">w</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fill</span>
+    <span class="k">return</span> <span class="n">data</span>
+
+<span class="k">def</span> <span class="nf">fill</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fill</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Replaces ``NaN`` (missing values) with some fill value.</span>
+
+<span class="sd">  Parameters</span>
+<span class="sd">  ----------</span>
+<span class="sd">  fill : float or int</span>
+<span class="sd">    The fill value</span>
+
+<span class="sd">  Returns</span>
+<span class="sd">  -------</span>
+<span class="sd">  filled_var : Var</span>
+<span class="sd">    A new representation of the variable with missing values filled in.</span>
+
+<span class="sd">  See Also</span>
+<span class="sd">  --------</span>
+<span class="sd">  unfill</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="n">var</span> <span class="o">=</span> <span class="bp">self</span>
+  <span class="k">return</span> <span class="n">FillVar</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">fill</span><span class="p">)</span>
+
+<span class="c1"># Replace fill value with &#39;NaN&#39;</span>
+<span class="c1"># Ideally, this should be done at file load time, but sometimes the fill value</span>
+<span class="c1"># isn&#39;t known or available for automatic extraction.</span>
+<span class="c1"># NOTE: if input values are integers, they are converted to floats</span>
+<span class="k">class</span> <span class="nc">UnfillVar</span><span class="p">(</span><span class="n">Var</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">fill</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">numpy</span> <span class="k">import</span> <span class="n">float32</span><span class="p">,</span> <span class="n">float64</span>
+    <span class="kn">from</span> <span class="nn">pygeode.var</span> <span class="k">import</span> <span class="n">Var</span><span class="p">,</span> <span class="n">copy_meta</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">var</span> <span class="o">=</span> <span class="n">var</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_fill</span> <span class="o">=</span> <span class="n">fill</span>
+    <span class="c1"># We need floating-point values to have a nan</span>
+    <span class="k">if</span> <span class="n">var</span><span class="o">.</span><span class="n">dtype</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="n">float32</span><span class="p">,</span> <span class="n">float64</span><span class="p">):</span>
+      <span class="n">dtype</span> <span class="o">=</span> <span class="n">float32</span>
+    <span class="k">else</span><span class="p">:</span> <span class="n">dtype</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">dtype</span>
+    <span class="n">Var</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">axes</span><span class="p">,</span> <span class="n">dtype</span><span class="p">)</span>
+    <span class="n">copy_meta</span> <span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+  <span class="k">def</span> <span class="nf">getview</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">pbar</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">,</span> <span class="n">pbar</span><span class="o">=</span><span class="n">pbar</span><span class="p">)</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="n">data</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">data</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fill</span><span class="p">)]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;NaN&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">data</span>
+
+<span class="k">def</span> <span class="nf">unfill</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fill</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Replaces all occurrences of the specified value with an ``NaN`` (missing</span>
+<span class="sd">  value).</span>
+
+<span class="sd">  Parameters</span>
+<span class="sd">  ----------</span>
+<span class="sd">  fill - float or int</span>
+<span class="sd">    The value to treat as missing</span>
+
+<span class="sd">  Returns</span>
+<span class="sd">  -------</span>
+<span class="sd">  unfilled_var : Var</span>
+<span class="sd">    A new represntation of the variable with the &#39;fill&#39; values removed</span>
+<span class="sd">    (replaced with ``NaN``).</span>
+
+<span class="sd">  See Also</span>
+<span class="sd">  --------</span>
+<span class="sd">  fill</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="n">var</span> <span class="o">=</span> <span class="bp">self</span>
+  <span class="k">return</span> <span class="n">UnfillVar</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">fill</span><span class="p">)</span>
+
+
+<span class="c1"># Convert the data to the specified type</span>
+<span class="k">class</span> <span class="nc">Cast</span><span class="p">(</span><span class="n">Var</span><span class="p">):</span>
+  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="p">,</span> <span class="n">dtype</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">pygeode.var</span> <span class="k">import</span> <span class="n">Var</span><span class="p">,</span> <span class="n">copy_meta</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">var</span> <span class="o">=</span> <span class="n">var</span>
+    <span class="n">Var</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">var</span><span class="o">.</span><span class="n">axes</span><span class="p">,</span> <span class="n">dtype</span><span class="p">)</span>
+    <span class="n">copy_meta</span> <span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span>
+  <span class="k">def</span> <span class="nf">getview</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">pbar</span><span class="p">):</span>
+    <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">,</span> <span class="n">pbar</span><span class="o">=</span><span class="n">pbar</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+      <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;unable to cast </span><span class="si">%s</span><span class="s2"> to </span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">data</span>
+  <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="kn">from</span> <span class="nn">pygeode.var</span> <span class="k">import</span> <span class="n">Var</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">Var</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">s</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="n">s</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">as_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dtype</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  Casts a variable to a new data type (I.e., float32, float64, etc.)</span>
+
+<span class="sd">  Parameters</span>
+<span class="sd">  ----------</span>
+<span class="sd">  dtype : ``numpy.dtype`` or string</span>
+<span class="sd">    The new data type to use.</span>
+
+<span class="sd">  Returns</span>
+<span class="sd">  -------</span>
+<span class="sd">  casted_var : Var</span>
+<span class="sd">    The same var, but with its values cast into a new type.</span>
+
+<span class="sd">  Examples</span>
+<span class="sd">  --------</span>
+<span class="sd">  &gt;&gt;&gt; from pygeode.tutorial import t1</span>
+<span class="sd">  &gt;&gt;&gt; # Treat the values as single-precision</span>
+<span class="sd">  &gt;&gt;&gt; print(t1.Temp.as_type(&#39;float32&#39;))</span>
+<span class="sd">  &lt;Var &#39;Temp&#39; float32&gt;:</span>
+<span class="sd">    Units: K  Shape:  (lat,lon)  (31,60)</span>
+<span class="sd">    Axes:</span>
+<span class="sd">      lat &lt;Lat&gt;      :  90 S to 90 N (31 values)</span>
+<span class="sd">      lon &lt;Lon&gt;      :  0 E to 354 E (60 values)</span>
+<span class="sd">    Attributes:</span>
+<span class="sd">      {}</span>
+<span class="sd">    Type:  Cast (dtype=&quot;float32&quot;)</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="n">var</span> <span class="o">=</span> <span class="bp">self</span>
+  <span class="k">return</span> <span class="n">Cast</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">dtype</span><span class="p">)</span>
+
+
+<span class="c1"># -----------</span>
+
+
+
+
+<span class="k">del</span> <span class="n">Var</span>
+</pre></div>
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        <a class="uplink" href="../../reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../gallery/index.html">Gallery</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Mike Neish, Peter Hitchcock.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.
+    </div>
+  </body>
+</html>

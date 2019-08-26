@@ -1,112 +1,111 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    
-    <title>Timeutils module &mdash; PyGeode 1.0 alpha documentation</title>
-    
+    <title>Timeutils module &#8212; PyGeode 1.3 pre-release documentation</title>
     <link rel="stylesheet" href="_static/pygtheme.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    
-    <script type="text/javascript">
-      var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    './',
-        VERSION:     '1.0 alpha',
-        COLLAPSE_INDEX: false,
-        FILE_SUFFIX: '.html',
-        HAS_SOURCE:  true
-      };
-    </script>
+    <link rel="stylesheet" type="text/css" href="_static/gallery.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <link rel="top" title="PyGeode 1.0 alpha documentation" href="index.html" />
-    <link rel="up" title="Reference" href="reference.html" />
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Climat module" href="climat.html" />
     <link rel="prev" title="File Input and Output" href="fileio.html" />
 <link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
 
-  </head>
-  <body>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             accesskey="I">index</a></li>
-        <li class="right" >
-          <a href="climat.html" title="Climat module"
-             accesskey="N">next</a> |</li>
-        <li class="right" >
-          <a href="fileio.html" title="File Input and Output"
-             accesskey="P">previous</a> |</li>
-        <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li>
-          <li><a href="reference.html" accesskey="U">Reference</a> &raquo;</li> 
-      </ul>
-    </div>  
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="index.html">
+          <span>PyGeode 1.3 pre-release documentation</span></a></h1>
+        <h2 class="heading"><span>Timeutils module</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        «&#160;&#160;<a href="fileio.html">File Input and Output</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="gallery/index.html">Gallery</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="climat.html">Climat module</a>&#160;&#160;»
+        </p>
 
-    <div class="document">
-      <div class="documentwrapper">
-        <div class="bodywrapper">
-          <div class="body">
-            
+      </div>
+      <div class="content">
+        
+        
   <div class="section" id="timeutils-module">
 <h1>Timeutils module<a class="headerlink" href="#timeutils-module" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="pygeode.timeutils.conform_values">
-<tt class="descclassname">pygeode.timeutils.</tt><tt class="descname">conform_values</tt><big>(</big><em>taxis1</em>, <em>taxis2</em><big>)</big><a class="headerlink" href="#pygeode.timeutils.conform_values" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descclassname">pygeode.timeutils.</code><code class="descname">conform_values</code><span class="sig-paren">(</span><em>taxis1</em>, <em>taxis2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/timeutils.html#conform_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.timeutils.conform_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given two time axes, return new axes such that their values are comparable.</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="pygeode.timeutils.date_diff">
-<tt class="descclassname">pygeode.timeutils.</tt><tt class="descname">date_diff</tt><big>(</big><em>taxis</em>, <em>dt1</em>, <em>dt2</em>, <em>units=None</em><big>)</big><a class="headerlink" href="#pygeode.timeutils.date_diff" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descclassname">pygeode.timeutils.</code><code class="descname">date_diff</code><span class="sig-paren">(</span><em>taxis</em>, <em>dt1</em>, <em>dt2</em>, <em>units=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/timeutils.html#date_diff"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.timeutils.date_diff" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns time interval between two dates. A time axis must be given
+to specify the calendar. If no units are specified the units of the given
+time axis are used.</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="pygeode.timeutils.delta">
-<tt class="descclassname">pygeode.timeutils.</tt><tt class="descname">delta</tt><big>(</big><em>taxis</em>, <em>units=None</em><big>)</big><a class="headerlink" href="#pygeode.timeutils.delta" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descclassname">pygeode.timeutils.</code><code class="descname">delta</code><span class="sig-paren">(</span><em>taxis</em>, <em>units=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/timeutils.html#delta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.timeutils.delta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the interval between values of a given time axis. If
+non-unique intervals are found an exception is raised. The units
+can be specified; if none are given the units of the given time axis
+are used.</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="pygeode.timeutils.jointimeaxes">
-<tt class="descclassname">pygeode.timeutils.</tt><tt class="descname">jointimeaxes</tt><big>(</big><em>var</em>, <em>yaxis='year'</em>, <em>daxis='day'</em><big>)</big><a class="headerlink" href="#pygeode.timeutils.jointimeaxes" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descclassname">pygeode.timeutils.</code><code class="descname">jointimeaxes</code><span class="sig-paren">(</span><em>var</em>, <em>yaxis='year'</em>, <em>daxis='day'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/timeutils.html#jointimeaxes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.timeutils.jointimeaxes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a variable with a 2D time axis into one with a 1D time axis.</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="pygeode.timeutils.modify">
-<tt class="descclassname">pygeode.timeutils.</tt><tt class="descname">modify</tt><big>(</big><em>taxis</em>, <em>resolution=None</em>, <em>exclude=</em>, <span class="optional">[</span><span class="optional">]</span><em>include=</em>, <span class="optional">[</span><span class="optional">]</span><em>uniquify=False</em><big>)</big><a class="headerlink" href="#pygeode.timeutils.modify" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">pygeode.timeutils.</code><code class="descname">modify</code><span class="sig-paren">(</span><em>taxis</em>, <em>resolution=None</em>, <em>exclude=[]</em>, <em>include=[]</em>, <em>uniquify=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/timeutils.html#modify"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.timeutils.modify" title="Permalink to this definition">¶</a></dt>
 <dd><p>Modifies the auxiliary arrays associated with a time axis.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>taxis</strong> : time axis instance</p>
-<blockquote>
-<div><p>Time axis to modify</p>
-</div></blockquote>
-<p><strong>resolution</strong> : {None, &#8216;year&#8217;, &#8216;month&#8217;, &#8216;day&#8217;, &#8216;hour&#8217;, &#8216;minute&#8217;, &#8216;second&#8217;}, optional</p>
-<blockquote>
-<div><p>Finest division to retain.</p>
-</div></blockquote>
-<p><strong>exclude</strong> : list of strings, optional</p>
-<blockquote>
-<div><p>List of arrays to remove</p>
-</div></blockquote>
-<p><strong>include</strong> : list of strings, optional</p>
-<blockquote>
-<div><p>Explicit list of arrays to include</p>
-</div></blockquote>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>taxis</strong> <span class="classifier-delimiter">:</span> <span class="classifier">time axis instance</span></dt>
+<dd><p class="first last">Time axis to modify</p>
+</dd>
+<dt><strong>resolution</strong> <span class="classifier-delimiter">:</span> <span class="classifier">{None, ‘year’, ‘month’, ‘day’, ‘hour’, ‘minute’, ‘second’}, optional</span></dt>
+<dd><p class="first last">Finest division to retain.</p>
+</dd>
+<dt><strong>exclude</strong> <span class="classifier-delimiter">:</span> <span class="classifier">list of strings, optional</span></dt>
+<dd><p class="first last">List of arrays to remove</p>
+</dd>
+<dt><strong>include</strong> <span class="classifier-delimiter">:</span> <span class="classifier">list of strings, optional</span></dt>
+<dd><p class="first last">Explicit list of arrays to include</p>
+</dd>
+</dl>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><strong>taxis</strong> : time axis instance</p>
-<blockquote class="last">
-<div><p>Modified time axis</p>
-</div></blockquote>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>taxis</strong> <span class="classifier-delimiter">:</span> <span class="classifier">time axis instance</span></dt>
+<dd><p class="first last">Modified time axis</p>
+</dd>
+</dl>
 </td>
 </tr>
 </tbody>
@@ -115,80 +114,89 @@
 
 <dl class="function">
 <dt id="pygeode.timeutils.reltime">
-<tt class="descclassname">pygeode.timeutils.</tt><tt class="descname">reltime</tt><big>(</big><em>taxis</em>, <em>startdate=None</em>, <em>units=None</em><big>)</big><a class="headerlink" href="#pygeode.timeutils.reltime" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descclassname">pygeode.timeutils.</code><code class="descname">reltime</code><span class="sig-paren">(</span><em>taxis</em>, <em>startdate=None</em>, <em>units=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/timeutils.html#reltime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.timeutils.reltime" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns time axis values relative to a given reference date. The units can be
+be specified, if none are given the units of the given time axis are used.</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="pygeode.timeutils.removeleapyears">
-<tt class="descclassname">pygeode.timeutils.</tt><tt class="descname">removeleapyears</tt><big>(</big><em>data, omitdoy_leap=[60], omitdoy_noleap=[], new_axis_type=&lt;class 'pygeode.timeaxis.ModelTime365'&gt;</em><big>)</big><a class="headerlink" href="#pygeode.timeutils.removeleapyears" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descclassname">pygeode.timeutils.</code><code class="descname">removeleapyears</code><span class="sig-paren">(</span><em>data, omitdoy_leap=[60], omitdoy_noleap=[], new_axis_type=&lt;class 'pygeode.timeaxis.ModelTime365'&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/timeutils.html#removeleapyears"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.timeutils.removeleapyears" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes leap day(s) from data on a standard calendar. Casts variable with
+a <code class="xref py py-class docutils literal notranslate"><span class="pre">StandardTime</span></code> time axis onto a time axis with a uniform year length
+by removing days from leap years.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
+<dt><strong>data</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></span></dt>
+<dd><p class="first last">The variable to modify. Should have a <code class="xref py py-class docutils literal notranslate"><span class="pre">Time</span></code> axis.</p>
+</dd>
+<dt><strong>omitdoy_leap</strong> <span class="classifier-delimiter">:</span> <span class="classifier">list, optional [ [60] ]</span></dt>
+<dd><p class="first last">A list of days of the year (e.g. 1 is 1 January, 60 is 29 February) to remove
+from leap years.</p>
+</dd>
+<dt><strong>omitdoy_noleap</strong> <span class="classifier-delimiter">:</span> <span class="classifier">list, optional [ [] ]</span></dt>
+<dd><p class="first last">A list of days of the year (e.g. 1 is 1 January, 60 is 1 March) to remove
+from non-leap years. Can be empty.</p>
+</dd>
+<dt><strong>new_axis_type</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><code class="xref py py-class docutils literal notranslate"><span class="pre">CalendarTime</span></code>, optional</span></dt>
+<dd><p class="first last">Time axis class to use instead. Default is <code class="xref py py-class docutils literal notranslate"><span class="pre">ModelTime365</span></code>. Should
+expect a year length consistent with the lists passed to omitdoy_leap and
+omitdoy_noleap</p>
+</dd>
+</dl>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
+<dt><strong>New :class:`Var` object with modified time axis and specified days removed</strong></dt>
+<dd></dd>
+<dt><strong>from leap year.</strong></dt>
+<dd></dd>
+</dl>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 <dl class="function">
 <dt id="pygeode.timeutils.splittimeaxis">
-<tt class="descclassname">pygeode.timeutils.</tt><tt class="descname">splittimeaxis</tt><big>(</big><em>var</em>, <em>iaxis='time'</em><big>)</big><a class="headerlink" href="#pygeode.timeutils.splittimeaxis" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descclassname">pygeode.timeutils.</code><code class="descname">splittimeaxis</code><span class="sig-paren">(</span><em>var</em>, <em>iaxis='time'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/timeutils.html#splittimeaxis"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.timeutils.splittimeaxis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Convert a variable with a 1D time axis into one with a 2D time axis.</p>
+</dd></dl>
 
 <dl class="function">
 <dt id="pygeode.timeutils.wrapdate">
-<tt class="descclassname">pygeode.timeutils.</tt><tt class="descname">wrapdate</tt><big>(</big><em>taxis</em>, <em>dt</em>, <em>allfields=False</em><big>)</big><a class="headerlink" href="#pygeode.timeutils.wrapdate" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="descclassname">pygeode.timeutils.</code><code class="descname">wrapdate</code><span class="sig-paren">(</span><em>taxis</em>, <em>dt</em>, <em>allfields=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/timeutils.html#wrapdate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.timeutils.wrapdate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a modified date dictionary such that all fields
+lie within standard values.</p>
+</dd></dl>
 
 </div>
 
 
-          </div>
-        </div>
       </div>
-      <div class="sphinxsidebar">
-        <div class="sphinxsidebarwrapper">
-  <h4>Previous topic</h4>
-  <p class="topless"><a href="fileio.html"
-                        title="previous chapter">File Input and Output</a></p>
-  <h4>Next topic</h4>
-  <p class="topless"><a href="climat.html"
-                        title="next chapter">Climat module</a></p>
-  <h3>This Page</h3>
-  <ul class="this-page-menu">
-    <li><a href="_sources/timeutils.txt"
-           rel="nofollow">Show Source</a></li>
-  </ul>
-<div id="searchbox" style="display: none">
-  <h3>Quick search</h3>
-    <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
-      <input type="hidden" name="check_keywords" value="yes" />
-      <input type="hidden" name="area" value="default" />
-    </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
-</div>
-<script type="text/javascript">$('#searchbox').show(0);</script>
-        </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        «&#160;&#160;<a href="fileio.html">File Input and Output</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="gallery/index.html">Gallery</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="climat.html">Climat module</a>&#160;&#160;»
+        </p>
+
       </div>
-      <div class="clearer"></div>
-    </div>
-    <div class="related">
-      <h3>Navigation</h3>
-      <ul>
-        <li class="right" style="margin-right: 10px">
-          <a href="genindex.html" title="General Index"
-             >index</a></li>
-        <li class="right" >
-          <a href="climat.html" title="Climat module"
-             >next</a> |</li>
-        <li class="right" >
-          <a href="fileio.html" title="File Input and Output"
-             >previous</a> |</li>
-        <li><a href="index.html">PyGeode 1.0 alpha documentation</a> &raquo;</li>
-          <li><a href="reference.html" >Reference</a> &raquo;</li> 
-      </ul>
-    </div>
-    <div class="footer">
-        &copy; Copyright 2013, Mike Neish, Peter Hitchcock.
-      Last updated on Sep 13, 2015.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Mike Neish, Peter Hitchcock.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.
     </div>
   </body>
 </html>
