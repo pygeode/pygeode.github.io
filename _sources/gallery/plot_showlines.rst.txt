@@ -7,10 +7,9 @@
 .. _sphx_glr_gallery_plot_showlines.py:
 
 
-.. currentmodule: pygeode
-
 Plot lines using showlines
 ==========================
+
 Compute numerical integrals using :func:`Var.integrate` and use :func:`showlines` to make plot 
 
 

@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Stats module &#8212; PyGeode 1.3 pre-release documentation</title>
+    <title>Stats module &#8212; PyGeode 1.4.0 documentation</title>
     <link rel="stylesheet" href="_static/pygtheme.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/gallery.css" />
@@ -25,7 +25,7 @@
 
   </head><body>
       <div class="header" role="banner"><h1 class="heading"><a href="index.html">
-          <span>PyGeode 1.3 pre-release documentation</span></a></h1>
+          <span>PyGeode 1.4.0 documentation</span></a></h1>
         <h2 class="heading"><span>Stats module</span></h2>
       </div>
       <div class="topnav" role="navigation" aria-label="top navigation">
@@ -50,8 +50,8 @@
 <h1>Stats module<a class="headerlink" href="#stats-module" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="pygeode.correlate">
-<code class="descclassname">pygeode.</code><code class="descname">correlate</code><span class="sig-paren">(</span><em>X</em>, <em>Y</em>, <em>axes=None</em>, <em>output='r2</em>, <em>p'</em>, <em>pbar=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/stats.html#correlate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.correlate" title="Permalink to this definition">¶</a></dt>
-<dd><p>Computes correlation between variables X and Y.</p>
+<code class="descclassname">pygeode.</code><code class="descname">correlate</code><span class="sig-paren">(</span><em>X</em>, <em>Y</em>, <em>axes=None</em>, <em>output='r</em>, <em>p'</em>, <em>pbar=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/stats.html#correlate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.correlate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes Pearson correlation coefficient between variables X and Y.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
@@ -67,7 +67,7 @@ is computed over all axes common to  shared by X and Y.</p>
 <dt><strong>output</strong> <span class="classifier-delimiter">:</span> <span class="classifier">string, optional</span></dt>
 <dd><p class="first last">A string determining which parameters are returned; see list of possible outputs
 in the Returns section. The specifications must be separated by a comma. Defaults
-to ‘r2,p’.</p>
+to ‘r,p’.</p>
 </dd>
 <dt><strong>pbar</strong> <span class="classifier-delimiter">:</span> <span class="classifier">progress bar, optional</span></dt>
 <dd><p class="first last">A progress bar object. If nothing is provided, a progress bar will be displayed
@@ -82,7 +82,8 @@ if the calculation takes sufficiently long.</p>
 is the returned dataset, the correlation coefficient can be obtained
 through <code class="docutils literal notranslate"><span class="pre">ds.r2</span></code>).</p>
 <ul class="last simple">
-<li>‘r2’: The correlation coefficient <span class="math notranslate nohighlight">\(\rho_{XY}\)</span></li>
+<li>‘r’: The Pearson correlation coefficient <span class="math notranslate nohighlight">\(\rho_{XY}\)</span></li>
+<li>‘r2’: The coefficient of determination <span class="math notranslate nohighlight">\(\rho^2_{XY}\)</span></li>
 <li>‘p’:  The p-value; see notes.</li>
 </ul>
 </dd>
@@ -143,9 +144,9 @@ following parameters can be returned:</p>
 <li>‘m’: Linear coefficient of the regression</li>
 <li>‘b’: Constant coefficient of the regression</li>
 <li>‘r2’: Fraction of the variance in Y explained by X (<span class="math notranslate nohighlight">\(R^2\)</span>)</li>
-<li>‘p’: p-value of regression; see notes.</li>
-<li>‘sm’: Standard deviation of linear coefficient estimate</li>
-<li>‘se’: Standard deviation of residuals</li>
+<li>‘p’: Probability of this fit under null hypothesis that true linear coefficient is zero</li>
+<li>‘sm’: Standard deviation of linear coefficient estimate (<span class="math notranslate nohighlight">\(\hat{\sigma}_E/\sqrt{S_{XX}}\)</span>)</li>
+<li>‘se’: Standard deviation of residuals (<span class="math notranslate nohighlight">\(\hat{\sigma}_E\)</span>)</li>
 </ul>
 </dd>
 </dl>
@@ -157,9 +158,8 @@ following parameters can be returned:</p>
 <p>The statistics described are computed following von Storch and Zwiers 1999,
 section 8.3. The p-value ‘p’ is computed using the t-statistic given in
 section 8.3.8, and confidence intervals for the slope and intercept can be
-computed from ‘se’ and ‘se’ (<span class="math notranslate nohighlight">\(\hat{\sigma}_E\)</span> and
-<span class="math notranslate nohighlight">\(\hat{\sigma}_E/\sqrt{S_{XX}}\)</span> in von Storch and Zwiers, respectively).
-The data is assumed to be normally distributed.</p>
+computed from ‘sm’ or ‘se’.  The data is assumed to be normally
+distributed.</p>
 </dd></dl>
 
 <dl class="function">
@@ -401,14 +401,14 @@ computed over all axes.</p>
 the effective number will be given by the number estimated from the dataset
 divided by <code class="docutils literal notranslate"><span class="pre">N_fac</span></code>.</p>
 </dd>
-<dt><strong>pbar</strong> <span class="classifier-delimiter">:</span> <span class="classifier">progress bar, optional</span></dt>
-<dd><p class="first last">A progress bar object. If nothing is provided, a progress bar will be displayed
-if the calculation takes sufficiently long.</p>
-</dd>
 <dt><strong>output</strong> <span class="classifier-delimiter">:</span> <span class="classifier">string, optional</span></dt>
 <dd><p class="first last">A string determining which parameters are returned; see list of possible outputs
 in the Returns section. The specifications must be separated by a comma. Defaults 
 to ‘m,p’.</p>
+</dd>
+<dt><strong>pbar</strong> <span class="classifier-delimiter">:</span> <span class="classifier">progress bar, optional</span></dt>
+<dd><p class="first last">A progress bar object. If nothing is provided, a progress bar will be displayed
+if the calculation takes sufficiently long.</p>
 </dd>
 </dl>
 </td>

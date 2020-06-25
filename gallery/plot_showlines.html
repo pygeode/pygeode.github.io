@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Plot lines using showlines &#8212; PyGeode 1.3 pre-release documentation</title>
+    <title>Plot lines using showlines &#8212; PyGeode 1.4.0 documentation</title>
     <link rel="stylesheet" href="../_static/pygtheme.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
@@ -18,25 +18,28 @@
     <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="Plot a significance mask" href="plot_sigmask.html" />
+    <link rel="next" title="Plot a significance mask" href="plot_sigmask.html" />
+    <link rel="prev" title="Plot 2 contours and remove the last one" href="plot_remove_contours.html" />
 <link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
 
   </head><body>
       <div class="header" role="banner"><h1 class="heading"><a href="../index.html">
-          <span>PyGeode 1.3 pre-release documentation</span></a></h1>
+          <span>PyGeode 1.4.0 documentation</span></a></h1>
         <h2 class="heading"><span>Plot lines using showlines</span></h2>
       </div>
       <div class="topnav" role="navigation" aria-label="top navigation">
       
         <p>
-        «&#160;&#160;<a href="plot_sigmask.html">Plot a significance mask</a>
+        «&#160;&#160;<a href="plot_remove_contours.html">Plot 2 contours and remove the last one</a>
         &#160;&#160;::&#160;&#160;
         <a class="uplink" href="../reference.html">Reference</a>
         &#160;&#160;::&#160;&#160;
         <a class="uplink" href="../tutorial.html">Tutorial</a>
         &#160;&#160;::&#160;&#160;
         <a class="uplink" href="index.html">Gallery</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="plot_sigmask.html">Plot a significance mask</a>&#160;&#160;»
         </p>
 
       </div>
@@ -47,12 +50,12 @@
 <p class="first admonition-title">Note</p>
 <p class="last">Click <a class="reference internal" href="#sphx-glr-download-gallery-plot-showlines-py"><span class="std std-ref">here</span></a> to download the full example code</p>
 </div>
-<span class="target" id="sphx-glr-gallery-plot-showlines-py"></span><div class="sphx-glr-example-title section" id="plot-lines-using-showlines">
-<h1>Plot lines using showlines<a class="headerlink" href="#plot-lines-using-showlines" title="Permalink to this headline">¶</a></h1>
+<div class="sphx-glr-example-title section" id="plot-lines-using-showlines">
+<span id="sphx-glr-gallery-plot-showlines-py"></span><h1>Plot lines using showlines<a class="headerlink" href="#plot-lines-using-showlines" title="Permalink to this headline">¶</a></h1>
 <p>Compute numerical integrals using <code class="xref py py-func docutils literal notranslate"><span class="pre">Var.integrate()</span></code> and use <code class="xref py py-func docutils literal notranslate"><span class="pre">showlines()</span></code> to make plot</p>
 <img alt="../_images/sphx_glr_plot_showlines_001.png" class="sphx-glr-single-img" src="../_images/sphx_glr_plot_showlines_001.png" />
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygeode</span> <span class="kn">as</span> <span class="nn">pyg</span><span class="o">,</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pylab</span> <span class="kn">as</span> <span class="nn">pyl</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygeode</span> <span class="k">as</span> <span class="nn">pyg</span><span class="o">,</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pylab</span> <span class="k">as</span> <span class="nn">pyl</span>
 
 <span class="c1"># Use longitudes as horizontal axis</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">regularlon</span><span class="p">(</span><span class="mi">45</span><span class="p">)</span>
@@ -119,13 +122,15 @@
       <div class="bottomnav" role="navigation" aria-label="bottom navigation">
       
         <p>
-        «&#160;&#160;<a href="plot_sigmask.html">Plot a significance mask</a>
+        «&#160;&#160;<a href="plot_remove_contours.html">Plot 2 contours and remove the last one</a>
         &#160;&#160;::&#160;&#160;
         <a class="uplink" href="../reference.html">Reference</a>
         &#160;&#160;::&#160;&#160;
         <a class="uplink" href="../tutorial.html">Tutorial</a>
         &#160;&#160;::&#160;&#160;
         <a class="uplink" href="index.html">Gallery</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="plot_sigmask.html">Plot a significance mask</a>&#160;&#160;»
         </p>
 
       </div>

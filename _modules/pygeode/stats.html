@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>pygeode.stats &#8212; PyGeode 1.3 pre-release documentation</title>
+    <title>pygeode.stats &#8212; PyGeode 1.4.0 documentation</title>
     <link rel="stylesheet" href="../../_static/pygtheme.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
@@ -23,7 +23,7 @@
 
   </head><body>
       <div class="header" role="banner"><h1 class="heading"><a href="../../index.html">
-          <span>PyGeode 1.3 pre-release documentation</span></a></h1>
+          <span>PyGeode 1.4.0 documentation</span></a></h1>
         <h2 class="heading"><span>pygeode.stats</span></h2>
       </div>
       <div class="topnav" role="navigation" aria-label="top navigation">
@@ -46,11 +46,11 @@
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;correlate&#39;</span><span class="p">,</span> <span class="s1">&#39;regress&#39;</span><span class="p">,</span> <span class="s1">&#39;multiple_regress&#39;</span><span class="p">,</span> <span class="s1">&#39;difference&#39;</span><span class="p">,</span> <span class="s1">&#39;paired_difference&#39;</span><span class="p">,</span> <span class="s1">&#39;isnonzero&#39;</span><span class="p">)</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="k">import</span> <span class="n">norm</span><span class="p">,</span> <span class="n">t</span> <span class="k">as</span> <span class="n">tdist</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">norm</span><span class="p">,</span> <span class="n">t</span> <span class="k">as</span> <span class="n">tdist</span>
 
-<div class="viewcode-block" id="correlate"><a class="viewcode-back" href="../../stats.html#pygeode.correlate">[docs]</a><span class="k">def</span> <span class="nf">correlate</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">output</span> <span class="o">=</span> <span class="s1">&#39;r2,p&#39;</span><span class="p">,</span> <span class="n">pbar</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="correlate"><a class="viewcode-back" href="../../stats.html#pygeode.correlate">[docs]</a><span class="k">def</span> <span class="nf">correlate</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">output</span> <span class="o">=</span> <span class="s1">&#39;r,p&#39;</span><span class="p">,</span> <span class="n">pbar</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="c1"># {{{</span>
-  <span class="sa">r</span><span class="sd">&#39;&#39;&#39;Computes correlation between variables X and Y.</span>
+  <span class="sa">r</span><span class="sd">&#39;&#39;&#39;Computes Pearson correlation coefficient between variables X and Y.</span>
 
 <span class="sd">  Parameters</span>
 <span class="sd">  ==========</span>
@@ -64,7 +64,7 @@
 <span class="sd">  output : string, optional</span>
 <span class="sd">    A string determining which parameters are returned; see list of possible outputs</span>
 <span class="sd">    in the Returns section. The specifications must be separated by a comma. Defaults</span>
-<span class="sd">    to &#39;r2,p&#39;.</span>
+<span class="sd">    to &#39;r,p&#39;.</span>
 
 <span class="sd">  pbar : progress bar, optional</span>
 <span class="sd">    A progress bar object. If nothing is provided, a progress bar will be displayed</span>
@@ -77,7 +77,8 @@
 <span class="sd">    is the returned dataset, the correlation coefficient can be obtained</span>
 <span class="sd">    through ``ds.r2``).</span>
 
-<span class="sd">    * &#39;r2&#39;: The correlation coefficient :math:`\rho_{XY}`</span>
+<span class="sd">    * &#39;r&#39;: The Pearson correlation coefficient :math:`\rho_{XY}`</span>
+<span class="sd">    * &#39;r2&#39;: The coefficient of determination :math:`\rho^2_{XY}`</span>
 <span class="sd">    * &#39;p&#39;:  The p-value; see notes.</span>
 
 <span class="sd">  Notes</span>
@@ -89,13 +90,17 @@
 <span class="sd">  zero. It is computed from the t-statistic given in eq (8.7), in section</span>
 <span class="sd">  8.2.3, and assumes normally distributed quantities.&#39;&#39;&#39;</span>
 
-  <span class="kn">from</span> <span class="nn">pygeode.tools</span> <span class="k">import</span> <span class="n">loopover</span><span class="p">,</span> <span class="n">whichaxis</span><span class="p">,</span> <span class="n">combine_axes</span><span class="p">,</span> <span class="n">shared_axes</span><span class="p">,</span> <span class="n">npnansum</span>
-  <span class="kn">from</span> <span class="nn">pygeode.view</span> <span class="k">import</span> <span class="n">View</span>
+  <span class="kn">from</span> <span class="nn">pygeode.tools</span> <span class="kn">import</span> <span class="n">loopover</span><span class="p">,</span> <span class="n">whichaxis</span><span class="p">,</span> <span class="n">combine_axes</span><span class="p">,</span> <span class="n">shared_axes</span><span class="p">,</span> <span class="n">npnansum</span>
+  <span class="kn">from</span> <span class="nn">pygeode.view</span> <span class="kn">import</span> <span class="n">View</span>
 
   <span class="c1"># Split output request now</span>
-  <span class="n">ovars</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;r2&#39;</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">]</span>
+  <span class="c1"># Default output is &#39;r,p&#39; so as not to break existing scripts</span>
+  <span class="n">ovars</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;r2&#39;</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">]</span>
   <span class="n">output</span> <span class="o">=</span> <span class="p">[</span><span class="n">o</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">output</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">ovars</span><span class="p">]</span>
   <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">output</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;No valid outputs are requested from correlation. Possible outputs are </span><span class="si">%s</span><span class="s1">.&#39;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">ovars</span><span class="p">))</span>
+
+  <span class="n">xn</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="n">X</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span> <span class="k">else</span> <span class="s1">&#39;X&#39;</span> <span class="c1"># Note: could write:  xn = X.name or &#39;X&#39;</span>
+  <span class="n">yn</span> <span class="o">=</span> <span class="n">Y</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="n">Y</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span> <span class="k">else</span> <span class="s1">&#39;Y&#39;</span>
 
   <span class="c1"># Put all the axes being reduced over at the end </span>
   <span class="c1"># so that we can reshape </span>
@@ -106,7 +111,7 @@
     <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">axes</span><span class="p">:</span>
       <span class="n">i</span> <span class="o">=</span> <span class="n">whichaxis</span><span class="p">(</span><span class="n">srcaxes</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
       <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">riaxes</span><span class="p">:</span> 
-        <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> axis not shared by X (&quot;</span><span class="si">%s</span><span class="s1">&quot;) and Y (&quot;</span><span class="si">%s</span><span class="s1">&quot;)&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">Y</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+        <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> axis not shared by X (&quot;</span><span class="si">%s</span><span class="s1">&quot;) and Y (&quot;</span><span class="si">%s</span><span class="s1">&quot;)&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">xn</span><span class="p">,</span> <span class="n">yn</span><span class="p">))</span>
       <span class="n">ri_new</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
     <span class="n">oiaxes</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">riaxes</span> <span class="k">if</span> <span class="n">r</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ri_new</span><span class="p">])</span>
     <span class="n">riaxes</span> <span class="o">=</span> <span class="n">ri_new</span>
@@ -126,8 +131,8 @@
   <span class="n">Na</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">oview</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">)</span>
 
   <span class="k">if</span> <span class="n">pbar</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">pygeode.progress</span> <span class="k">import</span> <span class="n">PBar</span>
-    <span class="n">pbar</span> <span class="o">=</span> <span class="n">PBar</span><span class="p">()</span>
+    <span class="kn">from</span> <span class="nn">pygeode.progress</span> <span class="kn">import</span> <span class="n">PBar</span>
+    <span class="n">pbar</span> <span class="o">=</span> <span class="n">PBar</span><span class="p">(</span><span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;Computing correlation &#39;</span><span class="si">%s</span><span class="s2">&#39; vs &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">xn</span><span class="p">,</span> <span class="n">yn</span><span class="p">))</span>
 
   <span class="k">for</span> <span class="n">outsl</span><span class="p">,</span> <span class="p">(</span><span class="n">xdata</span><span class="p">,</span> <span class="n">ydata</span><span class="p">)</span> <span class="ow">in</span> <span class="n">loopover</span><span class="p">([</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">],</span> <span class="n">oview</span><span class="p">,</span> <span class="n">inaxes</span><span class="p">,</span> <span class="n">pbar</span><span class="o">=</span><span class="n">pbar</span><span class="p">):</span>
     <span class="n">xdata</span> <span class="o">=</span> <span class="n">xdata</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;d&#39;</span><span class="p">)</span>
@@ -173,6 +178,7 @@
 
   <span class="n">den</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">rho</span><span class="o">**</span><span class="mi">2</span>
   <span class="c1"># Saturate the denominator (when correlation is perfect) to avoid div by zero warnings</span>
+  <span class="n">eps</span> <span class="o">=</span> <span class="mf">1e-8</span>
   <span class="n">den</span><span class="p">[</span><span class="n">den</span> <span class="o">&lt;</span> <span class="n">eps</span><span class="p">]</span> <span class="o">=</span> <span class="n">eps</span>
 
   <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">oview</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">)</span>
@@ -187,18 +193,24 @@
   <span class="n">p</span><span class="p">[</span><span class="o">~</span><span class="n">dmsk</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
   <span class="n">rho</span><span class="p">[</span><span class="o">~</span><span class="n">dmsk</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
 
-  <span class="c1"># Construct and return variables</span>
-  <span class="n">xn</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="n">X</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span> <span class="k">else</span> <span class="s1">&#39;X&#39;</span> <span class="c1"># Note: could write:  xn = X.name or &#39;X&#39;</span>
-  <span class="n">yn</span> <span class="o">=</span> <span class="n">Y</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="n">Y</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span> <span class="k">else</span> <span class="s1">&#39;Y&#39;</span>
+  <span class="n">pbar</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
 
-  <span class="kn">from</span> <span class="nn">pygeode.var</span> <span class="k">import</span> <span class="n">Var</span>
-  <span class="kn">from</span> <span class="nn">pygeode.dataset</span> <span class="k">import</span> <span class="n">asdataset</span>
+  <span class="c1"># Construct and return variables</span>
+  <span class="kn">from</span> <span class="nn">pygeode.var</span> <span class="kn">import</span> <span class="n">Var</span>
+  <span class="kn">from</span> <span class="nn">pygeode.dataset</span> <span class="kn">import</span> <span class="n">asdataset</span>
 
   <span class="n">rvs</span> <span class="o">=</span> <span class="p">[]</span>
 
+  <span class="k">if</span> <span class="s1">&#39;r&#39;</span> <span class="ow">in</span> <span class="n">output</span><span class="p">:</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">oaxes</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="n">rho</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+    <span class="n">r</span><span class="o">.</span><span class="n">atts</span><span class="p">[</span><span class="s1">&#39;longname&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Correlation coefficient r between </span><span class="si">%s</span><span class="s1"> and </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">xn</span><span class="p">,</span> <span class="n">yn</span><span class="p">)</span>
+    <span class="n">rvs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+
   <span class="k">if</span> <span class="s1">&#39;r2&#39;</span> <span class="ow">in</span> <span class="n">output</span><span class="p">:</span>
-    <span class="n">r2</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">oaxes</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="n">rho</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;r2&#39;</span><span class="p">)</span>
-    <span class="n">r2</span><span class="o">.</span><span class="n">atts</span><span class="p">[</span><span class="s1">&#39;longname&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Correlation coefficient between </span><span class="si">%s</span><span class="s1"> and </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">xn</span><span class="p">,</span> <span class="n">yn</span><span class="p">)</span>
+    <span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
+    <span class="n">warn</span> <span class="p">(</span><span class="s2">&quot;r2 now returns the correct value as opposed to r&quot;</span><span class="p">)</span>
+    <span class="n">r2</span> <span class="o">=</span> <span class="n">Var</span><span class="p">(</span><span class="n">oaxes</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="n">rho</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;r2&#39;</span><span class="p">)</span>
+    <span class="n">r2</span><span class="o">.</span><span class="n">atts</span><span class="p">[</span><span class="s1">&#39;longname&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;Coefficient of determination r^2 between </span><span class="si">%s</span><span class="s1"> and </span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">xn</span><span class="p">,</span> <span class="n">yn</span><span class="p">)</span>
     <span class="n">rvs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">r2</span><span class="p">)</span>
 
   <span class="k">if</span> <span class="s1">&#39;p&#39;</span> <span class="ow">in</span> <span class="n">output</span><span class="p">:</span>
@@ -251,26 +263,28 @@
 <span class="sd">    * &#39;m&#39;: Linear coefficient of the regression</span>
 <span class="sd">    * &#39;b&#39;: Constant coefficient of the regression</span>
 <span class="sd">    * &#39;r2&#39;: Fraction of the variance in Y explained by X (:math:`R^2`)</span>
-<span class="sd">    * &#39;p&#39;: p-value of regression; see notes.</span>
-<span class="sd">    * &#39;sm&#39;: Standard deviation of linear coefficient estimate</span>
-<span class="sd">    * &#39;se&#39;: Standard deviation of residuals</span>
+<span class="sd">    * &#39;p&#39;: Probability of this fit under null hypothesis that true linear coefficient is zero</span>
+<span class="sd">    * &#39;sm&#39;: Standard deviation of linear coefficient estimate (:math:`\hat{\sigma}_E/\sqrt{S_{XX}}`)</span>
+<span class="sd">    * &#39;se&#39;: Standard deviation of residuals (:math:`\hat{\sigma}_E`)</span>
 
 <span class="sd">  Notes</span>
 <span class="sd">  =====</span>
 <span class="sd">  The statistics described are computed following von Storch and Zwiers 1999,</span>
 <span class="sd">  section 8.3. The p-value &#39;p&#39; is computed using the t-statistic given in</span>
 <span class="sd">  section 8.3.8, and confidence intervals for the slope and intercept can be</span>
-<span class="sd">  computed from &#39;se&#39; and &#39;se&#39; (:math:`\hat{\sigma}_E` and</span>
-<span class="sd">  :math:`\hat{\sigma}_E/\sqrt{S_{XX}}` in von Storch and Zwiers, respectively).</span>
-<span class="sd">  The data is assumed to be normally distributed.&#39;&#39;&#39;</span>
+<span class="sd">  computed from &#39;sm&#39; or &#39;se&#39;.  The data is assumed to be normally</span>
+<span class="sd">  distributed.&#39;&#39;&#39;</span>
 
-  <span class="kn">from</span> <span class="nn">pygeode.tools</span> <span class="k">import</span> <span class="n">loopover</span><span class="p">,</span> <span class="n">whichaxis</span><span class="p">,</span> <span class="n">combine_axes</span><span class="p">,</span> <span class="n">shared_axes</span><span class="p">,</span> <span class="n">npnansum</span>
-  <span class="kn">from</span> <span class="nn">pygeode.view</span> <span class="k">import</span> <span class="n">View</span>
+  <span class="kn">from</span> <span class="nn">pygeode.tools</span> <span class="kn">import</span> <span class="n">loopover</span><span class="p">,</span> <span class="n">whichaxis</span><span class="p">,</span> <span class="n">combine_axes</span><span class="p">,</span> <span class="n">shared_axes</span><span class="p">,</span> <span class="n">npnansum</span>
+  <span class="kn">from</span> <span class="nn">pygeode.view</span> <span class="kn">import</span> <span class="n">View</span>
 
   <span class="c1"># Split output request now</span>
   <span class="n">ovars</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;r2&#39;</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="s1">&#39;sm&#39;</span><span class="p">,</span> <span class="s1">&#39;se&#39;</span><span class="p">]</span>
   <span class="n">output</span> <span class="o">=</span> <span class="p">[</span><span class="n">o</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">output</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span> <span class="k">if</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">ovars</span><span class="p">]</span>
   <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">output</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span> <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;No valid outputs are requested from regression. Possible outputs are </span><span class="si">%s</span><span class="s1">.&#39;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">ovars</span><span class="p">))</span>
+
+  <span class="n">xn</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="n">X</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span> <span class="k">else</span> <span class="s1">&#39;X&#39;</span>
+  <span class="n">yn</span> <span class="o">=</span> <span class="n">Y</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="n">Y</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span> <span class="k">else</span> <span class="s1">&#39;Y&#39;</span>
 
   <span class="n">srcaxes</span> <span class="o">=</span> <span class="n">combine_axes</span><span class="p">([</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">])</span>
   <span class="n">oiaxes</span><span class="p">,</span> <span class="n">riaxes</span> <span class="o">=</span> <span class="n">shared_axes</span><span class="p">(</span><span class="n">srcaxes</span><span class="p">,</span> <span class="p">[</span><span class="n">X</span><span class="o">.</span><span class="n">axes</span><span class="p">,</span> <span class="n">Y</span><span class="o">.</span><span class="n">axes</span><span class="p">])</span>
@@ -279,7 +293,7 @@
     <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">axes</span><span class="p">:</span>
       <span class="n">i</span> <span class="o">=</span> <span class="n">whichaxis</span><span class="p">(</span><span class="n">srcaxes</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
       <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">riaxes</span><span class="p">:</span> 
-        <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> axis not shared by X (&quot;</span><span class="si">%s</span><span class="s1">&quot;) and Y (&quot;</span><span class="si">%s</span><span class="s1">&quot;)&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">X</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">Y</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
+        <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> axis not shared by X (&quot;</span><span class="si">%s</span><span class="s1">&quot;) and Y (&quot;</span><span class="si">%s</span><span class="s1">&quot;)&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">xn</span><span class="p">,</span> <span class="n">yn</span><span class="p">))</span>
       <span class="n">ri_new</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
     <span class="n">oiaxes</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">riaxes</span> <span class="k">if</span> <span class="n">r</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ri_new</span><span class="p">])</span>
     <span class="n">riaxes</span> <span class="o">=</span> <span class="n">ri_new</span>
@@ -290,10 +304,10 @@
   <span class="n">siaxes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">oaxes</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">srcaxes</span><span class="p">)))</span>
 
   <span class="k">if</span> <span class="n">pbar</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">pygeode.progress</span> <span class="k">import</span> <span class="n">PBar</span>
-    <span class="n">pbar</span> <span class="o">=</span> <span class="n">PBar</span><span class="p">()</span>
+    <span class="kn">from</span> <span class="nn">pygeode.progress</span> <span class="kn">import</span> <span class="n">PBar</span>
+    <span class="n">pbar</span> <span class="o">=</span> <span class="n">PBar</span><span class="p">(</span><span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;Computing regression &#39;</span><span class="si">%s</span><span class="s2">&#39; vs &#39;</span><span class="si">%s</span><span class="s2">&#39;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">xn</span><span class="p">,</span> <span class="n">yn</span><span class="p">))</span>
 
-  <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">riaxes</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> and </span><span class="si">%s</span><span class="s1"> share no axes to be regressed over&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">Y</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+  <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">riaxes</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> and </span><span class="si">%s</span><span class="s1"> share no axes to be regressed over&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">xn</span><span class="p">,</span> <span class="n">yn</span><span class="p">)</span>
 
   <span class="c1"># Construct work arrays</span>
   <span class="n">x</span>  <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">oview</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">)</span>
@@ -357,11 +371,11 @@
   <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">oview</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">)</span>
   <span class="n">p</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">oview</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">)</span>
 
-  <span class="n">sige</span><span class="p">[</span><span class="n">nmsk</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">yy</span><span class="p">[</span><span class="n">nmsk</span><span class="p">]</span> <span class="o">-</span> <span class="n">m</span><span class="p">[</span><span class="n">nmsk</span><span class="p">]</span> <span class="o">*</span> <span class="n">xy</span><span class="p">[</span><span class="n">nmsk</span><span class="p">])</span> <span class="o">/</span> <span class="n">N_eff</span><span class="p">[</span><span class="n">nmsk</span><span class="p">]</span>
+  <span class="n">sige</span><span class="p">[</span><span class="n">dmsk</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">yy</span><span class="p">[</span><span class="n">dmsk</span><span class="p">]</span> <span class="o">-</span> <span class="n">m</span><span class="p">[</span><span class="n">dmsk</span><span class="p">]</span> <span class="o">*</span> <span class="n">xy</span><span class="p">[</span><span class="n">dmsk</span><span class="p">])</span> <span class="o">/</span> <span class="n">N_eff</span><span class="p">[</span><span class="n">dmsk</span><span class="p">]</span>
   <span class="n">sigm</span><span class="p">[</span><span class="n">dmsk</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">sige</span><span class="p">[</span><span class="n">dmsk</span><span class="p">]</span> <span class="o">/</span> <span class="n">xx</span><span class="p">[</span><span class="n">dmsk</span><span class="p">])</span>
-  <span class="n">sige</span><span class="p">[</span><span class="n">nmsk</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">sige</span><span class="p">[</span><span class="n">dmsk</span><span class="p">])</span>
+  <span class="n">sige</span><span class="p">[</span><span class="n">dmsk</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">sige</span><span class="p">[</span><span class="n">dmsk</span><span class="p">])</span>
   <span class="n">t</span><span class="p">[</span><span class="n">dmsk</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="n">dmsk</span><span class="p">])</span> <span class="o">/</span> <span class="n">sigm</span><span class="p">[</span><span class="n">dmsk</span><span class="p">]</span>
-  <span class="n">p</span><span class="p">[</span><span class="n">nmsk</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2.</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">tdist</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">nmsk</span><span class="p">],</span> <span class="n">N_eff</span><span class="p">[</span><span class="n">nmsk</span><span class="p">]))</span>
+  <span class="n">p</span><span class="p">[</span><span class="n">dmsk</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2.</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">tdist</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">dmsk</span><span class="p">],</span> <span class="n">N_eff</span><span class="p">[</span><span class="n">dmsk</span><span class="p">]))</span>
 
   <span class="n">msk</span> <span class="o">=</span> <span class="n">nmsk</span> <span class="o">&amp;</span> <span class="n">dmsk</span>
    
@@ -374,11 +388,10 @@
   <span class="n">msk</span> <span class="o">=</span> <span class="n">nmsk</span> <span class="o">&amp;</span> <span class="n">d2msk</span>
   <span class="n">r2</span><span class="p">[</span><span class="o">~</span><span class="n">msk</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
 
-  <span class="n">xn</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="n">X</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span> <span class="k">else</span> <span class="s1">&#39;X&#39;</span>
-  <span class="n">yn</span> <span class="o">=</span> <span class="n">Y</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="n">Y</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span> <span class="k">else</span> <span class="s1">&#39;Y&#39;</span>
+  <span class="n">pbar</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
 
-  <span class="kn">from</span> <span class="nn">pygeode.var</span> <span class="k">import</span> <span class="n">Var</span>
-  <span class="kn">from</span> <span class="nn">pygeode.dataset</span> <span class="k">import</span> <span class="n">asdataset</span>
+  <span class="kn">from</span> <span class="nn">pygeode.var</span> <span class="kn">import</span> <span class="n">Var</span>
+  <span class="kn">from</span> <span class="nn">pygeode.dataset</span> <span class="kn">import</span> <span class="n">asdataset</span>
   
   <span class="n">rvs</span> <span class="o">=</span> <span class="p">[]</span>
 
@@ -482,8 +495,8 @@
 <span class="sd">  diagonal elements of :math:`\hat{\sigma}^2_E (\chi^T\chi)` in von Storch and</span>
 <span class="sd">  Zwiers, respectively.  The data is assumed to be normally distributed.&#39;&#39;&#39;</span>
 
-  <span class="kn">from</span> <span class="nn">pygeode.tools</span> <span class="k">import</span> <span class="n">loopover</span><span class="p">,</span> <span class="n">whichaxis</span><span class="p">,</span> <span class="n">combine_axes</span><span class="p">,</span> <span class="n">shared_axes</span><span class="p">,</span> <span class="n">npsum</span>
-  <span class="kn">from</span> <span class="nn">pygeode.view</span> <span class="k">import</span> <span class="n">View</span>
+  <span class="kn">from</span> <span class="nn">pygeode.tools</span> <span class="kn">import</span> <span class="n">loopover</span><span class="p">,</span> <span class="n">whichaxis</span><span class="p">,</span> <span class="n">combine_axes</span><span class="p">,</span> <span class="n">shared_axes</span><span class="p">,</span> <span class="n">npsum</span>
+  <span class="kn">from</span> <span class="nn">pygeode.view</span> <span class="kn">import</span> <span class="n">View</span>
 
   <span class="c1"># Split output request now</span>
   <span class="n">ovars</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;beta&#39;</span><span class="p">,</span> <span class="s1">&#39;r2&#39;</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="s1">&#39;sb&#39;</span><span class="p">,</span> <span class="s1">&#39;covb&#39;</span><span class="p">,</span> <span class="s1">&#39;se&#39;</span><span class="p">]</span>
@@ -511,7 +524,7 @@
   <span class="n">siaxes</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">oaxes</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">srcaxes</span><span class="p">)))</span>
 
   <span class="k">if</span> <span class="n">pbar</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">pygeode.progress</span> <span class="k">import</span> <span class="n">PBar</span>
+    <span class="kn">from</span> <span class="nn">pygeode.progress</span> <span class="kn">import</span> <span class="n">PBar</span>
     <span class="n">pbar</span> <span class="o">=</span> <span class="n">PBar</span><span class="p">()</span>
 
   <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">riaxes</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;Regressors and </span><span class="si">%s</span><span class="s1"> share no axes to be regressed over&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">Y</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
@@ -561,12 +574,14 @@
 
   <span class="n">sigbeta</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">((</span><span class="n">yy</span> <span class="o">-</span> <span class="n">vare</span><span class="p">)</span> <span class="o">*</span> <span class="n">xxinv</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">/</span> <span class="n">N_eff</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">Nr</span><span class="p">)]</span>
 
+  <span class="n">pbar</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+
   <span class="n">xns</span> <span class="o">=</span> <span class="p">[</span><span class="n">X</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="n">X</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span> <span class="k">else</span> <span class="s1">&#39;X</span><span class="si">%d</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">X</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">Xs</span><span class="p">)]</span>
   <span class="n">yn</span> <span class="o">=</span> <span class="n">Y</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="n">Y</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span> <span class="k">else</span> <span class="s1">&#39;Y&#39;</span>
 
-  <span class="kn">from</span> <span class="nn">.var</span> <span class="k">import</span> <span class="n">Var</span>
-  <span class="kn">from</span> <span class="nn">.dataset</span> <span class="k">import</span> <span class="n">asdataset</span>
-  <span class="kn">from</span> <span class="nn">.axis</span> <span class="k">import</span> <span class="n">NonCoordinateAxis</span>
+  <span class="kn">from</span> <span class="nn">.var</span> <span class="kn">import</span> <span class="n">Var</span>
+  <span class="kn">from</span> <span class="nn">.dataset</span> <span class="kn">import</span> <span class="n">asdataset</span>
+  <span class="kn">from</span> <span class="nn">.axis</span> <span class="kn">import</span> <span class="n">NonCoordinateAxis</span>
 
   <span class="n">ra</span>  <span class="o">=</span> <span class="n">NonCoordinateAxis</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">Nr</span><span class="p">),</span> <span class="n">regressor</span> <span class="o">=</span> <span class="n">xns</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;regressor&#39;</span><span class="p">)</span>
   <span class="n">ra2</span> <span class="o">=</span> <span class="n">NonCoordinateAxis</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">Nr</span><span class="p">),</span> <span class="n">regressor</span> <span class="o">=</span> <span class="n">xns</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;regressor2&#39;</span><span class="p">)</span>
@@ -683,8 +698,8 @@
 <span class="sd">  degrees of freedom are not calculated explicitly by this routine. The p-value and </span>
 <span class="sd">  confidence interval are computed based on the t-statistic in eq (6.19).&#39;&#39;&#39;</span>
 
-  <span class="kn">from</span> <span class="nn">pygeode.tools</span> <span class="k">import</span> <span class="n">loopover</span><span class="p">,</span> <span class="n">whichaxis</span><span class="p">,</span> <span class="n">combine_axes</span><span class="p">,</span> <span class="n">shared_axes</span><span class="p">,</span> <span class="n">npnansum</span>
-  <span class="kn">from</span> <span class="nn">pygeode.view</span> <span class="k">import</span> <span class="n">View</span>
+  <span class="kn">from</span> <span class="nn">pygeode.tools</span> <span class="kn">import</span> <span class="n">loopover</span><span class="p">,</span> <span class="n">whichaxis</span><span class="p">,</span> <span class="n">combine_axes</span><span class="p">,</span> <span class="n">shared_axes</span><span class="p">,</span> <span class="n">npnansum</span>
+  <span class="kn">from</span> <span class="nn">pygeode.view</span> <span class="kn">import</span> <span class="n">View</span>
 
   <span class="c1"># Split output request now</span>
   <span class="n">ovars</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="s1">&#39;df&#39;</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="s1">&#39;ci&#39;</span><span class="p">]</span>
@@ -715,7 +730,7 @@
   <span class="k">assert</span> <span class="n">Ny</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> has only one element along the reduction axes&#39;</span> <span class="o">%</span> <span class="n">Y</span><span class="o">.</span><span class="n">name</span>
 
   <span class="k">if</span> <span class="n">pbar</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">pygeode.progress</span> <span class="k">import</span> <span class="n">PBar</span>
+    <span class="kn">from</span> <span class="nn">pygeode.progress</span> <span class="kn">import</span> <span class="n">PBar</span>
     <span class="n">pbar</span> <span class="o">=</span> <span class="n">PBar</span><span class="p">()</span>
 
   <span class="c1"># Construct work arrays</span>
@@ -796,12 +811,14 @@
   <span class="n">p</span> <span class="p">[</span><span class="o">~</span><span class="n">dmsk</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
   <span class="n">ci</span><span class="p">[</span><span class="o">~</span><span class="n">dmsk</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
 
+  <span class="n">pbar</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+
   <span class="c1"># Construct dataset to return</span>
   <span class="n">xn</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="n">X</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span> <span class="k">else</span> <span class="s1">&#39;X&#39;</span>
   <span class="n">yn</span> <span class="o">=</span> <span class="n">Y</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="n">Y</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span> <span class="k">else</span> <span class="s1">&#39;Y&#39;</span>
 
-  <span class="kn">from</span> <span class="nn">pygeode.var</span> <span class="k">import</span> <span class="n">Var</span>
-  <span class="kn">from</span> <span class="nn">pygeode.dataset</span> <span class="k">import</span> <span class="n">asdataset</span>
+  <span class="kn">from</span> <span class="nn">pygeode.var</span> <span class="kn">import</span> <span class="n">Var</span>
+  <span class="kn">from</span> <span class="nn">pygeode.dataset</span> <span class="kn">import</span> <span class="n">asdataset</span>
 
   <span class="n">rvs</span> <span class="o">=</span> <span class="p">[]</span>
 
@@ -893,8 +910,8 @@
 <span class="sd">  routine. The p-value and confidence interval are computed based on the t-statistic in eq</span>
 <span class="sd">  (6.21).&#39;&#39;&#39;</span>
 
-  <span class="kn">from</span> <span class="nn">pygeode.tools</span> <span class="k">import</span> <span class="n">loopover</span><span class="p">,</span> <span class="n">whichaxis</span><span class="p">,</span> <span class="n">combine_axes</span><span class="p">,</span> <span class="n">shared_axes</span><span class="p">,</span> <span class="n">npnansum</span>
-  <span class="kn">from</span> <span class="nn">pygeode.view</span> <span class="k">import</span> <span class="n">View</span>
+  <span class="kn">from</span> <span class="nn">pygeode.tools</span> <span class="kn">import</span> <span class="n">loopover</span><span class="p">,</span> <span class="n">whichaxis</span><span class="p">,</span> <span class="n">combine_axes</span><span class="p">,</span> <span class="n">shared_axes</span><span class="p">,</span> <span class="n">npnansum</span>
+  <span class="kn">from</span> <span class="nn">pygeode.view</span> <span class="kn">import</span> <span class="n">View</span>
 
   <span class="c1"># Split output request now</span>
   <span class="n">ovars</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="s1">&#39;df&#39;</span><span class="p">,</span> <span class="s1">&#39;p&#39;</span><span class="p">,</span> <span class="s1">&#39;ci&#39;</span><span class="p">]</span>
@@ -925,7 +942,7 @@
   <span class="k">assert</span> <span class="n">ixaxes</span> <span class="o">==</span> <span class="n">iyaxes</span> <span class="ow">and</span> <span class="n">Nx</span> <span class="o">==</span> <span class="n">Ny</span><span class="p">,</span> <span class="s1">&#39;For the paired difference test, X and Y must have the same size along the reduction axes.&#39;</span>
   
   <span class="k">if</span> <span class="n">pbar</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">pygeode.progress</span> <span class="k">import</span> <span class="n">PBar</span>
+    <span class="kn">from</span> <span class="nn">pygeode.progress</span> <span class="kn">import</span> <span class="n">PBar</span>
     <span class="n">pbar</span> <span class="o">=</span> <span class="n">PBar</span><span class="p">()</span>
 
   <span class="k">assert</span> <span class="n">Nx</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> has only one element along the reduction axes&#39;</span> <span class="o">%</span> <span class="n">X</span><span class="o">.</span><span class="n">name</span>
@@ -971,12 +988,14 @@
   <span class="n">p</span><span class="p">[</span><span class="n">dmsk</span><span class="p">]</span>  <span class="o">=</span> <span class="mf">2.</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">tdist</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">p</span><span class="p">[</span><span class="n">dmsk</span><span class="p">],</span> <span class="n">eN</span><span class="p">[</span><span class="n">dmsk</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
   <span class="n">ci</span><span class="p">[</span><span class="n">dmsk</span><span class="p">]</span> <span class="o">=</span> <span class="n">tdist</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">alpha</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">eN</span><span class="p">[</span><span class="n">dmsk</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">den</span><span class="p">[</span><span class="n">dmsk</span><span class="p">]</span>
 
+  <span class="n">pbar</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+
   <span class="c1"># Construct dataset to return</span>
   <span class="n">xn</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="n">X</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span> <span class="k">else</span> <span class="s1">&#39;X&#39;</span>
   <span class="n">yn</span> <span class="o">=</span> <span class="n">Y</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="n">Y</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span> <span class="k">else</span> <span class="s1">&#39;Y&#39;</span>
 
-  <span class="kn">from</span> <span class="nn">pygeode.var</span> <span class="k">import</span> <span class="n">Var</span>
-  <span class="kn">from</span> <span class="nn">pygeode.dataset</span> <span class="k">import</span> <span class="n">asdataset</span>
+  <span class="kn">from</span> <span class="nn">pygeode.var</span> <span class="kn">import</span> <span class="n">Var</span>
+  <span class="kn">from</span> <span class="nn">pygeode.dataset</span> <span class="kn">import</span> <span class="n">asdataset</span>
 
   <span class="n">rvs</span> <span class="o">=</span> <span class="p">[]</span>
 
@@ -1030,14 +1049,14 @@
 <span class="sd">    the effective number will be given by the number estimated from the dataset</span>
 <span class="sd">    divided by ``N_fac``.</span>
 
-<span class="sd">  pbar : progress bar, optional</span>
-<span class="sd">    A progress bar object. If nothing is provided, a progress bar will be displayed</span>
-<span class="sd">    if the calculation takes sufficiently long.</span>
-
 <span class="sd">  output : string, optional</span>
 <span class="sd">    A string determining which parameters are returned; see list of possible outputs</span>
 <span class="sd">    in the Returns section. The specifications must be separated by a comma. Defaults </span>
 <span class="sd">    to &#39;m,p&#39;.</span>
+
+<span class="sd">  pbar : progress bar, optional</span>
+<span class="sd">    A progress bar object. If nothing is provided, a progress bar will be displayed</span>
+<span class="sd">    if the calculation takes sufficiently long.</span>
 
 <span class="sd">  Returns</span>
 <span class="sd">  =======</span>
@@ -1064,8 +1083,8 @@
 <span class="sd">  The p-value and confidence interval are computed for the t-statistic defined in </span>
 <span class="sd">  eq (6.61) of von Storch and Zwiers 1999.&#39;&#39;&#39;</span>
 
-  <span class="kn">from</span> <span class="nn">pygeode.tools</span> <span class="k">import</span> <span class="n">combine_axes</span><span class="p">,</span> <span class="n">whichaxis</span><span class="p">,</span> <span class="n">loopover</span><span class="p">,</span> <span class="n">npsum</span><span class="p">,</span> <span class="n">npnansum</span>
-  <span class="kn">from</span> <span class="nn">pygeode.view</span> <span class="k">import</span> <span class="n">View</span>
+  <span class="kn">from</span> <span class="nn">pygeode.tools</span> <span class="kn">import</span> <span class="n">combine_axes</span><span class="p">,</span> <span class="n">whichaxis</span><span class="p">,</span> <span class="n">loopover</span><span class="p">,</span> <span class="n">npsum</span><span class="p">,</span> <span class="n">npnansum</span>
+  <span class="kn">from</span> <span class="nn">pygeode.view</span> <span class="kn">import</span> <span class="n">View</span>
 
   <span class="n">riaxes</span> <span class="o">=</span> <span class="p">[</span><span class="n">X</span><span class="o">.</span><span class="n">whichaxis</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">axes</span><span class="p">]</span>
   <span class="n">raxes</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">axes</span><span class="p">)</span> <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">riaxes</span><span class="p">]</span>
@@ -1075,7 +1094,7 @@
   <span class="n">N</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">product</span><span class="p">([</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">riaxes</span><span class="p">])</span>
 
   <span class="k">if</span> <span class="n">pbar</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">pygeode.progress</span> <span class="k">import</span> <span class="n">PBar</span>
+    <span class="kn">from</span> <span class="nn">pygeode.progress</span> <span class="kn">import</span> <span class="n">PBar</span>
     <span class="n">pbar</span> <span class="o">=</span> <span class="n">PBar</span><span class="p">()</span>
 
   <span class="k">assert</span> <span class="n">N</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1"> has only one element along the reduction axes&#39;</span> <span class="o">%</span> <span class="n">X</span><span class="o">.</span><span class="n">name</span>
@@ -1125,10 +1144,12 @@
   <span class="n">p</span><span class="p">[</span><span class="n">imsk</span><span class="p">]</span>  <span class="o">=</span> <span class="mf">2.</span> <span class="o">*</span> <span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">tdist</span><span class="o">.</span><span class="n">cdf</span><span class="p">(</span><span class="n">t</span><span class="p">[</span><span class="n">imsk</span><span class="p">],</span> <span class="n">eNa</span><span class="p">[</span><span class="n">imsk</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
   <span class="n">ci</span><span class="p">[</span><span class="n">imsk</span><span class="p">]</span> <span class="o">=</span> <span class="n">tdist</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">1.</span> <span class="o">-</span> <span class="n">alpha</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">eNa</span><span class="p">[</span><span class="n">imsk</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">sdom</span><span class="p">[</span><span class="n">imsk</span><span class="p">]</span>
 
+  <span class="n">pbar</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+
   <span class="n">name</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">name</span> <span class="k">if</span> <span class="n">X</span><span class="o">.</span><span class="n">name</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span> <span class="k">else</span> <span class="s1">&#39;X&#39;</span>
 
-  <span class="kn">from</span> <span class="nn">pygeode.var</span> <span class="k">import</span> <span class="n">Var</span>
-  <span class="kn">from</span> <span class="nn">pygeode.dataset</span> <span class="k">import</span> <span class="n">asdataset</span>
+  <span class="kn">from</span> <span class="nn">pygeode.var</span> <span class="kn">import</span> <span class="n">Var</span>
+  <span class="kn">from</span> <span class="nn">pygeode.dataset</span> <span class="kn">import</span> <span class="n">asdataset</span>
 
   <span class="n">rvs</span> <span class="o">=</span> <span class="p">[]</span>
 

@@ -1,0 +1,119 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Cartopy: Use Cartopy Features &#8212; PyGeode 1.4.0 documentation</title>
+    <link rel="stylesheet" href="../_static/pygtheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Cartopy: Test regional projections" href="plot_cartproj.html" />
+    <link rel="prev" title="Gallery" href="index.html" />
+<link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
+
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../index.html">
+          <span>PyGeode 1.4.0 documentation</span></a></h1>
+        <h2 class="heading"><span>Cartopy: Use Cartopy Features</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        «&#160;&#160;<a href="index.html">Gallery</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Gallery</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="plot_cartproj.html">Cartopy: Test regional projections</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Click <a class="reference internal" href="#sphx-glr-download-gallery-plot-cartfeatures-py"><span class="std std-ref">here</span></a> to download the full example code</p>
+</div>
+<div class="sphx-glr-example-title section" id="cartopy-use-cartopy-features">
+<span id="sphx-glr-gallery-plot-cartfeatures-py"></span><h1>Cartopy: Use Cartopy Features<a class="headerlink" href="#cartopy-use-cartopy-features" title="Permalink to this headline">¶</a></h1>
+<img alt="../_images/sphx_glr_plot_cartfeatures_002.png" class="sphx-glr-single-img" src="../_images/sphx_glr_plot_cartfeatures_002.png" />
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygeode</span> <span class="k">as</span> <span class="nn">pyg</span><span class="o">,</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span><span class="o">,</span> <span class="nn">pylab</span> <span class="k">as</span> <span class="nn">pyl</span>
+<span class="kn">from</span> <span class="nn">cartopy</span> <span class="kn">import</span> <span class="n">crs</span> <span class="k">as</span> <span class="n">ccrs</span>
+<span class="kn">import</span> <span class="nn">cartopy</span>
+<span class="kn">from</span> <span class="nn">cartopy.feature.nightshade</span> <span class="kn">import</span> <span class="n">Nightshade</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span> <span class="k">as</span> <span class="n">dt</span>
+
+<span class="n">lat</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">gausslat</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span>
+<span class="n">lon</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">regularlon</span><span class="p">(</span><span class="mi">120</span><span class="p">)</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">lon</span> <span class="o">/</span> <span class="mf">180.</span><span class="p">)</span> <span class="o">*</span> <span class="n">pyg</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">lat</span> <span class="o">-</span> <span class="mi">30</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="mi">10</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">lon</span> <span class="o">/</span> <span class="mf">180.</span><span class="p">)</span> <span class="o">*</span> <span class="n">pyg</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">lat</span> <span class="o">+</span> <span class="mi">40</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="mi">10</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+
+<span class="n">pyl</span><span class="o">.</span><span class="n">ioff</span><span class="p">()</span>
+<span class="n">prj</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">central_longitude</span> <span class="o">=</span> <span class="mi">60</span><span class="p">)</span>
+<span class="c1">#ax = pyg.plot.CartopyAxes(projection = &#39;NearsidePerspective&#39;, prj_args = prj)</span>
+
+<span class="nb">map</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">projection</span> <span class="o">=</span> <span class="s1">&#39;NearsidePerspective&#39;</span><span class="p">,</span> <span class="n">prj_args</span> <span class="o">=</span> <span class="n">prj</span><span class="p">)</span>
+<span class="c1">#map = dict(projection = &#39;LambertConformal&#39;, prj_args = prj)</span>
+
+<span class="n">cl</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">cldict</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">nozero</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">vcontour</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">map</span> <span class="o">=</span> <span class="nb">map</span><span class="p">,</span> <span class="o">**</span><span class="n">cl</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">cartopy</span><span class="o">.</span><span class="n">feature</span><span class="o">.</span><span class="n">OCEAN</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><span class="n">Nightshade</span><span class="p">(</span><span class="n">dt</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+<span class="n">pyl</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">tissot</span><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-plot-cartfeatures-py">
+<div class="sphx-glr-download docutils container">
+<a class="reference download internal" download="" href="../_downloads/86c43191369e2a84eb519eabeba7f7c8/plot_cartfeatures.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_cartfeatures.py</span></code></a></div>
+<div class="sphx-glr-download docutils container">
+<a class="reference download internal" download="" href="../_downloads/9a227ef13f943d3c1844742aab244575/plot_cartfeatures.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_cartfeatures.ipynb</span></code></a></div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.readthedocs.io">Gallery generated by Sphinx-Gallery</a></p>
+</div>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        «&#160;&#160;<a href="index.html">Gallery</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Gallery</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="plot_cartproj.html">Cartopy: Test regional projections</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Mike Neish, Peter Hitchcock.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.
+    </div>
+  </body>
+</html>

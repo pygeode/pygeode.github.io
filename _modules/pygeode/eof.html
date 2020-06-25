@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>pygeode.eof &#8212; PyGeode 1.3 pre-release documentation</title>
+    <title>pygeode.eof &#8212; PyGeode 1.4.0 documentation</title>
     <link rel="stylesheet" href="../../_static/pygtheme.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/gallery.css" />
@@ -23,7 +23,7 @@
 
   </head><body>
       <div class="header" role="banner"><h1 class="heading"><a href="../../index.html">
-          <span>PyGeode 1.3 pre-release documentation</span></a></h1>
+          <span>PyGeode 1.4.0 documentation</span></a></h1>
         <h2 class="heading"><span>pygeode.eof</span></h2>
       </div>
       <div class="topnav" role="navigation" aria-label="top navigation">
@@ -45,7 +45,7 @@
 <span class="c1">#TODO: for certain sizes, calculate the full covariance matrix, but then use an iterative method directly on it?</span>
 
 <span class="c1"># EOF order axis</span>
-<span class="kn">from</span> <span class="nn">pygeode.axis</span> <span class="k">import</span> <span class="n">Axis</span>
+<span class="kn">from</span> <span class="nn">pygeode.axis</span> <span class="kn">import</span> <span class="n">Axis</span>
 <span class="k">class</span> <span class="nc">order</span><span class="p">(</span><span class="n">Axis</span><span class="p">):</span> 
   <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;eof&#39;</span>
   <span class="n">formatstr</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%d</span><span class="s1">&#39;</span>
@@ -99,12 +99,12 @@
 
 <span class="c1">##prep the var</span>
 <span class="k">def</span> <span class="nf">prep</span> <span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">iaxis</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">out</span><span class="p">):</span>
-  <span class="kn">from</span> <span class="nn">pygeode.timeaxis</span> <span class="k">import</span> <span class="n">Time</span>
-  <span class="kn">from</span> <span class="nn">pygeode.var</span> <span class="k">import</span> <span class="n">Var</span>
-  <span class="kn">from</span> <span class="nn">pygeode.axis</span> <span class="k">import</span> <span class="n">Axis</span>
-  <span class="kn">from</span> <span class="nn">pygeode.view</span> <span class="k">import</span> <span class="n">View</span>
-  <span class="kn">from</span> <span class="nn">warnings</span> <span class="k">import</span> <span class="n">warn</span>
-  <span class="kn">from</span> <span class="nn">pygeode</span> <span class="k">import</span> <span class="n">MAX_ARRAY_SIZE</span>
+  <span class="kn">from</span> <span class="nn">pygeode.timeaxis</span> <span class="kn">import</span> <span class="n">Time</span>
+  <span class="kn">from</span> <span class="nn">pygeode.var</span> <span class="kn">import</span> <span class="n">Var</span>
+  <span class="kn">from</span> <span class="nn">pygeode.axis</span> <span class="kn">import</span> <span class="n">Axis</span>
+  <span class="kn">from</span> <span class="nn">pygeode.view</span> <span class="kn">import</span> <span class="n">View</span>
+  <span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
+  <span class="kn">from</span> <span class="nn">pygeode</span> <span class="kn">import</span> <span class="n">MAX_ARRAY_SIZE</span>
 
   <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">var</span><span class="p">,</span><span class="n">Var</span><span class="p">)</span>
   <span class="k">assert</span> <span class="n">var</span><span class="o">.</span><span class="n">naxes</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;need at least 2 axes&quot;</span>
@@ -158,7 +158,7 @@
 
 <span class="c1"># Remove weights, wrap as Vars</span>
 <span class="k">def</span> <span class="nf">finalize</span> <span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">space</span><span class="p">,</span> <span class="n">eof</span><span class="p">,</span> <span class="n">eig</span><span class="p">,</span> <span class="n">pc</span><span class="p">,</span> <span class="n">variance</span><span class="p">,</span> <span class="n">weight</span><span class="p">,</span> <span class="n">out</span><span class="p">):</span>
-  <span class="kn">from</span> <span class="nn">pygeode.var</span> <span class="k">import</span> <span class="n">Var</span>
+  <span class="kn">from</span> <span class="nn">pygeode.var</span> <span class="kn">import</span> <span class="n">Var</span>
   <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
   <span class="c1"># Keep the name</span>
@@ -227,11 +227,11 @@
 <span class="sd">  (See svd.SVD for documentation on a similar function, but replace each xxx1 and xxx2 parameter with a single xxx parameter.)</span>
 <span class="sd">  &quot;&quot;&quot;</span>
   <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-  <span class="kn">from</span> <span class="nn">pygeode</span> <span class="k">import</span> <span class="n">libpath</span>
-  <span class="kn">from</span> <span class="nn">pygeode.view</span> <span class="k">import</span> <span class="n">View</span>
-  <span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">sqrt</span>
-  <span class="kn">from</span> <span class="nn">pygeode.varoperations</span> <span class="k">import</span> <span class="n">fill</span>
-  <span class="kn">from</span> <span class="nn">pygeode</span> <span class="k">import</span> <span class="n">svdcore</span> <span class="k">as</span> <span class="n">lib</span>
+  <span class="kn">from</span> <span class="nn">pygeode</span> <span class="kn">import</span> <span class="n">libpath</span>
+  <span class="kn">from</span> <span class="nn">pygeode.view</span> <span class="kn">import</span> <span class="n">View</span>
+  <span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sqrt</span>
+  <span class="kn">from</span> <span class="nn">pygeode.varoperations</span> <span class="kn">import</span> <span class="n">fill</span>
+  <span class="kn">from</span> <span class="nn">pygeode</span> <span class="kn">import</span> <span class="n">svdcore</span> <span class="k">as</span> <span class="n">lib</span>
 
   <span class="c1"># Need vector subspace to be at least as large as the number of EOFs extracted.</span>
   <span class="k">if</span> <span class="n">subspace</span> <span class="o">&lt;</span> <span class="n">num</span><span class="p">:</span> <span class="n">subspace</span> <span class="o">=</span> <span class="n">num</span>
@@ -345,9 +345,9 @@
 <span class="c1">##################################################</span>
 <span class="k">def</span> <span class="nf">EOF_guess</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">iaxis</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
   <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-  <span class="kn">from</span> <span class="nn">pygeode.var</span> <span class="k">import</span> <span class="n">Var</span>
-  <span class="kn">from</span> <span class="nn">pygeode.view</span> <span class="k">import</span> <span class="n">View</span>
-  <span class="kn">from</span> <span class="nn">pygeode</span> <span class="k">import</span> <span class="n">eofcore</span> <span class="k">as</span> <span class="n">lib</span>
+  <span class="kn">from</span> <span class="nn">pygeode.var</span> <span class="kn">import</span> <span class="n">Var</span>
+  <span class="kn">from</span> <span class="nn">pygeode.view</span> <span class="kn">import</span> <span class="n">View</span>
+  <span class="kn">from</span> <span class="nn">pygeode</span> <span class="kn">import</span> <span class="n">eofcore</span> <span class="k">as</span> <span class="n">lib</span>
 
   <span class="n">x</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">space</span> <span class="o">=</span> <span class="n">prep</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">iaxis</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="n">weight</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">)</span>
   <span class="k">del</span> <span class="n">iaxis</span>
@@ -420,7 +420,7 @@
 <span class="c1">##################################################</span>
 <span class="k">def</span> <span class="nf">EOF_cov</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">iaxis</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
   <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-  <span class="kn">from</span> <span class="nn">pygeode.view</span> <span class="k">import</span> <span class="n">View</span>
+  <span class="kn">from</span> <span class="nn">pygeode.view</span> <span class="kn">import</span> <span class="n">View</span>
 
   <span class="n">x</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">space</span> <span class="o">=</span> <span class="n">prep</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">iaxis</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="n">weight</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">out</span><span class="p">)</span>
   <span class="k">del</span> <span class="n">iaxis</span>
@@ -536,8 +536,8 @@
 <span class="sd">                  of the EOF spatial patterns.</span>
 <span class="sd">      =========   ============================================================</span>
 <span class="sd">  &quot;&quot;&quot;</span>
-  <span class="kn">from</span> <span class="nn">math</span> <span class="k">import</span> <span class="n">sqrt</span>
-  <span class="kn">from</span> <span class="nn">pygeode</span> <span class="k">import</span> <span class="n">MAX_ARRAY_SIZE</span>
+  <span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sqrt</span>
+  <span class="kn">from</span> <span class="nn">pygeode</span> <span class="kn">import</span> <span class="n">MAX_ARRAY_SIZE</span>
   <span class="c1"># Maximum size allowed for explicit solvers</span>
   <span class="c1">#TODO: run some actual tests to determine this number</span>
   <span class="n">max_explicit_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">sqrt</span><span class="p">(</span><span class="n">MAX_ARRAY_SIZE</span><span class="p">))</span>

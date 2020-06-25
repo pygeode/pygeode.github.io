@@ -9,13 +9,13 @@ Gallery
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Contour plot with hatches">
+    <div class="sphx-glr-thumbcontainer" tooltip="Cartopy">
 
 .. only:: html
 
-    .. figure:: /gallery/images/thumb/sphx_glr_plot_contour_hatches_thumb.png
+    .. figure:: /gallery/images/thumb/sphx_glr_plot_cartfeatures_thumb.png
 
-        :ref:`sphx_glr_gallery_plot_contour_hatches.py`
+        :ref:`sphx_glr_gallery_plot_cartfeatures.py`
 
 .. raw:: html
 
@@ -25,17 +25,17 @@ Gallery
 .. toctree::
    :hidden:
 
-   /gallery/plot_contour_hatches
+   /gallery/plot_cartfeatures
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Contour plot">
+    <div class="sphx-glr-thumbcontainer" tooltip="Cartopy">
 
 .. only:: html
 
-    .. figure:: /gallery/images/thumb/sphx_glr_plot_contour_thumb.png
+    .. figure:: /gallery/images/thumb/sphx_glr_plot_cartproj_thumb.png
 
-        :ref:`sphx_glr_gallery_plot_contour.py`
+        :ref:`sphx_glr_gallery_plot_cartproj.py`
 
 .. raw:: html
 
@@ -45,7 +45,27 @@ Gallery
 .. toctree::
    :hidden:
 
-   /gallery/plot_contour
+   /gallery/plot_cartproj
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Cartopy">
+
+.. only:: html
+
+    .. figure:: /gallery/images/thumb/sphx_glr_plot_cartreg_thumb.png
+
+        :ref:`sphx_glr_gallery_plot_cartreg.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /gallery/plot_cartreg
 
 .. raw:: html
 
@@ -69,13 +89,13 @@ Gallery
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="Line plot">
+    <div class="sphx-glr-thumbcontainer" tooltip="Contour plot">
 
 .. only:: html
 
-    .. figure:: /gallery/images/thumb/sphx_glr_plot_line_thumb.png
+    .. figure:: /gallery/images/thumb/sphx_glr_plot_contour_thumb.png
 
-        :ref:`sphx_glr_gallery_plot_line.py`
+        :ref:`sphx_glr_gallery_plot_contour.py`
 
 .. raw:: html
 
@@ -85,7 +105,27 @@ Gallery
 .. toctree::
    :hidden:
 
-   /gallery/plot_line
+   /gallery/plot_contour
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Contour plot with hatches">
+
+.. only:: html
+
+    .. figure:: /gallery/images/thumb/sphx_glr_plot_contour_hatches_thumb.png
+
+        :ref:`sphx_glr_gallery_plot_contour_hatches.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /gallery/plot_contour_hatches
 
 .. raw:: html
 
@@ -109,6 +149,26 @@ Gallery
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="Line plot">
+
+.. only:: html
+
+    .. figure:: /gallery/images/thumb/sphx_glr_plot_line_thumb.png
+
+        :ref:`sphx_glr_gallery_plot_line.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /gallery/plot_line
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="Plot 2 contours and remove the last one">
 
 .. only:: html
@@ -129,6 +189,26 @@ Gallery
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="Compute numerical integrals using :func:`Var.integrate` and use :func:`showlines` to make plot ...">
+
+.. only:: html
+
+    .. figure:: /gallery/images/thumb/sphx_glr_plot_showlines_thumb.png
+
+        :ref:`sphx_glr_gallery_plot_showlines.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /gallery/plot_showlines
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="Plot a significance mask">
 
 .. only:: html
@@ -146,26 +226,6 @@ Gallery
    :hidden:
 
    /gallery/plot_sigmask
-
-.. raw:: html
-
-    <div class="sphx-glr-thumbcontainer" tooltip="Plot lines using showlines">
-
-.. only:: html
-
-    .. figure:: /gallery/images/thumb/sphx_glr_plot_showlines_thumb.png
-
-        :ref:`sphx_glr_gallery_plot_showlines.py`
-
-.. raw:: html
-
-    </div>
-
-
-.. toctree::
-   :hidden:
-
-   /gallery/plot_showlines
 .. raw:: html
 
     <div style='clear:both'></div>

@@ -1,0 +1,592 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Change Log &#8212; PyGeode 1.4.0 documentation</title>
+    <link rel="stylesheet" href="_static/pygtheme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/gallery.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Plot a significance mask" href="gallery/plot_sigmask.html" />
+<link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
+
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="index.html">
+          <span>PyGeode 1.4.0 documentation</span></a></h1>
+        <h2 class="heading"><span>Change Log</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        «&#160;&#160;<a href="gallery/plot_sigmask.html">Plot a significance mask</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="gallery/index.html">Gallery</a>
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="section" id="change-log">
+<h1>Change Log<a class="headerlink" href="#change-log" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>1.4.0 - 2020/06/22<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li>Cartopy (version &gt; 0.17.0) is now supported in addition to Basemap for map
+projections.</li>
+<li>Error reporting for openmulti() has been improved.</li>
+<li>Non-ASCII character support in NetCDF attributes are now better handled.</li>
+<li>Improvements and bugfixes in stats module</li>
+<li>Fixed crash in eof module.</li>
+<li>Changed default netcdf opener to use standard netcdf4 python package.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id2">
+<h2>1.3.1 - 2020/06/14<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li>Fix bug where pygeode.formats.netcdf4 fails if the libnetcdf shared library
+is not installed on the system.  It should not be required, since the
+interface uses the Python netCDF4 package to handle I/O.</li>
+<li>Updated the INSTALL file with more up-to-date information.</li>
+<li>Removed warning message when libnetcdf unavailable.  This was always
+displayed, even when libnetcdf was not actually needed.  This could cause
+confusion if using the newer pygeode.formats.netcdf4 interface, since it
+doesn’t require the shared library at all.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id3">
+<h2>1.3.0 - 2019/10/02<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li>Support for Python 3.</li>
+<li>Fix ext_xarray.from_xarray() method, which was failing on xarray versions
+&gt; 0.10.0.</li>
+<li>Handle Var objects passed into netcdf.save and netcdf4.save.</li>
+<li>Properly detect attributes that are 1-element list of strings when writing
+to netcdf.</li>
+<li>Force attributes from netcdf4 module to be string instead of unicode.</li>
+<li>Support for netcdf4 groups.</li>
+<li>Fix lazy variable loading for netcdf4 module.</li>
+<li>Added new bar() and errorbar() plot wrappers.</li>
+<li>Fix colorbar=False option for showvar.</li>
+<li>Fix nl=0 option for clfdict.</li>
+<li>Updated progress bar to be compatible with progressbar2 package.</li>
+<li>New rotatelon() and clip() functions.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id4">
+<h2>1.2.2 - 2018/07/06<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li>Handle netCDF time units that are separated by a “T” instead of a space.
+E.g., “hours since 2010-02-01T03:00:00”.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id5">
+<h2>1.2.1 - 2018/05/18<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li>Fix bug in plot_v1, where the ‘projection’ entry was removed from the
+projection dictionary supplied by the user.  This was causing problems
+when creating sequential plots, where only the first one had the right
+projection.</li>
+<li>Fix bug in hdf4 interface.  Files that had dimensions with no associated
+coordinate variable were crashing with a KeyError.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id6">
+<h2>1.2.0 - 2018/03/21<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li>Added nan-aware versions of climatological mean operations.</li>
+<li>Added standard deviation and nan-aware standard deviation classes for all
+time subdivisions of climatological operations.</li>
+<li>Added count operations in climat module that return number of non-NaN
+elements.</li>
+<li>Climatology operators can now be invoked as methods of Var objects.</li>
+<li>Add a “netcdf4” format for interfacing with the netCDF4 python module.</li>
+<li>Add support for entry points for pygeode.plugins and pygeode.formats.</li>
+<li>Add entry points for custom axes.</li>
+<li>Added pcolor operation to AxesWrapper.</li>
+<li>Better support for dimensionless Var objects (issue #108).</li>
+<li>Fix stack overflow when dealing with large 1D arrays (issue #107).</li>
+<li>New module pygeode.ext_xarray for converting to/from xarray objects.</li>
+<li>New hasaxis() and getaxis() methods for Dataset objects.</li>
+<li>Var.get() now returns a writeable copy the array.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id7">
+<h2>1.1.1 - 2018/01/19<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li>Fixed some padding logic in showgrid.</li>
+<li>Corrected bug that was happening when the inx coordinate variable was
+provided with more than one axis but not as many axes as the data.</li>
+<li>Disable prefix checks when there’s an exact match to an axis name.
+Fixes bug triggered by axis names that contain underscores.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id8">
+<h2>1.1.0 - 2017/06/17<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li>Allow some settings to be read from a configuration file (pygrc).</li>
+<li>Added an option to disable lazy array evaluation, for cases where this
+feature gets in the way.</li>
+<li>Option to back variables into “shorts” when saving netCDF files,
+triggered by passing pack=True to netcdf.save().</li>
+<li>Allow specifying an “unlimited” dimension when saving netCDF files.</li>
+<li>Added load() method to Dataset objects, to load all the associated
+variables in memory.</li>
+<li>New plot routines: vstreamplot, vhist, and fill_between.</li>
+<li>New plot.cm module to help with colormaps.</li>
+<li>New plot.cnt_helpers module for setting up contour intervals.</li>
+<li>New “yearlymean” and “climstdev” operators in climat module.</li>
+<li>Allow weights to be used in variance operator.</li>
+<li>Added second-derivative operator (triggered by passing df=2 to “deriv”).</li>
+<li>New forward difference operator (“diff”).</li>
+<li>Added conjugation operator (“conj”).</li>
+<li>Added option to compute covariance matrix of regression coefficients in
+multiple_regress.</li>
+<li>New ‘s_’ prefix for axis subsetting, to “squeeze” the axis out after
+selecting a particular value.</li>
+<li>New ‘n_’ prefix for axis subsetting, to “negate” the selection criteria.</li>
+<li>New “station” axis, for data that’s sample at predetermined surface stations.</li>
+<li>Also, added more general “non-coordinate” axes where the values are not
+part of a continuum, and need not even be numeric.</li>
+<li>New time axis constructor helpers (standardtimerange, standardtimen,
+modeltime365range, modeltime365n, modeltime360range, modeltime360n,
+yearlessn).</li>
+<li>New “check_multi” routine in formats.multifile, to pre-scan all files and
+report any problems with the files.</li>
+<li>New “formats.data_scanner” module for loading more general (heterogeneous)
+files together into a dataset.</li>
+<li>Added some new and interesting bugs to the code.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id9">
+<h2>1.0.6 - 2017/03/31<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li>Fixed missing parentheses in interp.c, which could cause a compilation failure.</li>
+<li>Fixed RPM installation configuration.</li>
+<li>Switched from distutils to setuptools, in order to make wheel files.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id10">
+<h2>1.0.5 - 2016/07/07<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li>Fixed segmentation fault when initializing a time axis with an invalid month.
+(issue #76).</li>
+<li>Allow tools.loopover to handle Axis arguments.  Certain operations such as
+smooth() were crashing when operating on an Axis object (issue #86).</li>
+<li>Preserve variable metadata when doing climatologies (issue #89).</li>
+<li>In multifile.openall(), don’t require a format if an opener is provided.
+(issue #90).</li>
+<li>Fixed a pointer issue in interpcore, in the case where there aren’t enough
+valid points to do an interpolation.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id11">
+<h2>1.0.4 - 2015/11/04<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li>Set attribute Conventions=”CF-1.0” in netcdf output files, so other netcdf
+utilities know how to parse our data.</li>
+<li>Added system include paths for non-standard prefix installs (conda), as well
+as to the libhelper routines for finding libraries</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id12">
+<h2>1.0.3 - 2015/06/16<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li>Allow other PyGeode formats to be installed in parallel Python paths.</li>
+<li>Add LD_LIBRARY_PATH to search path in libhelper.find_library().</li>
+<li>Force double-precision in val_as_date, to prevent precision loss when
+computing dates.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id13">
+<h2>1.0.2 - 2015/03/24<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li>Fixed bugs in regress and correlate in axis matching logic.</li>
+<li>Allow timeaxes to support unordered values (issue 69).</li>
+<li>Fixed issue in removeleapyears.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id14">
+<h2>1.0.1 - 2014/07/09<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li>Fixed small colourbar bug.</li>
+<li>In multifile, allow for case where files are passed in as a tuple.</li>
+<li>Allow showvar() to work without basemap installed.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id15">
+<h2>1.0.0 - 2014/04/14<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="general-updates-to-the-code">
+<h3>General updates to the code:<a class="headerlink" href="#general-updates-to-the-code" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>Converted C shared libraries to Python extension modules, to improve
+portability of the package.</li>
+<li>New top-level “open” and “save” commands, which guess the appropriate file
+format to use.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="updates-to-var-class">
+<h3>Updates to Var class:<a class="headerlink" href="#updates-to-var-class" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>Change the behaviour of Var.__getitem__, so that degenerate axes are
+removed.  This brings our array slicing behaviour closer to numpy.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="updates-to-axis-module">
+<h3>Updates to axis module:<a class="headerlink" href="#updates-to-axis-module" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>For axes, added in a tolerance autodetection for closeness of matches,
+based on spacing in axis.</li>
+<li>New functions “regularlat” &amp; “regularlon” to create regularly spaced
+latitude and longitude axes.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="new-modules">
+<h3>New modules:<a class="headerlink" href="#new-modules" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>New ‘spectral’ module, which defines a Spectral axis.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="updates-to-the-plot-module">
+<h3>Updates to the plot module:<a class="headerlink" href="#updates-to-the-plot-module" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>Can output to PDF.</li>
+<li>Improved support for Basemap.</li>
+<li>Support for scatter plots, quiver plots, and significance masks.</li>
+<li>Various usability improvements</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="updates-to-the-old-v1-plot-module">
+<h3>Updates to the old (v1) plot module:<a class="headerlink" href="#updates-to-the-old-v1-plot-module" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>Added hatching option for old significance mask.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="updates-to-the-stats-module">
+<h3>Updates to the stats module:<a class="headerlink" href="#updates-to-the-stats-module" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>Added option to scale effective degrees of freedom in regress().</li>
+<li>Regress now takes a comma-separated string to specify outputs, like EOF.</li>
+<li>New function “multiple_regress” - code to do multiple linear regression.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="updates-to-the-reduce-module">
+<h3>Updates to the reduce module:<a class="headerlink" href="#updates-to-the-reduce-module" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>Added argmin() operator.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="updates-to-the-ufunc-module">
+<h3>Updates to the ufunc module:<a class="headerlink" href="#updates-to-the-ufunc-module" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>We now keep the original variable name if we’re doing an arithmetic scalar
+operation on the variable.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="updates-to-the-formats-cfmeta-module">
+<h3>Updates to the formats.cfmeta module:<a class="headerlink" href="#updates-to-the-formats-cfmeta-module" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>Better detection and handling of (malformed) time axes.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="bug-fixes">
+<h3>Bug fixes:<a class="headerlink" href="#bug-fixes" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>Correct portability issue with timeaxiscore module; also improved its error
+reporting.</li>
+<li>Fixed issue with concatenating along dummy axis.</li>
+<li>Fixed issue with “smooth” module (issue 44), and changed the smooth
+interface a bit to make it easier to use your own kernels.</li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="id16">
+<h2>0.7.3 - 2014/01/13<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li>Add support for more netcdf data types (issue 54).</li>
+<li>Minor bugfix for ufunc (var name was not being set properly).</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id17">
+<h2>0.7.2 - 2013/09/16<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li>Fix ufunc operators dropping metadata (issue 39).</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id18">
+<h2>0.7.1 - 2013/06/05<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li>Fix missing header message in progress bars (issue 33).</li>
+<li>Fix axis values being overwritten in plotvar (issue 36).</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id19">
+<h2>0.7.0 - 2012/08/17<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="updates-to-var-and-axis-classes">
+<h3>Updates to Var and Axis classes:<a class="headerlink" href="#updates-to-var-and-axis-classes" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul>
+<li><p class="first">Vars now have a ‘units’ attribute</p>
+</li>
+<li><p class="first">Vars and Axes now have a ‘plotatts’ dictionary, which contains all plotting
+parameters.  Some possible keys are:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>plottitle</dt>
+<dd><p class="first last">The title to use for plots of this variable (or the axis label, if
+this is an Axis)</p>
+</dd>
+<dt>plotname</dt>
+<dd><p class="first last">A shorter title, used for axis labels.</p>
+</dd>
+<dt>plotunits</dt>
+<dd><p class="first last">The units of the variable (overrides the ‘units’ attribute of the
+variable).</p>
+</dd>
+<dt>plotscale</dt>
+<dd><p class="first last">The type of scaling to apply to the values, either ‘linear’ or ‘log’.</p>
+</dd>
+<dt>plotorder</dt>
+<dd><p class="first last">The direction to plot the axis coordinates.  1 = away from origin, -1
+= towards origin.</p>
+</dd>
+<dt>formatstr</dt>
+<dd><p class="first last">A special string for formatting the values on axis ticks and plot
+titles.</p>
+</dd>
+<dt>scalefactor</dt>
+<dd><p class="first last">unit conversion, to get values in the plotunits</p>
+</dd>
+<dt>offset</dt>
+<dd><p class="first last">unit conversion, to get values in the plotunits</p>
+</dd>
+</dl>
+</div></blockquote>
+</li>
+<li><p class="first">Auto-completion of axis &amp; variable members of Var and Dataset objects
+(works in ipython).  These members are also listed in dir() calls now.</p>
+</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id20">
+<h3>Updates to the plot module:<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>Added ‘every’ keyword to plotquiver() to thin the vector field, implemented
+lblx, lbly kwargs.</li>
+<li>In plotsigmask(), added “alpha” kwarg to control alpha value of mask</li>
+<li>Keyword arguments “scaleAx”, “scaleX”, “scaleY” control scaling the values
+by one of the axis coordinates.  This preserves integrals under a
+logarithmic axis.</li>
+<li>added log10-scaling of 2D field values with new kwarg ‘logVal’</li>
+<li>apply scalefactor and offset from plotatts, if they’re defined.  Only
+triggers if var.plotatts[‘plotunits’] is different from var.units.</li>
+<li>disable anti-aliasing in 2D plots.  In some versions of matplotlib (e.g.
+the one shipped with Ubuntu 11.10), antialiasing causes annoying gaps
+between polygons in various plots (contourf, pcolor, etc.).</li>
+<li>Created a more modularized set of plotting routines.  This gives greater
+control over the construction of the plots, e.g. for publication.  The old
+‘plotvar’ routine is still available for cases where the automatic
+formatting is good enough.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id21">
+<h3>Updates to the stats module:<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul>
+<li><p class="first">Added some t test code:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>difference(X, Y)</dt>
+<dd><p class="first last">Calculates difference between the mean values of X and Y averaged over
+the dimensions specified by axes.  Returns X - Y, p values, confidence
+intervals, and degrees of freedom.</p>
+</dd>
+<dt>isnonzero(X)</dt>
+<dd><p class="first last">Determines if X is non-zero, assuming X is normally distributed.
+Returns mean of X along axes, p value, and confidence interval.</p>
+</dd>
+</dl>
+</div></blockquote>
+</li>
+<li><p class="first">Updated regress() to work on arbitrary axes</p>
+</li>
+<li><p class="first">can now specify which axes to correlate()</p>
+</li>
+<li><p class="first">correlate() now works with NaN values.</p>
+</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="updates-to-the-timeutils-module">
+<h3>Updates to the timeutils module:<a class="headerlink" href="#updates-to-the-timeutils-module" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>Lag variable for lagged correlations</li>
+<li>Moved _uniquify, modify, reltime, delta, wrapdate, and date_diff from
+timeaxis module to timeutils module.</li>
+<li>New operator removeleapyears() to convert a standard time axis to a 365-day
+or 360-day axis.</li>
+<li>New operator splittimeaxis() to split a time axis into 2 dimensions (e.g.
+year, day-of-year).</li>
+<li>New function conform_values() to make 2 time axes have the same units and
+start date.</li>
+<li>New operator jointimeaxes() to convert a 2D time representation (e.g. year,
+day-of-year) to a single time axis.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="other-updates">
+<h3>Other updates:<a class="headerlink" href="#other-updates" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li>Interpolation now is nan-aware and can extrapolate linearly.  By default,
+no extrapolation is done (gives NaNs outside the data range).</li>
+<li>Improved compatibility with newer versions of the progressbar package.</li>
+<li>In concat module, allow the concatenation axis to be specified by the user,
+so it doesn’t have to be guessed.</li>
+<li>Added argmax() operator (works on one dimension)</li>
+<li>In composite operator, events that extend past the edge of the data now are
+filled with NaNs</li>
+<li>Improved handling of endpoints in the ‘smooth’ operator.</li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="id22">
+<h2>0.6.3 - 2012/08/16<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li>Fix bug with NaN-friendly reductions (nansum,nanmean,nanmin,nanmax).  They
+were crashing when doing a full reduction to a scalar.
+See issue 32 - <a class="reference external" href="https://github.com/pygeode/pygeode/issues/32">https://github.com/pygeode/pygeode/issues/32</a></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id23">
+<h2>0.6.2 - 2012/06/15<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li>Backported fix for year=0 infinite loop in timeaxis.</li>
+<li>Fix issue 28 (<a class="reference external" href="https://github.com/pygeode/pygeode/issues/28">https://github.com/pygeode/pygeode/issues/28</a>)</li>
+<li>Backported more robust handling of time axis in cfmeta module.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id24">
+<h2>0.6.1 - 2011/11/23<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li>Fix issue 23 (<a class="reference external" href="https://github.com/pygeode/pygeode/issues/23">https://github.com/pygeode/pygeode/issues/23</a>)</li>
+<li>Fix issue 25 (<a class="reference external" href="https://github.com/pygeode/pygeode/issues/25">https://github.com/pygeode/pygeode/issues/25</a>)</li>
+<li>Don’t abort on missing ‘A’ and ‘B’ coefficients when loading netcdf files
+with hybrid vertical coordinates.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id25">
+<h2>0.6.0 - 2011/08/11<a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li>Initial stable release</li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        «&#160;&#160;<a href="gallery/plot_sigmask.html">Plot a significance mask</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="gallery/index.html">Gallery</a>
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Mike Neish, Peter Hitchcock.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.
+    </div>
+  </body>
+</html>

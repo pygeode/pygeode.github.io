@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Dataset overview &#8212; PyGeode 1.3 pre-release documentation</title>
+    <title>Dataset overview &#8212; PyGeode 1.4.0 documentation</title>
     <link rel="stylesheet" href="_static/pygtheme.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/gallery.css" />
@@ -25,7 +25,7 @@
 
   </head><body>
       <div class="header" role="banner"><h1 class="heading"><a href="index.html">
-          <span>PyGeode 1.3 pre-release documentation</span></a></h1>
+          <span>PyGeode 1.4.0 documentation</span></a></h1>
         <h2 class="heading"><span>Dataset overview</span></h2>
       </div>
       <div class="topnav" role="navigation" aria-label="top navigation">
@@ -52,7 +52,7 @@
 other in some way.  For example, when you load a file into PyGeode, a single
 Dataset is created, containing all variables from that file.</p>
 <p>Here’s an example of a Dataset, with a single variable:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="k">import</span> <span class="n">t1</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t1</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">t1</span><span class="p">)</span>
 <span class="go">&lt;Dataset&gt;:</span>
 <span class="go">Vars:</span>
@@ -371,7 +371,7 @@ subsetting.</p>
 <a class="reference internal" href="#pygeode.Dataset.__init__" title="pygeode.Dataset.__init__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Dataset.__init__()</span></code></a>. The addition operator is also overloaded to do
 the same thing; in that case provide a list of the variables to add.</p>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="k">import</span> <span class="n">t1</span><span class="p">,</span> <span class="n">t2</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t1</span><span class="p">,</span> <span class="n">t2</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">t2</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">t1</span><span class="o">.</span><span class="n">Temp</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s1">&#39;Temp2&#39;</span><span class="p">)))</span>
 <span class="go">&lt;Dataset&gt;:</span>
 <span class="go">Vars:</span>
@@ -502,7 +502,7 @@ arguments can be passed through <code class="docutils literal notranslate"><span
 in that case provide a list of strings again specifying the names
 of the variables to remove.</p>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="k">import</span> <span class="n">t2</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t2</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">t2</span><span class="p">)</span>
 <span class="go">&lt;Dataset&gt;:</span>
 <span class="go">Vars:</span>
@@ -571,7 +571,7 @@ and the values are the new names to substitute.</p>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="k">import</span> <span class="n">t2</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t2</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">t2</span><span class="p">)</span>
 <span class="go">&lt;Dataset&gt;:</span>
 <span class="go">Vars:</span>
@@ -629,7 +629,7 @@ and the values are the new <a class="reference internal" href="var.html#pygeode.
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="k">import</span> <span class="n">t1</span><span class="p">,</span> <span class="n">t2</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t1</span><span class="p">,</span> <span class="n">t2</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">t2</span><span class="o">.</span><span class="n">replace_vars</span><span class="p">(</span><span class="n">Temp</span> <span class="o">=</span> <span class="n">t1</span><span class="o">.</span><span class="n">Temp</span><span class="p">))</span>
 <span class="go">&lt;Dataset&gt;:</span>
 <span class="go">Vars:</span>

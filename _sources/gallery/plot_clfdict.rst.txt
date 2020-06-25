@@ -67,7 +67,7 @@ Use :func:`clfdict()` to create a set of contour levels and contour lines to plo
     {'clevs': array([-1.2, -1. , -0.8, -0.6, -0.4, -0.2,  0.2,  0.4,  0.6,  0.8,  1. ,
             1.2]), 'clines': array([-1.20000000e+00, -8.00000000e-01, -4.00000000e-01,  2.22044605e-16,
             4.00000000e-01,  8.00000000e-01,  1.20000000e+00]), 'colorbar': {'ticks': array([-1.20000000e+00, -8.00000000e-01, -4.00000000e-01,  2.22044605e-16,
-            4.00000000e-01,  8.00000000e-01,  1.20000000e+00])}, 'linewidths': 1.0, 'cmap': 'RdGy', 'axes': <pygeode.plot.wrappers.AxesWrapper object at 0x7fe170f96b00>, 'extend': 'both'}
+            4.00000000e-01,  8.00000000e-01,  1.20000000e+00])}, 'linewidths': 1.0, 'cmap': 'RdGy', 'axes': <pygeode.plot.wrappers.AxesWrapper object at 0x7f177420e5f8>, 'extend': 'both'}
 
 
 ``ax.plots`` contains a list of the various pygeode plot objects
@@ -89,7 +89,7 @@ Use :func:`clfdict()` to create a set of contour levels and contour lines to plo
 
  .. code-block:: none
 
-    [<pygeode.plot.wrappers.Contourf object at 0x7fe170f96dd8>, <pygeode.plot.wrappers.Contour object at 0x7fe170f96eb8>, <pygeode.plot.wrappers.CLabel object at 0x7fe170f049b0>]
+    [<pygeode.plot.wrappers.Contourf object at 0x7f177420e8d0>, <pygeode.plot.wrappers.Contour object at 0x7f177420ea20>, <pygeode.plot.wrappers.CLabel object at 0x7f17742085f8>]
 
 
 

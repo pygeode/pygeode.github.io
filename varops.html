@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Array manipulation routines &#8212; PyGeode 1.3 pre-release documentation</title>
+    <title>Array manipulation routines &#8212; PyGeode 1.4.0 documentation</title>
     <link rel="stylesheet" href="_static/pygtheme.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/gallery.css" />
@@ -25,7 +25,7 @@
 
   </head><body>
       <div class="header" role="banner"><h1 class="heading"><a href="index.html">
-          <span>PyGeode 1.3 pre-release documentation</span></a></h1>
+          <span>PyGeode 1.4.0 documentation</span></a></h1>
         <h2 class="heading"><span>Array manipulation routines</span></h2>
       </div>
       <div class="topnav" role="navigation" aria-label="top navigation">
@@ -104,7 +104,7 @@ E.g., <code class="docutils literal notranslate"><span class="pre">myvar(s_lon</
 </ul>
 </div></blockquote>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="k">import</span> <span class="n">t1</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t1</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">t1</span><span class="o">.</span><span class="n">vars</span><span class="p">)</span>
 <span class="go">[&lt;Var &#39;Temp&#39;&gt;]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">T</span> <span class="o">=</span> <span class="n">t1</span><span class="o">.</span><span class="n">Temp</span>
@@ -168,7 +168,7 @@ E.g., <code class="docutils literal notranslate"><span class="pre">myvar(s_lon</
 can be used to subset a Var without loading the underlying
 data. A new Var object is returned.</p>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="k">import</span> <span class="n">t1</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t1</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">t1</span><span class="o">.</span><span class="n">Temp</span><span class="p">)</span>
 <span class="go">&lt;Var &#39;Temp&#39;&gt;:</span>
 <span class="go">  Units: K  Shape:  (lat,lon)  (31,60)</span>
@@ -261,7 +261,7 @@ new axes.</p>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="k">import</span> <span class="n">t1</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t1</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">t1</span><span class="o">.</span><span class="n">Temp</span><span class="p">)</span>
 <span class="go">&lt;Var &#39;Temp&#39;&gt;:</span>
 <span class="go">  Units: K  Shape:  (lat,lon)  (31,60)</span>
@@ -271,7 +271,7 @@ new axes.</p>
 <span class="go">  Attributes:</span>
 <span class="go">    {}</span>
 <span class="go">  Type:  Add_Var (dtype=&quot;float64&quot;)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode</span> <span class="k">import</span> <span class="n">Pres</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode</span> <span class="kn">import</span> <span class="n">Pres</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">paxis</span> <span class="o">=</span> <span class="n">Pres</span><span class="p">([</span><span class="mi">1000</span><span class="p">,</span><span class="mi">850</span><span class="p">,</span><span class="mi">700</span><span class="p">])</span>  <span class="c1"># Create a pressure axis</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">paxis</span><span class="p">)</span>
 <span class="go">pres &lt;Pres&gt;    :  1000 hPa to 700 hPa (3 values)</span>
@@ -315,7 +315,7 @@ new axes.</p>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="k">import</span> <span class="n">t1</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t1</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">t1</span><span class="o">.</span><span class="n">Temp</span><span class="p">)</span>
 <span class="go">&lt;Var &#39;Temp&#39;&gt;:</span>
 <span class="go">  Units: K  Shape:  (lat,lon)  (31,60)</span>
@@ -368,7 +368,7 @@ then the natural (default) order will be used for that type of axis.</p>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="k">import</span> <span class="n">t2</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t2</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">t2</span><span class="o">.</span><span class="n">Temp</span><span class="p">)</span>
 <span class="go">&lt;Var &#39;Temp&#39;&gt;:</span>
 <span class="go">  Shape:  (time,pres,lat,lon)  (3650,20,31,60)</span>
@@ -452,7 +452,7 @@ unchanged.</p>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="k">import</span> <span class="n">t1</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t1</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">t1</span><span class="o">.</span><span class="n">Temp</span><span class="p">)</span>
 <span class="go">&lt;Var &#39;Temp&#39;&gt;:</span>
 <span class="go">  Units: K  Shape:  (lat,lon)  (31,60)</span>
@@ -462,7 +462,7 @@ unchanged.</p>
 <span class="go">  Attributes:</span>
 <span class="go">    {}</span>
 <span class="go">  Type:  Add_Var (dtype=&quot;float64&quot;)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode</span> <span class="k">import</span> <span class="n">XAxis</span><span class="p">,</span> <span class="n">YAxis</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode</span> <span class="kn">import</span> <span class="n">XAxis</span><span class="p">,</span> <span class="n">YAxis</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">new_var</span> <span class="o">=</span> <span class="n">t1</span><span class="o">.</span><span class="n">Temp</span><span class="o">.</span><span class="n">replace_axes</span><span class="p">(</span><span class="n">lon</span><span class="o">=</span><span class="n">XAxis</span><span class="p">,</span> <span class="n">lat</span><span class="o">=</span><span class="n">YAxis</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">new_var</span><span class="p">)</span>
 <span class="go">&lt;Var &#39;Temp&#39;&gt;:</span>
@@ -518,7 +518,7 @@ is being used in other places, this method guarantees that the name change
 will only affect a local version of the variable, and won’t have any
 side-effects on other existing references.</p>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="k">import</span> <span class="n">t1</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t1</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">t1</span><span class="o">.</span><span class="n">Temp</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s1">&#39;i_prefer_really_long_variable_names&#39;</span><span class="p">))</span>
 <span class="go">&lt;Var &#39;i_prefer_really_long_variable_names&#39;&gt;:</span>
 <span class="go">  Units: K  Shape:  (lat,lon)  (31,60)</span>
@@ -566,7 +566,7 @@ names, and the values are the new names to substitute.</p>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="k">import</span> <span class="n">t1</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t1</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">t1</span><span class="o">.</span><span class="n">Temp</span><span class="p">)</span>
 <span class="go">&lt;Var &#39;Temp&#39;&gt;:</span>
 <span class="go">  Units: K  Shape:  (lat,lon)  (31,60)</span>
@@ -677,7 +677,7 @@ value).</p>
 </tbody>
 </table>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="k">import</span> <span class="n">t1</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t1</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Treat the values as single-precision</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">t1</span><span class="o">.</span><span class="n">Temp</span><span class="o">.</span><span class="n">as_type</span><span class="p">(</span><span class="s1">&#39;float32&#39;</span><span class="p">))</span>
 <span class="go">&lt;Var &#39;Temp&#39; float32&gt;:</span>

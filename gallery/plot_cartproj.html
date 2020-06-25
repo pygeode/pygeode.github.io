@@ -1,0 +1,135 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Cartopy: Test regional projections &#8212; PyGeode 1.4.0 documentation</title>
+    <link rel="stylesheet" href="../_static/pygtheme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/language_data.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Cartopy: Quiver plot on a regional projection" href="plot_cartreg.html" />
+    <link rel="prev" title="Cartopy: Use Cartopy Features" href="plot_cartfeatures.html" />
+<link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
+
+  </head><body>
+      <div class="header" role="banner"><h1 class="heading"><a href="../index.html">
+          <span>PyGeode 1.4.0 documentation</span></a></h1>
+        <h2 class="heading"><span>Cartopy: Test regional projections</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        «&#160;&#160;<a href="plot_cartfeatures.html">Cartopy: Use Cartopy Features</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Gallery</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="plot_cartreg.html">Cartopy: Quiver plot on a regional projection</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Click <a class="reference internal" href="#sphx-glr-download-gallery-plot-cartproj-py"><span class="std std-ref">here</span></a> to download the full example code</p>
+</div>
+<div class="sphx-glr-example-title section" id="cartopy-test-regional-projections">
+<span id="sphx-glr-gallery-plot-cartproj-py"></span><h1>Cartopy: Test regional projections<a class="headerlink" href="#cartopy-test-regional-projections" title="Permalink to this headline">¶</a></h1>
+<img alt="../_images/sphx_glr_plot_cartproj_002.png" class="sphx-glr-single-img" src="../_images/sphx_glr_plot_cartproj_002.png" />
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygeode</span> <span class="k">as</span> <span class="nn">pyg</span><span class="o">,</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span><span class="o">,</span> <span class="nn">pylab</span> <span class="k">as</span> <span class="nn">pyl</span>
+<span class="kn">from</span> <span class="nn">cartopy</span> <span class="kn">import</span> <span class="n">crs</span> <span class="k">as</span> <span class="n">ccrs</span>
+<span class="kn">import</span> <span class="nn">cartopy</span>
+
+<span class="n">lat</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">gausslat</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span>
+<span class="n">lon</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">regularlon</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="n">origin</span><span class="o">=-</span><span class="mi">180</span><span class="p">)</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">lon</span> <span class="o">/</span> <span class="mf">180.</span><span class="p">)</span> <span class="o">*</span> <span class="n">pyg</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">lat</span> <span class="o">-</span> <span class="mi">30</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="mi">10</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">lon</span> <span class="o">/</span> <span class="mf">180.</span><span class="p">)</span> <span class="o">*</span> <span class="n">pyg</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">lat</span> <span class="o">+</span> <span class="mi">40</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="mi">10</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+
+<span class="n">pyl</span><span class="o">.</span><span class="n">ioff</span><span class="p">()</span>
+
+<span class="n">prj_grid</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;PlateCarree&#39;</span><span class="p">,</span> <span class="s1">&#39;Mercator&#39;</span><span class="p">,</span> <span class="s1">&#39;Miller&#39;</span><span class="p">,</span> <span class="s1">&#39;TransverseMercator&#39;</span><span class="p">]</span>
+<span class="n">prj_reg</span>  <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;AlbersEqualArea&#39;</span><span class="p">,</span> <span class="s1">&#39;EquidistantConic&#39;</span><span class="p">,</span> <span class="s1">&#39;LambertConformal&#39;</span><span class="p">,</span> \
+            <span class="s1">&#39;LambertCylindrical&#39;</span><span class="p">,</span> <span class="s1">&#39;RotatedPole&#39;</span><span class="p">]</span>
+<span class="n">prj_glob</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;AzimuthalEquidistant&#39;</span><span class="p">,</span> <span class="s1">&#39;Mollweide&#39;</span><span class="p">,</span> <span class="s1">&#39;Orthographic&#39;</span><span class="p">,</span>  \
+            <span class="s1">&#39;Stereographic&#39;</span><span class="p">,</span> <span class="s1">&#39;Robinson&#39;</span><span class="p">,</span> <span class="s1">&#39;Sinusoidal&#39;</span><span class="p">,</span> \
+            <span class="s1">&#39;Geostationary&#39;</span><span class="p">,</span> <span class="s1">&#39;LambertAzimuthalEqualArea&#39;</span><span class="p">,</span> <span class="s1">&#39;EckertIII&#39;</span><span class="p">]</span>
+
+<span class="n">prj</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">central_longitude</span><span class="o">=</span><span class="mf">60.</span><span class="p">)</span>
+<span class="n">gridlines</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">draw_labels</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">xlocs</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">361</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="n">ylocs</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">80</span><span class="p">,</span> <span class="mi">81</span><span class="p">,</span> <span class="mi">20</span><span class="p">)),</span>
+<span class="nb">map</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">gridline</span> <span class="o">=</span> <span class="n">gridlines</span><span class="p">)</span>
+
+<span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">axr</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">prj_reg</span><span class="p">[:]:</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="n">axg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">axr</span><span class="p">)</span>
+        <span class="n">axr</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">CartopyAxes</span><span class="p">(</span><span class="n">projection</span> <span class="o">=</span> <span class="n">p</span><span class="p">)</span><span class="c1">#, prj_args = prj)</span>
+
+    <span class="n">pyg</span><span class="o">.</span><span class="n">vquiver</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">ax</span><span class="p">,</span> <span class="nb">map</span> <span class="o">=</span> <span class="nb">map</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">size</span> <span class="o">=</span> <span class="p">[</span><span class="mf">4.</span><span class="p">,</span> <span class="mf">3.1</span><span class="p">]</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">title</span> <span class="o">=</span> <span class="n">p</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_extent</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">70</span><span class="p">,</span> <span class="o">-</span><span class="mi">60</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span> <span class="n">crs</span> <span class="o">=</span> <span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span><span class="p">())</span>
+    <span class="n">axr</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">grid</span><span class="p">([</span><span class="n">axr</span><span class="p">])</span>
+
+<span class="n">pyl</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-plot-cartproj-py">
+<div class="sphx-glr-download docutils container">
+<a class="reference download internal" download="" href="../_downloads/a1ec7d0d3f2cc636f7954cb349dc2ade/plot_cartproj.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_cartproj.py</span></code></a></div>
+<div class="sphx-glr-download docutils container">
+<a class="reference download internal" download="" href="../_downloads/e24f6e03ef816c6f60e9598375c08f77/plot_cartproj.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_cartproj.ipynb</span></code></a></div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.readthedocs.io">Gallery generated by Sphinx-Gallery</a></p>
+</div>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        «&#160;&#160;<a href="plot_cartfeatures.html">Cartopy: Use Cartopy Features</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="index.html">Gallery</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="plot_cartreg.html">Cartopy: Quiver plot on a regional projection</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Mike Neish, Peter Hitchcock.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.
+    </div>
+  </body>
+</html>

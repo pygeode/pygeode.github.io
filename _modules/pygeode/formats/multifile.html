@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>pygeode.formats.multifile &#8212; PyGeode 1.3 pre-release documentation</title>
+    <title>pygeode.formats.multifile &#8212; PyGeode 1.4.0 documentation</title>
     <link rel="stylesheet" href="../../../_static/pygtheme.css" type="text/css" />
     <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css" />
@@ -23,7 +23,7 @@
 
   </head><body>
       <div class="header" role="banner"><h1 class="heading"><a href="../../../index.html">
-          <span>PyGeode 1.3 pre-release documentation</span></a></h1>
+          <span>PyGeode 1.4.0 documentation</span></a></h1>
         <h2 class="heading"><span>pygeode.formats.multifile</span></h2>
       </div>
       <div class="topnav" role="navigation" aria-label="top navigation">
@@ -48,8 +48,8 @@
 <span class="c1"># Expand globbed file expressions to a flat list of files</span>
 <span class="k">def</span> <span class="nf">expand_file_list</span> <span class="p">(</span><span class="n">file_list</span><span class="p">,</span> <span class="n">sort</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
 <span class="c1">#  from glob import iglob</span>
-  <span class="kn">from</span> <span class="nn">glob</span> <span class="k">import</span> <span class="n">iglob</span>
-  <span class="kn">from</span> <span class="nn">os.path</span> <span class="k">import</span> <span class="n">exists</span>
+  <span class="kn">from</span> <span class="nn">glob</span> <span class="kn">import</span> <span class="n">iglob</span>
+  <span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">exists</span>
   <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">file_list</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span><span class="nb">tuple</span><span class="p">)):</span> <span class="n">file_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">file_list</span><span class="p">]</span>
   <span class="n">files</span> <span class="o">=</span> <span class="p">[</span> <span class="n">f</span> <span class="k">for</span> <span class="n">file_glob</span> <span class="ow">in</span> <span class="n">file_list</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">iglob</span><span class="p">(</span><span class="n">file_glob</span><span class="p">)]</span>
   <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">files</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;No matches found&#39;</span>
@@ -116,8 +116,8 @@
 <span class="sd">  open</span>
 <span class="sd">  open_multi</span>
 <span class="sd">  &#39;&#39;&#39;</span>
-  <span class="kn">from</span> <span class="nn">pygeode.dataset</span> <span class="k">import</span> <span class="n">concat</span>
-  <span class="kn">from</span> <span class="nn">pygeode.formats</span> <span class="k">import</span> <span class="n">autodetectformat</span>
+  <span class="kn">from</span> <span class="nn">pygeode.dataset</span> <span class="kn">import</span> <span class="n">concat</span>
+  <span class="kn">from</span> <span class="nn">pygeode.formats</span> <span class="kn">import</span> <span class="n">autodetectformat</span>
 
   <span class="n">sort</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;sorted&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
   <span class="n">files</span> <span class="o">=</span> <span class="n">expand_file_list</span> <span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="n">sort</span><span class="p">)</span>
@@ -215,11 +215,11 @@
 <span class="sd">  openall</span>
 <span class="sd">  &#39;&#39;&#39;</span>
 
-  <span class="kn">from</span> <span class="nn">pygeode.timeaxis</span> <span class="k">import</span> <span class="n">Time</span><span class="p">,</span> <span class="n">StandardTime</span>
-  <span class="kn">from</span> <span class="nn">pygeode.timeutils</span> <span class="k">import</span> <span class="n">reltime</span><span class="p">,</span> <span class="n">delta</span>
-  <span class="kn">from</span> <span class="nn">pygeode.dataset</span> <span class="k">import</span> <span class="n">Dataset</span>
-  <span class="kn">from</span> <span class="nn">pygeode.tools</span> <span class="k">import</span> <span class="n">common_dict</span>
-  <span class="kn">from</span> <span class="nn">pygeode.formats</span> <span class="k">import</span> <span class="nb">open</span><span class="p">,</span> <span class="n">autodetectformat</span>
+  <span class="kn">from</span> <span class="nn">pygeode.timeaxis</span> <span class="kn">import</span> <span class="n">Time</span><span class="p">,</span> <span class="n">StandardTime</span>
+  <span class="kn">from</span> <span class="nn">pygeode.timeutils</span> <span class="kn">import</span> <span class="n">reltime</span><span class="p">,</span> <span class="n">delta</span>
+  <span class="kn">from</span> <span class="nn">pygeode.dataset</span> <span class="kn">import</span> <span class="n">Dataset</span>
+  <span class="kn">from</span> <span class="nn">pygeode.tools</span> <span class="kn">import</span> <span class="n">common_dict</span>
+  <span class="kn">from</span> <span class="nn">pygeode.formats</span> <span class="kn">import</span> <span class="nb">open</span><span class="p">,</span> <span class="n">autodetectformat</span>
   <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
   <span class="n">files</span> <span class="o">=</span> <span class="n">expand_file_list</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
@@ -341,18 +341,18 @@
   <span class="k">return</span> <span class="n">Dataset</span><span class="p">(</span><span class="nb">vars</span><span class="p">,</span><span class="n">atts</span><span class="o">=</span><span class="n">global_atts</span><span class="p">)</span></div>
 <span class="c1"># }}} </span>
 
-<span class="kn">from</span> <span class="nn">pygeode.var</span> <span class="k">import</span> <span class="n">Var</span>
+<span class="kn">from</span> <span class="nn">pygeode.var</span> <span class="kn">import</span> <span class="n">Var</span>
 <span class="k">class</span> <span class="nc">Multifile_Var</span> <span class="p">(</span><span class="n">Var</span><span class="p">):</span>
 <span class="c1"># {{{</span>
-  <span class="k">def</span> <span class="nf">__init__</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v1</span><span class="p">,</span> <span class="n">opener</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span> <span class="n">faxis</span><span class="p">,</span> <span class="n">timedict</span><span class="p">):</span>
+  <span class="k">def</span> <span class="fm">__init__</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v1</span><span class="p">,</span> <span class="n">opener</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span> <span class="n">faxis</span><span class="p">,</span> <span class="n">timedict</span><span class="p">):</span>
 <span class="c1"># {{{</span>
     <span class="c1"># v1 - var chunk from the first file</span>
     <span class="c1"># opener - method for opening a file given a filename</span>
     <span class="c1"># files - list of filenames</span>
     <span class="c1"># faxis - starting time of each file, as a time axis</span>
     <span class="c1"># timedict - dictionary of pre-constructed time axes</span>
-    <span class="kn">from</span> <span class="nn">pygeode.var</span> <span class="k">import</span> <span class="n">Var</span>
-    <span class="kn">from</span> <span class="nn">pygeode.timeaxis</span> <span class="k">import</span> <span class="n">Time</span>
+    <span class="kn">from</span> <span class="nn">pygeode.var</span> <span class="kn">import</span> <span class="n">Var</span>
+    <span class="kn">from</span> <span class="nn">pygeode.timeaxis</span> <span class="kn">import</span> <span class="n">Time</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">opener</span> <span class="o">=</span> <span class="n">opener</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">files</span> <span class="o">=</span> <span class="n">files</span>
@@ -375,10 +375,10 @@
 
   <span class="k">def</span> <span class="nf">getview</span> <span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">view</span><span class="p">,</span> <span class="n">pbar</span><span class="p">):</span>
 <span class="c1"># {{{</span>
-    <span class="kn">from</span> <span class="nn">pygeode.timeaxis</span> <span class="k">import</span> <span class="n">Time</span>
-    <span class="kn">from</span> <span class="nn">pygeode.timeutils</span> <span class="k">import</span> <span class="n">reltime</span>
+    <span class="kn">from</span> <span class="nn">pygeode.timeaxis</span> <span class="kn">import</span> <span class="n">Time</span>
+    <span class="kn">from</span> <span class="nn">pygeode.timeutils</span> <span class="kn">import</span> <span class="n">reltime</span>
     <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-    <span class="kn">from</span> <span class="nn">warnings</span> <span class="k">import</span> <span class="n">warn</span>
+    <span class="kn">from</span> <span class="nn">warnings</span> <span class="kn">import</span> <span class="n">warn</span>
 
     <span class="n">out</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">view</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
     <span class="n">out</span><span class="p">[()]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;nan&#39;</span><span class="p">)</span>
@@ -406,7 +406,7 @@
       <span class="k">try</span><span class="p">:</span>
         <span class="n">file</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">opener</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="n">file_index</span><span class="p">])</span>
       <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Multifile: error encountered with file &#39;</span><span class="si">%s</span><span class="s2">&#39;: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="n">file_index</span><span class="p">],</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)))</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Multifile: error encountered when opening file &#39;</span><span class="si">%s</span><span class="s2">&#39;: </span><span class="si">%s</span><span class="s2">&quot;</span><span class="o">%</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="n">file_index</span><span class="p">],</span> <span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)))</span>
       <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">file</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Multifile: var &#39;</span><span class="si">%s</span><span class="s2">&#39; was expected to be in file &#39;</span><span class="si">%s</span><span class="s2">&#39;, but it&#39;s not there!&quot;</span><span class="o">%</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="n">file_index</span><span class="p">]))</span>
       <span class="n">var</span> <span class="o">=</span> <span class="n">file</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">]</span> <span class="c1"># abandon all hope, ye who use non-unique variable names</span>
@@ -422,11 +422,13 @@
       <span class="n">bigmap</span><span class="p">,</span> <span class="n">smallmap</span> <span class="o">=</span> <span class="n">times</span><span class="o">.</span><span class="n">common_map</span><span class="p">(</span><span class="n">timechunk</span><span class="p">)</span>
       <span class="c1"># Check for any funky problems with the map</span>
 <span class="c1">#      assert len(bigmap) &gt; 0, &quot;?? %s &lt;-&gt; %s&quot;%(times,timechunk)</span>
+
       <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">bigmap</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Multifile: Can&#39;t find an entire chunk of data for variable &#39;</span><span class="si">%s</span><span class="s2">&#39;.  Perhaps a file is missing?&quot;</span><span class="o">%</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Multifile: Expected to find data for variable </span><span class="si">%s</span><span class="s2"> for times </span><span class="si">%s</span><span class="s2"> in file </span><span class="si">%s</span><span class="s2">, but none is present. Perhaps a file is missing, or filename to date mapping is incorrect?&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">timechunk</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="n">file_index</span><span class="p">]))</span>
 
       <span class="n">slices</span> <span class="o">=</span> <span class="p">[</span><span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">)]</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">naxes</span>
       <span class="n">slices</span><span class="p">[</span><span class="n">itime</span><span class="p">]</span> <span class="o">=</span> <span class="n">bigmap</span>
+      <span class="n">slices</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">slices</span><span class="p">)</span>
       <span class="n">newview</span> <span class="o">=</span> <span class="n">view</span><span class="o">.</span><span class="n">replace_axis</span><span class="p">(</span><span class="n">Time</span><span class="p">,</span> <span class="n">times</span><span class="p">,</span> <span class="n">bigmap</span><span class="p">)</span>
       <span class="k">try</span><span class="p">:</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">newview</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">pbar</span><span class="o">=</span><span class="n">pbar</span><span class="o">.</span><span class="n">part</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">newfile_pos</span><span class="p">)))</span>
@@ -437,7 +439,22 @@
       <span class="n">handled_times</span><span class="p">[</span><span class="n">bigmap</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
 
     <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">handled_times</span><span class="p">):</span>
-      <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Multifile: Can&#39;t find some data for variable &#39;</span><span class="si">%s</span><span class="s2">&#39;.  Perhaps a file is missing?&quot;</span><span class="o">%</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+      <span class="n">missing_times</span> <span class="o">=</span> <span class="o">~</span><span class="n">handled_times</span>
+      <span class="n">missing_files</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">file_indices</span><span class="p">[</span><span class="n">missing_times</span><span class="p">])]</span>
+
+      <span class="n">itms</span> <span class="o">=</span> <span class="n">times</span><span class="p">[</span><span class="n">missing_times</span><span class="p">]</span>
+      <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">itms</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="n">stms</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">times</span><span class="o">.</span><span class="n">formatvalue</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">itms</span><span class="p">])</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">stms</span> <span class="o">=</span> <span class="s1">&#39;, ... &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">times</span><span class="o">.</span><span class="n">formatvalue</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="p">[</span><span class="n">itms</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">itms</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]])</span>
+
+      <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">missing_files</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">:</span>
+        <span class="n">sfiles</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">missing_files</span><span class="p">)</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="n">sfiles</span> <span class="o">=</span> <span class="s1">&#39;, ... &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">missing_files</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">missing_files</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]])</span>
+
+      <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;Multifile: can&#39;t find </span><span class="si">%d</span><span class="s2"> timesteps (</span><span class="si">%s</span><span class="s2">) from </span><span class="si">%d</span><span class="s2"> files (</span><span class="si">%s</span><span class="s2">) for variable &#39;</span><span class="si">%s</span><span class="s2">&#39;.&quot;</span> <span class="o">%</span> \
+            <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">itms</span><span class="p">),</span> <span class="n">stms</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">missing_files</span><span class="p">),</span> <span class="n">sfiles</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">))</span>
     <span class="k">return</span> <span class="n">out</span>
 <span class="c1"># }}}</span>
 <span class="c1"># }}}</span>
@@ -453,11 +470,11 @@
   <span class="k">return</span> <span class="n">new_opener</span>
 
 
-<span class="k">def</span> <span class="nf">check_multi</span> <span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="check_multi"><a class="viewcode-back" href="../../../fileio.html#pygeode.check_multi">[docs]</a><span class="k">def</span> <span class="nf">check_multi</span> <span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
   <span class="sd">&#39;&#39;&#39; Validates the files for completeness and consistency with the assumptions</span>
 <span class="sd">      made by pygeode.formats.multifile.open_multi.</span>
 <span class="sd">  &#39;&#39;&#39;</span>
-  <span class="kn">from</span> <span class="nn">pygeode.timeutils</span> <span class="k">import</span> <span class="n">reltime</span>
+  <span class="kn">from</span> <span class="nn">pygeode.timeutils</span> <span class="kn">import</span> <span class="n">reltime</span>
   <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
   <span class="c1"># First, query open_multi to find out what we *expect* to see in all the files</span>
   <span class="n">full_dataset</span> <span class="o">=</span> <span class="n">open_multi</span> <span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -567,7 +584,7 @@
   <span class="k">if</span> <span class="n">all_ok</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Scan completed without any errors.&quot;</span><span class="p">)</span>
   <span class="k">else</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;One or more errors occurred while scanning the files.&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;One or more errors occurred while scanning the files.&quot;</span><span class="p">)</span></div>
 
 </pre></div>
 
