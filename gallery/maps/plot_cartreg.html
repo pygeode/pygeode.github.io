@@ -1,0 +1,140 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cartopy: Quiver plot on a regional projection &#8212; PyGeode 1.4.1rc1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygtheme.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/pygeode_icon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Contour plot with hatches" href="../advanced/plot_contour_hatches.html" />
+    <link rel="prev" title="Cartopy: Test regional projections" href="plot_cartproj.html" />
+<link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
+
+  </head><body>
+      <div class="header" role="banner"><img class="logo" src="../../_static/pygeode_logo.png" width=79px alt="Logo"/>
+        <h1 class="heading"><a href="../../index.html">
+          <span>PyGeode 1.4.1rc1 documentation</span></a></h1>
+        <h2 class="heading"><span>Cartopy: Quiver plot on a regional projection</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        «&#160;&#160;<a href="plot_cartproj.html">Cartopy: Test regional projections</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Gallery</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="../advanced/plot_contour_hatches.html">Contour plot with hatches</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p>Click <a class="reference internal" href="#sphx-glr-download-gallery-maps-plot-cartreg-py"><span class="std std-ref">here</span></a>
+to download the full example code</p>
+</div>
+<div class="sphx-glr-example-title section" id="cartopy-quiver-plot-on-a-regional-projection">
+<span id="sphx-glr-gallery-maps-plot-cartreg-py"></span><h1>Cartopy: Quiver plot on a regional projection<a class="headerlink" href="#cartopy-quiver-plot-on-a-regional-projection" title="Permalink to this headline">¶</a></h1>
+<img src="../../_images/sphx_glr_plot_cartreg_001.png" srcset="../../_images/sphx_glr_plot_cartreg_001.png" alt="Lambert Conformal" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 600x510 with 1 Axes&gt;
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygeode</span> <span class="k">as</span> <span class="nn">pyg</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span><span class="o">,</span> <span class="nn">pylab</span> <span class="k">as</span> <span class="nn">pyl</span>
+<span class="kn">from</span> <span class="nn">cartopy</span> <span class="kn">import</span> <span class="n">crs</span> <span class="k">as</span> <span class="n">ccrs</span>
+<span class="kn">import</span> <span class="nn">cartopy</span>
+
+<span class="c1"># Construct latitude and longitude coordinate system</span>
+<span class="n">lat</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">gausslat</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span>
+<span class="n">lon</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">regularlon</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="n">origin</span><span class="o">=-</span><span class="mi">180</span><span class="p">)</span>
+
+<span class="c1"># Generate x and y components of a vector field on this coordinate system</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">np</span><span class="o">.</span><span class="n">pi</span></a> <span class="o">*</span> <span class="n">lon</span> <span class="o">/</span> <span class="mf">180.</span><span class="p">)</span> <span class="o">*</span> <span class="n">pyg</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">lat</span> <span class="o">-</span> <span class="mi">30</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="mi">10</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">np</span><span class="o">.</span><span class="n">pi</span></a> <span class="o">*</span> <span class="n">lon</span> <span class="o">/</span> <span class="mf">180.</span><span class="p">)</span> <span class="o">*</span> <span class="n">pyg</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">lat</span> <span class="o">-</span> <span class="mi">40</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="mi">10</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+
+<span class="c1"># Turn off interactivity</span>
+<span class="n">pyl</span><span class="o">.</span><span class="n">ioff</span><span class="p">()</span>
+
+<span class="c1"># Build CartopyAxis for a Lambert Conformal projection</span>
+<a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">prj</span></a> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">central_longitude</span><span class="o">=-</span><span class="mf">90.</span><span class="p">,</span> <span class="n">central_latitude</span> <span class="o">=</span> <span class="mf">39.</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">CartopyAxes</span><span class="p">(</span><span class="n">projection</span> <span class="o">=</span> <span class="s1">&#39;LambertConformal&#39;</span><span class="p">,</span> <span class="n">prj_args</span> <span class="o">=</span> <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">prj</span></a><span class="p">)</span>
+<a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ax</span><span class="o">.</span><span class="n">size</span></a> <span class="o">=</span> <span class="p">[</span><span class="mf">6.</span><span class="p">,</span> <span class="mf">5.1</span><span class="p">]</span>
+
+<span class="c1"># Add ocean</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><a href="https://scitools.org.uk/cartopy/docs/latest/reference/generated/cartopy.feature.NaturalEarthFeature.html#cartopy.feature.NaturalEarthFeature" title="cartopy.feature.NaturalEarthFeature" class="sphx-glr-backref-module-cartopy-feature sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">cartopy</span><span class="o">.</span><span class="n">feature</span><span class="o">.</span><span class="n">OCEAN</span></a><span class="p">)</span>
+
+<span class="c1"># Add quiver plot</span>
+<span class="n">pyg</span><span class="o">.</span><span class="n">vquiver</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="mf">0.005</span><span class="p">)</span>
+
+<span class="c1"># Set plot title</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;Lambert Conformal&#39;</span><span class="p">)</span>
+
+<span class="c1"># Set map extent to region over North America</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_extent</span><span class="p">([</span><span class="o">-</span><span class="mi">140</span><span class="p">,</span> <span class="o">-</span><span class="mi">50</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">75</span><span class="p">],</span> <span class="n">crs</span> <span class="o">=</span> <a href="https://scitools.org.uk/cartopy/docs/latest/reference/projections.html#cartopy.crs.PlateCarree" title="cartopy.crs.PlateCarree" class="sphx-glr-backref-module-cartopy-crs sphx-glr-backref-type-py-class"><span class="n">ccrs</span><span class="o">.</span><span class="n">PlateCarree</span></a><span class="p">())</span>
+
+<span class="c1"># Turn on matplotlib interactivity</span>
+<span class="n">pyl</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>
+
+<span class="c1"># Produce plot</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-maps-plot-cartreg-py">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/a2c0b4f8b4d7378d3576c646290f435a/plot_cartreg.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_cartreg.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/e410b7410179f6f7d859933bb11f959f/plot_cartreg.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_cartreg.ipynb</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</div>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        «&#160;&#160;<a href="plot_cartproj.html">Cartopy: Test regional projections</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Gallery</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="../advanced/plot_contour_hatches.html">Contour plot with hatches</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Mike Neish, Peter Hitchcock.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.3.2.
+    </div>
+  </body>
+</html>

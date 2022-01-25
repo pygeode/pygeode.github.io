@@ -1,0 +1,18 @@
+
+:orphan:
+
+.. _sphx_glr_gallery_maps_sg_execution_times:
+
+Computation times
+=================
+**00:06.953** total execution time for **gallery_maps** files:
+
++------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_gallery_maps_plot_cartfeatures.py` (``plot_cartfeatures.py``) | 00:04.835 | 0.0 MB |
++------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_gallery_maps_plot_cartreg.py` (``plot_cartreg.py``)           | 00:00.930 | 0.0 MB |
++------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_gallery_maps_plot_cartmapdecor.py` (``plot_cartmapdecor.py``) | 00:00.841 | 0.0 MB |
++------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_gallery_maps_plot_cartproj.py` (``plot_cartproj.py``)         | 00:00.347 | 0.0 MB |
++------------------------------------------------------------------------------+-----------+--------+

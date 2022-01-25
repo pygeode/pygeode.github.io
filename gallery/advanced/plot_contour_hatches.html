@@ -1,0 +1,127 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contour plot with hatches &#8212; PyGeode 1.4.1rc1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygtheme.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/pygeode_icon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Plot 2 contours and remove the last one" href="plot_remove_contours.html" />
+    <link rel="prev" title="Cartopy: Quiver plot on a regional projection" href="../maps/plot_cartreg.html" />
+<link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
+
+  </head><body>
+      <div class="header" role="banner"><img class="logo" src="../../_static/pygeode_logo.png" width=79px alt="Logo"/>
+        <h1 class="heading"><a href="../../index.html">
+          <span>PyGeode 1.4.1rc1 documentation</span></a></h1>
+        <h2 class="heading"><span>Contour plot with hatches</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        «&#160;&#160;<a href="../maps/plot_cartreg.html">Cartopy: Quiver plot on a regional projection</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Gallery</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="plot_remove_contours.html">Plot 2 contours and remove the last one</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p>Click <a class="reference internal" href="#sphx-glr-download-gallery-advanced-plot-contour-hatches-py"><span class="std std-ref">here</span></a>
+to download the full example code</p>
+</div>
+<div class="sphx-glr-example-title section" id="contour-plot-with-hatches">
+<span id="sphx-glr-gallery-advanced-plot-contour-hatches-py"></span><h1>Contour plot with hatches<a class="headerlink" href="#contour-plot-with-hatches" title="Permalink to this headline">¶</a></h1>
+<img src="../../_images/sphx_glr_plot_contour_hatches_001.png" srcset="../../_images/sphx_glr_plot_contour_hatches_001.png" alt="Plot specific contours and hatching" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/peterh/pygeode/pygeode/plot/wrappers.py:299: UserWarning: The following kwargs were not used by contour: &#39;clevels&#39;
+  self._cnt = axes.contour (*self.plot_args, **self.plot_kwargs)
+/home/peterh/pygeode/pygeode/plot/wrappers.py:306: UserWarning: The following kwargs were not used by contour: &#39;clevels&#39;
+  self._cnt = axes.contourf (*self.plot_args, **self.plot_kwargs)
+/home/peterh/pygeode/pygeode/plot/wrappers.py:306: UserWarning: The following kwargs were not used by contour: &#39;linewidth&#39;
+  self._cnt = axes.contourf (*self.plot_args, **self.plot_kwargs)
+
+&lt;Figure size 640x480 with 1 Axes&gt;
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pylab</span> <span class="k">as</span> <span class="nn">pyl</span>
+
+<span class="kn">import</span> <span class="nn">pygeode</span> <span class="k">as</span> <span class="nn">pyg</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t1</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">AxesWrapper</span><span class="p">()</span>
+
+<span class="c1"># Pass **kwargs to matplotlib contourf</span>
+<span class="n">pyg</span><span class="o">.</span><span class="n">vcontour</span><span class="p">(</span><span class="n">t1</span><span class="o">.</span><span class="n">Temp</span><span class="p">,</span> <span class="n">clines</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">clevels</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">pyg</span><span class="o">.</span><span class="n">vcontour</span><span class="p">(</span><span class="n">t1</span><span class="o">.</span><span class="n">Temp</span><span class="p">,</span> <span class="n">clevels</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;BuGn&#39;</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">clabel</span><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ax</span><span class="o">.</span><span class="n">plots</span></a><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">colors</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">pyg</span><span class="o">.</span><span class="n">vcontour</span><span class="p">(</span><span class="n">t1</span><span class="o">.</span><span class="n">Temp</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="p">[</span><span class="mi">200</span><span class="p">,</span><span class="mi">280</span><span class="p">],</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">hatches</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;..&#39;</span><span class="p">],</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;Plot specific contours and hatching&#39;</span><span class="p">)</span>
+
+<span class="n">pyl</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-advanced-plot-contour-hatches-py">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/acbe011c7fc0875bf92d18e1ef108bf9/plot_contour_hatches.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_contour_hatches.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/d9e58e386693cdb6615258262995857b/plot_contour_hatches.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_contour_hatches.ipynb</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</div>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        «&#160;&#160;<a href="../maps/plot_cartreg.html">Cartopy: Quiver plot on a regional projection</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Gallery</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="plot_remove_contours.html">Plot 2 contours and remove the last one</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Mike Neish, Peter Hitchcock.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.3.2.
+    </div>
+  </body>
+</html>

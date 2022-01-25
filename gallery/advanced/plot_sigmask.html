@@ -1,0 +1,155 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Plot a significance mask &#8212; PyGeode 1.4.1rc1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygtheme.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/pygeode_icon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Change Log" href="../../whatsnew.html" />
+    <link rel="prev" title="Plot 2 contours and remove the last one" href="plot_remove_contours.html" />
+<link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
+
+  </head><body>
+      <div class="header" role="banner"><img class="logo" src="../../_static/pygeode_logo.png" width=79px alt="Logo"/>
+        <h1 class="heading"><a href="../../index.html">
+          <span>PyGeode 1.4.1rc1 documentation</span></a></h1>
+        <h2 class="heading"><span>Plot a significance mask</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        «&#160;&#160;<a href="plot_remove_contours.html">Plot 2 contours and remove the last one</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Gallery</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="../../whatsnew.html">Change Log</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p>Click <a class="reference internal" href="#sphx-glr-download-gallery-advanced-plot-sigmask-py"><span class="std std-ref">here</span></a>
+to download the full example code</p>
+</div>
+<div class="sphx-glr-example-title section" id="plot-a-significance-mask">
+<span id="sphx-glr-gallery-advanced-plot-sigmask-py"></span><h1>Plot a significance mask<a class="headerlink" href="#plot-a-significance-mask" title="Permalink to this headline">¶</a></h1>
+<p>Compute a linear regression using <a class="reference internal" href="../../stats.html#pygeode.regress" title="pygeode.regress"><code class="xref py py-func docutils literal notranslate"><span class="pre">pygeode.regress()</span></code></a> and use <a class="reference internal" href="../../plot.html#pygeode.vsigmask" title="pygeode.vsigmask"><code class="xref py py-func docutils literal notranslate"><span class="pre">pygeode.vsigmask()</span></code></a> to plot significance</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygeode</span> <span class="k">as</span> <span class="nn">pyg</span><span class="o">,</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pylab</span> <span class="k">as</span> <span class="nn">pyl</span>
+<span class="n">pyl</span><span class="o">.</span><span class="n">ioff</span><span class="p">()</span>
+
+<span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t3</span>
+
+<span class="c1"># Compute regression</span>
+<span class="n">reg</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">regress</span><span class="p">(</span><span class="n">t3</span><span class="o">.</span><span class="n">X1e</span><span class="p">,</span> <span class="n">t3</span><span class="o">.</span><span class="n">Y1</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">],</span> <span class="n">output</span><span class="o">=</span><span class="s1">&#39;m,b,r2,p&#39;</span><span class="p">)</span>
+
+
+<span class="n">pyl</span><span class="o">.</span><span class="n">ioff</span><span class="p">()</span>
+
+<span class="c1"># The significance mask routine takes a signed significance mask as it&#39;s main</span>
+<span class="c1"># argument. This ensures that regions of significance on opposite sides of the</span>
+<span class="c1"># distribution are separated by a filled region. It can be computed as follows</span>
+<span class="c1"># from the p-value of the linear regression.</span>
+<span class="n">sigmask</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">reg</span><span class="o">.</span><span class="n">p</span><span class="p">)</span> <span class="o">*</span> <span class="n">pyg</span><span class="o">.</span><span class="n">sign</span><span class="p">(</span><span class="n">reg</span><span class="o">.</span><span class="n">m</span><span class="p">)</span>
+
+<span class="n">ax1</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">showvar</span><span class="p">(</span><span class="n">reg</span><span class="o">.</span><span class="n">m</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">pyg</span><span class="o">.</span><span class="n">vsigmask</span><span class="p">(</span><span class="n">sigmask</span><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ax1</span><span class="o">.</span><span class="n">axes</span></a><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">mjsig</span> <span class="o">=</span> <span class="mf">0.99</span><span class="p">)</span>
+
+<a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ax1</span><span class="o">.</span><span class="n">axes</span></a><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;(a) Significant regions (99%) stippled&#39;</span><span class="p">)</span>
+
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">showvar</span><span class="p">(</span><span class="n">reg</span><span class="o">.</span><span class="n">m</span><span class="p">,</span> <span class="n">fig</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">pyg</span><span class="o">.</span><span class="n">vsigmask</span><span class="p">(</span><span class="n">sigmask</span><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ax2</span><span class="o">.</span><span class="n">axes</span></a><span class="p">[</span><span class="mi">0</span><span class="p">],</span> \
+                <span class="n">mjsig</span> <span class="o">=</span> <span class="mf">0.95</span><span class="p">,</span> <span class="n">mjsigp</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">visible</span> <span class="o">=</span> <span class="kc">False</span><span class="p">),</span> \
+                <span class="n">nsigp</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.4</span><span class="p">,</span> <span class="n">hatch</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;k&#39;</span><span class="p">))</span>
+
+<a href="https://docs.python.org/3/library/stdtypes.html#list" title="builtins.list" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">ax2</span><span class="o">.</span><span class="n">axes</span></a><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;(b) Non-significant regions (95%) shaded&#39;</span><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">grid</span><span class="p">([[</span><span class="n">ax1</span><span class="p">],</span> <span class="p">[</span><span class="n">ax2</span><span class="p">]])</span>
+<span class="n">pyl</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">render</span><span class="p">()</span>
+</pre></div>
+</div>
+<img src="../../_images/sphx_glr_plot_sigmask_001.png" srcset="../../_images/sphx_glr_plot_sigmask_001.png" alt="(a) Significant regions (99%) stippled, (b) Non-significant regions (95%) shaded" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/peterh/pygeode/pygeode/plot/wrappers.py:320: MatplotlibDeprecationWarning: You have passed the &#39;alpha&#39; kwarg before the &#39;color&#39; kwarg.  Artist.set() currently reorders the properties to apply &#39;color&#39; first, but this is deprecated since 3.3 and will be removed two minor releases later; please pass &#39;color&#39; first instead.
+  else: pyl.setp([coll[i] for i in self.ind], **self.plot_kwargs)
+
+&lt;Figure size 720x960 with 4 Axes&gt;
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">reg</span></code> contains a dataset of values from the regression</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">reg</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;Dataset&gt;:
+Vars:
+  m  (lon,lat)  (60,42)
+  b  (lon,lat)  (60,42)
+  r2 (lon,lat)  (60,42)
+  p  (lon,lat)  (60,42)
+Axes:
+  lon &lt;Lon&gt;      :  0 E to 354 E (60 values)
+  lat &lt;Lat&gt;      :  87 S to 87 N (42 values)
+Global Attributes:
+  description    : linear regression parameters for Y1 regressed against X1e
+</pre></div>
+</div>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-advanced-plot-sigmask-py">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/5b7cb5527a0ba498120ccc4e2a53b611/plot_sigmask.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_sigmask.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/698fb1a65697c011d4f3367468a6c933/plot_sigmask.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_sigmask.ipynb</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</div>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        «&#160;&#160;<a href="plot_remove_contours.html">Plot 2 contours and remove the last one</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Gallery</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="../../whatsnew.html">Change Log</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Mike Neish, Peter Hitchcock.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.3.2.
+    </div>
+  </body>
+</html>

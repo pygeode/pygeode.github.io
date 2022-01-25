@@ -1,21 +1,23 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Basic Operations &#8212; PyGeode 1.4.0 documentation</title>
-    <link rel="stylesheet" href="_static/pygtheme.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/gallery.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Basic Operations &#8212; PyGeode 1.4.1rc1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygtheme.css" />
+    <link rel="stylesheet" type="text/css" href="_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/pygeode_icon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Variable input and output" href="tut_io.html" />
@@ -24,8 +26,9 @@
 <link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
 
   </head><body>
-      <div class="header" role="banner"><h1 class="heading"><a href="index.html">
-          <span>PyGeode 1.4.0 documentation</span></a></h1>
+      <div class="header" role="banner"><img class="logo" src="_static/pygeode_logo.png" width=79px alt="Logo"/>
+        <h1 class="heading"><a href="index.html">
+          <span>PyGeode 1.4.1rc1 documentation</span></a></h1>
         <h2 class="heading"><span>Basic Operations</span></h2>
       </div>
       <div class="topnav" role="navigation" aria-label="top navigation">
@@ -90,24 +93,24 @@ when we get there.</p>
 <p>One of the most basic operations is to select a subset or subdomain of your
 variable. For instance, to select a rectangular region of the same temperature
 variable we just saw:</p>
-<pre class="literal-block">
-In [6]: print(t1.Temp(lat=(30, 50), lon=(100, 180)))
-&lt;Var 'Temp'&gt;:
-  Units: K  Shape:  (lat,lon)  (4,14)
-  Axes:
-    lat &lt;Lat&gt;      :  30 N to 48 N (4 values)
-    lon &lt;Lon&gt;      :  102 E to 180 E (14 values)
-  Attributes:
-    {}
-  Type:  SlicedVar (dtype=&quot;float64&quot;)
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [6]: </span><span class="nb">print</span><span class="p">(</span><span class="n">t1</span><span class="o">.</span><span class="n">Temp</span><span class="p">(</span><span class="n">lat</span><span class="o">=</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">50</span><span class="p">),</span> <span class="n">lon</span><span class="o">=</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">180</span><span class="p">)))</span>
+<span class="go">&lt;Var &#39;Temp&#39;&gt;:</span>
+<span class="go">  Units: K  Shape:  (lat,lon)  (4,14)</span>
+<span class="go">  Axes:</span>
+<span class="go">    lat &lt;Lat&gt;      :  30 N to 48 N (4 values)</span>
+<span class="go">    lon &lt;Lon&gt;      :  102 E to 180 E (14 values)</span>
+<span class="go">  Attributes:</span>
+<span class="go">    {}</span>
+<span class="go">  Type:  SlicedVar (dtype=&quot;float64&quot;)</span>
 
-# We can take a look at the latitude grid points for reference
-In [7]: t1.Temp.lat[:]
-Out[7]: 
-array([-90., -84., -78., -72., -66., -60., -54., -48., -42., -36., -30.,
-       -24., -18., -12.,  -6.,   0.,   6.,  12.,  18.,  24.,  30.,  36.,
-        42.,  48.,  54.,  60.,  66.,  72.,  78.,  84.,  90.])
-</pre>
+<span class="go"># We can take a look at the latitude grid points for reference</span>
+<span class="gp">In [7]: </span><span class="n">t1</span><span class="o">.</span><span class="n">Temp</span><span class="o">.</span><span class="n">lat</span><span class="p">[:]</span>
+<span class="gh">Out[7]: </span><span class="go"></span>
+<span class="go">array([-90., -84., -78., -72., -66., -60., -54., -48., -42., -36., -30.,</span>
+<span class="go">       -24., -18., -12.,  -6.,   0.,   6.,  12.,  18.,  24.,  30.,  36.,</span>
+<span class="go">        42.,  48.,  54.,  60.,  66.,  72.,  78.,  84.,  90.])</span>
+</pre></div>
+</div>
 <p>PyGeode makes use of the calling syntax of Python to do slicing. While this is
 arguably an abuse of the syntax, this operation is so common that it’s a
 default behaviour for PyGeode variables. The axes are specified as keyword
@@ -169,15 +172,15 @@ calendar (<a class="reference internal" href="timeaxes.html#pygeode.StandardTime
 calendar at all. The example data set <code class="docutils literal notranslate"><span class="pre">t2</span></code>, for instance, is defined on a
 365-day calendar. These are represented internally as a list of offsets (in
 this case in days) from a reference date:</p>
-<pre class="literal-block">
-In [12]: from pygeode.tutorial import t2
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [12]: </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t2</span>
 
-In [13]: print(t2.time.startdate)
-{'year': 2011, 'month': 1, 'day': 1, 'hour': 0, 'minute': 0, 'second': 0}
+<span class="gp">In [13]: </span><span class="nb">print</span><span class="p">(</span><span class="n">t2</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">startdate</span><span class="p">)</span>
+<span class="go">{&#39;year&#39;: 2011, &#39;month&#39;: 1, &#39;day&#39;: 1, &#39;hour&#39;: 0, &#39;minute&#39;: 0, &#39;second&#39;: 0}</span>
 
-In [14]: print(t2.time.values)
-[0.000e+00 1.000e+00 2.000e+00 ... 3.647e+03 3.648e+03 3.649e+03]
-</pre>
+<span class="gp">In [14]: </span><span class="nb">print</span><span class="p">(</span><span class="n">t2</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+<span class="go">[0.000e+00 1.000e+00 2.000e+00 ... 3.647e+03 3.648e+03 3.649e+03]</span>
+</pre></div>
+</div>
 <p>Time axes can be subsetted exactly as above, in which case the requested value
 is matched against this offset:</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [15]: </span><span class="nb">print</span><span class="p">(</span><span class="n">t2</span><span class="o">.</span><span class="n">Temp</span><span class="p">(</span><span class="n">time</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span><span class="o">.</span><span class="n">time</span><span class="p">)</span>
@@ -194,15 +197,15 @@ possibilities exist:</p>
 </div>
 <p>PyGeode also recognizes the format <code class="docutils literal notranslate"><span class="pre">16:00</span> <span class="pre">13</span> <span class="pre">May</span> <span class="pre">1982</span></code> if a more precise
 specification is required.</p>
-<pre class="literal-block">
-# Select all elements in year 2013
-In [17]: print(t2.Temp(year = 2013).time)
-time &lt;ModelTime365&gt;:  Jan 1, 2013 00:00:00 to Dec 31, 2013 00:00:00 (365 values)
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="go"># Select all elements in year 2013</span>
+<span class="gp">In [17]: </span><span class="nb">print</span><span class="p">(</span><span class="n">t2</span><span class="o">.</span><span class="n">Temp</span><span class="p">(</span><span class="n">year</span> <span class="o">=</span> <span class="mi">2013</span><span class="p">)</span><span class="o">.</span><span class="n">time</span><span class="p">)</span>
+<span class="go">time &lt;ModelTime365&gt;:  Jan 1, 2013 00:00:00 to Dec 31, 2013 00:00:00 (365 values)</span>
 
-# Select all elements in any January, February or December
-In [18]: print(t2.Temp(l_month = (1, 2, 12)).time)
-time &lt;ModelTime365&gt;:  Jan 1, 2011 00:00:00 to Dec 31, 2020 00:00:00 (900 values)
-</pre>
+<span class="go"># Select all elements in any January, February or December</span>
+<span class="gp">In [18]: </span><span class="nb">print</span><span class="p">(</span><span class="n">t2</span><span class="o">.</span><span class="n">Temp</span><span class="p">(</span><span class="n">l_month</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span><span class="o">.</span><span class="n">time</span><span class="p">)</span>
+<span class="go">time &lt;ModelTime365&gt;:  Jan 1, 2011 00:00:00 to Dec 31, 2020 00:00:00 (900 values)</span>
+</pre></div>
+</div>
 <p>These last two are particularly useful constructs; you will have noticed that
 axes need not be regularly spaced. Note that <code class="docutils literal notranslate"><span class="pre">year</span></code> and <code class="docutils literal notranslate"><span class="pre">month</span></code> here are
 not axes of <code class="docutils literal notranslate"><span class="pre">t2.Temp</span></code> – they are technically ‘auxilliary arrays’ of the time
@@ -228,14 +231,14 @@ simplest are unary operations, which are performed elementwise. Most standard
 mathematical functions (powers, exponentials, trigonometric functions, etc.)
 are supported, and can be found in the main <code class="docutils literal notranslate"><span class="pre">pygeode</span></code> module:</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [19]: </span><span class="n">pyg</span><span class="o">.</span><span class="n">showvar</span><span class="p">(</span><span class="n">pyg</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">t1</span><span class="o">.</span><span class="n">Temp</span><span class="p">))</span>     <span class="c1"># Plot the natural logarithm of Temp</span>
-<span class="gh">Out[19]: </span><span class="go">&lt;pygeode.plot.wrappers.AxesWrapper at 0x7f28989dc080&gt;</span>
+<span class="gh">Out[19]: </span><span class="go">&lt;pygeode.plot.wrappers.AxesWrapper at 0x7f2163e8e310&gt;</span>
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="_images/log_t1Temp.png"><img alt="_images/log_t1Temp.png" src="_images/log_t1Temp.png" style="width: 4in;" /></a>
 <p>There are some convenience functions included, for instance, most trig functions
 have a version which takes arguments in degrees rather than radians:</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [20]: </span><span class="n">pyg</span><span class="o">.</span><span class="n">showvar</span><span class="p">(</span><span class="n">pyg</span><span class="o">.</span><span class="n">sind</span><span class="p">(</span><span class="n">t1</span><span class="o">.</span><span class="n">lat</span><span class="p">))</span>     <span class="c1"># Compute the sine of latitude</span>
-<span class="gh">Out[20]: </span><span class="go">&lt;pygeode.plot.wrappers.AxesWrapper at 0x7f2896573f28&gt;</span>
+<span class="gh">Out[20]: </span><span class="go">&lt;pygeode.plot.wrappers.AxesWrapper at 0x7f2163deb520&gt;</span>
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="_images/sind_t1lat.png"><img alt="_images/sind_t1lat.png" src="_images/sind_t1lat.png" style="width: 4in;" /></a>
@@ -254,7 +257,7 @@ since when cast to scalar values, <code class="docutils literal notranslate"><sp
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [21]: </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="gp">In [22]: </span><span class="n">pyg</span><span class="o">.</span><span class="n">showvar</span><span class="p">(</span><span class="n">t1</span><span class="o">.</span><span class="n">Temp</span> <span class="o">&gt;</span> <span class="mf">280.</span><span class="p">,</span> <span class="n">clevs</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">1.11</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">))</span>
-<span class="gh">Out[22]: </span><span class="go">&lt;pygeode.plot.wrappers.AxesWrapper at 0x7f28964bc5f8&gt;</span>
+<span class="gh">Out[22]: </span><span class="go">&lt;pygeode.plot.wrappers.AxesWrapper at 0x7f2163c4eeb0&gt;</span>
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="_images/t1mask.png"><img alt="_images/t1mask.png" src="_images/t1mask.png" style="width: 4in;" /></a>
@@ -270,16 +273,16 @@ the dimensions of the other which it does not itself possess. The order of the
 axes in the resulting variable is given by the first variable’s axes, followed
 by those of the second which are not included in the first.</p>
 <p>A couple of examples will clarify this:</p>
-<pre class="literal-block">
-In [23]: print((t2.U + t2.Temp).axes)   # No broadcasting required
-(&lt;ModelTime365&gt;, &lt;Pres&gt;, &lt;Lat&gt;, &lt;Lon&gt;)
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [23]: </span><span class="nb">print</span><span class="p">((</span><span class="n">t2</span><span class="o">.</span><span class="n">U</span> <span class="o">+</span> <span class="n">t2</span><span class="o">.</span><span class="n">Temp</span><span class="p">)</span><span class="o">.</span><span class="n">axes</span><span class="p">)</span>   <span class="c1"># No broadcasting required</span>
+<span class="go">(&lt;ModelTime365&gt;, &lt;Pres&gt;, &lt;Lat&gt;, &lt;Lon&gt;)</span>
 
-In [24]: print((t2.lat + t2.lon).axes)  # Broadcast to (lat, lon)
-(&lt;Lat&gt;, &lt;Lon&gt;)
+<span class="gp">In [24]: </span><span class="nb">print</span><span class="p">((</span><span class="n">t2</span><span class="o">.</span><span class="n">lat</span> <span class="o">+</span> <span class="n">t2</span><span class="o">.</span><span class="n">lon</span><span class="p">)</span><span class="o">.</span><span class="n">axes</span><span class="p">)</span>  <span class="c1"># Broadcast to (lat, lon)</span>
+<span class="go">(&lt;Lat&gt;, &lt;Lon&gt;)</span>
 
-In [25]: print((t2.lon + t2.lat).axes)  # Broadcast to (lon, lat)
-(&lt;Lon&gt;, &lt;Lat&gt;)
-</pre>
+<span class="gp">In [25]: </span><span class="nb">print</span><span class="p">((</span><span class="n">t2</span><span class="o">.</span><span class="n">lon</span> <span class="o">+</span> <span class="n">t2</span><span class="o">.</span><span class="n">lat</span><span class="p">)</span><span class="o">.</span><span class="n">axes</span><span class="p">)</span>  <span class="c1"># Broadcast to (lon, lat)</span>
+<span class="go">(&lt;Lon&gt;, &lt;Lat&gt;)</span>
+</pre></div>
+</div>
 <p>The one exception to this rule is that if either variable is defined on a subset
 of the other’s axes, the order of the latter is maintained:</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [26]: </span><span class="nb">print</span><span class="p">((</span><span class="n">t2</span><span class="o">.</span><span class="n">lon</span> <span class="o">+</span> <span class="n">t2</span><span class="o">.</span><span class="n">Temp</span><span class="p">)</span><span class="o">.</span><span class="n">axes</span><span class="p">)</span>  <span class="c1"># Broadcast to (time, pres, lat, lon)</span>
@@ -288,7 +291,7 @@ of the other’s axes, the order of the latter is maintained:</p>
 </div>
 <p>You may be wondering how PyGeode decides whether two axes are the same for the
 purposes of this broadcasting. If two axes have the same elements (to within a
-tolerance - see <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.allclose.html#numpy.allclose" title="(in NumPy v1.18)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.allclose()</span></code></a>), and are of the same type, they are
+tolerance - see <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.allclose.html#numpy.allclose" title="(in NumPy v1.22)"><code class="xref py py-func docutils literal notranslate"><span class="pre">numpy.allclose()</span></code></a>), and are of the same type, they are
 considered equal (see also <code class="xref py py-func docutils literal notranslate"><span class="pre">Axis:__eq__()</span></code>) and are matched. If PyGeode finds
 two axes of the same type but with different elements, it attempts to find a complete
 mapping from one to the other. In most cases this means that the elements of one
@@ -333,9 +336,9 @@ example,</p>
 specify axes in three ways:</p>
 <blockquote>
 <div><ul class="simple">
-<li>by name, e.g. <code class="docutils literal notranslate"><span class="pre">t2.Temp.mean('lon')</span></code></li>
-<li>by class, e.g. <code class="docutils literal notranslate"><span class="pre">t2.Temp.mean(pyg.Lon)</span></code></li>
-<li>or by (zero-based) index, e.g. <code class="docutils literal notranslate"><span class="pre">t2.Temp.mean(3)</span></code></li>
+<li><p>by name, e.g. <code class="docutils literal notranslate"><span class="pre">t2.Temp.mean('lon')</span></code></p></li>
+<li><p>by class, e.g. <code class="docutils literal notranslate"><span class="pre">t2.Temp.mean(pyg.Lon)</span></code></p></li>
+<li><p>or by (zero-based) index, e.g. <code class="docutils literal notranslate"><span class="pre">t2.Temp.mean(3)</span></code></p></li>
 </ul>
 </div></blockquote>
 <p>These will all (in this case) return the same average. These three ways of
@@ -406,10 +409,10 @@ variable with the same axes as those you would like to weight:</p>
 for the full list.  Some differences exist though:</p>
 <blockquote>
 <div><ul class="simple">
-<li><a class="reference internal" href="reduce.html#pygeode.Var.sum" title="pygeode.Var.sum"><code class="xref py py-func docutils literal notranslate"><span class="pre">Var.sum()</span></code></a> by default does <em>not</em> use the axes weights; you can use the
-default weights by specifying <code class="docutils literal notranslate"><span class="pre">weights=True</span></code> as a keyword argument.</li>
-<li><a class="reference internal" href="reduce.html#pygeode.Var.max" title="pygeode.Var.max"><code class="xref py py-func docutils literal notranslate"><span class="pre">Var.max()</span></code></a> and  <a class="reference internal" href="reduce.html#pygeode.Var.min" title="pygeode.Var.min"><code class="xref py py-func docutils literal notranslate"><span class="pre">Var.min()</span></code></a> do not use weights; they return the maximum and
-minimum values (respectively) along the axes being reduced.</li>
+<li><p><a class="reference internal" href="reduce.html#pygeode.Var.sum" title="pygeode.Var.sum"><code class="xref py py-func docutils literal notranslate"><span class="pre">Var.sum()</span></code></a> by default does <em>not</em> use the axes weights; you can use the
+default weights by specifying <code class="docutils literal notranslate"><span class="pre">weights=True</span></code> as a keyword argument.</p></li>
+<li><p><a class="reference internal" href="reduce.html#pygeode.Var.max" title="pygeode.Var.max"><code class="xref py py-func docutils literal notranslate"><span class="pre">Var.max()</span></code></a> and  <a class="reference internal" href="reduce.html#pygeode.Var.min" title="pygeode.Var.min"><code class="xref py py-func docutils literal notranslate"><span class="pre">Var.min()</span></code></a> do not use weights; they return the maximum and
+minimum values (respectively) along the axes being reduced.</p></li>
 </ul>
 </div></blockquote>
 <p>Finally, there are also equivalents for several of these methods which are <code class="docutils literal notranslate"><span class="pre">NaN</span></code> aware.</p>
@@ -423,13 +426,13 @@ they’re created, they don’t change - as before, what the following operation
 a new variable with the desired changes that wraps the old one.</p>
 <p><a class="reference internal" href="varops.html#pygeode.Var.transpose" title="pygeode.Var.transpose"><code class="xref py py-func docutils literal notranslate"><span class="pre">Var.transpose()</span></code></a> reorders the axes of a variable. Not all axes need to
 be specified; those that are not will be appended in their present order.</p>
-<pre class="literal-block">
-In [34]: t2.Temp.axes
-Out[34]: (&lt;ModelTime365&gt;, &lt;Pres&gt;, &lt;Lat&gt;, &lt;Lon&gt;)
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="gp">In [34]: </span><span class="n">t2</span><span class="o">.</span><span class="n">Temp</span><span class="o">.</span><span class="n">axes</span>
+<span class="gh">Out[34]: </span><span class="go">(&lt;ModelTime365&gt;, &lt;Pres&gt;, &lt;Lat&gt;, &lt;Lon&gt;)</span>
 
-In [35]: print(t2.Temp.transpose('lon', 'lat', 'pres', 'time').axes)
-(&lt;Lon&gt;, &lt;Lat&gt;, &lt;Pres&gt;, &lt;ModelTime365&gt;)
-</pre>
+<span class="gp">In [35]: </span><span class="nb">print</span><span class="p">(</span><span class="n">t2</span><span class="o">.</span><span class="n">Temp</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;pres&#39;</span><span class="p">,</span> <span class="s1">&#39;time&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">axes</span><span class="p">)</span>
+<span class="go">(&lt;Lon&gt;, &lt;Lat&gt;, &lt;Pres&gt;, &lt;ModelTime365&gt;)</span>
+</pre></div>
+</div>
 <p><a class="reference internal" href="varops.html#pygeode.Var.replace_axes" title="pygeode.Var.replace_axes"><code class="xref py py-func docutils literal notranslate"><span class="pre">Var.replace_axes()</span></code></a> replaces any or all axes of a variable. The new
 axes must have the same length as those they are replacing.</p>
 <div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="go"># The logPAxis method returns a log-pressure axis with a given scale height</span>
@@ -443,54 +446,54 @@ variable with the same number of axes as you’ve started with, even if those
 axes have only a single element. If you want to remove these degenerate axes,
 you can use this command, which, when called with no arguments, will simply remove
 all degenerate axes. Several other methods of calling are also available:</p>
-<pre class="literal-block">
-# Squeeze all degenerate axes
-In [37]: print(t2.Temp(time = 4, lon = 20).squeeze())
-&lt;Var 'Temp'&gt;:
-  Shape:  (pres,lat)  (20,31)
-  Axes:
-    pres &lt;Pres&gt;    :  1000 hPa to 50 hPa (20 values)
-    lat &lt;Lat&gt;      :  90 S to 90 N (31 values)
-  Attributes:
-    {}
-  Type:  SqueezedVar (dtype=&quot;float64&quot;)
+<div class="highlight-ipython notranslate"><div class="highlight"><pre><span></span><span class="go"># Squeeze all degenerate axes</span>
+<span class="gp">In [37]: </span><span class="nb">print</span><span class="p">(</span><span class="n">t2</span><span class="o">.</span><span class="n">Temp</span><span class="p">(</span><span class="n">time</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">lon</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">())</span>
+<span class="go">&lt;Var &#39;Temp&#39;&gt;:</span>
+<span class="go">  Shape:  (pres,lat)  (20,31)</span>
+<span class="go">  Axes:</span>
+<span class="go">    pres &lt;Pres&gt;    :  1000 hPa to 50 hPa (20 values)</span>
+<span class="go">    lat &lt;Lat&gt;      :  90 S to 90 N (31 values)</span>
+<span class="go">  Attributes:</span>
+<span class="go">    {}</span>
+<span class="go">  Type:  SqueezedVar (dtype=&quot;float64&quot;)</span>
 
-# Squeeze only the time axis (if it is degenerate)
-In [38]: print(t2.Temp(time = 4, lon = 20).squeeze('time'))
-&lt;Var 'Temp'&gt;:
-  Shape:  (pres,lat,lon)  (20,31,1)
-  Axes:
-    pres &lt;Pres&gt;    :  1000 hPa to 50 hPa (20 values)
-    lat &lt;Lat&gt;      :  90 S to 90 N (31 values)
-    lon &lt;Lon&gt;      :  18 E
-  Attributes:
-    {}
-  Type:  SqueezedVar (dtype=&quot;float64&quot;)
+<span class="go"># Squeeze only the time axis (if it is degenerate)</span>
+<span class="gp">In [38]: </span><span class="nb">print</span><span class="p">(</span><span class="n">t2</span><span class="o">.</span><span class="n">Temp</span><span class="p">(</span><span class="n">time</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">lon</span> <span class="o">=</span> <span class="mi">20</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="s1">&#39;time&#39;</span><span class="p">))</span>
+<span class="go">&lt;Var &#39;Temp&#39;&gt;:</span>
+<span class="go">  Shape:  (pres,lat,lon)  (20,31,1)</span>
+<span class="go">  Axes:</span>
+<span class="go">    pres &lt;Pres&gt;    :  1000 hPa to 50 hPa (20 values)</span>
+<span class="go">    lat &lt;Lat&gt;      :  90 S to 90 N (31 values)</span>
+<span class="go">    lon &lt;Lon&gt;      :  18 E</span>
+<span class="go">  Attributes:</span>
+<span class="go">    {}</span>
+<span class="go">  Type:  SqueezedVar (dtype=&quot;float64&quot;)</span>
 
-# Select a single value then squeeze the time axis
-In [39]: print(t2.Temp.squeeze(time = 4))
-&lt;Var 'Temp'&gt;:
-  Shape:  (pres,lat,lon)  (20,31,60)
-  Axes:
-    pres &lt;Pres&gt;    :  1000 hPa to 50 hPa (20 values)
-    lat &lt;Lat&gt;      :  90 S to 90 N (31 values)
-    lon &lt;Lon&gt;      :  0 E to 354 E (60 values)
-  Attributes:
-    {}
-  Type:  SqueezedVar (dtype=&quot;float64&quot;)
+<span class="go"># Select a single value then squeeze the time axis</span>
+<span class="gp">In [39]: </span><span class="nb">print</span><span class="p">(</span><span class="n">t2</span><span class="o">.</span><span class="n">Temp</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="n">time</span> <span class="o">=</span> <span class="mi">4</span><span class="p">))</span>
+<span class="go">&lt;Var &#39;Temp&#39;&gt;:</span>
+<span class="go">  Shape:  (pres,lat,lon)  (20,31,60)</span>
+<span class="go">  Axes:</span>
+<span class="go">    pres &lt;Pres&gt;    :  1000 hPa to 50 hPa (20 values)</span>
+<span class="go">    lat &lt;Lat&gt;      :  90 S to 90 N (31 values)</span>
+<span class="go">    lon &lt;Lon&gt;      :  0 E to 354 E (60 values)</span>
+<span class="go">  Attributes:</span>
+<span class="go">    {}</span>
+<span class="go">  Type:  SqueezedVar (dtype=&quot;float64&quot;)</span>
 
-# Select a single value and sqeeze the time axis using a selection prefix
-In [40]: print(t2.Temp(s_time = 4, lon = (20, 40)))
-&lt;Var 'Temp'&gt;:
-  Shape:  (pres,lat,lon)  (20,31,3)
-  Axes:
-    pres &lt;Pres&gt;    :  1000 hPa to 50 hPa (20 values)
-    lat &lt;Lat&gt;      :  90 S to 90 N (31 values)
-    lon &lt;Lon&gt;      :  24 E to 36 E (3 values)
-  Attributes:
-    {}
-  Type:  SqueezedVar (dtype=&quot;float64&quot;)
-</pre>
+<span class="go"># Select a single value and sqeeze the time axis using a selection prefix</span>
+<span class="gp">In [40]: </span><span class="nb">print</span><span class="p">(</span><span class="n">t2</span><span class="o">.</span><span class="n">Temp</span><span class="p">(</span><span class="n">s_time</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">lon</span> <span class="o">=</span> <span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">40</span><span class="p">)))</span>
+<span class="go">&lt;Var &#39;Temp&#39;&gt;:</span>
+<span class="go">  Shape:  (pres,lat,lon)  (20,31,3)</span>
+<span class="go">  Axes:</span>
+<span class="go">    pres &lt;Pres&gt;    :  1000 hPa to 50 hPa (20 values)</span>
+<span class="go">    lat &lt;Lat&gt;      :  90 S to 90 N (31 values)</span>
+<span class="go">    lon &lt;Lon&gt;      :  24 E to 36 E (3 values)</span>
+<span class="go">  Attributes:</span>
+<span class="go">    {}</span>
+<span class="go">  Type:  SqueezedVar (dtype=&quot;float64&quot;)</span>
+</pre></div>
+</div>
 <p>There are also commands to rename variables and their axes
 (<a class="reference internal" href="varops.html#pygeode.Var.rename" title="pygeode.Var.rename"><code class="xref py py-func docutils literal notranslate"><span class="pre">Var.rename()</span></code></a>, <a class="reference internal" href="varops.html#pygeode.Var.rename_axes" title="pygeode.Var.rename_axes"><code class="xref py py-func docutils literal notranslate"><span class="pre">Var.rename_axes()</span></code></a>), for adding axes to a
 variable (<a class="reference internal" href="varops.html#pygeode.Var.extend" title="pygeode.Var.extend"><code class="xref py py-func docutils literal notranslate"><span class="pre">Var.extend()</span></code></a>), reordering axes elements
@@ -518,8 +521,8 @@ variable (<a class="reference internal" href="varops.html#pygeode.Var.extend" ti
       </div>
 
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2018, Mike Neish, Peter Hitchcock.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.
+        &#169; Copyright 2020, Mike Neish, Peter Hitchcock.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.3.2.
     </div>
   </body>
 </html>

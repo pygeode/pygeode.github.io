@@ -1,0 +1,16 @@
+
+:orphan:
+
+.. _sphx_glr_gallery_advanced_sg_execution_times:
+
+Computation times
+=================
+**00:00.936** total execution time for **gallery_advanced** files:
+
++----------------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_gallery_advanced_plot_sigmask.py` (``plot_sigmask.py``)                 | 00:00.659 | 0.0 MB |
++----------------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_gallery_advanced_plot_remove_contours.py` (``plot_remove_contours.py``) | 00:00.175 | 0.0 MB |
++----------------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_gallery_advanced_plot_contour_hatches.py` (``plot_contour_hatches.py``) | 00:00.102 | 0.0 MB |
++----------------------------------------------------------------------------------------+-----------+--------+

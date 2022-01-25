@@ -1,21 +1,23 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Climat module &#8212; PyGeode 1.4.0 documentation</title>
-    <link rel="stylesheet" href="_static/pygtheme.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/gallery.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Climat module &#8212; PyGeode 1.4.1rc1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygtheme.css" />
+    <link rel="stylesheet" type="text/css" href="_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/pygeode_icon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Stats module" href="stats.html" />
@@ -24,8 +26,9 @@
 <link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
 
   </head><body>
-      <div class="header" role="banner"><h1 class="heading"><a href="index.html">
-          <span>PyGeode 1.4.0 documentation</span></a></h1>
+      <div class="header" role="banner"><img class="logo" src="_static/pygeode_logo.png" width=79px alt="Logo"/>
+        <h1 class="heading"><a href="index.html">
+          <span>PyGeode 1.4.1rc1 documentation</span></a></h1>
         <h2 class="heading"><span>Climat module</span></h2>
       </div>
       <div class="topnav" role="navigation" aria-label="top navigation">
@@ -49,265 +52,265 @@
   <div class="section" id="climat-module">
 <h1>Climat module<a class="headerlink" href="#climat-module" title="Permalink to this headline">¶</a></h1>
 <p>These functions compute averages, standard deviations, counds, and trends over the time axis in various ways.</p>
-<table border="1" class="docutils">
+<table class="docutils align-default">
 <colgroup>
-<col width="18%" />
-<col width="21%" />
-<col width="19%" />
-<col width="22%" />
-<col width="19%" />
+<col style="width: 18%" />
+<col style="width: 21%" />
+<col style="width: 19%" />
+<col style="width: 22%" />
+<col style="width: 19%" />
 </colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Mean</th>
-<th class="head">NaN-aware Mean</th>
-<th class="head">Std. Deviation</th>
-<th class="head">Nan-Aware Std. Dev.</th>
-<th class="head">Count</th>
+<thead>
+<tr class="row-odd"><th class="head"><p>Mean</p></th>
+<th class="head"><p>NaN-aware Mean</p></th>
+<th class="head"><p>Std. Deviation</p></th>
+<th class="head"><p>Nan-Aware Std. Dev.</p></th>
+<th class="head"><p>Count</p></th>
 </tr>
 </thead>
-<tbody valign="top">
-<tr class="row-even"><td><a class="reference internal" href="#pygeode.dailymean" title="pygeode.dailymean"><code class="xref py py-func docutils literal notranslate"><span class="pre">dailymean()</span></code></a></td>
-<td><a class="reference internal" href="#pygeode.dailynanmean" title="pygeode.dailynanmean"><code class="xref py py-func docutils literal notranslate"><span class="pre">dailynanmean()</span></code></a></td>
-<td><a class="reference internal" href="#pygeode.dailystdev" title="pygeode.dailystdev"><code class="xref py py-func docutils literal notranslate"><span class="pre">dailystdev()</span></code></a></td>
-<td><a class="reference internal" href="#pygeode.dailynanstdev" title="pygeode.dailynanstdev"><code class="xref py py-func docutils literal notranslate"><span class="pre">dailynanstdev()</span></code></a></td>
-<td><a class="reference internal" href="#pygeode.dailycount" title="pygeode.dailycount"><code class="xref py py-func docutils literal notranslate"><span class="pre">dailycount()</span></code></a></td>
+<tbody>
+<tr class="row-even"><td><p><a class="reference internal" href="#pygeode.dailymean" title="pygeode.dailymean"><code class="xref py py-func docutils literal notranslate"><span class="pre">dailymean()</span></code></a></p></td>
+<td><p><a class="reference internal" href="#pygeode.dailynanmean" title="pygeode.dailynanmean"><code class="xref py py-func docutils literal notranslate"><span class="pre">dailynanmean()</span></code></a></p></td>
+<td><p><a class="reference internal" href="#pygeode.dailystdev" title="pygeode.dailystdev"><code class="xref py py-func docutils literal notranslate"><span class="pre">dailystdev()</span></code></a></p></td>
+<td><p><a class="reference internal" href="#pygeode.dailynanstdev" title="pygeode.dailynanstdev"><code class="xref py py-func docutils literal notranslate"><span class="pre">dailynanstdev()</span></code></a></p></td>
+<td><p><a class="reference internal" href="#pygeode.dailycount" title="pygeode.dailycount"><code class="xref py py-func docutils literal notranslate"><span class="pre">dailycount()</span></code></a></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pygeode.monthlymean" title="pygeode.monthlymean"><code class="xref py py-func docutils literal notranslate"><span class="pre">monthlymean()</span></code></a></td>
-<td><a class="reference internal" href="#pygeode.monthlynanmean" title="pygeode.monthlynanmean"><code class="xref py py-func docutils literal notranslate"><span class="pre">monthlynanmean()</span></code></a></td>
-<td><a class="reference internal" href="#pygeode.monthlystdev" title="pygeode.monthlystdev"><code class="xref py py-func docutils literal notranslate"><span class="pre">monthlystdev()</span></code></a></td>
-<td><a class="reference internal" href="#pygeode.monthlynanstdev" title="pygeode.monthlynanstdev"><code class="xref py py-func docutils literal notranslate"><span class="pre">monthlynanstdev()</span></code></a></td>
-<td><a class="reference internal" href="#pygeode.monthlycount" title="pygeode.monthlycount"><code class="xref py py-func docutils literal notranslate"><span class="pre">monthlycount()</span></code></a></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pygeode.monthlymean" title="pygeode.monthlymean"><code class="xref py py-func docutils literal notranslate"><span class="pre">monthlymean()</span></code></a></p></td>
+<td><p><a class="reference internal" href="#pygeode.monthlynanmean" title="pygeode.monthlynanmean"><code class="xref py py-func docutils literal notranslate"><span class="pre">monthlynanmean()</span></code></a></p></td>
+<td><p><a class="reference internal" href="#pygeode.monthlystdev" title="pygeode.monthlystdev"><code class="xref py py-func docutils literal notranslate"><span class="pre">monthlystdev()</span></code></a></p></td>
+<td><p><a class="reference internal" href="#pygeode.monthlynanstdev" title="pygeode.monthlynanstdev"><code class="xref py py-func docutils literal notranslate"><span class="pre">monthlynanstdev()</span></code></a></p></td>
+<td><p><a class="reference internal" href="#pygeode.monthlycount" title="pygeode.monthlycount"><code class="xref py py-func docutils literal notranslate"><span class="pre">monthlycount()</span></code></a></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pygeode.seasonalmean" title="pygeode.seasonalmean"><code class="xref py py-func docutils literal notranslate"><span class="pre">seasonalmean()</span></code></a></td>
-<td><a class="reference internal" href="#pygeode.seasonalnanmean" title="pygeode.seasonalnanmean"><code class="xref py py-func docutils literal notranslate"><span class="pre">seasonalnanmean()</span></code></a></td>
-<td><a class="reference internal" href="#pygeode.seasonalstdev" title="pygeode.seasonalstdev"><code class="xref py py-func docutils literal notranslate"><span class="pre">seasonalstdev()</span></code></a></td>
-<td><a class="reference internal" href="#pygeode.seasonalnanstdev" title="pygeode.seasonalnanstdev"><code class="xref py py-func docutils literal notranslate"><span class="pre">seasonalnanstdev()</span></code></a></td>
-<td><a class="reference internal" href="#pygeode.seasonalcount" title="pygeode.seasonalcount"><code class="xref py py-func docutils literal notranslate"><span class="pre">seasonalcount()</span></code></a></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#pygeode.seasonalmean" title="pygeode.seasonalmean"><code class="xref py py-func docutils literal notranslate"><span class="pre">seasonalmean()</span></code></a></p></td>
+<td><p><a class="reference internal" href="#pygeode.seasonalnanmean" title="pygeode.seasonalnanmean"><code class="xref py py-func docutils literal notranslate"><span class="pre">seasonalnanmean()</span></code></a></p></td>
+<td><p><a class="reference internal" href="#pygeode.seasonalstdev" title="pygeode.seasonalstdev"><code class="xref py py-func docutils literal notranslate"><span class="pre">seasonalstdev()</span></code></a></p></td>
+<td><p><a class="reference internal" href="#pygeode.seasonalnanstdev" title="pygeode.seasonalnanstdev"><code class="xref py py-func docutils literal notranslate"><span class="pre">seasonalnanstdev()</span></code></a></p></td>
+<td><p><a class="reference internal" href="#pygeode.seasonalcount" title="pygeode.seasonalcount"><code class="xref py py-func docutils literal notranslate"><span class="pre">seasonalcount()</span></code></a></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pygeode.yearlymean" title="pygeode.yearlymean"><code class="xref py py-func docutils literal notranslate"><span class="pre">yearlymean()</span></code></a></td>
-<td><a class="reference internal" href="#pygeode.yearlynanmean" title="pygeode.yearlynanmean"><code class="xref py py-func docutils literal notranslate"><span class="pre">yearlynanmean()</span></code></a></td>
-<td><a class="reference internal" href="#pygeode.yearlystdev" title="pygeode.yearlystdev"><code class="xref py py-func docutils literal notranslate"><span class="pre">yearlystdev()</span></code></a></td>
-<td><a class="reference internal" href="#pygeode.yearlynanstdev" title="pygeode.yearlynanstdev"><code class="xref py py-func docutils literal notranslate"><span class="pre">yearlynanstdev()</span></code></a></td>
-<td><a class="reference internal" href="#pygeode.yearlycount" title="pygeode.yearlycount"><code class="xref py py-func docutils literal notranslate"><span class="pre">yearlycount()</span></code></a></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pygeode.yearlymean" title="pygeode.yearlymean"><code class="xref py py-func docutils literal notranslate"><span class="pre">yearlymean()</span></code></a></p></td>
+<td><p><a class="reference internal" href="#pygeode.yearlynanmean" title="pygeode.yearlynanmean"><code class="xref py py-func docutils literal notranslate"><span class="pre">yearlynanmean()</span></code></a></p></td>
+<td><p><a class="reference internal" href="#pygeode.yearlystdev" title="pygeode.yearlystdev"><code class="xref py py-func docutils literal notranslate"><span class="pre">yearlystdev()</span></code></a></p></td>
+<td><p><a class="reference internal" href="#pygeode.yearlynanstdev" title="pygeode.yearlynanstdev"><code class="xref py py-func docutils literal notranslate"><span class="pre">yearlynanstdev()</span></code></a></p></td>
+<td><p><a class="reference internal" href="#pygeode.yearlycount" title="pygeode.yearlycount"><code class="xref py py-func docutils literal notranslate"><span class="pre">yearlycount()</span></code></a></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="#pygeode.diurnalmean" title="pygeode.diurnalmean"><code class="xref py py-func docutils literal notranslate"><span class="pre">diurnalmean()</span></code></a></td>
-<td><a class="reference internal" href="#pygeode.diurnalnanmean" title="pygeode.diurnalnanmean"><code class="xref py py-func docutils literal notranslate"><span class="pre">diurnalnanmean()</span></code></a></td>
-<td><a class="reference internal" href="#pygeode.diurnalstdev" title="pygeode.diurnalstdev"><code class="xref py py-func docutils literal notranslate"><span class="pre">diurnalstdev()</span></code></a></td>
-<td><a class="reference internal" href="#pygeode.diurnalnanstdev" title="pygeode.diurnalnanstdev"><code class="xref py py-func docutils literal notranslate"><span class="pre">diurnalnanstdev()</span></code></a></td>
-<td><a class="reference internal" href="#pygeode.diurnalcount" title="pygeode.diurnalcount"><code class="xref py py-func docutils literal notranslate"><span class="pre">diurnalcount()</span></code></a></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#pygeode.diurnalmean" title="pygeode.diurnalmean"><code class="xref py py-func docutils literal notranslate"><span class="pre">diurnalmean()</span></code></a></p></td>
+<td><p><a class="reference internal" href="#pygeode.diurnalnanmean" title="pygeode.diurnalnanmean"><code class="xref py py-func docutils literal notranslate"><span class="pre">diurnalnanmean()</span></code></a></p></td>
+<td><p><a class="reference internal" href="#pygeode.diurnalstdev" title="pygeode.diurnalstdev"><code class="xref py py-func docutils literal notranslate"><span class="pre">diurnalstdev()</span></code></a></p></td>
+<td><p><a class="reference internal" href="#pygeode.diurnalnanstdev" title="pygeode.diurnalnanstdev"><code class="xref py py-func docutils literal notranslate"><span class="pre">diurnalnanstdev()</span></code></a></p></td>
+<td><p><a class="reference internal" href="#pygeode.diurnalcount" title="pygeode.diurnalcount"><code class="xref py py-func docutils literal notranslate"><span class="pre">diurnalcount()</span></code></a></p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="#pygeode.climatology" title="pygeode.climatology"><code class="xref py py-func docutils literal notranslate"><span class="pre">climatology()</span></code></a></td>
-<td><a class="reference internal" href="#pygeode.nanclimatology" title="pygeode.nanclimatology"><code class="xref py py-func docutils literal notranslate"><span class="pre">nanclimatology()</span></code></a></td>
-<td><a class="reference internal" href="#pygeode.climstdev" title="pygeode.climstdev"><code class="xref py py-func docutils literal notranslate"><span class="pre">climstdev()</span></code></a></td>
-<td><a class="reference internal" href="#pygeode.climnanstdev" title="pygeode.climnanstdev"><code class="xref py py-func docutils literal notranslate"><span class="pre">climnanstdev()</span></code></a></td>
-<td><a class="reference internal" href="#pygeode.climcount" title="pygeode.climcount"><code class="xref py py-func docutils literal notranslate"><span class="pre">climcount()</span></code></a></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#pygeode.climatology" title="pygeode.climatology"><code class="xref py py-func docutils literal notranslate"><span class="pre">climatology()</span></code></a></p></td>
+<td><p><a class="reference internal" href="#pygeode.nanclimatology" title="pygeode.nanclimatology"><code class="xref py py-func docutils literal notranslate"><span class="pre">nanclimatology()</span></code></a></p></td>
+<td><p><a class="reference internal" href="#pygeode.climstdev" title="pygeode.climstdev"><code class="xref py py-func docutils literal notranslate"><span class="pre">climstdev()</span></code></a></p></td>
+<td><p><a class="reference internal" href="#pygeode.climnanstdev" title="pygeode.climnanstdev"><code class="xref py py-func docutils literal notranslate"><span class="pre">climnanstdev()</span></code></a></p></td>
+<td><p><a class="reference internal" href="#pygeode.climcount" title="pygeode.climcount"><code class="xref py py-func docutils literal notranslate"><span class="pre">climcount()</span></code></a></p></td>
 </tr>
 </tbody>
 </table>
-<dl class="function">
-<dt id="pygeode.climatology">
-<code class="descclassname">pygeode.</code><code class="descname">climatology</code><span class="sig-paren">(</span><em>var</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#climatology"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.climatology" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pygeode.climatology">
+<span class="sig-prename descclassname"><span class="pre">pygeode.</span></span><span class="sig-name descname"><span class="pre">climatology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#climatology"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygeode.climatology" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes a climatological mean.  Averages over all years, returning a single
 value for each distinct month, day, hour, etc.</p>
 </dd></dl>
 
-<dl class="function">
-<dt id="pygeode.dailymean">
-<code class="descclassname">pygeode.</code><code class="descname">dailymean</code><span class="sig-paren">(</span><em>var</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#dailymean"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.dailymean" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pygeode.dailymean">
+<span class="sig-prename descclassname"><span class="pre">pygeode.</span></span><span class="sig-name descname"><span class="pre">dailymean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#dailymean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygeode.dailymean" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes an average value for each day.</p>
 </dd></dl>
 
-<dl class="function">
-<dt id="pygeode.monthlymean">
-<code class="descclassname">pygeode.</code><code class="descname">monthlymean</code><span class="sig-paren">(</span><em>var</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#monthlymean"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.monthlymean" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pygeode.monthlymean">
+<span class="sig-prename descclassname"><span class="pre">pygeode.</span></span><span class="sig-name descname"><span class="pre">monthlymean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#monthlymean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygeode.monthlymean" title="Permalink to this definition">¶</a></dt>
 <dd><p>Averages over each month.</p>
 </dd></dl>
 
-<dl class="function">
-<dt id="pygeode.seasonalmean">
-<code class="descclassname">pygeode.</code><code class="descname">seasonalmean</code><span class="sig-paren">(</span><em>var</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#seasonalmean"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.seasonalmean" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pygeode.seasonalmean">
+<span class="sig-prename descclassname"><span class="pre">pygeode.</span></span><span class="sig-name descname"><span class="pre">seasonalmean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#seasonalmean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygeode.seasonalmean" title="Permalink to this definition">¶</a></dt>
 <dd><p>Averages over each season.  Currently, the seasons are hard-coded as (DJF,
 MAM, JJA, SON).</p>
 </dd></dl>
 
-<dl class="function">
-<dt id="pygeode.yearlymean">
-<code class="descclassname">pygeode.</code><code class="descname">yearlymean</code><span class="sig-paren">(</span><em>var</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#yearlymean"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.yearlymean" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pygeode.yearlymean">
+<span class="sig-prename descclassname"><span class="pre">pygeode.</span></span><span class="sig-name descname"><span class="pre">yearlymean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#yearlymean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygeode.yearlymean" title="Permalink to this definition">¶</a></dt>
 <dd><p>Averages over each year.</p>
 </dd></dl>
 
-<dl class="function">
-<dt id="pygeode.diurnalmean">
-<code class="descclassname">pygeode.</code><code class="descname">diurnalmean</code><span class="sig-paren">(</span><em>var</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#diurnalmean"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.diurnalmean" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pygeode.diurnalmean">
+<span class="sig-prename descclassname"><span class="pre">pygeode.</span></span><span class="sig-name descname"><span class="pre">diurnalmean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#diurnalmean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygeode.diurnalmean" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes an average value for each time of day (averages over all years,
 months, days).</p>
 </dd></dl>
 
-<dl class="function">
-<dt id="pygeode.nanclimatology">
-<code class="descclassname">pygeode.</code><code class="descname">nanclimatology</code><span class="sig-paren">(</span><em>var</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#nanclimatology"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.nanclimatology" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pygeode.nanclimatology">
+<span class="sig-prename descclassname"><span class="pre">pygeode.</span></span><span class="sig-name descname"><span class="pre">nanclimatology</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#nanclimatology"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygeode.nanclimatology" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes a climatological nan-aware mean.  Averages over all years, returning a single
 value for each distinct month, day, hour, etc.</p>
 </dd></dl>
 
-<dl class="function">
-<dt id="pygeode.dailynanmean">
-<code class="descclassname">pygeode.</code><code class="descname">dailynanmean</code><span class="sig-paren">(</span><em>var</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#dailynanmean"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.dailynanmean" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pygeode.dailynanmean">
+<span class="sig-prename descclassname"><span class="pre">pygeode.</span></span><span class="sig-name descname"><span class="pre">dailynanmean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#dailynanmean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygeode.dailynanmean" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes a nan-aware average value for each day.</p>
 </dd></dl>
 
-<dl class="function">
-<dt id="pygeode.monthlynanmean">
-<code class="descclassname">pygeode.</code><code class="descname">monthlynanmean</code><span class="sig-paren">(</span><em>var</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#monthlynanmean"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.monthlynanmean" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pygeode.monthlynanmean">
+<span class="sig-prename descclassname"><span class="pre">pygeode.</span></span><span class="sig-name descname"><span class="pre">monthlynanmean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#monthlynanmean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygeode.monthlynanmean" title="Permalink to this definition">¶</a></dt>
 <dd><p>Nan-aware Averages over each month.</p>
 </dd></dl>
 
-<dl class="function">
-<dt id="pygeode.seasonalnanmean">
-<code class="descclassname">pygeode.</code><code class="descname">seasonalnanmean</code><span class="sig-paren">(</span><em>var</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#seasonalnanmean"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.seasonalnanmean" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pygeode.seasonalnanmean">
+<span class="sig-prename descclassname"><span class="pre">pygeode.</span></span><span class="sig-name descname"><span class="pre">seasonalnanmean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#seasonalnanmean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygeode.seasonalnanmean" title="Permalink to this definition">¶</a></dt>
 <dd><p>Nan-aware averages over each season.  Currently, the seasons are hard-coded as (DJF,
 MAM, JJA, SON).</p>
 </dd></dl>
 
-<dl class="function">
-<dt id="pygeode.yearlynanmean">
-<code class="descclassname">pygeode.</code><code class="descname">yearlynanmean</code><span class="sig-paren">(</span><em>var</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#yearlynanmean"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.yearlynanmean" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pygeode.yearlynanmean">
+<span class="sig-prename descclassname"><span class="pre">pygeode.</span></span><span class="sig-name descname"><span class="pre">yearlynanmean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#yearlynanmean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygeode.yearlynanmean" title="Permalink to this definition">¶</a></dt>
 <dd><p>Nan-aware Averages over each year.</p>
 </dd></dl>
 
-<dl class="function">
-<dt id="pygeode.diurnalnanmean">
-<code class="descclassname">pygeode.</code><code class="descname">diurnalnanmean</code><span class="sig-paren">(</span><em>var</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#diurnalnanmean"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.diurnalnanmean" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pygeode.diurnalnanmean">
+<span class="sig-prename descclassname"><span class="pre">pygeode.</span></span><span class="sig-name descname"><span class="pre">diurnalnanmean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#diurnalnanmean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygeode.diurnalnanmean" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes a nan-aware average value for each time of day (averages over all years,
 months, days).</p>
 </dd></dl>
 
-<dl class="function">
-<dt id="pygeode.climstdev">
-<code class="descclassname">pygeode.</code><code class="descname">climstdev</code><span class="sig-paren">(</span><em>var</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#climstdev"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.climstdev" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pygeode.climstdev">
+<span class="sig-prename descclassname"><span class="pre">pygeode.</span></span><span class="sig-name descname"><span class="pre">climstdev</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#climstdev"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygeode.climstdev" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes a climatological standard deviation. Computes standard deviation over all years,
 returning a single value for each distinct month, day, hour, etc.</p>
 </dd></dl>
 
-<dl class="function">
-<dt id="pygeode.dailystdev">
-<code class="descclassname">pygeode.</code><code class="descname">dailystdev</code><span class="sig-paren">(</span><em>var</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#dailystdev"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.dailystdev" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pygeode.dailystdev">
+<span class="sig-prename descclassname"><span class="pre">pygeode.</span></span><span class="sig-name descname"><span class="pre">dailystdev</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#dailystdev"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygeode.dailystdev" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes daily standard deviation.</p>
 </dd></dl>
 
-<dl class="function">
-<dt id="pygeode.monthlystdev">
-<code class="descclassname">pygeode.</code><code class="descname">monthlystdev</code><span class="sig-paren">(</span><em>var</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#monthlystdev"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.monthlystdev" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pygeode.monthlystdev">
+<span class="sig-prename descclassname"><span class="pre">pygeode.</span></span><span class="sig-name descname"><span class="pre">monthlystdev</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#monthlystdev"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygeode.monthlystdev" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes monthly standard deviation.</p>
 </dd></dl>
 
-<dl class="function">
-<dt id="pygeode.seasonalstdev">
-<code class="descclassname">pygeode.</code><code class="descname">seasonalstdev</code><span class="sig-paren">(</span><em>var</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#seasonalstdev"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.seasonalstdev" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pygeode.seasonalstdev">
+<span class="sig-prename descclassname"><span class="pre">pygeode.</span></span><span class="sig-name descname"><span class="pre">seasonalstdev</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#seasonalstdev"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygeode.seasonalstdev" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes seasonal standard deviation.</p>
 </dd></dl>
 
-<dl class="function">
-<dt id="pygeode.yearlystdev">
-<code class="descclassname">pygeode.</code><code class="descname">yearlystdev</code><span class="sig-paren">(</span><em>var</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#yearlystdev"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.yearlystdev" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pygeode.yearlystdev">
+<span class="sig-prename descclassname"><span class="pre">pygeode.</span></span><span class="sig-name descname"><span class="pre">yearlystdev</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#yearlystdev"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygeode.yearlystdev" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes yearly standard deviation.</p>
 </dd></dl>
 
-<dl class="function">
-<dt id="pygeode.diurnalstdev">
-<code class="descclassname">pygeode.</code><code class="descname">diurnalstdev</code><span class="sig-paren">(</span><em>var</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#diurnalstdev"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.diurnalstdev" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pygeode.diurnalstdev">
+<span class="sig-prename descclassname"><span class="pre">pygeode.</span></span><span class="sig-name descname"><span class="pre">diurnalstdev</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#diurnalstdev"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygeode.diurnalstdev" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes diurnal standard deviation.</p>
 </dd></dl>
 
-<dl class="function">
-<dt id="pygeode.climnanstdev">
-<code class="descclassname">pygeode.</code><code class="descname">climnanstdev</code><span class="sig-paren">(</span><em>var</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#climnanstdev"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.climnanstdev" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pygeode.climnanstdev">
+<span class="sig-prename descclassname"><span class="pre">pygeode.</span></span><span class="sig-name descname"><span class="pre">climnanstdev</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#climnanstdev"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygeode.climnanstdev" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes nan-aware climatological standard deviation.</p>
 </dd></dl>
 
-<dl class="function">
-<dt id="pygeode.dailynanstdev">
-<code class="descclassname">pygeode.</code><code class="descname">dailynanstdev</code><span class="sig-paren">(</span><em>var</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#dailynanstdev"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.dailynanstdev" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pygeode.dailynanstdev">
+<span class="sig-prename descclassname"><span class="pre">pygeode.</span></span><span class="sig-name descname"><span class="pre">dailynanstdev</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#dailynanstdev"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygeode.dailynanstdev" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes nan-aware daily standard deviation.</p>
 </dd></dl>
 
-<dl class="function">
-<dt id="pygeode.monthlynanstdev">
-<code class="descclassname">pygeode.</code><code class="descname">monthlynanstdev</code><span class="sig-paren">(</span><em>var</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#monthlynanstdev"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.monthlynanstdev" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pygeode.monthlynanstdev">
+<span class="sig-prename descclassname"><span class="pre">pygeode.</span></span><span class="sig-name descname"><span class="pre">monthlynanstdev</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#monthlynanstdev"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygeode.monthlynanstdev" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes nan-aware monthly standard deviation.</p>
 </dd></dl>
 
-<dl class="function">
-<dt id="pygeode.seasonalnanstdev">
-<code class="descclassname">pygeode.</code><code class="descname">seasonalnanstdev</code><span class="sig-paren">(</span><em>var</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#seasonalnanstdev"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.seasonalnanstdev" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pygeode.seasonalnanstdev">
+<span class="sig-prename descclassname"><span class="pre">pygeode.</span></span><span class="sig-name descname"><span class="pre">seasonalnanstdev</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#seasonalnanstdev"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygeode.seasonalnanstdev" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes nan-aware seasonal standard deviation.</p>
 </dd></dl>
 
-<dl class="function">
-<dt id="pygeode.yearlynanstdev">
-<code class="descclassname">pygeode.</code><code class="descname">yearlynanstdev</code><span class="sig-paren">(</span><em>var</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#yearlynanstdev"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.yearlynanstdev" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pygeode.yearlynanstdev">
+<span class="sig-prename descclassname"><span class="pre">pygeode.</span></span><span class="sig-name descname"><span class="pre">yearlynanstdev</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#yearlynanstdev"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygeode.yearlynanstdev" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes nan-aware yearly standard deviation.</p>
 </dd></dl>
 
-<dl class="function">
-<dt id="pygeode.diurnalnanstdev">
-<code class="descclassname">pygeode.</code><code class="descname">diurnalnanstdev</code><span class="sig-paren">(</span><em>var</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#diurnalnanstdev"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.diurnalnanstdev" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pygeode.diurnalnanstdev">
+<span class="sig-prename descclassname"><span class="pre">pygeode.</span></span><span class="sig-name descname"><span class="pre">diurnalnanstdev</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#diurnalnanstdev"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygeode.diurnalnanstdev" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes nan-aware diurnal standard deviation.</p>
 </dd></dl>
 
-<dl class="function">
-<dt id="pygeode.climcount">
-<code class="descclassname">pygeode.</code><code class="descname">climcount</code><span class="sig-paren">(</span><em>var</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#climcount"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.climcount" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pygeode.climcount">
+<span class="sig-prename descclassname"><span class="pre">pygeode.</span></span><span class="sig-name descname"><span class="pre">climcount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#climcount"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygeode.climcount" title="Permalink to this definition">¶</a></dt>
 <dd><p>Counts number of non-nan data points contributing to climatology.</p>
 </dd></dl>
 
-<dl class="function">
-<dt id="pygeode.dailycount">
-<code class="descclassname">pygeode.</code><code class="descname">dailycount</code><span class="sig-paren">(</span><em>var</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#dailycount"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.dailycount" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pygeode.dailycount">
+<span class="sig-prename descclassname"><span class="pre">pygeode.</span></span><span class="sig-name descname"><span class="pre">dailycount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#dailycount"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygeode.dailycount" title="Permalink to this definition">¶</a></dt>
 <dd><p>Counts number of non-nan data points contributing to daily mean.</p>
 </dd></dl>
 
-<dl class="function">
-<dt id="pygeode.monthlycount">
-<code class="descclassname">pygeode.</code><code class="descname">monthlycount</code><span class="sig-paren">(</span><em>var</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#monthlycount"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.monthlycount" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pygeode.monthlycount">
+<span class="sig-prename descclassname"><span class="pre">pygeode.</span></span><span class="sig-name descname"><span class="pre">monthlycount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#monthlycount"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygeode.monthlycount" title="Permalink to this definition">¶</a></dt>
 <dd><p>Counts number of non-nan data points contributing to monthly mean.</p>
 </dd></dl>
 
-<dl class="function">
-<dt id="pygeode.seasonalcount">
-<code class="descclassname">pygeode.</code><code class="descname">seasonalcount</code><span class="sig-paren">(</span><em>var</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#seasonalcount"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.seasonalcount" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pygeode.seasonalcount">
+<span class="sig-prename descclassname"><span class="pre">pygeode.</span></span><span class="sig-name descname"><span class="pre">seasonalcount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#seasonalcount"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygeode.seasonalcount" title="Permalink to this definition">¶</a></dt>
 <dd><p>Counts number of non-nan data points contributing to seasonal mean.</p>
 </dd></dl>
 
-<dl class="function">
-<dt id="pygeode.yearlycount">
-<code class="descclassname">pygeode.</code><code class="descname">yearlycount</code><span class="sig-paren">(</span><em>var</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#yearlycount"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.yearlycount" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pygeode.yearlycount">
+<span class="sig-prename descclassname"><span class="pre">pygeode.</span></span><span class="sig-name descname"><span class="pre">yearlycount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#yearlycount"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygeode.yearlycount" title="Permalink to this definition">¶</a></dt>
 <dd><p>Counts number of non-nan data points contributing to yearly mean.</p>
 </dd></dl>
 
-<dl class="function">
-<dt id="pygeode.diurnalcount">
-<code class="descclassname">pygeode.</code><code class="descname">diurnalcount</code><span class="sig-paren">(</span><em>var</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#diurnalcount"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.diurnalcount" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pygeode.diurnalcount">
+<span class="sig-prename descclassname"><span class="pre">pygeode.</span></span><span class="sig-name descname"><span class="pre">diurnalcount</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#diurnalcount"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygeode.diurnalcount" title="Permalink to this definition">¶</a></dt>
 <dd><p>Counts number of non-nan data points contributing to diurnal mean.</p>
 </dd></dl>
 
-<dl class="function">
-<dt id="pygeode.climtrend">
-<code class="descclassname">pygeode.</code><code class="descname">climtrend</code><span class="sig-paren">(</span><em>var</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#climtrend"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.climtrend" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pygeode.climtrend">
+<span class="sig-prename descclassname"><span class="pre">pygeode.</span></span><span class="sig-name descname"><span class="pre">climtrend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#climtrend"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygeode.climtrend" title="Permalink to this definition">¶</a></dt>
 <dd><p>For each month, day, hour, etc., compute a least-squares fit to a linear trend
 over all years.  This is similar to the climatology, but instead of averaging
 over all years, it computes the rate of change over all years.</p>
 </dd></dl>
 
-<dl class="function">
-<dt id="pygeode.from_trend">
-<code class="descclassname">pygeode.</code><code class="descname">from_trend</code><span class="sig-paren">(</span><em>taxis</em>, <em>coef=None</em>, <em>A=None</em>, <em>B=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#from_trend"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.from_trend" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pygeode.from_trend">
+<span class="sig-prename descclassname"><span class="pre">pygeode.</span></span><span class="sig-name descname"><span class="pre">from_trend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">taxis</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coef</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">A</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">B</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#from_trend"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygeode.from_trend" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reconstructs linear timeseries from a given trend.</p>
 </dd></dl>
 
-<span class="target" id="module-pygeode.climat"></span><dl class="function">
-<dt id="pygeode.climat.detrend">
-<code class="descclassname">pygeode.climat.</code><code class="descname">detrend</code><span class="sig-paren">(</span><em>var</em>, <em>taxis=&lt;class 'pygeode.timeaxis.Time'&gt;</em>, <em>return_clim=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#detrend"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.climat.detrend" title="Permalink to this definition">¶</a></dt>
+<span class="target" id="module-pygeode.climat"></span><dl class="py function">
+<dt class="sig sig-object py" id="pygeode.climat.detrend">
+<span class="sig-prename descclassname"><span class="pre">pygeode.climat.</span></span><span class="sig-name descname"><span class="pre">detrend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">taxis=&lt;class</span> <span class="pre">'pygeode.timeaxis.Time'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_clim=False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/climat.html#detrend"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygeode.climat.detrend" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </div>
@@ -331,8 +334,8 @@ over all years, it computes the rate of change over all years.</p>
       </div>
 
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2018, Mike Neish, Peter Hitchcock.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.
+        &#169; Copyright 2020, Mike Neish, Peter Hitchcock.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.3.2.
     </div>
   </body>
 </html>

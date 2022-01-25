@@ -1,21 +1,23 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Variable input and output &#8212; PyGeode 1.4.0 documentation</title>
-    <link rel="stylesheet" href="_static/pygtheme.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/gallery.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Variable input and output &#8212; PyGeode 1.4.1rc1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygtheme.css" />
+    <link rel="stylesheet" type="text/css" href="_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/pygeode_icon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Plotting" href="tut_plot.html" />
@@ -24,8 +26,9 @@
 <link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
 
   </head><body>
-      <div class="header" role="banner"><h1 class="heading"><a href="index.html">
-          <span>PyGeode 1.4.0 documentation</span></a></h1>
+      <div class="header" role="banner"><img class="logo" src="_static/pygeode_logo.png" width=79px alt="Logo"/>
+        <h1 class="heading"><a href="index.html">
+          <span>PyGeode 1.4.1rc1 documentation</span></a></h1>
         <h2 class="heading"><span>Variable input and output</span></h2>
       </div>
       <div class="topnav" role="navigation" aria-label="top navigation">
@@ -73,7 +76,7 @@ Started</span></a> section of the tutorial:</p>
 <span class="go">  lat &lt;Lat&gt;      :  90 S to 90 N (31 values)</span>
 <span class="go">  lon &lt;Lon&gt;      :  0 E to 354 E (60 values)</span>
 <span class="go">Global Attributes:</span>
-<span class="go">  {}</span>
+<span class="go">{}</span>
 </pre></div>
 </div>
 <p>As you can see, this returns a <a class="reference internal" href="dataset.html#pygeode.Dataset" title="pygeode.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a> object with the contents of the
@@ -150,11 +153,11 @@ metadata. In this case PyGeode will not be able to recognize what kind of
 <span class="go">  lat &lt;NamedAxis &#39;lat&#39;&gt;:  -90  to 90  (31 values)</span>
 <span class="go">  lon &lt;NamedAxis &#39;lon&#39;&gt;:  0  to 354  (60 values)</span>
 <span class="go">Global Attributes:</span>
-<span class="go">  {}</span>
+<span class="go">{}</span>
 
 
 <span class="gp">In [9]: </span><span class="n">pyg</span><span class="o">.</span><span class="n">showvar</span><span class="p">(</span><span class="n">ds2</span><span class="o">.</span><span class="n">Temp</span><span class="p">)</span>
-<span class="gh">Out[9]: </span><span class="go">&lt;pygeode.plot.wrappers.AxesWrapper at 0x7f2895f31ef0&gt;</span>
+<span class="gh">Out[9]: </span><span class="go">&lt;pygeode.plot.wrappers.AxesWrapper at 0x7f216380b310&gt;</span>
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="_images/t1Temp_nometadata.png"><img alt="_images/t1Temp_nometadata.png" src="_images/t1Temp_nometadata.png" style="width: 4in;" /></a>
@@ -177,7 +180,7 @@ associate with that dimension. This is perhaps best illustrated by example:</p>
 <span class="go">  lat &lt;Lat&gt;      :  90 S to 90 N (31 values)</span>
 <span class="go">  lon &lt;Lon&gt;      :  0 E to 354 E (60 values)</span>
 <span class="go">Global Attributes:</span>
-<span class="go">  {}</span>
+<span class="go">{}</span>
 </pre></div>
 </div>
 <p>We can see that now the <a class="reference internal" href="namedaxis.html#pygeode.NamedAxis" title="pygeode.NamedAxis"><code class="xref py py-class docutils literal notranslate"><span class="pre">NamedAxis</span></code></a> objects have been replaced by the
@@ -213,7 +216,7 @@ bit opaque):</p>
 <span class="go">  lat &lt;NamedAxis &#39;lat&#39;&gt;:  -90  to 90  (31 values)</span>
 <span class="go">  time &lt;StandardTime&gt;:  Jan 1, 2001 00:00:00 to Dec 21, 2001 00:00:00 (60 values)</span>
 <span class="go">Global Attributes:</span>
-<span class="go">  {}</span>
+<span class="go">{}</span>
 </pre></div>
 </div>
 <p>Here we have decided to treat the <code class="docutils literal notranslate"><span class="pre">lon</span></code> axis describing a time axis, but for
@@ -239,7 +242,7 @@ to simply rename variables and axes:</p>
 <span class="go">  lat &lt;Lat&gt;      :  90 S to 90 N (31 values)</span>
 <span class="go">  Longitude &lt;Lon&gt;:  0 E to 354 E (60 values)</span>
 <span class="go">Global Attributes:</span>
-<span class="go">  {}</span>
+<span class="go">{}</span>
 </pre></div>
 </div>
 <p>As you can see, the original axes names as defined in the file are still used to
@@ -300,7 +303,7 @@ the filenames:</p>
 datasets. The result is a single dataset object with 10 years of temperature data that
 you can use without worrying further about how the data is distributed on disk. The filenames
 can alternatively be specified as a list; in fact in this case PyGeode expands each item
-in the list if there are wildcards (using <a class="reference external" href="https://docs.python.org/3/library/glob.html#glob.glob" title="(in Python v3.8)"><code class="xref py py-func docutils literal notranslate"><span class="pre">glob.glob()</span></code></a>).</p>
+in the list if there are wildcards (using <a class="reference external" href="https://docs.python.org/3/library/glob.html#glob.glob" title="(in Python v3.10)"><code class="xref py py-func docutils literal notranslate"><span class="pre">glob.glob()</span></code></a>).</p>
 <p>The same arguments (<code class="docutils literal notranslate"><span class="pre">dimtypes</span></code> and <code class="docutils literal notranslate"><span class="pre">namemap</span></code>) apply; here we’ve renamed the
 variable <code class="docutils literal notranslate"><span class="pre">Temp</span></code> to <code class="docutils literal notranslate"><span class="pre">T</span></code>. In addition, if you need to do more sophisticated
 manipulations of the data in each file before PyGeode concatenates the
@@ -318,7 +321,7 @@ useful, for instance, for correcting issues in individual files:</p>
 <span class="gp">In [22]: </span><span class="n">ds</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">openall</span><span class="p">(</span><span class="s1">&#39;sample_data/temp_zm_*.nc&#39;</span><span class="p">,</span> <span class="n">opener</span><span class="o">=</span><span class="n">opener</span><span class="p">)</span>
 
 <span class="gp">In [23]: </span><span class="n">pyg</span><span class="o">.</span><span class="n">showvar</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">Temp</span><span class="p">(</span><span class="n">lat</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">pres</span><span class="o">=</span><span class="mi">500</span><span class="p">))</span>
-<span class="gh">Out[23]: </span><span class="go">&lt;pygeode.plot.wrappers.AxesWrapper at 0x7f2895d029b0&gt;</span>
+<span class="gh">Out[23]: </span><span class="go">&lt;pygeode.plot.wrappers.AxesWrapper at 0x7f2163435ac0&gt;</span>
 </pre></div>
 </div>
 <a class="reference internal image-reference" href="_images/t1Temp_modified.png"><img alt="_images/t1Temp_modified.png" src="_images/t1Temp_modified.png" style="width: 4in;" /></a>
@@ -339,7 +342,7 @@ the components of the date in the filename. For instance:</p>
 <span class="go">  pres &lt;Pres&gt;    :  1000 hPa to 50 hPa (20 values)</span>
 <span class="go">  lat &lt;Lat&gt;      :  90 S to 90 N (31 values)</span>
 <span class="go">Global Attributes:</span>
-<span class="go">  {}</span>
+<span class="go">{}</span>
 </pre></div>
 </div>
 <p>The regular expression matches the four digit year in the filenames in a way
@@ -357,7 +360,7 @@ how Python regular expressions work:</p>
 <span class="go">  pres &lt;Pres&gt;    :  1000 hPa to 50 hPa (20 values)</span>
 <span class="go">  lat &lt;Lat&gt;      :  90 S to 90 N (31 values)</span>
 <span class="go">Global Attributes:</span>
-<span class="go">  {}</span>
+<span class="go">{}</span>
 </pre></div>
 </div>
 <p>Similar abbreviations exist for 2-digit month, day, hour, and minute fields
@@ -384,7 +387,7 @@ As a simple example,</p>
 <span class="go">  pres &lt;Pres&gt;    :  1000 hPa to 50 hPa (20 values)</span>
 <span class="go">  lat &lt;Lat&gt;      :  90 S to 90 N (31 values)</span>
 <span class="go">Global Attributes:</span>
-<span class="go">  {}</span>
+<span class="go">{}</span>
 </pre></div>
 </div>
 <p>Note that in the interests of speed, PyGeode only opens the first and last file
@@ -440,8 +443,8 @@ disk.</p>
       </div>
 
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2018, Mike Neish, Peter Hitchcock.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.
+        &#169; Copyright 2020, Mike Neish, Peter Hitchcock.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.3.2.
     </div>
   </body>
 </html>

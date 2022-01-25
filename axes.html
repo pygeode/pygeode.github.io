@@ -1,21 +1,23 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Axis class overview &#8212; PyGeode 1.4.0 documentation</title>
-    <link rel="stylesheet" href="_static/pygtheme.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/gallery.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Axis class overview &#8212; PyGeode 1.4.1rc1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygtheme.css" />
+    <link rel="stylesheet" type="text/css" href="_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/pygeode_icon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Axis class reference" href="axis.html" />
@@ -24,8 +26,9 @@
 <link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
 
   </head><body>
-      <div class="header" role="banner"><h1 class="heading"><a href="index.html">
-          <span>PyGeode 1.4.0 documentation</span></a></h1>
+      <div class="header" role="banner"><img class="logo" src="_static/pygeode_logo.png" width=79px alt="Logo"/>
+        <h1 class="heading"><a href="index.html">
+          <span>PyGeode 1.4.1rc1 documentation</span></a></h1>
         <h2 class="heading"><span>Axis class overview</span></h2>
       </div>
       <div class="topnav" role="navigation" aria-label="top navigation">
@@ -58,44 +61,44 @@ are typically used to represent a dimension of a particular type.</p>
 <div class="section" id="types-of-axes">
 <h2>Types of axes<a class="headerlink" href="#types-of-axes" title="Permalink to this headline">¶</a></h2>
 <p>The following is a (non-exhaustive) list of more commonly used axes built into PyGeode:</p>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="namedaxis.html#pygeode.NamedAxis" title="pygeode.NamedAxis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NamedAxis</span></code></a></td>
-<td>Generic axis object identified by its name.</td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="namedaxis.html#pygeode.NamedAxis" title="pygeode.NamedAxis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NamedAxis</span></code></a></p></td>
+<td><p>Generic axis object identified by its name.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="horizontalaxes.html#pygeode.Lon" title="pygeode.Lon"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Lon</span></code></a></td>
-<td>Longitude axis.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="horizontalaxes.html#pygeode.Lon" title="pygeode.Lon"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Lon</span></code></a></p></td>
+<td><p>Longitude axis.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="horizontalaxes.html#pygeode.Lat" title="pygeode.Lat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Lat</span></code></a></td>
-<td>Latitude axis.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="horizontalaxes.html#pygeode.Lat" title="pygeode.Lat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Lat</span></code></a></p></td>
+<td><p>Latitude axis.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="verticalaxes.html#pygeode.Height" title="pygeode.Height"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Height</span></code></a></td>
-<td>Geometric height axis.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="verticalaxes.html#pygeode.Height" title="pygeode.Height"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Height</span></code></a></p></td>
+<td><p>Geometric height axis.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="verticalaxes.html#pygeode.Pres" title="pygeode.Pres"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pres</span></code></a></td>
-<td>Pressure height axis.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="verticalaxes.html#pygeode.Pres" title="pygeode.Pres"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Pres</span></code></a></p></td>
+<td><p>Pressure height axis.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="verticalaxes.html#pygeode.Hybrid" title="pygeode.Hybrid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Hybrid</span></code></a></td>
-<td>Hybridized vertical coordinate axis.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="verticalaxes.html#pygeode.Hybrid" title="pygeode.Hybrid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Hybrid</span></code></a></p></td>
+<td><p>Hybridized vertical coordinate axis.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="timeaxes.html#pygeode.StandardTime" title="pygeode.StandardTime"><code class="xref py py-obj docutils literal notranslate"><span class="pre">StandardTime</span></code></a></td>
-<td>Time axis describing the standard Gregorian calendar.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="timeaxes.html#pygeode.StandardTime" title="pygeode.StandardTime"><code class="xref py py-obj docutils literal notranslate"><span class="pre">StandardTime</span></code></a></p></td>
+<td><p>Time axis describing the standard Gregorian calendar.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="timeaxes.html#pygeode.ModelTime365" title="pygeode.ModelTime365"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ModelTime365</span></code></a></td>
-<td>Time axis describing a model 365-day calendar.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="timeaxes.html#pygeode.ModelTime365" title="pygeode.ModelTime365"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ModelTime365</span></code></a></p></td>
+<td><p>Time axis describing a model 365-day calendar.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="timeaxes.html#pygeode.ModelTime360" title="pygeode.ModelTime360"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ModelTime360</span></code></a></td>
-<td>Time axis describing a model 360-day calendar.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="timeaxes.html#pygeode.ModelTime360" title="pygeode.ModelTime360"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ModelTime360</span></code></a></p></td>
+<td><p>Time axis describing a model 360-day calendar.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="timeaxes.html#pygeode.Yearless" title="pygeode.Yearless"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Yearless</span></code></a></td>
-<td>Time axis describing a calendar with no months or years.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="timeaxes.html#pygeode.Yearless" title="pygeode.Yearless"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Yearless</span></code></a></p></td>
+<td><p>Time axis describing a calendar with no months or years.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="namedaxis.html#pygeode.NonCoordinateAxis" title="pygeode.NonCoordinateAxis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NonCoordinateAxis</span></code></a></td>
-<td>Non-coordinate axis (disables nearest-neighbour value matching, etc.)</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="namedaxis.html#pygeode.NonCoordinateAxis" title="pygeode.NonCoordinateAxis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NonCoordinateAxis</span></code></a></p></td>
+<td><p>Non-coordinate axis (disables nearest-neighbour value matching, etc.)</p></td>
 </tr>
 </tbody>
 </table>
@@ -106,97 +109,97 @@ define your own <a class="reference internal" href="#axis-custom"><span class="s
 through <a class="reference internal" href="varops.html#pygeode.Var.replace_axes" title="pygeode.Var.replace_axes"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Var.replace_axes()</span></code></a> or when importing from a data file.</p>
 <p>In addition to the members listed below, <a class="reference internal" href="#pygeode.Axis" title="pygeode.Axis"><code class="xref py py-class docutils literal notranslate"><span class="pre">Axis</span></code></a> objects inherit methods from
 the <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a> class; see <a class="reference internal" href="var.html"><span class="doc">Var class overview</span></a> for this functionality.</p>
-<dl class="class">
-<dt id="pygeode.Axis">
-<em class="property">class </em><code class="descclassname">pygeode.</code><code class="descname">Axis</code><a class="reference internal" href="_modules/pygeode/axis.html#Axis"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.Axis" title="Permalink to this definition">¶</a></dt>
+<dl class="py class">
+<dt class="sig sig-object py" id="pygeode.Axis">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pygeode.</span></span><span class="sig-name descname"><span class="pre">Axis</span></span><a class="reference internal" href="_modules/pygeode/axis.html#Axis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygeode.Axis" title="Permalink to this definition">¶</a></dt>
 <dd><p>Inherits from <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a></p>
 <p class="rubric">Generic attributes</p>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="axis.html#pygeode.Axis.auxarrays" title="pygeode.Axis.auxarrays"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Axis.auxarrays</span></code></a></td>
-<td>Auxiliary arrays.</td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="axis.html#pygeode.Axis.auxarrays" title="pygeode.Axis.auxarrays"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Axis.auxarrays</span></code></a></p></td>
+<td><p>Auxiliary arrays.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="axis.html#pygeode.Axis.auxatts" title="pygeode.Axis.auxatts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Axis.auxatts</span></code></a></td>
-<td>Auxiliary attributes.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="axis.html#pygeode.Axis.auxatts" title="pygeode.Axis.auxatts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Axis.auxatts</span></code></a></p></td>
+<td><p>Auxiliary attributes.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="axis.html#pygeode.Axis.rtol" title="pygeode.Axis.rtol"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Axis.rtol</span></code></a></td>
-<td>The relative tolerance for identifying an element of this axis.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="axis.html#pygeode.Axis.rtol" title="pygeode.Axis.rtol"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Axis.rtol</span></code></a></p></td>
+<td><p>The relative tolerance for identifying an element of this axis.</p></td>
 </tr>
 </tbody>
 </table>
 <p class="rubric">Generic Axis methods</p>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="axis.html#pygeode.Axis.__init__" title="pygeode.Axis.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Axis.__init__</span></code></a>(values[,&nbsp;name,&nbsp;atts,&nbsp;…])</td>
-<td>Create a new Axis object with the given values.</td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="axis.html#pygeode.Axis.__init__" title="pygeode.Axis.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Axis.__init__</span></code></a>(values[, name, atts, ...])</p></td>
+<td><p>Create a new Axis object with the given values.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="axis.html#pygeode.Axis.argsort" title="pygeode.Axis.argsort"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Axis.argsort</span></code></a>([reverse])</td>
-<td>Generates a list of indices that would sort the Axis.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="axis.html#pygeode.Axis.argsort" title="pygeode.Axis.argsort"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Axis.argsort</span></code></a>([reverse])</p></td>
+<td><p>Generates a list of indices that would sort the Axis.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="axis.html#pygeode.Axis.auxasvar" title="pygeode.Axis.auxasvar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Axis.auxasvar</span></code></a>(name)</td>
-<td>Returns auxiliary array as a new <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a> object.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="axis.html#pygeode.Axis.auxasvar" title="pygeode.Axis.auxasvar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Axis.auxasvar</span></code></a>(name)</p></td>
+<td><p>Returns auxiliary array as a new <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a> object.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="axis.html#pygeode.Axis.rename" title="pygeode.Axis.rename"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Axis.rename</span></code></a>(name)</td>
-<td>Assigns a new name to this axis.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="axis.html#pygeode.Axis.rename" title="pygeode.Axis.rename"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Axis.rename</span></code></a>(name)</p></td>
+<td><p>Assigns a new name to this axis.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="axis.html#pygeode.Axis.sorted" title="pygeode.Axis.sorted"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Axis.sorted</span></code></a>([reverse])</td>
-<td>Sorts the points of the Axis.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="axis.html#pygeode.Axis.sorted" title="pygeode.Axis.sorted"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Axis.sorted</span></code></a>([reverse])</p></td>
+<td><p>Sorts the points of the Axis.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="axis.html#pygeode.Axis.str_as_val" title="pygeode.Axis.str_as_val"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Axis.str_as_val</span></code></a>(key,&nbsp;s)</td>
-<td>str_as_val(self, key, s) - converts string s to a value corresponding to this axis.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="axis.html#pygeode.Axis.str_as_val" title="pygeode.Axis.str_as_val"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Axis.str_as_val</span></code></a>(key, s)</p></td>
+<td><p>str_as_val(self, key, s) - converts string s to a value corresponding to this axis.</p></td>
 </tr>
 </tbody>
 </table>
 <p class="rubric">Formatting and Plotting</p>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="axis.html#pygeode.Axis.formatstr" title="pygeode.Axis.formatstr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Axis.formatstr</span></code></a></td>
-<td>Format specification for plotting values.</td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="axis.html#pygeode.Axis.formatstr" title="pygeode.Axis.formatstr"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Axis.formatstr</span></code></a></p></td>
+<td><p>Format specification for plotting values.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="axis.html#pygeode.Axis.formatter" title="pygeode.Axis.formatter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Axis.formatter</span></code></a>()</td>
-<td>Returns a matplotlib formatter (pygeode.AxisFormatter) for use in plotting.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="axis.html#pygeode.Axis.formatter" title="pygeode.Axis.formatter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Axis.formatter</span></code></a>()</p></td>
+<td><p>Returns a matplotlib formatter (pygeode.AxisFormatter) for use in plotting.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="axis.html#pygeode.Axis.locator" title="pygeode.Axis.locator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Axis.locator</span></code></a>()</td>
-<td>Returns a matplotlib locator object for use in plotting.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="axis.html#pygeode.Axis.locator" title="pygeode.Axis.locator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Axis.locator</span></code></a>()</p></td>
+<td><p>Returns a matplotlib locator object for use in plotting.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="axis.html#pygeode.Axis.plotatts" title="pygeode.Axis.plotatts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Axis.plotatts</span></code></a></td>
-<td>Dictionary of attributes for plotting; see plotting documentation.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="axis.html#pygeode.Axis.plotatts" title="pygeode.Axis.plotatts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Axis.plotatts</span></code></a></p></td>
+<td><p>Dictionary of attributes for plotting; see plotting documentation.</p></td>
 </tr>
 </tbody>
 </table>
 <p class="rubric">Internal calls</p>
-<table border="1" class="longtable docutils">
+<table class="longtable docutils align-default">
 <colgroup>
-<col width="10%" />
-<col width="90%" />
+<col style="width: 10%" />
+<col style="width: 90%" />
 </colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="axis.html#pygeode.Axis.__call__" title="pygeode.Axis.__call__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Axis.__call__</span></code></a>(**kwargs)</td>
-<td>Keyword-based data subsetting.</td>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="axis.html#pygeode.Axis.__call__" title="pygeode.Axis.__call__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Axis.__call__</span></code></a>(**kwargs)</p></td>
+<td><p>Keyword-based data subsetting.</p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="axis.html#pygeode.Axis._getitem_asvar" title="pygeode.Axis._getitem_asvar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Axis._getitem_asvar</span></code></a>(slices)</td>
-<td>Slice-based data subsetting.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="axis.html#pygeode.Axis._getitem_asvar" title="pygeode.Axis._getitem_asvar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Axis._getitem_asvar</span></code></a>(slices)</p></td>
+<td><p>Slice-based data subsetting.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="axis.html#pygeode.Axis.class_has_alias" title="pygeode.Axis.class_has_alias"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Axis.class_has_alias</span></code></a>(name)</td>
-<td></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="axis.html#pygeode.Axis.class_has_alias" title="pygeode.Axis.class_has_alias"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Axis.class_has_alias</span></code></a>(name)</p></td>
+<td><p></p></td>
 </tr>
-<tr class="row-even"><td><a class="reference internal" href="axis.html#pygeode.Axis.isparentof" title="pygeode.Axis.isparentof"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Axis.isparentof</span></code></a>(other)</td>
-<td>Determines if an axis object is an instance of a base class (or the same class) of another axis.</td>
+<tr class="row-even"><td><p><a class="reference internal" href="axis.html#pygeode.Axis.isparentof" title="pygeode.Axis.isparentof"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Axis.isparentof</span></code></a>(other)</p></td>
+<td><p>Determines if an axis object is an instance of a base class (or the same class) of another axis.</p></td>
 </tr>
-<tr class="row-odd"><td><a class="reference internal" href="axis.html#pygeode.Axis.map_to" title="pygeode.Axis.map_to"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Axis.map_to</span></code></a>(other)</td>
-<td>Returns indices of this axis which correspond to the axis <code class="docutils literal notranslate"><span class="pre">other</span></code>.</td>
+<tr class="row-odd"><td><p><a class="reference internal" href="axis.html#pygeode.Axis.map_to" title="pygeode.Axis.map_to"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Axis.map_to</span></code></a>(other)</p></td>
+<td><p>Returns indices of this axis which correspond to the axis <code class="docutils literal notranslate"><span class="pre">other</span></code>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -207,19 +210,19 @@ the <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var
 <span id="axis-custom"></span><h2>Defining a new type of axis<a class="headerlink" href="#defining-a-new-type-of-axis" title="Permalink to this headline">¶</a></h2>
 <p>It’s impossible (or at least improbable) for the standard PyGeode package to include every possible type of axis that people may want.  However, it’s fairly straight-forward to define your own custom axis.  Simply define a new class, as a subclass of <a class="reference internal" href="#pygeode.Axis" title="pygeode.Axis"><code class="xref py py-class docutils literal notranslate"><span class="pre">Axis</span></code></a>.</p>
 <p>For example, suppose one of the dimensions of your data is solar zenith angle (SZA).  You can make a simple Axis representation as follows:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode</span> <span class="kn">import</span> <span class="n">Axis</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode</span> <span class="kn">import</span> <span class="n">Axis</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">SZA_Axis</span> <span class="p">(</span><span class="n">Axis</span><span class="p">):</span> <span class="k">pass</span>
 <span class="gp">...</span>
 </pre></div>
 </div>
 <p>You can now use it like any other axis:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sza</span> <span class="o">=</span> <span class="n">SZA_Axis</span> <span class="p">([</span><span class="mf">20.1</span><span class="p">,</span> <span class="mf">20.2</span><span class="p">,</span> <span class="mf">20.3</span><span class="p">,</span> <span class="mf">20.4</span><span class="p">,</span> <span class="mf">20.5</span><span class="p">])</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sza</span> <span class="o">=</span> <span class="n">SZA_Axis</span> <span class="p">([</span><span class="mf">20.1</span><span class="p">,</span> <span class="mf">20.2</span><span class="p">,</span> <span class="mf">20.3</span><span class="p">,</span> <span class="mf">20.4</span><span class="p">,</span> <span class="mf">20.5</span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">sza</span><span class="p">)</span>
 <span class="go">sza_axis &lt;SZA_Axis&gt;:  20.1  to 20.5  (5 values)</span>
 </pre></div>
 </div>
 <p>A more customized version:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">SZA_Axis</span> <span class="p">(</span><span class="n">Axis</span><span class="p">):</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">SZA_Axis</span> <span class="p">(</span><span class="n">Axis</span><span class="p">):</span>
 <span class="gp">... </span>  <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;sza&quot;</span>
 <span class="gp">... </span>  <span class="n">units</span> <span class="o">=</span> <span class="s2">&quot;degrees&quot;</span>
 <span class="gp">...</span>
@@ -232,11 +235,11 @@ the <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var
 <p>Aspects of customizing an axis:</p>
 <blockquote>
 <div><ul class="simple">
-<li>Defining its name</li>
-<li>Customize how values are formatted as strings</li>
-<li>Customize how strings are parsed into values</li>
-<li>Customize matplotlib formatting and tick positioning</li>
-<li>Customize CF-metadata encoding and decoding</li>
+<li><p>Defining its name</p></li>
+<li><p>Customize how values are formatted as strings</p></li>
+<li><p>Customize how strings are parsed into values</p></li>
+<li><p>Customize matplotlib formatting and tick positioning</p></li>
+<li><p>Customize CF-metadata encoding and decoding</p></li>
 </ul>
 </div></blockquote>
 <div class="toctree-wrapper compound">
@@ -263,8 +266,8 @@ the <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var
       </div>
 
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2018, Mike Neish, Peter Hitchcock.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.
+        &#169; Copyright 2020, Mike Neish, Peter Hitchcock.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.3.2.
     </div>
   </body>
 </html>

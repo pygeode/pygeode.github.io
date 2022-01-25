@@ -1,0 +1,184 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cartopy: Customizing map decoration &#8212; PyGeode 1.4.1rc1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygtheme.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/pygeode_icon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Cartopy: Test regional projections" href="plot_cartproj.html" />
+    <link rel="prev" title="Cartopy: Use Cartopy Features" href="plot_cartfeatures.html" />
+<link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
+
+  </head><body>
+      <div class="header" role="banner"><img class="logo" src="../../_static/pygeode_logo.png" width=79px alt="Logo"/>
+        <h1 class="heading"><a href="../../index.html">
+          <span>PyGeode 1.4.1rc1 documentation</span></a></h1>
+        <h2 class="heading"><span>Cartopy: Customizing map decoration</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        «&#160;&#160;<a href="plot_cartfeatures.html">Cartopy: Use Cartopy Features</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Gallery</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="plot_cartproj.html">Cartopy: Test regional projections</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p>Click <a class="reference internal" href="#sphx-glr-download-gallery-maps-plot-cartmapdecor-py"><span class="std std-ref">here</span></a>
+to download the full example code</p>
+</div>
+<div class="sphx-glr-example-title section" id="cartopy-customizing-map-decoration">
+<span id="sphx-glr-gallery-maps-plot-cartmapdecor-py"></span><h1>Cartopy: Customizing map decoration<a class="headerlink" href="#cartopy-customizing-map-decoration" title="Permalink to this headline">¶</a></h1>
+<p>When plotting data on a latitude-longitude grid, showvar
+will add some default components to a Cartopy map. These
+can be customized in several ways.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygeode</span> <span class="k">as</span> <span class="nn">pyg</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span><span class="o">,</span> <span class="nn">pylab</span> <span class="k">as</span> <span class="nn">pyl</span>
+<span class="kn">from</span> <span class="nn">cartopy</span> <span class="kn">import</span> <span class="n">crs</span> <span class="k">as</span> <span class="n">ccrs</span>
+<span class="kn">import</span> <span class="nn">cartopy</span>
+
+<span class="c1"># Construct latitude and longitude coordinate system</span>
+<span class="n">lat</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">gausslat</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span>
+<span class="n">lon</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">regularlon</span><span class="p">(</span><span class="mi">80</span><span class="p">,</span> <span class="n">origin</span><span class="o">=-</span><span class="mi">180</span><span class="p">,</span> <span class="n">repeat_origin</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Generate x and y components of a vector field on this coordinate system</span>
+<span class="n">T</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">4</span><span class="o">*</span><a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">np</span><span class="o">.</span><span class="n">pi</span></a> <span class="o">*</span> <span class="n">lon</span> <span class="o">/</span> <span class="mf">180.</span><span class="p">)</span> <span class="o">*</span> <span class="n">pyg</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">lat</span> <span class="o">-</span> <span class="mi">40</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">4</span><span class="o">*</span><span class="mi">10</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+<a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">T</span><span class="o">.</span><span class="n">plotatts</span></a><span class="p">[</span><span class="s1">&#39;plotname&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+<span class="n">pyl</span><span class="o">.</span><span class="n">ioff</span><span class="p">()</span>
+
+<span class="c1"># Simply calling showvar will produce a plot using the PlateCarree (cylindrical) projection</span>
+<span class="c1"># Set nozero to true to remove the zero contour</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">showvar</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">nozero</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+<span class="n">pyl</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<img src="../../_images/sphx_glr_plot_cartmapdecor_001.png" srcset="../../_images/sphx_glr_plot_cartmapdecor_001.png" alt="plot cartmapdecor" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 720x480 with 2 Axes&gt;
+</pre></div>
+</div>
+<p>To make this plot more interesting, lets use a Robinson projection.
+We create a ‘’map’’ dictionary with the name of the projection and any arguments
+(See the list of <a class="reference external" href="https://scitools.org.uk/cartopy/docs/latest/reference/crs.html#list-of-projections">projections</a> available).</p>
+<p>%%</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Turn off interactivity</span>
+<span class="n">pyl</span><span class="o">.</span><span class="n">ioff</span><span class="p">()</span>
+
+<span class="c1"># Build CartopyAxis for a Lambert Conformal projection</span>
+<a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">prj</span></a> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">central_longitude</span><span class="o">=-</span><span class="mf">90.</span><span class="p">)</span>
+<span class="nb">map</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">projection</span> <span class="o">=</span> <span class="s1">&#39;Robinson&#39;</span><span class="p">,</span> <span class="n">prj_args</span> <span class="o">=</span> <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">prj</span></a><span class="p">)</span>
+
+<span class="n">ax</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">showvar</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">nozero</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">map</span> <span class="o">=</span> <span class="nb">map</span><span class="p">)</span>
+
+<span class="n">pyl</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<img src="../../_images/sphx_glr_plot_cartmapdecor_002.png" srcset="../../_images/sphx_glr_plot_cartmapdecor_002.png" alt="plot cartmapdecor" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 720x480 with 2 Axes&gt;
+</pre></div>
+</div>
+<p>As of Cartopy v0.18, the default labeling of the latitude longitude gridlines
+is not very legible, so it is turned off for all projections except PlateCarree and Mercator.</p>
+<p>We can turn them back on using the ‘’map_decor’’ dictionary. This gives some direct
+control over the gridlines and coastlines. See <a class="reference external" href="https://scitools.org.uk/cartopy/docs/latest/reference/generated/cartopy.mpl.geoaxes.GeoAxes.html#cartopy.mpl.geoaxes.GeoAxes.gridlines" title="(in cartopy v0.20.0)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">cartopy.mpl.geoaxes.GeoAxes.gridlines()</span></code></a>
+and <a class="reference external" href="https://scitools.org.uk/cartopy/docs/latest/reference/generated/cartopy.mpl.geoaxes.GeoAxes.html#cartopy.mpl.geoaxes.GeoAxes.coastlines" title="(in cartopy v0.20.0)"><code class="xref py py-meth docutils literal notranslate"><span class="pre">cartopy.mpl.geoaxes.GeoAxes.coastlines()</span></code></a> for keyword arguments</p>
+<p>%%</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Choose custom grid labeling settings</span>
+<a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">gl</span></a> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;C0&#39;</span><span class="p">,</span> <span class="n">linestyle</span> <span class="o">=</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span> \
+          <span class="n">draw_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> \
+          <span class="n">x_inline</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">y_inline</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> \
+          <span class="n">top_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">bottom_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">left_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">right_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+          <span class="n">rotate_labels</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> \
+          <span class="n">xlocs</span> <span class="o">=</span> <span class="n">pyl</span><span class="o">.</span><span class="n">MultipleLocator</span><span class="p">(</span><span class="mi">30</span><span class="p">),</span> \
+          <span class="n">ylocs</span> <span class="o">=</span> <span class="n">pyl</span><span class="o">.</span><span class="n">MultipleLocator</span><span class="p">(</span><span class="mi">30</span><span class="p">))</span>
+
+<span class="c1"># Set resolution and line style of coastlines</span>
+<a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">cl</span></a> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">resolution</span><span class="o">=</span><span class="s1">&#39;110m&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;0.3&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">pyl</span><span class="o">.</span><span class="n">ioff</span><span class="p">()</span>
+
+<span class="c1"># Create a new plot.</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">showvar</span><span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">nozero</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="nb">map</span> <span class="o">=</span> <span class="nb">map</span><span class="p">,</span> <span class="n">mapdecor</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">gridlines</span> <span class="o">=</span> <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">gl</span></a><span class="p">,</span> <span class="n">coastlines</span> <span class="o">=</span> <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">cl</span></a><span class="p">))</span>
+
+<span class="c1"># Turn on matplotlib interactivity</span>
+<span class="n">pyl</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>
+
+<span class="c1"># Produce plot (and use this one for the gallery thumbnail)</span>
+<span class="c1"># sphinx_gallery_thumbnail_number = 3</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+<img src="../../_images/sphx_glr_plot_cartmapdecor_003.png" srcset="../../_images/sphx_glr_plot_cartmapdecor_003.png" alt="plot cartmapdecor" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 720x480 with 2 Axes&gt;
+</pre></div>
+</div>
+<p>This gallery shows how to modify the appearance of maps by passing in appropriate
+dictionaries to showvar; another option is to turn off automatic map decorations
+by passing in ‘’map_decor = False’’. See
+<span class="xref std std-doc">Add Cartopy Features</span> for an example.
+%%</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-maps-plot-cartmapdecor-py">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/b206b8b39d26d04a1b66baf633ed6eb8/plot_cartmapdecor.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_cartmapdecor.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/b2503cec68a2895d4c00115ed5f935d0/plot_cartmapdecor.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_cartmapdecor.ipynb</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</div>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        «&#160;&#160;<a href="plot_cartfeatures.html">Cartopy: Use Cartopy Features</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Gallery</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="plot_cartproj.html">Cartopy: Test regional projections</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Mike Neish, Peter Hitchcock.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.3.2.
+    </div>
+  </body>
+</html>

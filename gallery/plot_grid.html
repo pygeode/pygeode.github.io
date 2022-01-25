@@ -1,37 +1,40 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Stitch plots together into a grid &#8212; PyGeode 1.4.0 documentation</title>
-    <link rel="stylesheet" href="../_static/pygtheme.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/gallery.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
-    <script type="text/javascript" src="../_static/language_data.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stitch plots together into a grid &#8212; PyGeode 1.4.1rc1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygtheme.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sg_gallery-rendered-html.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../_static/pygeode_icon.ico"/>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Line plot" href="plot_line.html" />
-    <link rel="prev" title="Contour plot with hatches" href="plot_contour_hatches.html" />
+    <link rel="prev" title="Contour plot" href="plot_contour.html" />
 <link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
 
   </head><body>
-      <div class="header" role="banner"><h1 class="heading"><a href="../index.html">
-          <span>PyGeode 1.4.0 documentation</span></a></h1>
+      <div class="header" role="banner"><img class="logo" src="../_static/pygeode_logo.png" width=79px alt="Logo"/>
+        <h1 class="heading"><a href="../index.html">
+          <span>PyGeode 1.4.1rc1 documentation</span></a></h1>
         <h2 class="heading"><span>Stitch plots together into a grid</span></h2>
       </div>
       <div class="topnav" role="navigation" aria-label="top navigation">
       
         <p>
-        «&#160;&#160;<a href="plot_contour_hatches.html">Contour plot with hatches</a>
+        «&#160;&#160;<a href="plot_contour.html">Contour plot</a>
         &#160;&#160;::&#160;&#160;
         <a class="uplink" href="../reference.html">Reference</a>
         &#160;&#160;::&#160;&#160;
@@ -47,13 +50,20 @@
         
         
   <div class="sphx-glr-download-link-note admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Click <a class="reference internal" href="#sphx-glr-download-gallery-plot-grid-py"><span class="std std-ref">here</span></a> to download the full example code</p>
+<p class="admonition-title">Note</p>
+<p>Click <a class="reference internal" href="#sphx-glr-download-gallery-plot-grid-py"><span class="std std-ref">here</span></a>
+to download the full example code</p>
 </div>
 <div class="sphx-glr-example-title section" id="stitch-plots-together-into-a-grid">
 <span id="sphx-glr-gallery-plot-grid-py"></span><h1>Stitch plots together into a grid<a class="headerlink" href="#stitch-plots-together-into-a-grid" title="Permalink to this headline">¶</a></h1>
-<img alt="../_images/sphx_glr_plot_grid_001.png" class="sphx-glr-single-img" src="../_images/sphx_glr_plot_grid_001.png" />
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pylab</span> <span class="k">as</span> <span class="nn">pyl</span>
+<img src="../_images/sphx_glr_plot_grid_001.png" srcset="../_images/sphx_glr_plot_grid_001.png" alt="((Temp*cos(lat))*sin(lon)), May 10, 2012 00:00:00, 500 hPa" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 1280x480 with 2 Axes&gt;
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pylab</span> <span class="k">as</span> <span class="nn">pyl</span>
 <span class="n">pyl</span><span class="o">.</span><span class="n">ioff</span><span class="p">()</span>
 
 <span class="kn">import</span> <span class="nn">pygeode</span> <span class="k">as</span> <span class="nn">pyg</span>
@@ -62,15 +72,15 @@
 
 
 <span class="c1"># Generate some data for a scatter plot</span>
-<span class="n">N</span> <span class="o">=</span> <span class="mi">50</span>
-<span class="n">x_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="n">N</span><span class="p">)</span>
-<span class="n">colors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
-<span class="n">area</span> <span class="o">=</span> <span class="mi">1000</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">N</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="nb">abs</span><span class="p">(</span><span class="n">x_values</span><span class="p">))</span>
+<a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">N</span></a> <span class="o">=</span> <span class="mi">50</span>
+<a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">x_values</span></a> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.linspace.html#numpy.linspace" title="numpy.linspace" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">linspace</span></a><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">N</span></a><span class="p">)</span>
+<a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">colors</span></a> <span class="o">=</span> <a href="https://numpy.org/doc/stable/reference/random/generated/numpy.random.rand.html#numpy.random.rand" title="numpy.random.rand" class="sphx-glr-backref-module-numpy-random sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">N</span></a><span class="p">)</span>
+<a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">area</span></a> <span class="o">=</span> <span class="mi">1000</span> <span class="o">*</span> <a href="https://numpy.org/doc/stable/reference/random/generated/numpy.random.rand.html#numpy.random.rand" title="numpy.random.rand" class="sphx-glr-backref-module-numpy-random sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">N</span></a><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="nb">abs</span><span class="p">(</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">x_values</span></a><span class="p">))</span>
 
-<span class="n">x</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">NamedAxis</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="n">x_values</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">NamedAxis</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="n">x_values</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">N</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">NamedAxis</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">x_values</span></a><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;x&#39;</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">NamedAxis</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">x_values</span></a> <span class="o">+</span> <a href="https://numpy.org/doc/stable/reference/random/generated/numpy.random.rand.html#numpy.random.rand" title="numpy.random.rand" class="sphx-glr-backref-module-numpy-random sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/functions.html#int" title="builtins.int" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">N</span></a><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
 
-<span class="n">ax_scatter</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">vscatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">colors</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="n">area</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">ax_scatter</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">vscatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">colors</span></a><span class="p">,</span> <span class="n">s</span><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">area</span></a><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 
 <span class="c1"># Make a vcontour</span>
 <span class="n">ax_vcontour</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">vcontour</span><span class="p">(</span><span class="n">t2</span><span class="o">.</span><span class="n">Temp</span><span class="p">(</span><span class="n">pres</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">time</span><span class="o">=</span><span class="s1">&#39;10 May 2012&#39;</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">pyg</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">t2</span><span class="o">.</span><span class="n">lat</span><span class="p">))</span><span class="o">*</span><span class="n">pyg</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">t2</span><span class="o">.</span><span class="n">lon</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Oranges&#39;</span><span class="p">)</span>
@@ -83,12 +93,14 @@
 </pre></div>
 </div>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-plot-grid-py">
-<div class="sphx-glr-download docutils container">
-<a class="reference download internal" download="" href="../_downloads/0a2e92bf791169f5c3186732937b8bf2/plot_grid.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_grid.py</span></code></a></div>
-<div class="sphx-glr-download docutils container">
-<a class="reference download internal" download="" href="../_downloads/dbe2e05eeb028a12f5e902678575b44f/plot_grid.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_grid.ipynb</span></code></a></div>
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/846ff1ad94293da32d53ca413c79fd70/plot_grid.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_grid.py</span></code></a></p>
 </div>
-<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.readthedocs.io">Gallery generated by Sphinx-Gallery</a></p>
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/19c799e81433e0c3e6f0867caa99cacd/plot_grid.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_grid.ipynb</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
 </div>
 
 
@@ -96,7 +108,7 @@
       <div class="bottomnav" role="navigation" aria-label="bottom navigation">
       
         <p>
-        «&#160;&#160;<a href="plot_contour_hatches.html">Contour plot with hatches</a>
+        «&#160;&#160;<a href="plot_contour.html">Contour plot</a>
         &#160;&#160;::&#160;&#160;
         <a class="uplink" href="../reference.html">Reference</a>
         &#160;&#160;::&#160;&#160;
@@ -110,8 +122,8 @@
       </div>
 
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2018, Mike Neish, Peter Hitchcock.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.
+        &#169; Copyright 2020, Mike Neish, Peter Hitchcock.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.3.2.
     </div>
   </body>
 </html>

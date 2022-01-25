@@ -1,21 +1,24 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Stats module &#8212; PyGeode 1.4.0 documentation</title>
-    <link rel="stylesheet" href="_static/pygtheme.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/gallery.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stats module &#8212; PyGeode 1.4.1rc1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygtheme.css" />
+    <link rel="stylesheet" type="text/css" href="_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="shortcut icon" href="_static/pygeode_icon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="EOF Analysis" href="eof.html" />
@@ -24,8 +27,9 @@
 <link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
 
   </head><body>
-      <div class="header" role="banner"><h1 class="heading"><a href="index.html">
-          <span>PyGeode 1.4.0 documentation</span></a></h1>
+      <div class="header" role="banner"><img class="logo" src="_static/pygeode_logo.png" width=79px alt="Logo"/>
+        <h1 class="heading"><a href="index.html">
+          <span>PyGeode 1.4.1rc1 documentation</span></a></h1>
         <h2 class="heading"><span>Stats module</span></h2>
       </div>
       <div class="topnav" role="navigation" aria-label="top navigation">
@@ -48,50 +52,41 @@
         
   <div class="section" id="stats-module">
 <h1>Stats module<a class="headerlink" href="#stats-module" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
-<dt id="pygeode.correlate">
-<code class="descclassname">pygeode.</code><code class="descname">correlate</code><span class="sig-paren">(</span><em>X</em>, <em>Y</em>, <em>axes=None</em>, <em>output='r</em>, <em>p'</em>, <em>pbar=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/stats.html#correlate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.correlate" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pygeode.correlate">
+<span class="sig-prename descclassname"><span class="pre">pygeode.</span></span><span class="sig-name descname"><span class="pre">correlate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'r,p'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pbar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/stats.html#correlate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygeode.correlate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes Pearson correlation coefficient between variables X and Y.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
-<dt><strong>X, Y</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a></span></dt>
-<dd><p class="first last">Variables to correlate. Must have at least one axis in common.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>X, Y</strong><span class="classifier"><a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a></span></dt><dd><p>Variables to correlate. Must have at least one axis in common.</p>
 </dd>
-<dt><strong>axes</strong> <span class="classifier-delimiter">:</span> <span class="classifier">list, optional</span></dt>
-<dd><p class="first last">Axes over which to compute correlation; if nothing is specified, the correlation
+<dt><strong>axes</strong><span class="classifier">list, optional</span></dt><dd><p>Axes over which to compute correlation; if nothing is specified, the correlation
 is computed over all axes common to  shared by X and Y.</p>
 </dd>
-<dt><strong>output</strong> <span class="classifier-delimiter">:</span> <span class="classifier">string, optional</span></dt>
-<dd><p class="first last">A string determining which parameters are returned; see list of possible outputs
+<dt><strong>output</strong><span class="classifier">string, optional</span></dt><dd><p>A string determining which parameters are returned; see list of possible outputs
 in the Returns section. The specifications must be separated by a comma. Defaults
 to ‘r,p’.</p>
 </dd>
-<dt><strong>pbar</strong> <span class="classifier-delimiter">:</span> <span class="classifier">progress bar, optional</span></dt>
-<dd><p class="first last">A progress bar object. If nothing is provided, a progress bar will be displayed
+<dt><strong>pbar</strong><span class="classifier">progress bar, optional</span></dt><dd><p>A progress bar object. If nothing is provided, a progress bar will be displayed
 if the calculation takes sufficiently long.</p>
 </dd>
 </dl>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
-<dt><strong>results</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference internal" href="dataset.html#pygeode.Dataset" title="pygeode.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a></span></dt>
-<dd><p class="first">The names of the variables match the output request string (i.e. if <code class="docutils literal notranslate"><span class="pre">ds</span></code>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl>
+<dt><strong>results</strong><span class="classifier"><a class="reference internal" href="dataset.html#pygeode.Dataset" title="pygeode.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a></span></dt><dd><p>The names of the variables match the output request string (i.e. if <code class="docutils literal notranslate"><span class="pre">ds</span></code>
 is the returned dataset, the correlation coefficient can be obtained
 through <code class="docutils literal notranslate"><span class="pre">ds.r2</span></code>).</p>
-<ul class="last simple">
-<li>‘r’: The Pearson correlation coefficient <span class="math notranslate nohighlight">\(\rho_{XY}\)</span></li>
-<li>‘r2’: The coefficient of determination <span class="math notranslate nohighlight">\(\rho^2_{XY}\)</span></li>
-<li>‘p’:  The p-value; see notes.</li>
+<ul class="simple">
+<li><p>‘r’: The Pearson correlation coefficient <span class="math notranslate nohighlight">\(\rho_{XY}\)</span></p></li>
+<li><p>‘r2’: The coefficient of determination <span class="math notranslate nohighlight">\(\rho^2_{XY}\)</span></p></li>
+<li><p>‘p’:  The p-value; see notes.</p></li>
 </ul>
 </dd>
 </dl>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 <p class="rubric">Notes</p>
 <p>The coefficient <span class="math notranslate nohighlight">\(\rho_{XY}\)</span> is computed following von Storch and Zwiers
 1999, section 8.2.2. The p-value is the probability of finding a correlation
@@ -101,59 +96,49 @@ zero. It is computed from the t-statistic given in eq (8.7), in section
 8.2.3, and assumes normally distributed quantities.</p>
 </dd></dl>
 
-<dl class="function">
-<dt id="pygeode.regress">
-<code class="descclassname">pygeode.</code><code class="descname">regress</code><span class="sig-paren">(</span><em>X</em>, <em>Y</em>, <em>axes=None</em>, <em>N_fac=None</em>, <em>output='m</em>, <em>b</em>, <em>p'</em>, <em>pbar=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/stats.html#regress"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.regress" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pygeode.regress">
+<span class="sig-prename descclassname"><span class="pre">pygeode.</span></span><span class="sig-name descname"><span class="pre">regress</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N_fac</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'m,b,p'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pbar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/stats.html#regress"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygeode.regress" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes least-squares linear regression of Y against X.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
-<dt><strong>X, Y</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a></span></dt>
-<dd><p class="first last">Variables to regress. Must have at least one axis in common.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>X, Y</strong><span class="classifier"><a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a></span></dt><dd><p>Variables to regress. Must have at least one axis in common.</p>
 </dd>
-<dt><strong>axes</strong> <span class="classifier-delimiter">:</span> <span class="classifier">list, optional</span></dt>
-<dd><p class="first last">Axes over which to compute correlation; if nothing is specified, the correlation
+<dt><strong>axes</strong><span class="classifier">list, optional</span></dt><dd><p>Axes over which to compute correlation; if nothing is specified, the correlation
 is computed over all axes common to X and Y.</p>
 </dd>
-<dt><strong>N_fac</strong> <span class="classifier-delimiter">:</span> <span class="classifier">integer</span></dt>
-<dd><p class="first last">A factor by which to rescale the estimated number of degrees of freedom; the effective
+<dt><strong>N_fac</strong><span class="classifier">integer</span></dt><dd><p>A factor by which to rescale the estimated number of degrees of freedom; the effective
 number will be given by the number estimated from the dataset divided by <code class="docutils literal notranslate"><span class="pre">N_fac</span></code>.</p>
 </dd>
-<dt><strong>output</strong> <span class="classifier-delimiter">:</span> <span class="classifier">string, optional</span></dt>
-<dd><p class="first last">A string determining which parameters are returned; see list of possible outputs
+<dt><strong>output</strong><span class="classifier">string, optional</span></dt><dd><p>A string determining which parameters are returned; see list of possible outputs
 in the Returns section. The specifications must be separated by a comma. Defaults 
 to ‘m,b,p’.</p>
 </dd>
-<dt><strong>pbar</strong> <span class="classifier-delimiter">:</span> <span class="classifier">progress bar, optional</span></dt>
-<dd><p class="first last">A progress bar object. If nothing is provided, a progress bar will be displayed
+<dt><strong>pbar</strong><span class="classifier">progress bar, optional</span></dt><dd><p>A progress bar object. If nothing is provided, a progress bar will be displayed
 if the calculation takes sufficiently long.</p>
 </dd>
 </dl>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
-<dt><strong>results</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference internal" href="dataset.html#pygeode.Dataset" title="pygeode.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a></span></dt>
-<dd><p class="first">The returned variables are specified by the <code class="docutils literal notranslate"><span class="pre">output</span></code> argument. The names of the 
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl>
+<dt><strong>results</strong><span class="classifier"><a class="reference internal" href="dataset.html#pygeode.Dataset" title="pygeode.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a></span></dt><dd><p>The returned variables are specified by the <code class="docutils literal notranslate"><span class="pre">output</span></code> argument. The names of the 
 variables match the output request string (i.e. if <code class="docutils literal notranslate"><span class="pre">ds</span></code> is the returned dataset, the 
 linear coefficient of the regression can be obtained by <code class="docutils literal notranslate"><span class="pre">ds.m</span></code>).</p>
 <p>A fit of the form <span class="math notranslate nohighlight">\(Y = m X + b + \epsilon\)</span> is assumed, and the
 following parameters can be returned:</p>
-<ul class="last simple">
-<li>‘m’: Linear coefficient of the regression</li>
-<li>‘b’: Constant coefficient of the regression</li>
-<li>‘r2’: Fraction of the variance in Y explained by X (<span class="math notranslate nohighlight">\(R^2\)</span>)</li>
-<li>‘p’: Probability of this fit under null hypothesis that true linear coefficient is zero</li>
-<li>‘sm’: Standard deviation of linear coefficient estimate (<span class="math notranslate nohighlight">\(\hat{\sigma}_E/\sqrt{S_{XX}}\)</span>)</li>
-<li>‘se’: Standard deviation of residuals (<span class="math notranslate nohighlight">\(\hat{\sigma}_E\)</span>)</li>
+<ul class="simple">
+<li><p>‘m’: Linear coefficient of the regression</p></li>
+<li><p>‘b’: Constant coefficient of the regression</p></li>
+<li><p>‘r2’: Fraction of the variance in Y explained by X (<span class="math notranslate nohighlight">\(R^2\)</span>)</p></li>
+<li><p>‘p’: Probability of this fit under null hypothesis that true linear coefficient is zero</p></li>
+<li><p>‘sm’: Standard deviation of linear coefficient estimate (<span class="math notranslate nohighlight">\(\hat{\sigma}_E/\sqrt{S_{XX}}\)</span>)</p></li>
+<li><p>‘se’: Standard deviation of residuals (<span class="math notranslate nohighlight">\(\hat{\sigma}_E\)</span>)</p></li>
 </ul>
 </dd>
 </dl>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 <p class="rubric">Notes</p>
 <p>The statistics described are computed following von Storch and Zwiers 1999,
 section 8.3. The p-value ‘p’ is computed using the t-statistic given in
@@ -162,66 +147,55 @@ computed from ‘sm’ or ‘se’.  The data is assumed to be normally
 distributed.</p>
 </dd></dl>
 
-<dl class="function">
-<dt id="pygeode.multiple_regress">
-<code class="descclassname">pygeode.</code><code class="descname">multiple_regress</code><span class="sig-paren">(</span><em>Xs</em>, <em>Y</em>, <em>axes=None</em>, <em>N_fac=None</em>, <em>output='B</em>, <em>p'</em>, <em>pbar=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/stats.html#multiple_regress"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.multiple_regress" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pygeode.multiple_regress">
+<span class="sig-prename descclassname"><span class="pre">pygeode.</span></span><span class="sig-name descname"><span class="pre">multiple_regress</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">Xs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N_fac</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'B,p'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pbar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/stats.html#multiple_regress"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygeode.multiple_regress" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes least-squares multiple regression of Y against variables Xs.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
-<dt><strong>Xs</strong> <span class="classifier-delimiter">:</span> <span class="classifier">list of <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a> instances</span></dt>
-<dd><p class="first last">Variables to treat as independent regressors. Must have at least one axis
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>Xs</strong><span class="classifier">list of <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a> instances</span></dt><dd><p>Variables to treat as independent regressors. Must have at least one axis
 in common with each other and with Y.</p>
 </dd>
-<dt><strong>Y</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a></span></dt>
-<dd><p class="first last">The dependent variable. Must have at least one axis in common with the Xs.</p>
+<dt><strong>Y</strong><span class="classifier"><a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a></span></dt><dd><p>The dependent variable. Must have at least one axis in common with the Xs.</p>
 </dd>
-<dt><strong>axes</strong> <span class="classifier-delimiter">:</span> <span class="classifier">list, optional</span></dt>
-<dd><p class="first last">Axes over which to compute correlation; if nothing is specified, the correlation
+<dt><strong>axes</strong><span class="classifier">list, optional</span></dt><dd><p>Axes over which to compute correlation; if nothing is specified, the correlation
 is computed over all axes common to the Xs and Y.</p>
 </dd>
-<dt><strong>N_fac</strong> <span class="classifier-delimiter">:</span> <span class="classifier">integer</span></dt>
-<dd><p class="first last">A factor by which to rescale the estimated number of degrees of freedom; the effective
+<dt><strong>N_fac</strong><span class="classifier">integer</span></dt><dd><p>A factor by which to rescale the estimated number of degrees of freedom; the effective
 number will be given by the number estimated from the dataset divided by <code class="docutils literal notranslate"><span class="pre">N_fac</span></code>.</p>
 </dd>
-<dt><strong>output</strong> <span class="classifier-delimiter">:</span> <span class="classifier">string, optional</span></dt>
-<dd><p class="first last">A string determining which parameters are returned; see list of possible outputs
+<dt><strong>output</strong><span class="classifier">string, optional</span></dt><dd><p>A string determining which parameters are returned; see list of possible outputs
 in the Returns section. The specifications must be separated by a comma. Defaults 
 to ‘B,p’.</p>
 </dd>
-<dt><strong>pbar</strong> <span class="classifier-delimiter">:</span> <span class="classifier">progress bar, optional</span></dt>
-<dd><p class="first last">A progress bar object. If nothing is provided, a progress bar will be displayed
+<dt><strong>pbar</strong><span class="classifier">progress bar, optional</span></dt><dd><p>A progress bar object. If nothing is provided, a progress bar will be displayed
 if the calculation takes sufficiently long.</p>
 </dd>
 </dl>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
-<dt><strong>results</strong> <span class="classifier-delimiter">:</span> <span class="classifier">tuple of floats or <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a> instances.</span></dt>
-<dd><p class="first">The return values are specified by the <code class="docutils literal notranslate"><span class="pre">output</span></code> argument. The names of the 
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl>
+<dt><strong>results</strong><span class="classifier">tuple of floats or <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a> instances.</span></dt><dd><p>The return values are specified by the <code class="docutils literal notranslate"><span class="pre">output</span></code> argument. The names of the 
 variables match the output request string (i.e. if <code class="docutils literal notranslate"><span class="pre">ds</span></code> is the returned dataset, the 
 linear coefficient of the regression can be obtained by <code class="docutils literal notranslate"><span class="pre">ds.m</span></code>).</p>
 <p>A fit of the form <span class="math notranslate nohighlight">\(Y = \sum_i \beta_i X_i + \epsilon\)</span> is assumed.
 Note that a constant term is not included by default. The following
 parameters can be returned:</p>
 <ul class="simple">
-<li>‘B’: Linear coefficients <span class="math notranslate nohighlight">\(\beta_i\)</span> of each regressor</li>
-<li>‘r2’: Fraction of the variance in Y explained by all Xs (<span class="math notranslate nohighlight">\(R^2\)</span>)</li>
-<li>‘p’: p-value of regession; see notes.</li>
-<li>‘sb’: Standard deviation of each linear coefficient</li>
-<li>‘covb’: Covariance matrix of the linear coefficients</li>
-<li>‘se’: Standard deviation of residuals</li>
+<li><p>‘B’: Linear coefficients <span class="math notranslate nohighlight">\(\beta_i\)</span> of each regressor</p></li>
+<li><p>‘r2’: Fraction of the variance in Y explained by all Xs (<span class="math notranslate nohighlight">\(R^2\)</span>)</p></li>
+<li><p>‘p’: p-value of regession; see notes.</p></li>
+<li><p>‘sb’: Standard deviation of each linear coefficient</p></li>
+<li><p>‘covb’: Covariance matrix of the linear coefficients</p></li>
+<li><p>‘se’: Standard deviation of residuals</p></li>
 </ul>
-<p class="last">The outputs ‘B’, ‘p’, and ‘sb’ will produce as many outputs as there are
+<p>The outputs ‘B’, ‘p’, and ‘sb’ will produce as many outputs as there are
 regressors.</p>
 </dd>
 </dl>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 <p class="rubric">Notes</p>
 <p>The statistics described are computed following von Storch and Zwiers 1999,
 section 8.4. The p-value ‘p’ is computed using the t-statistic appropriate
@@ -235,68 +209,59 @@ diagonal elements of <span class="math notranslate nohighlight">\(\hat{\sigma}^2
 Zwiers, respectively.  The data is assumed to be normally distributed.</p>
 </dd></dl>
 
-<dl class="function">
-<dt id="pygeode.difference">
-<code class="descclassname">pygeode.</code><code class="descname">difference</code><span class="sig-paren">(</span><em>X</em>, <em>Y</em>, <em>axes=None</em>, <em>alpha=0.05</em>, <em>Nx_fac=None</em>, <em>Ny_fac=None</em>, <em>output='d</em>, <em>p</em>, <em>ci'</em>, <em>pbar=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/stats.html#difference"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.difference" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pygeode.difference">
+<span class="sig-prename descclassname"><span class="pre">pygeode.</span></span><span class="sig-name descname"><span class="pre">difference</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Nx_fac</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Ny_fac</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'d,p,ci'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pbar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/stats.html#difference"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygeode.difference" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes the mean value and statistics of X - Y.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
-<dt><strong>X, Y</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a></span></dt>
-<dd><p class="first last">Variables to difference. Must have at least one axis in common.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>X, Y</strong><span class="classifier"><a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a></span></dt><dd><p>Variables to difference. Must have at least one axis in common.</p>
 </dd>
-<dt><strong>axes</strong> <span class="classifier-delimiter">:</span> <span class="classifier">list, optional, defaults to None</span></dt>
-<dd><p class="first last">Axes over which to compute means; if othing is specified, the mean
+<dt><strong>axes</strong><span class="classifier">list, optional, defaults to None</span></dt><dd><p>Axes over which to compute means; if othing is specified, the mean
 is computed over all axes common to X and Y.</p>
 </dd>
-<dt><strong>alpha</strong> <span class="classifier-delimiter">:</span> <span class="classifier">float, optional; defaults to 0.05</span></dt>
-<dd><p class="first last">Confidence level for which to compute confidence interval.</p>
+<dt><strong>alpha</strong><span class="classifier">float, optional; defaults to 0.05</span></dt><dd><p>Confidence level for which to compute confidence interval.</p>
 </dd>
-<dt><strong>Nx_fac</strong> <span class="classifier-delimiter">:</span> <span class="classifier">integer, optional: defaults to None</span></dt>
-<dd><p class="first last">A factor by which to rescale the estimated number of degrees of freedom of
+<dt><strong>Nx_fac</strong><span class="classifier">integer, optional: defaults to None</span></dt><dd><p>A factor by which to rescale the estimated number of degrees of freedom of
 X; the effective number will be given by the number estimated from the
 dataset divided by <code class="docutils literal notranslate"><span class="pre">Nx_fac</span></code>.</p>
 </dd>
-<dt><strong>Ny_fac</strong> <span class="classifier-delimiter">:</span> <span class="classifier">integer, optional: defaults to None</span></dt>
-<dd><p class="first last">A factor by which to rescale the estimated number of degrees of freedom of
+<dt><strong>Ny_fac</strong><span class="classifier">integer, optional: defaults to None</span></dt><dd><p>A factor by which to rescale the estimated number of degrees of freedom of
 Y; the effective number will be given by the number estimated from the
 dataset divided by <code class="docutils literal notranslate"><span class="pre">Ny_fac</span></code>.</p>
 </dd>
-<dt><strong>output</strong> <span class="classifier-delimiter">:</span> <span class="classifier">string, optional</span></dt>
-<dd><p class="first last">A string determining which parameters are returned; see list of possible outputs
+<dt><strong>output</strong><span class="classifier">string, optional</span></dt><dd><p>A string determining which parameters are returned; see list of possible outputs
 in the Returns section. The specifications must be separated by a comma. Defaults 
 to ‘d,p,ci’.</p>
 </dd>
-<dt><strong>pbar</strong> <span class="classifier-delimiter">:</span> <span class="classifier">progress bar, optional</span></dt>
-<dd><p class="first last">A progress bar object. If nothing is provided, a progress bar will be displayed
+<dt><strong>pbar</strong><span class="classifier">progress bar, optional</span></dt><dd><p>A progress bar object. If nothing is provided, a progress bar will be displayed
 if the calculation takes sufficiently long.</p>
 </dd>
 </dl>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
-<dt><strong>results</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference internal" href="dataset.html#pygeode.Dataset" title="pygeode.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a></span></dt>
-<dd><p class="first">The returned variables are specified by the <code class="docutils literal notranslate"><span class="pre">output</span></code> argument. The names
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl>
+<dt><strong>results</strong><span class="classifier"><a class="reference internal" href="dataset.html#pygeode.Dataset" title="pygeode.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a></span></dt><dd><p>The returned variables are specified by the <code class="docutils literal notranslate"><span class="pre">output</span></code> argument. The names
 of the variables match the output request string (i.e. if <code class="docutils literal notranslate"><span class="pre">ds</span></code> is the
 returned dataset, the average of the difference can be obtained by
 <code class="docutils literal notranslate"><span class="pre">ds.d</span></code>). The following four quantities can be computed:</p>
-<ul class="last simple">
-<li>‘d’: The difference in the means, X - Y</li>
-<li>‘df’: The effective number of degrees of freedom, <span class="math notranslate nohighlight">\(df\)</span></li>
-<li>‘p’: The p-value; see notes.</li>
-<li>‘ci’: The confidence interval of the difference at the level specified by <code class="docutils literal notranslate"><span class="pre">alpha</span></code></li>
+<ul class="simple">
+<li><p>‘d’: The difference in the means, X - Y</p></li>
+<li><p>‘df’: The effective number of degrees of freedom, <span class="math notranslate nohighlight">\(df\)</span></p></li>
+<li><p>‘p’: The p-value; see notes.</p></li>
+<li><p>‘ci’: The confidence interval of the difference at the level specified by <code class="docutils literal notranslate"><span class="pre">alpha</span></code></p></li>
 </ul>
 </dd>
 </dl>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="#pygeode.isnonzero" title="pygeode.isnonzero"><code class="xref py py-obj docutils literal notranslate"><span class="pre">isnonzero</span></code></a>, <a class="reference internal" href="#pygeode.paired_difference" title="pygeode.paired_difference"><code class="xref py py-obj docutils literal notranslate"><span class="pre">paired_difference</span></code></a></p>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#pygeode.isnonzero" title="pygeode.isnonzero"><code class="xref py py-obj docutils literal notranslate"><span class="pre">isnonzero</span></code></a></dt><dd></dd>
+<dt><a class="reference internal" href="#pygeode.paired_difference" title="pygeode.paired_difference"><code class="xref py py-obj docutils literal notranslate"><span class="pre">paired_difference</span></code></a></dt><dd></dd>
+</dl>
 </div>
 <p class="rubric">Notes</p>
 <p>The effective number of degrees of freedom is estimated using eq (6.20) of 
@@ -307,65 +272,57 @@ degrees of freedom are not calculated explicitly by this routine. The p-value an
 confidence interval are computed based on the t-statistic in eq (6.19).</p>
 </dd></dl>
 
-<dl class="function">
-<dt id="pygeode.paired_difference">
-<code class="descclassname">pygeode.</code><code class="descname">paired_difference</code><span class="sig-paren">(</span><em>X</em>, <em>Y</em>, <em>axes=None</em>, <em>alpha=0.05</em>, <em>N_fac=None</em>, <em>output='d</em>, <em>p</em>, <em>ci'</em>, <em>pbar=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/stats.html#paired_difference"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.paired_difference" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pygeode.paired_difference">
+<span class="sig-prename descclassname"><span class="pre">pygeode.</span></span><span class="sig-name descname"><span class="pre">paired_difference</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">Y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N_fac</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'d,p,ci'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pbar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/stats.html#paired_difference"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygeode.paired_difference" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes the mean value and statistics of X - Y, assuming that individual elements
 of X and Y can be directly paired. In contrast to <a class="reference internal" href="#pygeode.difference" title="pygeode.difference"><code class="xref py py-func docutils literal notranslate"><span class="pre">difference()</span></code></a>, X and Y must have the same
 shape.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
-<dt><strong>X, Y</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a></span></dt>
-<dd><p class="first last">Variables to difference. Must share all axes over which the means are being computed.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>X, Y</strong><span class="classifier"><a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a></span></dt><dd><p>Variables to difference. Must share all axes over which the means are being computed.</p>
 </dd>
-<dt><strong>axes</strong> <span class="classifier-delimiter">:</span> <span class="classifier">list, optional</span></dt>
-<dd><p class="first last">Axes over which to compute means; if nothing is specified, the mean
+<dt><strong>axes</strong><span class="classifier">list, optional</span></dt><dd><p>Axes over which to compute means; if nothing is specified, the mean
 is computed over all axes common to X and Y.</p>
 </dd>
-<dt><strong>alpha</strong> <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
-<dd><p class="first last">Confidence level for which to compute confidence interval.</p>
+<dt><strong>alpha</strong><span class="classifier">float</span></dt><dd><p>Confidence level for which to compute confidence interval.</p>
 </dd>
-<dt><strong>N_fac</strong> <span class="classifier-delimiter">:</span> <span class="classifier">integer</span></dt>
-<dd><p class="first last">A factor by which to rescale the estimated number of degrees of freedom of
+<dt><strong>N_fac</strong><span class="classifier">integer</span></dt><dd><p>A factor by which to rescale the estimated number of degrees of freedom of
 X and Y; the effective number will be given by the number estimated from the
 dataset divided by <code class="docutils literal notranslate"><span class="pre">N_fac</span></code>.</p>
 </dd>
-<dt><strong>output</strong> <span class="classifier-delimiter">:</span> <span class="classifier">string, optional</span></dt>
-<dd><p class="first last">A string determining which parameters are returned; see list of possible outputs
+<dt><strong>output</strong><span class="classifier">string, optional</span></dt><dd><p>A string determining which parameters are returned; see list of possible outputs
 in the Returns section. The specifications must be separated by a comma. Defaults 
 to ‘d,p,ci’.</p>
 </dd>
-<dt><strong>pbar</strong> <span class="classifier-delimiter">:</span> <span class="classifier">progress bar, optional</span></dt>
-<dd><p class="first last">A progress bar object. If nothing is provided, a progress bar will be displayed
+<dt><strong>pbar</strong><span class="classifier">progress bar, optional</span></dt><dd><p>A progress bar object. If nothing is provided, a progress bar will be displayed
 if the calculation takes sufficiently long.</p>
 </dd>
 </dl>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
-<dt><strong>results</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference internal" href="dataset.html#pygeode.Dataset" title="pygeode.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a></span></dt>
-<dd><p class="first">The returned variables are specified by the <code class="docutils literal notranslate"><span class="pre">output</span></code> argument. The names
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl>
+<dt><strong>results</strong><span class="classifier"><a class="reference internal" href="dataset.html#pygeode.Dataset" title="pygeode.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a></span></dt><dd><p>The returned variables are specified by the <code class="docutils literal notranslate"><span class="pre">output</span></code> argument. The names
 of the variables match the output request string (i.e. if <code class="docutils literal notranslate"><span class="pre">ds</span></code> is the
 returned dataset, the average of the difference can be obtained by
 <code class="docutils literal notranslate"><span class="pre">ds.d</span></code>). The following four quantities can be computed:</p>
-<ul class="last simple">
-<li>‘d’: The difference in the means, X - Y</li>
-<li>‘df’: The effective number of degrees of freedom, <span class="math notranslate nohighlight">\(df\)</span></li>
-<li>‘p’: The p-value; see notes.</li>
-<li>‘ci’: The confidence interval of the difference at the level specified by <code class="docutils literal notranslate"><span class="pre">alpha</span></code></li>
+<ul class="simple">
+<li><p>‘d’: The difference in the means, X - Y</p></li>
+<li><p>‘df’: The effective number of degrees of freedom, <span class="math notranslate nohighlight">\(df\)</span></p></li>
+<li><p>‘p’: The p-value; see notes.</p></li>
+<li><p>‘ci’: The confidence interval of the difference at the level specified by <code class="docutils literal notranslate"><span class="pre">alpha</span></code></p></li>
 </ul>
 </dd>
 </dl>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="#pygeode.isnonzero" title="pygeode.isnonzero"><code class="xref py py-obj docutils literal notranslate"><span class="pre">isnonzero</span></code></a>, <a class="reference internal" href="#pygeode.difference" title="pygeode.difference"><code class="xref py py-obj docutils literal notranslate"><span class="pre">difference</span></code></a></p>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#pygeode.isnonzero" title="pygeode.isnonzero"><code class="xref py py-obj docutils literal notranslate"><span class="pre">isnonzero</span></code></a></dt><dd></dd>
+<dt><a class="reference internal" href="#pygeode.difference" title="pygeode.difference"><code class="xref py py-obj docutils literal notranslate"><span class="pre">difference</span></code></a></dt><dd></dd>
+</dl>
 </div>
 <p class="rubric">Notes</p>
 <p>Following section 6.6.6 of von Storch and Zwiers 1999, a one-sample t test is used to test the
@@ -376,65 +333,56 @@ routine. The p-value and confidence interval are computed based on the t-statist
 (6.21).</p>
 </dd></dl>
 
-<dl class="function">
-<dt id="pygeode.isnonzero">
-<code class="descclassname">pygeode.</code><code class="descname">isnonzero</code><span class="sig-paren">(</span><em>X</em>, <em>axes=None</em>, <em>alpha=0.05</em>, <em>N_fac=None</em>, <em>output='m</em>, <em>p'</em>, <em>pbar=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/stats.html#isnonzero"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.isnonzero" title="Permalink to this definition">¶</a></dt>
+<dl class="py function">
+<dt class="sig sig-object py" id="pygeode.isnonzero">
+<span class="sig-prename descclassname"><span class="pre">pygeode.</span></span><span class="sig-name descname"><span class="pre">isnonzero</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">X</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.05</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">N_fac</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'m,p'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pbar</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/stats.html#isnonzero"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygeode.isnonzero" title="Permalink to this definition">¶</a></dt>
 <dd><p>Computes the mean value of X and statistics relevant for a test against
 the hypothesis that it is 0.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
-<dt><strong>X</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a></span></dt>
-<dd><p class="first last">Variable to average.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>X</strong><span class="classifier"><a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a></span></dt><dd><p>Variable to average.</p>
 </dd>
-<dt><strong>axes</strong> <span class="classifier-delimiter">:</span> <span class="classifier">list, optional</span></dt>
-<dd><p class="first last">Axes over which to compute the mean; if nothing is specified, the mean is
+<dt><strong>axes</strong><span class="classifier">list, optional</span></dt><dd><p>Axes over which to compute the mean; if nothing is specified, the mean is
 computed over all axes.</p>
 </dd>
-<dt><strong>alpha</strong> <span class="classifier-delimiter">:</span> <span class="classifier">float</span></dt>
-<dd><p class="first last">Confidence level for which to compute confidence interval.</p>
+<dt><strong>alpha</strong><span class="classifier">float</span></dt><dd><p>Confidence level for which to compute confidence interval.</p>
 </dd>
-<dt><strong>N_fac</strong> <span class="classifier-delimiter">:</span> <span class="classifier">integer</span></dt>
-<dd><p class="first last">A factor by which to rescale the estimated number of degrees of freedom;
+<dt><strong>N_fac</strong><span class="classifier">integer</span></dt><dd><p>A factor by which to rescale the estimated number of degrees of freedom;
 the effective number will be given by the number estimated from the dataset
 divided by <code class="docutils literal notranslate"><span class="pre">N_fac</span></code>.</p>
 </dd>
-<dt><strong>output</strong> <span class="classifier-delimiter">:</span> <span class="classifier">string, optional</span></dt>
-<dd><p class="first last">A string determining which parameters are returned; see list of possible outputs
+<dt><strong>output</strong><span class="classifier">string, optional</span></dt><dd><p>A string determining which parameters are returned; see list of possible outputs
 in the Returns section. The specifications must be separated by a comma. Defaults 
 to ‘m,p’.</p>
 </dd>
-<dt><strong>pbar</strong> <span class="classifier-delimiter">:</span> <span class="classifier">progress bar, optional</span></dt>
-<dd><p class="first last">A progress bar object. If nothing is provided, a progress bar will be displayed
+<dt><strong>pbar</strong><span class="classifier">progress bar, optional</span></dt><dd><p>A progress bar object. If nothing is provided, a progress bar will be displayed
 if the calculation takes sufficiently long.</p>
 </dd>
 </dl>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
-<dt><strong>results</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference internal" href="dataset.html#pygeode.Dataset" title="pygeode.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a></span></dt>
-<dd><p class="first">The names of the variables match the output request string (i.e. if <code class="docutils literal notranslate"><span class="pre">ds</span></code>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl>
+<dt><strong>results</strong><span class="classifier"><a class="reference internal" href="dataset.html#pygeode.Dataset" title="pygeode.Dataset"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dataset</span></code></a></span></dt><dd><p>The names of the variables match the output request string (i.e. if <code class="docutils literal notranslate"><span class="pre">ds</span></code>
 is the returned dataset, the mean value can be obtained through <code class="docutils literal notranslate"><span class="pre">ds.m</span></code>).
 The following quantities can be calculated.</p>
 <ul class="simple">
-<li>‘m’: The mean value of X</li>
-<li>‘p’: The probability of the computed value if the population mean was zero</li>
-<li>‘ci’: The confidence interval of the mean at the level specified by alpha</li>
+<li><p>‘m’: The mean value of X</p></li>
+<li><p>‘p’: The probability of the computed value if the population mean was zero</p></li>
+<li><p>‘ci’: The confidence interval of the mean at the level specified by alpha</p></li>
 </ul>
-<p class="last">If the average is taken over all axes of X resulting in a scalar,
+<p>If the average is taken over all axes of X resulting in a scalar,
 the above values are returned as a tuple in the order given. If not, the
 results are provided as <a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a> objects in a dataset.</p>
 </dd>
 </dl>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="#pygeode.difference" title="pygeode.difference"><code class="xref py py-obj docutils literal notranslate"><span class="pre">difference</span></code></a></p>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#pygeode.difference" title="pygeode.difference"><code class="xref py py-obj docutils literal notranslate"><span class="pre">difference</span></code></a></dt><dd></dd>
+</dl>
 </div>
 <p class="rubric">Notes</p>
 <p>The number of effective degrees of freedom can be scaled as in <a class="reference internal" href="#pygeode.difference" title="pygeode.difference"><code class="xref py py-meth docutils literal notranslate"><span class="pre">difference()</span></code></a>. 
@@ -463,8 +411,8 @@ eq (6.61) of von Storch and Zwiers 1999.</p>
       </div>
 
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2018, Mike Neish, Peter Hitchcock.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.
+        &#169; Copyright 2020, Mike Neish, Peter Hitchcock.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.3.2.
     </div>
   </body>
 </html>

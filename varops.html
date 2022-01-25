@@ -1,21 +1,23 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Array manipulation routines &#8212; PyGeode 1.4.0 documentation</title>
-    <link rel="stylesheet" href="_static/pygtheme.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/gallery.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Array manipulation routines &#8212; PyGeode 1.4.1rc1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygtheme.css" />
+    <link rel="stylesheet" type="text/css" href="_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/pygeode_icon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Other operations" href="var.other.html" />
@@ -24,8 +26,9 @@
 <link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
 
   </head><body>
-      <div class="header" role="banner"><h1 class="heading"><a href="index.html">
-          <span>PyGeode 1.4.0 documentation</span></a></h1>
+      <div class="header" role="banner"><img class="logo" src="_static/pygeode_logo.png" width=79px alt="Logo"/>
+        <h1 class="heading"><a href="index.html">
+          <span>PyGeode 1.4.1rc1 documentation</span></a></h1>
         <h2 class="heading"><span>Array manipulation routines</span></h2>
       </div>
       <div class="topnav" role="navigation" aria-label="top navigation">
@@ -49,62 +52,55 @@
   <div class="section" id="array-manipulation-routines">
 <h1>Array manipulation routines<a class="headerlink" href="#array-manipulation-routines" title="Permalink to this headline">¶</a></h1>
 <p>Operations that affect the shape or other attributes of the <cite>Var</cite>, while leaving the data intact.</p>
-<dl class="method">
-<dt id="pygeode.Var.__call__">
-<code class="descclassname">Var.</code><code class="descname">__call__</code><span class="sig-paren">(</span><em>ignore_mismatch=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/var.html#Var.__call__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.Var.__call__" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pygeode.Var.__call__">
+<span class="sig-prename descclassname"><span class="pre">Var.</span></span><span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ignore_mismatch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/var.html#Var.__call__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygeode.Var.__call__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Keyword-based data subsetting.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
-<dt><strong>ignore_mismatch</strong> <span class="classifier-delimiter">:</span> <span class="classifier">boolean (optional)</span></dt>
-<dd><p class="first last">If <code class="docutils literal notranslate"><span class="pre">True</span></code>, any keywords that don’t match an axis are ignored.
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>ignore_mismatch</strong><span class="classifier">boolean (optional)</span></dt><dd><p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, any keywords that don’t match an axis are ignored.
 Default is <code class="docutils literal notranslate"><span class="pre">False</span></code></p>
 </dd>
-<dt><strong>**kwargs</strong> <span class="classifier-delimiter">:</span> <span class="classifier">one or more keyword parameters</span></dt>
-<dd><p class="first last">The keys are the Axis names (or Axis class names), and the values are
+<dt><strong>**kwargs</strong><span class="classifier">one or more keyword parameters</span></dt><dd><p>The keys are the Axis names (or Axis class names), and the values are
 either a <cite>tuple</cite> of the desired (lower,upper) range, or a single Axis
 value.  E.g., <code class="docutils literal notranslate"><span class="pre">lat</span> <span class="pre">=</span> <span class="pre">(-45,45)</span></code> or <code class="docutils literal notranslate"><span class="pre">lat</span> <span class="pre">=</span> <span class="pre">10.5</span></code></p>
 </dd>
 </dl>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
-<dt><strong>subset_var</strong> <span class="classifier-delimiter">:</span> <span class="classifier">Var</span></dt>
-<dd><p class="first last">A new Var, restricted  to the specified domain.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>subset_var</strong><span class="classifier">Var</span></dt><dd><p>A new Var, restricted  to the specified domain.</p>
 </dd>
 </dl>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 <p class="rubric">Notes</p>
 <p>There are a couple of special prefixes which can be prepended to each
 keyword to alter the subsetting behaviour. They can be used together.</p>
 <blockquote>
 <div><ul class="simple">
-<li><strong>i_</strong> indicates that the values are <em>indices</em> into the axis, and not
+<li><p><strong>i_</strong> indicates that the values are <em>indices</em> into the axis, and not
 the axis values themselves.  Indices start at 0.
 E.g. <code class="docutils literal notranslate"><span class="pre">myvar(i_time</span> <span class="pre">=</span> <span class="pre">0)</span></code> selects the first time step of the variable,
-and <code class="docutils literal notranslate"><span class="pre">myvar(i_lon=(10,20))</span></code> selects the 11th through 21st longitudes.</li>
-<li><strong>l_</strong> indicates that you are providing an explicit list of
+and <code class="docutils literal notranslate"><span class="pre">myvar(i_lon=(10,20))</span></code> selects the 11th through 21st longitudes.</p></li>
+<li><p><strong>l_</strong> indicates that you are providing an explicit list of
 coordinates, instead of a range.
-E.g. <code class="docutils literal notranslate"><span class="pre">myvar(l_lon</span> <span class="pre">=</span> <span class="pre">(105.,106.,107.,108))</span></code></li>
-<li><strong>n_</strong> returns the complement of the set you request; that is,
+E.g. <code class="docutils literal notranslate"><span class="pre">myvar(l_lon</span> <span class="pre">=</span> <span class="pre">(105.,106.,107.,108))</span></code></p></li>
+<li><p><strong>n_</strong> returns the complement of the set you request; that is,
 everything except the specified selection.
-E.g. <code class="docutils literal notranslate"><span class="pre">myvar(n_lat</span> <span class="pre">=</span> <span class="pre">(60,</span> <span class="pre">90))</span></code> returns all latitudes except those between 60 and 90N.</li>
-<li><strong>m_</strong> triggers an arithmetic mean over the specified range.
+E.g. <code class="docutils literal notranslate"><span class="pre">myvar(n_lat</span> <span class="pre">=</span> <span class="pre">(60,</span> <span class="pre">90))</span></code> returns all latitudes except those between 60 and 90N.</p></li>
+<li><p><strong>m_</strong> triggers an arithmetic mean over the specified range.
 E.g., <code class="docutils literal notranslate"><span class="pre">myvar(m_lon</span> <span class="pre">=</span> <span class="pre">(10,</span> <span class="pre">80))</span></code> is a shortcut for doing
-<code class="docutils literal notranslate"><span class="pre">myvar(lon</span> <span class="pre">=</span> <span class="pre">(10,80)).mean('lon')</span></code>.</li>
-<li><strong>s_</strong> triggers a call to squeeze on the specified axis, so
+<code class="docutils literal notranslate"><span class="pre">myvar(lon</span> <span class="pre">=</span> <span class="pre">(10,80)).mean('lon')</span></code>.</p></li>
+<li><p><strong>s_</strong> triggers a call to squeeze on the specified axis, so
 that if only one value is selected the degenerate axis is removed.
 E.g., <code class="docutils literal notranslate"><span class="pre">myvar(s_lon</span> <span class="pre">=</span> <span class="pre">5)</span></code> is a shortcut for doing
-<code class="docutils literal notranslate"><span class="pre">myvar(lon</span> <span class="pre">=</span> <span class="pre">5).squeeze()</span></code> or <code class="docutils literal notranslate"><span class="pre">myvar.squeeze(lon=5)</span></code>.</li>
+<code class="docutils literal notranslate"><span class="pre">myvar(lon</span> <span class="pre">=</span> <span class="pre">5).squeeze()</span></code> or <code class="docutils literal notranslate"><span class="pre">myvar.squeeze(lon=5)</span></code>.</p></li>
 </ul>
 </div></blockquote>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t1</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t1</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">t1</span><span class="o">.</span><span class="n">vars</span><span class="p">)</span>
 <span class="go">[&lt;Var &#39;Temp&#39;&gt;]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">T</span> <span class="o">=</span> <span class="n">t1</span><span class="o">.</span><span class="n">Temp</span>
@@ -130,45 +126,41 @@ E.g., <code class="docutils literal notranslate"><span class="pre">myvar(s_lon</
 </div>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="pygeode.Var.slice">
-<code class="descclassname">Var.</code><code class="descname">slice</code><a class="headerlink" href="#pygeode.Var.slice" title="Permalink to this definition">¶</a></dt>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="pygeode.Var.slice">
+<span class="sig-prename descclassname"><span class="pre">Var.</span></span><span class="sig-name descname"><span class="pre">slice</span></span><a class="headerlink" href="#pygeode.Var.slice" title="Permalink to this definition">¶</a></dt>
 <dd><p>A helper to select subsets of this variable using slice notation. See <a class="reference internal" href="#pygeode.Var._getitem_asvar" title="pygeode.Var._getitem_asvar"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Var._getitem_asvar()</span></code></a>.</p>
 </dd></dl>
 
-<dl class="method">
-<dt id="pygeode.Var._getitem_asvar">
-<code class="descclassname">Var.</code><code class="descname">_getitem_asvar</code><span class="sig-paren">(</span><em>slices</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/var.html#Var._getitem_asvar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.Var._getitem_asvar" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pygeode.Var._getitem_asvar">
+<span class="sig-prename descclassname"><span class="pre">Var.</span></span><span class="sig-name descname"><span class="pre">_getitem_asvar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">slices</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/var.html#Var._getitem_asvar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygeode.Var._getitem_asvar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Slice-based data subsetting.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
-<dt><strong>slices</strong> <span class="classifier-delimiter">:</span> <span class="classifier">list of slices</span></dt>
-<dd></dd>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>slices</strong><span class="classifier">list of slices</span></dt><dd></dd>
 </dl>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
-<dt><strong>subset_var</strong> <span class="classifier-delimiter">:</span> <span class="classifier">Var</span></dt>
-<dd><p class="first last">A new Var, restricted to the specified domain.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>subset_var</strong><span class="classifier">Var</span></dt><dd><p>A new Var, restricted to the specified domain.</p>
 </dd>
 </dl>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="#pygeode.Var.slice" title="pygeode.Var.slice"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.slice</span></code></a>, <a class="reference internal" href="#pygeode.Var.__call__" title="pygeode.Var.__call__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.__call__</span></code></a>, <a class="reference internal" href="var.get.html#pygeode.Var.__getitem__" title="pygeode.Var.__getitem__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.__getitem__</span></code></a></p>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#pygeode.Var.slice" title="pygeode.Var.slice"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.slice</span></code></a>, <a class="reference internal" href="#pygeode.Var.__call__" title="pygeode.Var.__call__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.__call__</span></code></a>, <a class="reference internal" href="var.get.html#pygeode.Var.__getitem__" title="pygeode.Var.__getitem__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Var.__getitem__</span></code></a></dt><dd></dd>
+</dl>
 </div>
 <p class="rubric">Notes</p>
 <p>A helper function so that standard python slicing notation
 can be used to subset a Var without loading the underlying
 data. A new Var object is returned.</p>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t1</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t1</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">t1</span><span class="o">.</span><span class="n">Temp</span><span class="p">)</span>
 <span class="go">&lt;Var &#39;Temp&#39;&gt;:</span>
 <span class="go">  Units: K  Shape:  (lat,lon)  (31,60)</span>
@@ -200,68 +192,54 @@ data. A new Var object is returned.</p>
 </div>
 </dd></dl>
 
-<dl class="method">
-<dt id="pygeode.Var.squeeze">
-<code class="descclassname">Var.</code><code class="descname">squeeze</code><span class="sig-paren">(</span><em>*iaxes</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.Var.squeeze" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pygeode.Var.squeeze">
+<span class="sig-prename descclassname"><span class="pre">Var.</span></span><span class="sig-name descname"><span class="pre">squeeze</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">iaxes</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.Var.squeeze" title="Permalink to this definition">¶</a></dt>
 <dd><p>Removes degenerate axes from a variable, reducing its dimensionality.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
-<dt><strong>*iaxes</strong> <span class="classifier-delimiter">:</span> <span class="classifier">one or more axes (optional)</span></dt>
-<dd><p class="first last">The axes to remove (they must already be degenerate).  If no explicit axes
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>*iaxes</strong><span class="classifier">one or more axes (optional)</span></dt><dd><p>The axes to remove (they must already be degenerate).  If no explicit axes
 are provided, then <em>all</em> degenerate axes are removed.</p>
 </dd>
-<dt><strong>**kwargs</strong> <span class="classifier-delimiter">:</span> <span class="classifier">keyword arguments</span></dt>
-<dd><p class="first last">Keyword-based axis slicing.  Selects a particular value along the axis and
+<dt><strong>**kwargs</strong><span class="classifier">keyword arguments</span></dt><dd><p>Keyword-based axis slicing.  Selects a particular value along the axis and
 then removes the axis from the output.  See <a class="reference internal" href="#pygeode.Var.__call__" title="pygeode.Var.__call__"><code class="xref py py-meth docutils literal notranslate"><span class="pre">Var.__call__()</span></code></a> for a
 similar method which uses this keyword syntax.</p>
 </dd>
 </dl>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
-<dt><strong>squeezed</strong> <span class="classifier-delimiter">:</span> <span class="classifier">Var</span></dt>
-<dd><p class="first last">The squeezed variable</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>squeezed</strong><span class="classifier">Var</span></dt><dd><p>The squeezed variable</p>
 </dd>
 </dl>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
-<dl class="method">
-<dt id="pygeode.Var.extend">
-<code class="descclassname">Var.</code><code class="descname">extend</code><span class="sig-paren">(</span><em>pos</em>, <em>*newaxes</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.Var.extend" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pygeode.Var.extend">
+<span class="sig-prename descclassname"><span class="pre">Var.</span></span><span class="sig-name descname"><span class="pre">extend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pos</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">newaxes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.Var.extend" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds more axes to a variable.  Data will be duplicated along these new axes.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
-<dt><strong>pos</strong> <span class="classifier-delimiter">:</span> <span class="classifier">int</span></dt>
-<dd><p class="first last">The position (within the variable’s current axes) to start inserting the
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>pos</strong><span class="classifier">int</span></dt><dd><p>The position (within the variable’s current axes) to start inserting the
 new axes.</p>
 </dd>
-<dt><strong>*newaxes</strong> <span class="classifier-delimiter">:</span> <span class="classifier">one or more axes</span></dt>
-<dd><p class="first last">The new axes to insert</p>
+<dt><strong>*newaxes</strong><span class="classifier">one or more axes</span></dt><dd><p>The new axes to insert</p>
 </dd>
 </dl>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
-<dt><strong>extended_var</strong> <span class="classifier-delimiter">:</span> <span class="classifier">Var</span></dt>
-<dd><p class="first last">The variable, extended to include the new axes.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>extended_var</strong><span class="classifier">Var</span></dt><dd><p>The variable, extended to include the new axes.</p>
 </dd>
 </dl>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t1</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t1</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">t1</span><span class="o">.</span><span class="n">Temp</span><span class="p">)</span>
 <span class="go">&lt;Var &#39;Temp&#39;&gt;:</span>
 <span class="go">  Units: K  Shape:  (lat,lon)  (31,60)</span>
@@ -290,32 +268,26 @@ new axes.</p>
 </div>
 </dd></dl>
 
-<dl class="method">
-<dt id="pygeode.Var.transpose">
-<code class="descclassname">Var.</code><code class="descname">transpose</code><span class="sig-paren">(</span><em>*axes</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.Var.transpose" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pygeode.Var.transpose">
+<span class="sig-prename descclassname"><span class="pre">Var.</span></span><span class="sig-name descname"><span class="pre">transpose</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">axes</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.Var.transpose" title="Permalink to this definition">¶</a></dt>
 <dd><p>Transposes the axes of a variable.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
-<dt><strong>*axes</strong> <span class="classifier-delimiter">:</span> <span class="classifier">one or more axis identifiers (strings, <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><code class="xref py py-class docutils literal notranslate"><span class="pre">Axis</span></code></a> classes, integer indices)</span></dt>
-<dd><p class="first last">The new order of the axes.  Any unspecified axes will be appended after these.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>*axes</strong><span class="classifier">one or more axis identifiers (strings, <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><code class="xref py py-class docutils literal notranslate"><span class="pre">Axis</span></code></a> classes, integer indices)</span></dt><dd><p>The new order of the axes.  Any unspecified axes will be appended after these.</p>
 </dd>
 </dl>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
-<dt><strong>transposed_var</strong> <span class="classifier-delimiter">:</span> <span class="classifier">Var</span></dt>
-<dd><p class="first last">The transposed variable.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>transposed_var</strong><span class="classifier">Var</span></dt><dd><p>The transposed variable.</p>
 </dd>
 </dl>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t1</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t1</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">t1</span><span class="o">.</span><span class="n">Temp</span><span class="p">)</span>
 <span class="go">&lt;Var &#39;Temp&#39;&gt;:</span>
 <span class="go">  Units: K  Shape:  (lat,lon)  (31,60)</span>
@@ -339,36 +311,30 @@ new axes.</p>
 </div>
 </dd></dl>
 
-<dl class="method">
-<dt id="pygeode.Var.sorted">
-<code class="descclassname">Var.</code><code class="descname">sorted</code><span class="sig-paren">(</span><em>*iaxes</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.Var.sorted" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pygeode.Var.sorted">
+<span class="sig-prename descclassname"><span class="pre">Var.</span></span><span class="sig-name descname"><span class="pre">sorted</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">iaxes</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.Var.sorted" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sorts the data so that the axes have monotonically increasing values.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
-<dt><strong>*iaxes</strong> <span class="classifier-delimiter">:</span> <span class="classifier">(optional)</span></dt>
-<dd><p class="first last">Which axes to sort.  If not specified, then <em>all</em> axes are sorted.
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>*iaxes</strong><span class="classifier">(optional)</span></dt><dd><p>Which axes to sort.  If not specified, then <em>all</em> axes are sorted.
 Axes can also be passed as keyword arguments, with a value of 1/0/-1 to
 specifiy a sort order of increasing/default/decreasing.
 If positional arguments are passed, or if an order of ‘0’ is specified,
 then the natural (default) order will be used for that type of axis.</p>
 </dd>
 </dl>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
-<dt><strong>sorted_var</strong> <span class="classifier-delimiter">:</span> <span class="classifier">Var</span></dt>
-<dd><p class="first last">The sorted version of the data.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>sorted_var</strong><span class="classifier">Var</span></dt><dd><p>The sorted version of the data.</p>
 </dd>
 </dl>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t2</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t2</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">t2</span><span class="o">.</span><span class="n">Temp</span><span class="p">)</span>
 <span class="go">&lt;Var &#39;Temp&#39;&gt;:</span>
 <span class="go">  Shape:  (time,pres,lat,lon)  (3650,20,31,60)</span>
@@ -407,52 +373,42 @@ then the natural (default) order will be used for that type of axis.</p>
 </div>
 </dd></dl>
 
-<dl class="method">
-<dt id="pygeode.Var.replace_axes">
-<code class="descclassname">Var.</code><code class="descname">replace_axes</code><span class="sig-paren">(</span><em>axisdict={}</em>, <em>ignore_mismatch=False</em>, <em>newaxes=None</em>, <em>keep_old_name=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.Var.replace_axes" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pygeode.Var.replace_axes">
+<span class="sig-prename descclassname"><span class="pre">Var.</span></span><span class="sig-name descname"><span class="pre">replace_axes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">axisdict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_mismatch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">newaxes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keep_old_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.Var.replace_axes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Replaces one or more axes of a variable with new axes.  The axis length
 must remain the same.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
-<dt><strong>axisdict</strong> <span class="classifier-delimiter">:</span> <span class="classifier">dict (optional)</span></dt>
-<dd><p class="first last">The keys are identifiers for the current axes, and the values are the
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>axisdict</strong><span class="classifier">dict (optional)</span></dt><dd><p>The keys are identifiers for the current axes, and the values are the
 replacement axes.</p>
 </dd>
-<dt><strong>ignore_mismatch</strong> <span class="classifier-delimiter">:</span> <span class="classifier">boolean (optional)</span></dt>
-<dd><p class="first last">If <code class="docutils literal notranslate"><span class="pre">True</span></code>, will ignore axis identifiers that don’t match any axes of
+<dt><strong>ignore_mismatch</strong><span class="classifier">boolean (optional)</span></dt><dd><p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, will ignore axis identifiers that don’t match any axes of
 this variable.  If <code class="docutils literal notranslate"><span class="pre">False</span></code>, will raise an exception on a mismatch.
 Default is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
 </dd>
-<dt><strong>newaxes</strong> <span class="classifier-delimiter">:</span> <span class="classifier">list of axes (optional)</span></dt>
-<dd><p class="first last">An explicit list of axes to use as replacements.  Useful if you want to
+<dt><strong>newaxes</strong><span class="classifier">list of axes (optional)</span></dt><dd><p>An explicit list of axes to use as replacements.  Useful if you want to
 replace <em>all</em> the axes at the same time.</p>
 </dd>
-<dt><strong>keep_old_name</strong> <span class="classifier-delimiter">:</span> <span class="classifier">boolean (optional)</span></dt>
-<dd><p class="first last">If <code class="docutils literal notranslate"><span class="pre">True</span></code>, will keep the old axis name (with the new values).  If
+<dt><strong>keep_old_name</strong><span class="classifier">boolean (optional)</span></dt><dd><p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, will keep the old axis name (with the new values).  If
 <code class="docutils literal notranslate"><span class="pre">False</span></code>, the name ofthe new axis will be used.  Default is <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
 </dd>
-<dt><strong>**kwargs</strong> <span class="classifier-delimiter">:</span> <span class="classifier">keyword arguments</span></dt>
-<dd><p class="first last">Similar to ‘axisdict’, but using keyword parameters instead of a
+<dt><strong>**kwargs</strong><span class="classifier">keyword arguments</span></dt><dd><p>Similar to ‘axisdict’, but using keyword parameters instead of a
 dictionary.</p>
 </dd>
 </dl>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
-<dt><strong>new_var</strong> <span class="classifier-delimiter">:</span> <span class="classifier">Var</span></dt>
-<dd><p class="first last">The same variable, but with different axes.  The variable data will remain
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>new_var</strong><span class="classifier">Var</span></dt><dd><p>The same variable, but with different axes.  The variable data will remain
 unchanged.</p>
 </dd>
 </dl>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t1</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t1</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">t1</span><span class="o">.</span><span class="n">Temp</span><span class="p">)</span>
 <span class="go">&lt;Var &#39;Temp&#39;&gt;:</span>
 <span class="go">  Units: K  Shape:  (lat,lon)  (31,60)</span>
@@ -487,30 +443,24 @@ unchanged.</p>
 </div>
 </dd></dl>
 
-<dl class="method">
-<dt id="pygeode.Var.rename">
-<code class="descclassname">Var.</code><code class="descname">rename</code><span class="sig-paren">(</span><em>newname</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.Var.rename" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pygeode.Var.rename">
+<span class="sig-prename descclassname"><span class="pre">Var.</span></span><span class="sig-name descname"><span class="pre">rename</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">newname</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.Var.rename" title="Permalink to this definition">¶</a></dt>
 <dd><p>Assigns a new name to a variable</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
-<dt><strong>newname</strong> <span class="classifier-delimiter">:</span> <span class="classifier">string</span></dt>
-<dd><p class="first last">The new name of the variable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>newname</strong><span class="classifier">string</span></dt><dd><p>The new name of the variable.</p>
 </dd>
 </dl>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
-<dt><strong>renamed_var</strong> <span class="classifier-delimiter">:</span> <span class="classifier">Var</span></dt>
-<dd><p class="first last">The same variable, but with a different name.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>renamed_var</strong><span class="classifier">Var</span></dt><dd><p>The same variable, but with a different name.</p>
 </dd>
 </dl>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 <p class="rubric">Notes</p>
 <p>In most cases, you could probably change the <code class="docutils literal notranslate"><span class="pre">name</span></code> attribute of the
 variable directly instead of calling this method.  However, if the variable
@@ -518,7 +468,7 @@ is being used in other places, this method guarantees that the name change
 will only affect a local version of the variable, and won’t have any
 side-effects on other existing references.</p>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t1</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t1</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">t1</span><span class="o">.</span><span class="n">Temp</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="s1">&#39;i_prefer_really_long_variable_names&#39;</span><span class="p">))</span>
 <span class="go">&lt;Var &#39;i_prefer_really_long_variable_names&#39;&gt;:</span>
 <span class="go">  Units: K  Shape:  (lat,lon)  (31,60)</span>
@@ -532,41 +482,33 @@ side-effects on other existing references.</p>
 </div>
 </dd></dl>
 
-<dl class="method">
-<dt id="pygeode.Var.rename_axes">
-<code class="descclassname">Var.</code><code class="descname">rename_axes</code><span class="sig-paren">(</span><em>ignore_mismatch=False</em>, <em>axisdict={}</em>, <em>**namemap</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.Var.rename_axes" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pygeode.Var.rename_axes">
+<span class="sig-prename descclassname"><span class="pre">Var.</span></span><span class="sig-name descname"><span class="pre">rename_axes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ignore_mismatch</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axisdict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">namemap</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.Var.rename_axes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Renames the axes of a variable.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
-<dt><strong>ignore_mismatch</strong> <span class="classifier-delimiter">:</span> <span class="classifier">boolean (optional)</span></dt>
-<dd><p class="first last">If <code class="docutils literal notranslate"><span class="pre">True</span></code>, will ignore axis identifiers that don’t match any axes of
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>ignore_mismatch</strong><span class="classifier">boolean (optional)</span></dt><dd><p>If <code class="docutils literal notranslate"><span class="pre">True</span></code>, will ignore axis identifiers that don’t match any axes of
 this variable.  If <code class="docutils literal notranslate"><span class="pre">False</span></code>, will raise an exception on a mismatch.
 Default is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
 </dd>
-<dt><strong>axisdict</strong> <span class="classifier-delimiter">:</span> <span class="classifier">dictionary</span></dt>
-<dd><p class="first last">An explicit dictionary mapping old names to new names.</p>
+<dt><strong>axisdict</strong><span class="classifier">dictionary</span></dt><dd><p>An explicit dictionary mapping old names to new names.</p>
 </dd>
-<dt><strong>**namemap</strong> <span class="classifier-delimiter">:</span> <span class="classifier">keyword arguments</span></dt>
-<dd><p class="first last">One or more keyword-based arguments.  The parameters are the existing axis
+<dt><strong>**namemap</strong><span class="classifier">keyword arguments</span></dt><dd><p>One or more keyword-based arguments.  The parameters are the existing axis
 names, and the values are the new names to substitute.</p>
 </dd>
 </dl>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
-<dt><strong>new_var</strong> <span class="classifier-delimiter">:</span> <span class="classifier">Var</span></dt>
-<dd><p class="first last">The same variable, but with new names for the axes.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>new_var</strong><span class="classifier">Var</span></dt><dd><p>The same variable, but with new names for the axes.</p>
 </dd>
 </dl>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t1</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t1</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">t1</span><span class="o">.</span><span class="n">Temp</span><span class="p">)</span>
 <span class="go">&lt;Var &#39;Temp&#39;&gt;:</span>
 <span class="go">  Units: K  Shape:  (lat,lon)  (31,60)</span>
@@ -590,94 +532,80 @@ names, and the values are the new names to substitute.</p>
 </div>
 </dd></dl>
 
-<dl class="method">
-<dt id="pygeode.Var.fill">
-<code class="descclassname">Var.</code><code class="descname">fill</code><span class="sig-paren">(</span><em>fill</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.Var.fill" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pygeode.Var.fill">
+<span class="sig-prename descclassname"><span class="pre">Var.</span></span><span class="sig-name descname"><span class="pre">fill</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fill</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.Var.fill" title="Permalink to this definition">¶</a></dt>
 <dd><p>Replaces <code class="docutils literal notranslate"><span class="pre">NaN</span></code> (missing values) with some fill value.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
-<dt><strong>fill</strong> <span class="classifier-delimiter">:</span> <span class="classifier">float or int</span></dt>
-<dd><p class="first last">The fill value</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>fill</strong><span class="classifier">float or int</span></dt><dd><p>The fill value</p>
 </dd>
 </dl>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
-<dt><strong>filled_var</strong> <span class="classifier-delimiter">:</span> <span class="classifier">Var</span></dt>
-<dd><p class="first last">A new representation of the variable with missing values filled in.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>filled_var</strong><span class="classifier">Var</span></dt><dd><p>A new representation of the variable with missing values filled in.</p>
 </dd>
 </dl>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="#pygeode.Var.unfill" title="pygeode.Var.unfill"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unfill</span></code></a></p>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#pygeode.Var.unfill" title="pygeode.Var.unfill"><code class="xref py py-obj docutils literal notranslate"><span class="pre">unfill</span></code></a></dt><dd></dd>
+</dl>
 </div>
 </dd></dl>
 
-<dl class="method">
-<dt id="pygeode.Var.unfill">
-<code class="descclassname">Var.</code><code class="descname">unfill</code><span class="sig-paren">(</span><em>fill</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.Var.unfill" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pygeode.Var.unfill">
+<span class="sig-prename descclassname"><span class="pre">Var.</span></span><span class="sig-name descname"><span class="pre">unfill</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fill</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.Var.unfill" title="Permalink to this definition">¶</a></dt>
 <dd><p>Replaces all occurrences of the specified value with an <code class="docutils literal notranslate"><span class="pre">NaN</span></code> (missing
 value).</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
-<dt><strong>fill - float or int</strong></dt>
-<dd><p class="first last">The value to treat as missing</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl class="simple">
+<dt><strong>fill - float or int</strong></dt><dd><p>The value to treat as missing</p>
 </dd>
 </dl>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
-<dt><strong>unfilled_var</strong> <span class="classifier-delimiter">:</span> <span class="classifier">Var</span></dt>
-<dd><p class="first last">A new represntation of the variable with the ‘fill’ values removed
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>unfilled_var</strong><span class="classifier">Var</span></dt><dd><p>A new represntation of the variable with the ‘fill’ values removed
 (replaced with <code class="docutils literal notranslate"><span class="pre">NaN</span></code>).</p>
 </dd>
 </dl>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="#pygeode.Var.fill" title="pygeode.Var.fill"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fill</span></code></a></p>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#pygeode.Var.fill" title="pygeode.Var.fill"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fill</span></code></a></dt><dd></dd>
+</dl>
 </div>
 </dd></dl>
 
-<dl class="method">
-<dt id="pygeode.Var.as_type">
-<code class="descclassname">Var.</code><code class="descname">as_type</code><span class="sig-paren">(</span><em>dtype</em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.Var.as_type" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pygeode.Var.as_type">
+<span class="sig-prename descclassname"><span class="pre">Var.</span></span><span class="sig-name descname"><span class="pre">as_type</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dtype</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pygeode.Var.as_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>Casts a variable to a new data type (I.e., float32, float64, etc.)</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
-<dt><strong>dtype</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><code class="docutils literal notranslate"><span class="pre">numpy.dtype</span></code> or string</span></dt>
-<dd><p class="first last">The new data type to use.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>dtype</strong><span class="classifier"><code class="docutils literal notranslate"><span class="pre">numpy.dtype</span></code> or string</span></dt><dd><p>The new data type to use.</p>
 </dd>
 </dl>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
-<dt><strong>casted_var</strong> <span class="classifier-delimiter">:</span> <span class="classifier">Var</span></dt>
-<dd><p class="first last">The same var, but with its values cast into a new type.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl class="simple">
+<dt><strong>casted_var</strong><span class="classifier">Var</span></dt><dd><p>The same var, but with its values cast into a new type.</p>
 </dd>
 </dl>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t1</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t1</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Treat the values as single-precision</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">t1</span><span class="o">.</span><span class="n">Temp</span><span class="o">.</span><span class="n">as_type</span><span class="p">(</span><span class="s1">&#39;float32&#39;</span><span class="p">))</span>
 <span class="go">&lt;Var &#39;Temp&#39; float32&gt;:</span>
@@ -716,8 +644,8 @@ value).</p>
       </div>
 
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2018, Mike Neish, Peter Hitchcock.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.
+        &#169; Copyright 2020, Mike Neish, Peter Hitchcock.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.3.2.
     </div>
   </body>
 </html>

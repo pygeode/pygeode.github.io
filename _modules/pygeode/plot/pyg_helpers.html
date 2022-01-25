@@ -1,29 +1,32 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>pygeode.plot.pyg_helpers &#8212; PyGeode 1.4.0 documentation</title>
-    <link rel="stylesheet" href="../../../_static/pygtheme.css" type="text/css" />
-    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/gallery.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
-    <script type="text/javascript" src="../../../_static/jquery.js"></script>
-    <script type="text/javascript" src="../../../_static/underscore.js"></script>
-    <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    <script type="text/javascript" src="../../../_static/language_data.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>pygeode.plot.pyg_helpers &#8212; PyGeode 1.4.1rc1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygtheme.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css" />
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../../_static/pygeode_icon.ico"/>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
 <link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
 <link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
 
   </head><body>
-      <div class="header" role="banner"><h1 class="heading"><a href="../../../index.html">
-          <span>PyGeode 1.4.0 documentation</span></a></h1>
+      <div class="header" role="banner"><img class="logo" src="../../../_static/pygeode_logo.png" width=79px alt="Logo"/>
+        <h1 class="heading"><a href="../../../index.html">
+          <span>PyGeode 1.4.1rc1 documentation</span></a></h1>
         <h2 class="heading"><span>pygeode.plot.pyg_helpers</span></h2>
       </div>
       <div class="topnav" role="navigation" aria-label="top navigation">
@@ -51,7 +54,11 @@
 <span class="k">def</span> <span class="nf">_getplotatts</span><span class="p">(</span><span class="n">var</span><span class="p">):</span>
 <span class="c1"># {{{</span>
   <span class="sd">&#39;&#39;&#39; Builds plotatts dictionary, using variable attributes as suitable defaults. &#39;&#39;&#39;</span>
-  <span class="n">plt</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">plotname</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">plotunits</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">units</span><span class="p">,</span> <span class="n">plotfmt</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">formatstr</span><span class="p">)</span>
+  <span class="c1"># Use var.units over var.atts[&#39;units&#39;] if both exist</span>
+  <span class="n">units</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">units</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">units</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span> <span class="ow">or</span> <span class="n">units</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">and</span> <span class="s1">&#39;units&#39;</span> <span class="ow">in</span> <span class="n">var</span><span class="o">.</span><span class="n">atts</span><span class="p">:</span>
+    <span class="n">units</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">atts</span><span class="p">[</span><span class="s1">&#39;units&#39;</span><span class="p">]</span>
+  <span class="n">plt</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">plotname</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">plotunits</span> <span class="o">=</span> <span class="n">units</span><span class="p">,</span> <span class="n">plotfmt</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">formatstr</span><span class="p">)</span>
   <span class="n">plt</span><span class="o">.</span><span class="n">update</span><span class="p">([(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">var</span><span class="o">.</span><span class="n">plotatts</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">])</span>
   <span class="k">return</span> <span class="n">plt</span>
 <span class="c1"># }}}</span>
@@ -221,7 +228,6 @@
         <span class="n">grd_def</span><span class="p">[</span><span class="s1">&#39;draw_labels&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
 
       <span class="n">grd_def</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">grd</span><span class="p">)</span>
-      <span class="n">axes</span><span class="o">.</span><span class="n">gridlines</span><span class="p">(</span><span class="o">**</span><span class="n">grd_def</span><span class="p">)</span>
 
       <span class="n">scale</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">lim</span><span class="p">,</span> <span class="n">xform</span><span class="p">,</span> <span class="n">xloc</span> <span class="o">=</span> <span class="n">axes_parm</span><span class="p">(</span><span class="n">xaxis</span><span class="p">)</span>
       <span class="n">scale</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">lim</span><span class="p">,</span> <span class="n">yform</span><span class="p">,</span> <span class="n">yloc</span> <span class="o">=</span> <span class="n">axes_parm</span><span class="p">(</span><span class="n">yaxis</span><span class="p">)</span>
@@ -229,20 +235,28 @@
       <span class="c1"># Set default grid appearance and labeling if appropriate</span>
       <span class="n">grd_prm</span> <span class="o">=</span> <span class="p">{}</span>
 
-      <span class="k">if</span> <span class="n">grd_def</span><span class="p">[</span><span class="s1">&#39;draw_labels&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">axes</span><span class="o">.</span><span class="n">prj_name</span> <span class="ow">in</span> <span class="n">lblprjs</span><span class="p">:</span>
-        <span class="n">grd_prm</span><span class="p">[</span><span class="s1">&#39;xlabels_top&#39;</span><span class="p">]</span>   <span class="o">=</span> <span class="kc">False</span>
-        <span class="n">grd_prm</span><span class="p">[</span><span class="s1">&#39;ylabels_right&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+      <span class="k">if</span> <span class="n">grd_def</span><span class="p">[</span><span class="s1">&#39;draw_labels&#39;</span><span class="p">]:</span>
+        <span class="n">grd_prm</span><span class="p">[</span><span class="s1">&#39;top_labels&#39;</span><span class="p">]</span>   <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">grd_prm</span><span class="p">[</span><span class="s1">&#39;right_labels&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
         <span class="n">grd_prm</span><span class="p">[</span><span class="s1">&#39;xformatter&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">xform</span>
         <span class="n">grd_prm</span><span class="p">[</span><span class="s1">&#39;yformatter&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">yform</span>
 
       <span class="k">if</span> <span class="s1">&#39;xlocs&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">grd_def</span><span class="p">:</span>
-        <span class="n">grd_prm</span><span class="p">[</span><span class="s1">&#39;xlocs&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">xloc</span>
+        <span class="n">grd_prm</span><span class="p">[</span><span class="s1">&#39;xlocator&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">xloc</span>
 
       <span class="k">if</span> <span class="s1">&#39;ylocs&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">grd_def</span><span class="p">:</span>
-        <span class="n">grd_prm</span><span class="p">[</span><span class="s1">&#39;ylocs&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">yloc</span>
+        <span class="n">grd_prm</span><span class="p">[</span><span class="s1">&#39;ylocator&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">yloc</span>
+
+      <span class="n">mod_args</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;rotate_labels&#39;</span><span class="p">,</span> <span class="s1">&#39;top_labels&#39;</span><span class="p">,</span> <span class="s1">&#39;bottom_labels&#39;</span><span class="p">,</span> <span class="s1">&#39;right_labels&#39;</span><span class="p">,</span> <span class="s1">&#39;left_labels&#39;</span><span class="p">]</span>
+
+      <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">mod_args</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">grd_def</span><span class="p">:</span>
+          <span class="n">grd_prm</span><span class="p">[</span><span class="n">arg</span><span class="p">]</span> <span class="o">=</span> <span class="n">grd_def</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+
+      <span class="n">gl</span> <span class="o">=</span> <span class="n">axes</span><span class="o">.</span><span class="n">gridlines</span><span class="p">(</span><span class="o">**</span><span class="n">grd_def</span><span class="p">)</span>
 
       <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">grd_prm</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-        <span class="n">axes</span><span class="o">.</span><span class="n">modifygridlines</span><span class="p">(</span><span class="n">axes</span><span class="o">.</span><span class="n">plots</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="o">**</span><span class="n">grd_prm</span><span class="p">)</span>
+        <span class="n">axes</span><span class="o">.</span><span class="n">modifygridlines</span><span class="p">(</span><span class="n">gl</span><span class="p">,</span> <span class="o">**</span><span class="n">grd_prm</span><span class="p">)</span>
   
     <span class="n">axes</span><span class="o">.</span><span class="n">pad</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">]</span>
 
@@ -385,7 +399,10 @@
   <span class="n">x</span> <span class="o">=</span> <span class="n">scalevalues</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
   <span class="n">y</span> <span class="o">=</span> <span class="n">scalevalues</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span>
 
-  <span class="n">axes</span> <span class="o">=</span> <span class="n">wr</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">fmt</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="n">axes</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">axes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">axes</span> <span class="o">=</span> <span class="n">wr</span><span class="o">.</span><span class="n">AxesWrapper</span><span class="p">()</span>
+
+  <span class="n">axes</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">fmt</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
   <span class="c1"># Apply the custom axes args</span>
   <span class="k">if</span> <span class="ow">not</span> <span class="n">hold</span><span class="p">:</span>
@@ -414,10 +431,13 @@
 
   <span class="n">v</span> <span class="o">=</span> <span class="n">scalevalues</span><span class="p">(</span><span class="n">V</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
 
-  <span class="n">axes</span> <span class="o">=</span> <span class="n">wr</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="n">axes</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">axes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">axes</span> <span class="o">=</span> <span class="n">wr</span><span class="o">.</span><span class="n">AxesWrapper</span><span class="p">()</span>
+
+  <span class="n">axes</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
   <span class="c1"># Apply the custom axes args</span>
-  <span class="n">axes</span><span class="o">.</span><span class="n">pad</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
+  <span class="n">axes</span><span class="o">.</span><span class="n">pad</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]</span>
   <span class="n">set_xaxis</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">lblx</span><span class="p">)</span>
   <span class="n">plt</span> <span class="o">=</span> <span class="n">_getplotatts</span><span class="p">(</span><span class="n">var</span><span class="p">)</span>
   <span class="n">lbl</span> <span class="o">=</span> <span class="n">_buildvartitle</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">axes</span><span class="p">,</span> <span class="o">**</span><span class="n">plt</span><span class="p">)</span>
@@ -450,7 +470,10 @@
   <span class="n">x</span> <span class="o">=</span> <span class="n">scalevalues</span><span class="p">(</span><span class="n">varx</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
   <span class="n">y</span> <span class="o">=</span> <span class="n">scalevalues</span><span class="p">(</span><span class="n">vary</span><span class="p">)</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
 
-  <span class="n">axes</span> <span class="o">=</span> <span class="n">wr</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="n">axes</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">axes</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">axes</span> <span class="o">=</span> <span class="n">wr</span><span class="o">.</span><span class="n">AxesWrapper</span><span class="p">()</span>
+
+  <span class="n">axes</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
   <span class="c1"># Apply the custom axes args</span>
   <span class="n">axes</span><span class="o">.</span><span class="n">pad</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">)</span>
@@ -1192,8 +1215,8 @@
       </div>
 
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2018, Mike Neish, Peter Hitchcock.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.
+        &#169; Copyright 2020, Mike Neish, Peter Hitchcock.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.3.2.
     </div>
   </body>
 </html>

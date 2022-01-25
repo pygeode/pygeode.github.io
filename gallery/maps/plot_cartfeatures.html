@@ -1,0 +1,136 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cartopy: Use Cartopy Features &#8212; PyGeode 1.4.1rc1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/pygtheme.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="shortcut icon" href="../../_static/pygeode_icon.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Cartopy: Customizing map decoration" href="plot_cartmapdecor.html" />
+    <link rel="prev" title="Plot lines using showlines" href="../plot_showlines.html" />
+<link href="http://fonts.googleapis.com/css?family=Ubuntu:300,300italic,regular,italic,500,500italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
+
+  </head><body>
+      <div class="header" role="banner"><img class="logo" src="../../_static/pygeode_logo.png" width=79px alt="Logo"/>
+        <h1 class="heading"><a href="../../index.html">
+          <span>PyGeode 1.4.1rc1 documentation</span></a></h1>
+        <h2 class="heading"><span>Cartopy: Use Cartopy Features</span></h2>
+      </div>
+      <div class="topnav" role="navigation" aria-label="top navigation">
+      
+        <p>
+        «&#160;&#160;<a href="../plot_showlines.html">Plot lines using showlines</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Gallery</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="plot_cartmapdecor.html">Cartopy: Customizing map decoration</a>&#160;&#160;»
+        </p>
+
+      </div>
+      <div class="content">
+        
+        
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p>Click <a class="reference internal" href="#sphx-glr-download-gallery-maps-plot-cartfeatures-py"><span class="std std-ref">here</span></a>
+to download the full example code</p>
+</div>
+<div class="sphx-glr-example-title section" id="cartopy-use-cartopy-features">
+<span id="sphx-glr-gallery-maps-plot-cartfeatures-py"></span><h1>Cartopy: Use Cartopy Features<a class="headerlink" href="#cartopy-use-cartopy-features" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pygeode</span> <span class="k">as</span> <span class="nn">pyg</span><span class="o">,</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span><span class="o">,</span> <span class="nn">pylab</span> <span class="k">as</span> <span class="nn">pyl</span>
+<span class="kn">from</span> <span class="nn">cartopy</span> <span class="kn">import</span> <span class="n">crs</span> <span class="k">as</span> <span class="n">ccrs</span>
+<span class="kn">import</span> <span class="nn">cartopy</span>
+<span class="kn">from</span> <span class="nn">cartopy.feature.nightshade</span> <span class="kn">import</span> <a href="https://scitools.org.uk/cartopy/docs/latest/reference/generated/cartopy.feature.nightshade.Nightshade.html#cartopy.feature.nightshade.Nightshade" title="cartopy.feature.nightshade.Nightshade" class="sphx-glr-backref-module-cartopy-feature-nightshade sphx-glr-backref-type-py-class"><span class="n">Nightshade</span></a>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span> <span class="k">as</span> <span class="n">dt</span>
+
+<span class="n">lat</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">gausslat</span><span class="p">(</span><span class="mi">60</span><span class="p">)</span>
+<span class="n">lon</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">regularlon</span><span class="p">(</span><span class="mi">120</span><span class="p">)</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">np</span><span class="o">.</span><span class="n">pi</span></a> <span class="o">*</span> <span class="n">lon</span> <span class="o">/</span> <span class="mf">180.</span><span class="p">)</span> <span class="o">*</span> <span class="n">pyg</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">lat</span> <span class="o">-</span> <span class="mi">30</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="mi">10</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">np</span><span class="o">.</span><span class="n">pi</span></a> <span class="o">*</span> <span class="n">lon</span> <span class="o">/</span> <span class="mf">180.</span><span class="p">)</span> <span class="o">*</span> <span class="n">pyg</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">lat</span> <span class="o">+</span> <span class="mi">40</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="mi">10</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+
+<span class="n">pyl</span><span class="o">.</span><span class="n">ioff</span><span class="p">()</span>
+<a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">prj_args</span></a> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">central_longitude</span> <span class="o">=</span> <span class="mi">60</span><span class="p">)</span>
+
+<span class="nb">map</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">projection</span> <span class="o">=</span> <span class="s1">&#39;NearsidePerspective&#39;</span><span class="p">,</span> <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">prj_args</span></a> <span class="o">=</span> <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">prj_args</span></a><span class="p">)</span>
+
+<a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">cl</span></a> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">cldict</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">nozero</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">pyg</span><span class="o">.</span><span class="n">vcontour</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">map</span> <span class="o">=</span> <span class="nb">map</span><span class="p">,</span> <span class="n">mapdecor</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">cl</span></a><span class="p">)</span>
+
+<span class="c1"># Addd an ocean and a day/night mask</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><a href="https://scitools.org.uk/cartopy/docs/latest/reference/generated/cartopy.feature.NaturalEarthFeature.html#cartopy.feature.NaturalEarthFeature" title="cartopy.feature.NaturalEarthFeature" class="sphx-glr-backref-module-cartopy-feature sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">cartopy</span><span class="o">.</span><span class="n">feature</span><span class="o">.</span><span class="n">OCEAN</span></a><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">add_feature</span><span class="p">(</span><a href="https://scitools.org.uk/cartopy/docs/latest/reference/generated/cartopy.feature.nightshade.Nightshade.html#cartopy.feature.nightshade.Nightshade" title="cartopy.feature.nightshade.Nightshade" class="sphx-glr-backref-module-cartopy-feature-nightshade sphx-glr-backref-type-py-class"><span class="n">Nightshade</span></a><span class="p">(</span><span class="n">dt</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">setp</span><span class="p">(</span><span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+<span class="n">pyl</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<img src="../../_images/sphx_glr_plot_cartfeatures_001.png" srcset="../../_images/sphx_glr_plot_cartfeatures_001.png" alt="plot cartfeatures" class = "sphx-glr-single-img"/><p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;Figure size 640x480 with 1 Axes&gt;
+</pre></div>
+</div>
+<p>Once the plot has been rendered, there is a Cartopy <a class="reference external" href="https://scitools.org.uk/cartopy/docs/latest/reference/generated/cartopy.mpl.geoaxes.GeoAxes.html#cartopy.mpl.geoaxes.GeoAxes" title="(in cartopy v0.20.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">cartopy.mpl.geoaxes.GeoAxes</span></code></a> one
+can call additional methods on.</p>
+<p>%%</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://scitools.org.uk/cartopy/docs/latest/reference/generated/cartopy.mpl.geoaxes.GeoAxes.html#cartopy.mpl.geoaxes.GeoAxes.tissot" title="cartopy.mpl.geoaxes.GeoAxes.tissot" class="sphx-glr-backref-module-cartopy-mpl-geoaxes sphx-glr-backref-type-py-method"><span class="n">ax</span><span class="o">.</span><span class="n">ax</span><span class="o">.</span><span class="n">tissot</span></a><span class="p">(</span><span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;orange&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;cartopy.mpl.feature_artist.FeatureArtist object at 0x7f217ac422e0&gt;
+</pre></div>
+</div>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-maps-plot-cartfeatures-py">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/56d249b3ecee4a048b60291c07588bb8/plot_cartfeatures.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_cartfeatures.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/430686d25772de6b146f9da15020fa13/plot_cartfeatures.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_cartfeatures.ipynb</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</div>
+
+
+      </div>
+      <div class="bottomnav" role="navigation" aria-label="bottom navigation">
+      
+        <p>
+        «&#160;&#160;<a href="../plot_showlines.html">Plot lines using showlines</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../reference.html">Reference</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../../tutorial.html">Tutorial</a>
+        &#160;&#160;::&#160;&#160;
+        <a class="uplink" href="../index.html">Gallery</a>
+        &#160;&#160;::&#160;&#160;
+        <a href="plot_cartmapdecor.html">Cartopy: Customizing map decoration</a>&#160;&#160;»
+        </p>
+
+      </div>
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2020, Mike Neish, Peter Hitchcock.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.3.2.
+    </div>
+  </body>
+</html>

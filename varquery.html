@@ -1,21 +1,23 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Variable Querying Routines &#8212; PyGeode 1.4.0 documentation</title>
-    <link rel="stylesheet" href="_static/pygtheme.css" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="_static/gallery.css" />
-    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-    <script type="text/javascript" src="_static/jquery.js"></script>
-    <script type="text/javascript" src="_static/underscore.js"></script>
-    <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="_static/language_data.js"></script>
-    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Variable Querying Routines &#8212; PyGeode 1.4.1rc1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygtheme.css" />
+    <link rel="stylesheet" type="text/css" href="_static/plot_directive.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="shortcut icon" href="_static/pygeode_icon.ico"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Retrieving values from a variable" href="var.get.html" />
@@ -24,8 +26,9 @@
 <link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700' rel='stylesheet' type='text/css'>
 
   </head><body>
-      <div class="header" role="banner"><h1 class="heading"><a href="index.html">
-          <span>PyGeode 1.4.0 documentation</span></a></h1>
+      <div class="header" role="banner"><img class="logo" src="_static/pygeode_logo.png" width=79px alt="Logo"/>
+        <h1 class="heading"><a href="index.html">
+          <span>PyGeode 1.4.1rc1 documentation</span></a></h1>
         <h2 class="heading"><span>Variable Querying Routines</span></h2>
       </div>
       <div class="topnav" role="navigation" aria-label="top navigation">
@@ -49,35 +52,31 @@
   <div class="section" id="variable-querying-routines">
 <h1>Variable Querying Routines<a class="headerlink" href="#variable-querying-routines" title="Permalink to this headline">¶</a></h1>
 <p>Operations that retrieve information about the variable.</p>
-<dl class="method">
-<dt id="pygeode.Var.whichaxis">
-<code class="descclassname">Var.</code><code class="descname">whichaxis</code><span class="sig-paren">(</span><em>iaxis</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/var.html#Var.whichaxis"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.Var.whichaxis" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pygeode.Var.whichaxis">
+<span class="sig-prename descclassname"><span class="pre">Var.</span></span><span class="sig-name descname"><span class="pre">whichaxis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iaxis</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/var.html#Var.whichaxis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygeode.Var.whichaxis" title="Permalink to this definition">¶</a></dt>
 <dd><p>Locates a particular <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><code class="xref py py-class docutils literal notranslate"><span class="pre">Axis</span></code></a> associated with this variable.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
-<dt><strong>iaxis</strong> <span class="classifier-delimiter">:</span> <span class="classifier">string, <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><code class="xref py py-class docutils literal notranslate"><span class="pre">Axis</span></code></a> class, or int</span></dt>
-<dd><p class="first last">The search criteria for finding the class.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>iaxis</strong><span class="classifier">string, <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><code class="xref py py-class docutils literal notranslate"><span class="pre">Axis</span></code></a> class, or int</span></dt><dd><p>The search criteria for finding the class.</p>
 </dd>
 </dl>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
-<dt><strong>i</strong> <span class="classifier-delimiter">:</span> <span class="classifier">The index of the matching Axis.  Raises <code class="docutils literal notranslate"><span class="pre">KeyError</span></code> if there is no match.</span></dt>
-<dd></dd>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl>
+<dt><strong>i</strong><span class="classifier">The index of the matching Axis.  Raises <code class="docutils literal notranslate"><span class="pre">KeyError</span></code> if there is no match.</span></dt><dd></dd>
 </dl>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="#pygeode.Var.getaxis" title="pygeode.Var.getaxis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getaxis</span></code></a>, <a class="reference internal" href="#pygeode.Var.hasaxis" title="pygeode.Var.hasaxis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hasaxis</span></code></a>, <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Axis</span></code></a></p>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#pygeode.Var.getaxis" title="pygeode.Var.getaxis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getaxis</span></code></a>, <a class="reference internal" href="#pygeode.Var.hasaxis" title="pygeode.Var.hasaxis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hasaxis</span></code></a>, <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Axis</span></code></a></dt><dd></dd>
+</dl>
 </div>
 <p class="rubric">Examples</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t1</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pygeode.tutorial</span> <span class="kn">import</span> <span class="n">t1</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">T</span> <span class="o">=</span> <span class="n">t1</span><span class="o">.</span><span class="n">Temp</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">T</span><span class="o">.</span><span class="n">axes</span><span class="p">)</span>
 <span class="go">(&lt;Lat&gt;, &lt;Lon&gt;)</span>
@@ -95,97 +94,85 @@
 </div>
 </dd></dl>
 
-<dl class="method">
-<dt id="pygeode.Var.hasaxis">
-<code class="descclassname">Var.</code><code class="descname">hasaxis</code><span class="sig-paren">(</span><em>iaxis</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/var.html#Var.hasaxis"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.Var.hasaxis" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pygeode.Var.hasaxis">
+<span class="sig-prename descclassname"><span class="pre">Var.</span></span><span class="sig-name descname"><span class="pre">hasaxis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iaxis</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/var.html#Var.hasaxis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygeode.Var.hasaxis" title="Permalink to this definition">¶</a></dt>
 <dd><p>Determines if a particular <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><code class="xref py py-class docutils literal notranslate"><span class="pre">Axis</span></code></a> is associated with this variable.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
-<dt><strong>iaxis</strong> <span class="classifier-delimiter">:</span> <span class="classifier">string, <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><code class="xref py py-class docutils literal notranslate"><span class="pre">Axis</span></code></a> class, or int</span></dt>
-<dd><p class="first last">The search criteria for finding the class.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>iaxis</strong><span class="classifier">string, <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><code class="xref py py-class docutils literal notranslate"><span class="pre">Axis</span></code></a> class, or int</span></dt><dd><p>The search criteria for finding the class.</p>
 </dd>
 </dl>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
-<dt><strong>found</strong> <span class="classifier-delimiter">:</span> <span class="classifier">boolean.  <code class="docutils literal notranslate"><span class="pre">True</span></code> if found, otherwise <code class="docutils literal notranslate"><span class="pre">False</span></code></span></dt>
-<dd></dd>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl>
+<dt><strong>found</strong><span class="classifier">boolean.  <code class="docutils literal notranslate"><span class="pre">True</span></code> if found, otherwise <code class="docutils literal notranslate"><span class="pre">False</span></code></span></dt><dd></dd>
 </dl>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="#pygeode.Var.getaxis" title="pygeode.Var.getaxis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getaxis</span></code></a>, <a class="reference internal" href="#pygeode.Var.whichaxis" title="pygeode.Var.whichaxis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">whichaxis</span></code></a>, <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Axis</span></code></a></p>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#pygeode.Var.getaxis" title="pygeode.Var.getaxis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">getaxis</span></code></a>, <a class="reference internal" href="#pygeode.Var.whichaxis" title="pygeode.Var.whichaxis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">whichaxis</span></code></a>, <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Axis</span></code></a></dt><dd></dd>
+</dl>
 </div>
 </dd></dl>
 
-<dl class="method">
-<dt id="pygeode.Var.getaxis">
-<code class="descclassname">Var.</code><code class="descname">getaxis</code><span class="sig-paren">(</span><em>iaxis</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/var.html#Var.getaxis"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.Var.getaxis" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pygeode.Var.getaxis">
+<span class="sig-prename descclassname"><span class="pre">Var.</span></span><span class="sig-name descname"><span class="pre">getaxis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iaxis</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/var.html#Var.getaxis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygeode.Var.getaxis" title="Permalink to this definition">¶</a></dt>
 <dd><p>Grabs a reference to a particular <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><code class="xref py py-class docutils literal notranslate"><span class="pre">Axis</span></code></a> associated with this variable.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
-<dt><strong>iaxis</strong> <span class="classifier-delimiter">:</span> <span class="classifier">string, <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><code class="xref py py-class docutils literal notranslate"><span class="pre">Axis</span></code></a> class, or int</span></dt>
-<dd><p class="first last">The search criteria for finding the class.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>iaxis</strong><span class="classifier">string, <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><code class="xref py py-class docutils literal notranslate"><span class="pre">Axis</span></code></a> class, or int</span></dt><dd><p>The search criteria for finding the class.</p>
 </dd>
 </dl>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
-<dt><strong>axis</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><code class="xref py py-class docutils literal notranslate"><span class="pre">Axis</span></code></a> object that matches.  Raises <code class="docutils literal notranslate"><span class="pre">KeyError</span></code> if there is no match.</span></dt>
-<dd></dd>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl>
+<dt><strong>axis</strong><span class="classifier"><a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><code class="xref py py-class docutils literal notranslate"><span class="pre">Axis</span></code></a> object that matches.  Raises <code class="docutils literal notranslate"><span class="pre">KeyError</span></code> if there is no match.</span></dt><dd></dd>
 </dl>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="#pygeode.Var.whichaxis" title="pygeode.Var.whichaxis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">whichaxis</span></code></a>, <a class="reference internal" href="#pygeode.Var.hasaxis" title="pygeode.Var.hasaxis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hasaxis</span></code></a>, <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Axis</span></code></a></p>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="#pygeode.Var.whichaxis" title="pygeode.Var.whichaxis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">whichaxis</span></code></a>, <a class="reference internal" href="#pygeode.Var.hasaxis" title="pygeode.Var.hasaxis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">hasaxis</span></code></a>, <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Axis</span></code></a></dt><dd></dd>
+</dl>
 </div>
 </dd></dl>
 
-<dl class="method">
-<dt id="pygeode.Var.getweights">
-<code class="descclassname">Var.</code><code class="descname">getweights</code><span class="sig-paren">(</span><em>iaxes=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/var.html#Var.getweights"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#pygeode.Var.getweights" title="Permalink to this definition">¶</a></dt>
+<dl class="py method">
+<dt class="sig sig-object py" id="pygeode.Var.getweights">
+<span class="sig-prename descclassname"><span class="pre">Var.</span></span><span class="sig-name descname"><span class="pre">getweights</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">iaxes</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/pygeode/var.html#Var.getweights"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pygeode.Var.getweights" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns weights associated with the axes of this variable.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><dl class="first docutils">
-<dt><strong>iaxes</strong> <span class="classifier-delimiter">:</span> <span class="classifier">list of axis identifiers (string, <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><code class="xref py py-class docutils literal notranslate"><span class="pre">Axis</span></code></a>, or int) (optional)</span></dt>
-<dd><p class="first last">Axes over which to compute the weights</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><dl>
+<dt><strong>iaxes</strong><span class="classifier">list of axis identifiers (string, <a class="reference internal" href="axes.html#pygeode.Axis" title="pygeode.Axis"><code class="xref py py-class docutils literal notranslate"><span class="pre">Axis</span></code></a>, or int) (optional)</span></dt><dd><p>Axes over which to compute the weights</p>
 </dd>
 </dl>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><dl class="first last docutils">
-<dt><strong>weights</strong> <span class="classifier-delimiter">:</span> <span class="classifier"><a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a></span></dt>
-<dd><p class="first last">defined on the subgrid of this variable on which weights are defined.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><dl>
+<dt><strong>weights</strong><span class="classifier"><a class="reference internal" href="var.html#pygeode.Var" title="pygeode.Var"><code class="xref py py-class docutils literal notranslate"><span class="pre">Var</span></code></a></span></dt><dd><p>defined on the subgrid of this variable on which weights are defined.</p>
 </dd>
 </dl>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 <div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="axis.html#pygeode.Axis.__init__" title="pygeode.Axis.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Axis.__init__</span></code></a></p>
+<p class="admonition-title">See also</p>
+<dl class="simple">
+<dt><a class="reference internal" href="axis.html#pygeode.Axis.__init__" title="pygeode.Axis.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Axis.__init__</span></code></a></dt><dd></dd>
+</dl>
 </div>
 </dd></dl>
 
-<dl class="docutils">
-<dt><strong>See Also:</strong></dt>
-<dd><a class="reference internal" href="var.html"><span class="doc">Var class overview</span></a></dd>
+<dl class="simple">
+<dt><strong>See Also:</strong></dt><dd><p><a class="reference internal" href="var.html"><span class="doc">Var class overview</span></a></p>
+</dd>
 </dl>
 </div>
 
@@ -208,8 +195,8 @@
       </div>
 
     <div class="footer" role="contentinfo">
-        &#169; Copyright 2018, Mike Neish, Peter Hitchcock.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.4.
+        &#169; Copyright 2020, Mike Neish, Peter Hitchcock.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 4.3.2.
     </div>
   </body>
 </html>
