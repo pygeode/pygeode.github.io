@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Change Log &#8212; PyGeode 1.4.1rc1 documentation</title>
+    <title>Change Log &#8212; PyGeode 1.4.1-rc2 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/pygtheme.css" />
     <link rel="stylesheet" type="text/css" href="_static/plot_directive.css" />
@@ -27,7 +27,7 @@
   </head><body>
       <div class="header" role="banner"><img class="logo" src="_static/pygeode_logo.png" width=79px alt="Logo"/>
         <h1 class="heading"><a href="index.html">
-          <span>PyGeode 1.4.1rc1 documentation</span></a></h1>
+          <span>PyGeode 1.4.1-rc2 documentation</span></a></h1>
         <h2 class="heading"><span>Change Log</span></h2>
       </div>
       <div class="topnav" role="navigation" aria-label="top navigation">
@@ -49,7 +49,23 @@
   <div class="section" id="change-log">
 <h1>Change Log<a class="headerlink" href="#change-log" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="id1">
-<h2>1.4.0 - 2020/06/22<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<h2>1.4.1 - 2022/01/25<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li><p>Added new regex for recognizing ISO8601 format time and date strings when
+specifying times; one can also customize this in the pygrc config file.</p></li>
+<li><p>Improved some of the default choices for cartopy maps; it’s a bit easier
+to customize gridlines and labeling now.</p></li>
+<li><p>Some further imporvements to error reporting in openmulti()</p></li>
+<li><p>Units are handled a bit more consistently when plotting and interpreting cf metadata</p></li>
+<li><p>Add a full set of time locator objects</p></li>
+<li><p>Corrected a bug in the StandardTime axis logic to recognize year 0 as a leap-year</p></li>
+<li><p>Prettified printing of dataset and variable attributes</p></li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="id2">
+<h2>1.4.0 - 2020/06/22<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <blockquote>
 <div><ul class="simple">
 <li><p>Cartopy (version &gt; 0.17.0) is now supported in addition to Basemap for map
@@ -62,8 +78,8 @@ projections.</p></li>
 </ul>
 </div></blockquote>
 </div>
-<div class="section" id="id2">
-<h2>1.3.1 - 2020/06/14<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h2>1.3.1 - 2020/06/14<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <blockquote>
 <div><ul class="simple">
 <li><p>Fix bug where pygeode.formats.netcdf4 fails if the libnetcdf shared library
@@ -77,8 +93,8 @@ doesn’t require the shared library at all.</p></li>
 </ul>
 </div></blockquote>
 </div>
-<div class="section" id="id3">
-<h2>1.3.0 - 2019/10/02<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id4">
+<h2>1.3.0 - 2019/10/02<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <blockquote>
 <div><ul class="simple">
 <li><p>Support for Python 3.</p></li>
@@ -98,8 +114,8 @@ to netcdf.</p></li>
 </ul>
 </div></blockquote>
 </div>
-<div class="section" id="id4">
-<h2>1.2.2 - 2018/07/06<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id5">
+<h2>1.2.2 - 2018/07/06<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
 <blockquote>
 <div><ul class="simple">
 <li><p>Handle netCDF time units that are separated by a “T” instead of a space.
@@ -107,8 +123,8 @@ E.g., “hours since 2010-02-01T03:00:00”.</p></li>
 </ul>
 </div></blockquote>
 </div>
-<div class="section" id="id5">
-<h2>1.2.1 - 2018/05/18<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id6">
+<h2>1.2.1 - 2018/05/18<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
 <blockquote>
 <div><ul class="simple">
 <li><p>Fix bug in plot_v1, where the ‘projection’ entry was removed from the
@@ -120,8 +136,8 @@ coordinate variable were crashing with a KeyError.</p></li>
 </ul>
 </div></blockquote>
 </div>
-<div class="section" id="id6">
-<h2>1.2.0 - 2018/03/21<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id7">
+<h2>1.2.0 - 2018/03/21<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
 <blockquote>
 <div><ul class="simple">
 <li><p>Added nan-aware versions of climatological mean operations.</p></li>
@@ -142,8 +158,8 @@ elements.</p></li>
 </ul>
 </div></blockquote>
 </div>
-<div class="section" id="id7">
-<h2>1.1.1 - 2018/01/19<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id8">
+<h2>1.1.1 - 2018/01/19<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
 <blockquote>
 <div><ul class="simple">
 <li><p>Fixed some padding logic in showgrid.</p></li>
@@ -154,8 +170,8 @@ Fixes bug triggered by axis names that contain underscores.</p></li>
 </ul>
 </div></blockquote>
 </div>
-<div class="section" id="id8">
-<h2>1.1.0 - 2017/06/17<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id9">
+<h2>1.1.0 - 2017/06/17<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
 <blockquote>
 <div><ul class="simple">
 <li><p>Allow some settings to be read from a configuration file (pygrc).</p></li>
@@ -193,8 +209,8 @@ files together into a dataset.</p></li>
 </ul>
 </div></blockquote>
 </div>
-<div class="section" id="id9">
-<h2>1.0.6 - 2017/03/31<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id10">
+<h2>1.0.6 - 2017/03/31<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
 <blockquote>
 <div><ul class="simple">
 <li><p>Fixed missing parentheses in interp.c, which could cause a compilation failure.</p></li>
@@ -203,8 +219,8 @@ files together into a dataset.</p></li>
 </ul>
 </div></blockquote>
 </div>
-<div class="section" id="id10">
-<h2>1.0.5 - 2016/07/07<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id11">
+<h2>1.0.5 - 2016/07/07<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
 <blockquote>
 <div><ul class="simple">
 <li><p>Fixed segmentation fault when initializing a time axis with an invalid month.
@@ -219,8 +235,8 @@ valid points to do an interpolation.</p></li>
 </ul>
 </div></blockquote>
 </div>
-<div class="section" id="id11">
-<h2>1.0.4 - 2015/11/04<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id12">
+<h2>1.0.4 - 2015/11/04<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
 <blockquote>
 <div><ul class="simple">
 <li><p>Set attribute Conventions=”CF-1.0” in netcdf output files, so other netcdf
@@ -230,8 +246,8 @@ as to the libhelper routines for finding libraries</p></li>
 </ul>
 </div></blockquote>
 </div>
-<div class="section" id="id12">
-<h2>1.0.3 - 2015/06/16<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id13">
+<h2>1.0.3 - 2015/06/16<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
 <blockquote>
 <div><ul class="simple">
 <li><p>Allow other PyGeode formats to be installed in parallel Python paths.</p></li>
@@ -241,8 +257,8 @@ computing dates.</p></li>
 </ul>
 </div></blockquote>
 </div>
-<div class="section" id="id13">
-<h2>1.0.2 - 2015/03/24<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id14">
+<h2>1.0.2 - 2015/03/24<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
 <blockquote>
 <div><ul class="simple">
 <li><p>Fixed bugs in regress and correlate in axis matching logic.</p></li>
@@ -251,8 +267,8 @@ computing dates.</p></li>
 </ul>
 </div></blockquote>
 </div>
-<div class="section" id="id14">
-<h2>1.0.1 - 2014/07/09<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id15">
+<h2>1.0.1 - 2014/07/09<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h2>
 <blockquote>
 <div><ul class="simple">
 <li><p>Fixed small colourbar bug.</p></li>
@@ -261,8 +277,8 @@ computing dates.</p></li>
 </ul>
 </div></blockquote>
 </div>
-<div class="section" id="id15">
-<h2>1.0.0 - 2014/04/14<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id16">
+<h2>1.0.0 - 2014/04/14<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="general-updates-to-the-code">
 <h3>General updates to the code:<a class="headerlink" href="#general-updates-to-the-code" title="Permalink to this headline">¶</a></h3>
 <blockquote>
@@ -369,8 +385,8 @@ interface a bit to make it easier to use your own kernels.</p></li>
 </div></blockquote>
 </div>
 </div>
-<div class="section" id="id16">
-<h2>0.7.3 - 2014/01/13<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id17">
+<h2>0.7.3 - 2014/01/13<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h2>
 <blockquote>
 <div><ul class="simple">
 <li><p>Add support for more netcdf data types (issue 54).</p></li>
@@ -378,16 +394,16 @@ interface a bit to make it easier to use your own kernels.</p></li>
 </ul>
 </div></blockquote>
 </div>
-<div class="section" id="id17">
-<h2>0.7.2 - 2013/09/16<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id18">
+<h2>0.7.2 - 2013/09/16<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h2>
 <blockquote>
 <div><ul class="simple">
 <li><p>Fix ufunc operators dropping metadata (issue 39).</p></li>
 </ul>
 </div></blockquote>
 </div>
-<div class="section" id="id18">
-<h2>0.7.1 - 2013/06/05<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id19">
+<h2>0.7.1 - 2013/06/05<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h2>
 <blockquote>
 <div><ul class="simple">
 <li><p>Fix missing header message in progress bars (issue 33).</p></li>
@@ -395,8 +411,8 @@ interface a bit to make it easier to use your own kernels.</p></li>
 </ul>
 </div></blockquote>
 </div>
-<div class="section" id="id19">
-<h2>0.7.0 - 2012/08/17<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id20">
+<h2>0.7.0 - 2012/08/17<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="updates-to-var-and-axis-classes">
 <h3>Updates to Var and Axis classes:<a class="headerlink" href="#updates-to-var-and-axis-classes" title="Permalink to this headline">¶</a></h3>
 <blockquote>
@@ -434,8 +450,8 @@ titles.</p>
 </ul>
 </div></blockquote>
 </div>
-<div class="section" id="id20">
-<h3>Updates to the plot module:<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id21">
+<h3>Updates to the plot module:<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h3>
 <blockquote>
 <div><ul class="simple">
 <li><p>Added ‘every’ keyword to plotquiver() to thin the vector field, implemented
@@ -457,8 +473,8 @@ formatting is good enough.</p></li>
 </ul>
 </div></blockquote>
 </div>
-<div class="section" id="id21">
-<h3>Updates to the stats module:<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id22">
+<h3>Updates to the stats module:<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h3>
 <blockquote>
 <div><ul>
 <li><p>Added some t test code:</p>
@@ -515,8 +531,8 @@ filled with NaNs</p></li>
 </div></blockquote>
 </div>
 </div>
-<div class="section" id="id22">
-<h2>0.6.3 - 2012/08/16<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id23">
+<h2>0.6.3 - 2012/08/16<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h2>
 <blockquote>
 <div><ul class="simple">
 <li><p>Fix bug with NaN-friendly reductions (nansum,nanmean,nanmin,nanmax).  They
@@ -525,8 +541,8 @@ See issue 32 - <a class="reference external" href="https://github.com/pygeode/py
 </ul>
 </div></blockquote>
 </div>
-<div class="section" id="id23">
-<h2>0.6.2 - 2012/06/15<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id24">
+<h2>0.6.2 - 2012/06/15<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h2>
 <blockquote>
 <div><ul class="simple">
 <li><p>Backported fix for year=0 infinite loop in timeaxis.</p></li>
@@ -535,8 +551,8 @@ See issue 32 - <a class="reference external" href="https://github.com/pygeode/py
 </ul>
 </div></blockquote>
 </div>
-<div class="section" id="id24">
-<h2>0.6.1 - 2011/11/23<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id25">
+<h2>0.6.1 - 2011/11/23<a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h2>
 <blockquote>
 <div><ul class="simple">
 <li><p>Fix issue 23 (<a class="reference external" href="https://github.com/pygeode/pygeode/issues/23">https://github.com/pygeode/pygeode/issues/23</a>)</p></li>
@@ -546,8 +562,8 @@ with hybrid vertical coordinates.</p></li>
 </ul>
 </div></blockquote>
 </div>
-<div class="section" id="id25">
-<h2>0.6.0 - 2011/08/11<a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id26">
+<h2>0.6.0 - 2011/08/11<a class="headerlink" href="#id26" title="Permalink to this headline">¶</a></h2>
 <blockquote>
 <div><ul class="simple">
 <li><p>Initial stable release</p></li>
